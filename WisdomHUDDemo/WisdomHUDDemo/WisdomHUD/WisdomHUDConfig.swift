@@ -1,0 +1,38 @@
+//
+//  WisdomHUDConfig.swift
+//  WisdomScanKitDemo
+//
+//  Created by jianfeng on 2018/12/4.
+//  Copyright © 2018年 All over the sky star. All rights reserved.
+//
+
+import UIKit
+
+/** HUD展示类型 */
+@objc public enum WisdomHUDType: NSInteger {
+    case success=0 // image + text
+    case error=1   // image + text
+    case info=2    // image + text
+    case loading=3 // image
+    case text=4    // text
+}
+
+/** HUD遮罩颜色类型 */
+@objc public enum WisdomCoverBarStyle: NSInteger {
+    case dark=0   // 黑色半透明
+    case light=1  // 白色半透明
+}
+
+public let delayTime: TimeInterval = 1.5
+
+public let padding: CGFloat = 12
+
+public let cornerRadius: CGFloat = 13.0
+
+public let imageWidth_Height: CGFloat = 36
+
+public let textFont = UIFont.systemFont(ofSize: 14)
+
+public let keyWindow = UIApplication.shared.keyWindow!
+
+public let WisdomHUDIdentifier = "WisdomTypeIdentifier"
