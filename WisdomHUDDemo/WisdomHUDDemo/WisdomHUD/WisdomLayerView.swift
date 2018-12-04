@@ -14,6 +14,8 @@ public class WisdomLayerView: UIView {
     
     fileprivate var imageView: UIImageView?
     
+    fileprivate var loadImageView: UIImageView?
+    
     fileprivate var activityView: UIActivityIndicatorView?
     
     fileprivate let type: WisdomHUDType!
@@ -115,12 +117,27 @@ public class WisdomLayerView: UIView {
     }
     
     private func addActivityView() {
-        activityView = UIActivityIndicatorView(style: .whiteLarge)
-        activityView?.translatesAutoresizingMaskIntoConstraints = false
-        activityView?.startAnimating()
-        addSubview(activityView!)
+        let loadingStyle = WisdomHUD.shared.loadingStyle
+        switch loadingStyle {
+        case .system:
+            activityView = UIActivityIndicatorView(style: .whiteLarge)
+            activityView?.translatesAutoresizingMaskIntoConstraints = false
+            activityView?.startAnimating()
+            addSubview(activityView!)
+            generalConstraint(at: activityView!)
         
-        generalConstraint(at: activityView!)
+        case .rotate:
+            let loadRotateImag = bundleImage(name: "loadRotate")
+            loadImageView = UIImageView(image: loadRotateImag)
+            loadImageView?.translatesAutoresizingMaskIntoConstraints = false
+            
+            addRotationAnim(imageView: loadImageView!)
+            
+            addSubview(loadImageView!)
+            loadGeneralConstraint(at: loadImageView!)
+        default:
+            break
+        }
     }
     
     private func generalConstraint(at view:UIView) {
@@ -138,6 +155,40 @@ public class WisdomLayerView: UIView {
         } else {
             addConstraint(toCenterX: view, toCenterY: view)
         }
+    }
+    
+    private func loadGeneralConstraint(at view: UIImageView) {
+        let size = view.image?.size
+        let width = size!.width/size!.height * imageWidth_Height
+        
+        view.addConstraint(width: width,
+                           height: imageWidth_Height)
+        if let _ = text {
+            addConstraint(toCenterX: view, toCenterY: nil)
+            
+            let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute:.top, multiplier: 1.0, constant: 20)
+            addConstraint(topConstraint)
+        } else {
+            addConstraint(toCenterX: view, toCenterY: view)
+        }
+    }
+    
+    /** bundle图片 */
+    fileprivate func bundleImage(name: String)-> UIImage {
+        let bundle = Bundle.init(path:Bundle.init(for: WisdomHUD.self).path(forResource: "WisdomHUD", ofType: "bundle")!)!
+        let url = bundle.path(forResource: name, ofType: "png")!
+        let image = UIImage(contentsOfFile: url)!
+        return image
+    }
+    
+    fileprivate func addRotationAnim(imageView: UIImageView) {
+        let rotationAnim = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnim.fromValue = 0
+        rotationAnim.toValue = Double.pi * 2
+        rotationAnim.repeatCount = MAXFLOAT
+        rotationAnim.duration = 1
+        rotationAnim.isRemovedOnCompletion = false
+        imageView.layer.add(rotationAnim, forKey: nil)
     }
     
     public required init?(coder aDecoder: NSCoder) {

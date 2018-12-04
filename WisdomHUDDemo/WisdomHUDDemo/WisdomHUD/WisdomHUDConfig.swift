@@ -23,6 +23,12 @@ import UIKit
     case light=1  // 白色半透明
 }
 
+/** HUD指示Loading类型 */
+@objc public enum WisdomLoadingStyle: NSInteger {
+    case system=0   // 黑色半透明
+    case rotate=1  // 白色半透明
+}
+
 public let delayTime: TimeInterval = 1.5
 
 public let padding: CGFloat = 12

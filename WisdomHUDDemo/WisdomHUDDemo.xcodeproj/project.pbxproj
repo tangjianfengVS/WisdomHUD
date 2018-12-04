@@ -17,6 +17,7 @@
 		A582605721B68192009421EB /* WisdomHUDConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582605221B68192009421EB /* WisdomHUDConfig.swift */; };
 		A582605A21B68203009421EB /* WisdomHUDHomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582605821B68203009421EB /* WisdomHUDHomeVC.swift */; };
 		A582605B21B68203009421EB /* WisdomHUDHomeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A582605921B68203009421EB /* WisdomHUDHomeVC.xib */; };
+		A582605D21B68C6A009421EB /* WisdomHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A582605C21B68C6A009421EB /* WisdomHUD.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		A582605221B68192009421EB /* WisdomHUDConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WisdomHUDConfig.swift; sourceTree = "<group>"; };
 		A582605821B68203009421EB /* WisdomHUDHomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomHUDHomeVC.swift; sourceTree = "<group>"; };
 		A582605921B68203009421EB /* WisdomHUDHomeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WisdomHUDHomeVC.xib; sourceTree = "<group>"; };
+		A582605C21B68C6A009421EB /* WisdomHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WisdomHUD.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				A582604E21B68192009421EB /* WisdomHUD+Extension.swift */,
 				A582604F21B68192009421EB /* WisdomHUDImage.swift */,
 				A582605021B68192009421EB /* WisdomLayerView.swift */,
+				A582605C21B68C6A009421EB /* WisdomHUD.bundle */,
 			);
 			path = WisdomHUD;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A582605D21B68C6A009421EB /* WisdomHUD.bundle in Resources */,
 				A582604621B68175009421EB /* LaunchScreen.storyboard in Resources */,
 				A582604321B68175009421EB /* Assets.xcassets in Resources */,
 				A582605B21B68203009421EB /* WisdomHUDHomeVC.xib in Resources */,
@@ -303,6 +307,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HFM99A4RBU;
 				INFOPLIST_FILE = WisdomHUDDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -321,6 +326,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HFM99A4RBU;
 				INFOPLIST_FILE = WisdomHUDDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (

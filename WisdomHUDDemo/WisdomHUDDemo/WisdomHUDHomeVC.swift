@@ -48,7 +48,7 @@ class WisdomHUDHomeVC: UIViewController {
     }
     
     @IBAction func loadingButtonClick(_ sender: Any) {
-        
+        WisdomHUD.shared.loadingStyle = .rotate
         //WisdomHUD.showLoading()
         
         WisdomHUD.showLoading(text: "加载中\n三秒后消失")
