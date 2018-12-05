@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WisdomHUD"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A simple iOS interface to display reminders"
   s.description  = "A simple iOS interface display prompt, help to develop and implement various data state tracking display and loading tasks"
 
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   # s.osx.deployment_target = "10.7"
   # s.watchos.deployment_target = "2.0"
   # s.tvos.deployment_target = "9.0"
-  s.source       = { :git => "https://github.com/tangjianfengVS/WisdomScanKitDemo.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/tangjianfengVS/WisdomHUD.git", :tag => s.version }
 
   s.source_files  = "WisdomHUDDemo/WisdomHUDDemo/WisdomHUD/*.swift"
   s.resources = "WisdomHUDDemo/WisdomHUDDemo/WisdomHUD/WisdomHUD.bundle"
