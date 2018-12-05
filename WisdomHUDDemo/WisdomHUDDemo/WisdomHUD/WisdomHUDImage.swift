@@ -65,8 +65,12 @@ class WisdomHUDImage {
         case .text:
             break
         }
-        
-        UIColor.white.setStroke()
+        let coverBarStyle = WisdomHUD.shared.coverBarStyle
+        if coverBarStyle == .light {
+            UIColor.black.setStroke()
+        }else{
+            UIColor.white.setStroke()
+        }
         checkmarkShapePath.stroke()
     }
     

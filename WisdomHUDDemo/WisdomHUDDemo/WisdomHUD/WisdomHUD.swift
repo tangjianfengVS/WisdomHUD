@@ -12,13 +12,13 @@ public class WisdomHUD: NSObject {
     
     fileprivate var wisdomLayerView: WisdomLayerView?
     
-    public static let shared: WisdomHUD = WisdomHUD()
+    @objc public static let shared: WisdomHUD = WisdomHUD()
     
     /** HUD遮罩颜色类型 */
-    var coverBarStyle: WisdomCoverBarStyle = .dark
+    @objc public var coverBarStyle: WisdomCoverBarStyle = .dark
     
     /** HUD指示Loading类型 */
-    var loadingStyle: WisdomLoadingStyle = .system
+    @objc public var loadingStyle: WisdomLoadingStyle = .system
     
     /** 重置wisdomLayerView */
     fileprivate func updateHUD(layerView: WisdomLayerView) {
