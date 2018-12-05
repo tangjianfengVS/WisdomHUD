@@ -39,18 +39,14 @@ public class WisdomLayerView: UIView {
         text = texts
         type = types
         super.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: selfWidth, height: selfWidth)))
-        setupUI()
+        setupUI(enable: enable)
         addLabel()
         addHUDToKeyWindow(offset:offset)
-        
-        if !enable {
-            keyWindow.addSubview(screenView)
-        }
     }
     
-    private func setupUI() {
-        translatesAutoresizingMaskIntoConstraints = false
+    private func setupUI(enable: Bool) {
         backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+        translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = cornerRadius
         
         if text != nil {
@@ -73,6 +69,23 @@ public class WisdomLayerView: UIView {
         case .text:
             break
         }
+        
+        if !enable {
+            keyWindow.addSubview(screenView)
+        }
+        
+        let coverBarStyle = WisdomHUD.shared.coverBarStyle
+        switch coverBarStyle {
+        case .dark:
+            backgroundColor = UIColor.black.withAlphaComponent(0.8)
+            textLabel.textColor = UIColor.white
+        case .light:
+            backgroundColor = UIColor.white.withAlphaComponent(0.8)
+            textLabel.textColor = UIColor.black
+        case .skyBlue:
+            backgroundColor = UIColor(red: 18/255, green: 112/255, blue: 238/255, alpha: 0.8)
+            textLabel.textColor = UIColor.white
+        }
     }
     
     private func addHUDToKeyWindow(offset:CGPoint) {
@@ -89,7 +102,7 @@ public class WisdomLayerView: UIView {
         if type == .text {
             labelY = padding
         } else {
-            labelY = padding * 2 + imageWidth_Height
+            labelY = padding * 2 + imageWidth_Height - 5
         }
         if let text = text {
             textLabel.text = text
@@ -100,7 +113,7 @@ public class WisdomLayerView: UIView {
                                                                   bottom: -padding,
                                                                   right: -padding/2))
             let textSize:CGSize = size(from: text)
-            selfHeight = textSize.height + labelY + padding + 8
+            selfHeight = textSize.height + labelY + padding + 6
         }
     }
     
@@ -166,7 +179,7 @@ public class WisdomLayerView: UIView {
         if let _ = text {
             addConstraint(toCenterX: view, toCenterY: nil)
             
-            let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute:.top, multiplier: 1.0, constant: 20)
+            let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute:.top, multiplier: 1.0, constant: padding)
             addConstraint(topConstraint)
         } else {
             addConstraint(toCenterX: view, toCenterY: view)
@@ -197,9 +210,9 @@ public class WisdomLayerView: UIView {
     
     private lazy var screenView: UIView = {
         $0.frame = UIScreen.main.bounds
-        $0.backgroundColor = UIColor.black.withAlphaComponent(0.1)
         $0.restorationIdentifier = WisdomHUDIdentifier
         $0.isUserInteractionEnabled = true
+        $0.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         return $0
     }(UIView())
     

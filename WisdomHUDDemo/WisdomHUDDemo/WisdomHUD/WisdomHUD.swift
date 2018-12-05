@@ -15,7 +15,7 @@ public class WisdomHUD: NSObject {
     public static let shared: WisdomHUD = WisdomHUD()
     
     /** HUD遮罩颜色类型 */
-    var coverBarStyle: WisdomCoverBarStyle = .dark
+    var coverBarStyle: WisdomCoverBarStyle = .skyBlue
     
     /** HUD指示Loading类型 */
     var loadingStyle: WisdomLoadingStyle = .system

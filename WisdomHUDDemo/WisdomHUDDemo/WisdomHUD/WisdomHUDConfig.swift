@@ -19,8 +19,10 @@ import UIKit
 
 /** HUD遮罩颜色类型 */
 @objc public enum WisdomCoverBarStyle: NSInteger {
-    case dark=0   // 黑色半透明
-    case light=1  // 白色半透明
+  
+    case dark=0    // 黑色半透明
+    case light=1   // 白色半透明
+    case skyBlue=2 // 天蓝半透明
 }
 
 /** HUD指示Loading类型 */

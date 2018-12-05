@@ -19,8 +19,9 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snip20181204_5" translatesAutoresizingMaskIntoConstraints="NO" id="qTr-6d-Vq4">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qTr-6d-Vq4">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </imageView>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQ0-qd-Lv9">
                     <rect key="frame" x="153.5" y="186" width="68" height="35"/>
@@ -155,7 +156,4 @@
             <point key="canvasLocation" x="138.40000000000001" y="147.97601199400302"/>
         </view>
     </objects>
-    <resources>
-        <image name="Snip20181204_5" width="532" height="812"/>
-    </resources>
 </document>
