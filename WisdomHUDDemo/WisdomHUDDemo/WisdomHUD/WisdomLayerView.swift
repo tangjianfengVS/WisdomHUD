@@ -18,7 +18,7 @@ public class WisdomLayerView: UIView {
     
     fileprivate var activityView: UIActivityIndicatorView?
     
-    fileprivate let type: WisdomHUDType!
+    let type: WisdomHUDType!
     
     fileprivate var text: String?
     
@@ -29,11 +29,11 @@ public class WisdomLayerView: UIView {
     fileprivate var delayHander: ((TimeInterval, WisdomHUDType)->())?
     
     /** enable ：是否允许用户交互，默认允许 */
-    init(texts: String?,
-         types: WisdomHUDType,
-         delays: TimeInterval,
-         enable: Bool = true,
-         offset: CGPoint = CGPoint(x: 0, y: -50)) {
+    @objc public init(texts: String?,
+                      types: WisdomHUDType,
+                      delays: TimeInterval,
+                      enable: Bool = true,
+                      offset: CGPoint = CGPoint(x: 0, y: -50)) {
         
         delay = delays
         text = texts
@@ -145,7 +145,6 @@ public class WisdomLayerView: UIView {
             loadImageView?.translatesAutoresizingMaskIntoConstraints = false
             
             addRotationAnim(imageView: loadImageView!)
-            
             addSubview(loadImageView!)
             loadGeneralConstraint(at: loadImageView!)
         default:
@@ -208,7 +207,7 @@ public class WisdomLayerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private lazy var screenView: UIView = {
+    private(set) lazy var screenView: UIView = {
         $0.frame = UIScreen.main.bounds
         $0.restorationIdentifier = WisdomHUDIdentifier
         $0.isUserInteractionEnabled = true
@@ -224,6 +223,10 @@ public class WisdomLayerView: UIView {
         $0.textAlignment = .center
         return $0
     }(UILabel())
+    
+    deinit {
+        print("WisdomLayerView------释放: " + String(self.type.rawValue))
+    }
 }
 
 
@@ -240,7 +243,7 @@ extension WisdomLayerView{
      *   delay:  持续时间
      *   enable: 是否全屏遮罩
      */
-    @objc public static func showSuccess(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
+    static func showSuccess(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
         var successStr = text
         if text == nil || text?.count == 0 {
             successStr = "Success"
@@ -254,8 +257,7 @@ extension WisdomLayerView{
      *   delay:  持续时间
      *   enable: 是否全屏遮罩
      */
-    @discardableResult
-    @objc public static func showError(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
+    static func showError(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
         var errorStr = text
         if text == nil || text?.count == 0 {
             errorStr = "Error"
@@ -269,9 +271,12 @@ extension WisdomLayerView{
      *   delay:  持续时间
      *   enable: 是否全屏遮罩
      */
-    @discardableResult
-    @objc public static func showInfo(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
-        return WisdomLayerView(texts: text, types: .info, delays: delay,enable:enable).show()
+    static func showInfo(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
+        var infoStr = text
+        if text == nil || text?.count == 0 {
+            infoStr = "Info"
+        }
+        return WisdomLayerView(texts: infoStr, types: .info, delays: delay,enable:enable).show()
     }
     
     
@@ -279,8 +284,8 @@ extension WisdomLayerView{
      *   text:   Loading文字
      *   enable: 是否全屏遮罩
      */
-    @objc public static func showLoading(text: String?, enable: Bool = false) {
-        WisdomLayerView(texts: text,types:.loading,delays: 0,enable:enable).show()
+    static func showLoading(text: String?, enable: Bool = false)-> WisdomLayerView {
+        return WisdomLayerView(texts: text,types:.loading, delays: 0,enable:enable).show()
     }
     
     
@@ -289,14 +294,17 @@ extension WisdomLayerView{
      *   delay:  持续时间
      *   enable: 是否全屏遮罩
      */
-    @discardableResult
-    @objc public static func showText(text: String?, delay: TimeInterval, enable: Bool = false)-> WisdomLayerView {
-        return WisdomLayerView(texts: text,types:.text,delays: delay,enable:enable).show()
+    static func showText(text: String?, delay: TimeInterval, enable: Bool = false)-> WisdomLayerView {
+        var textStr = text
+        if text == nil || text?.count == 0 {
+            textStr = "Text"
+        }
+        return WisdomLayerView(texts: textStr,types:.text,delays: delay,enable:enable).show()
     }
     
     /** 7.自定义展示 */
     @discardableResult
-    @objc public func show() -> WisdomLayerView {
+    public func show() -> WisdomLayerView {
         
         animate(hide: false) {
             if self.delay > 0 {
@@ -320,31 +328,6 @@ extension WisdomLayerView{
     
     /** 9.Hide func 延迟移除屏幕展示 */
     @objc public func hide(delay: TimeInterval = delayTime) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
-            self.hide()
-        })
-    }
-    
-    /** 10.类方法
-     *  Hide func 移除屏幕展示
-     */
-    @objc public static func hide() {
-        for view in keyWindow.subviews {
-            if view.isKind(of:self) {
-                view.animate(hide: true, completion: {
-                    view.removeFromSuperview()
-                })
-            }
-            if view.restorationIdentifier == WisdomHUDIdentifier {
-                view.removeFromSuperview()
-            }
-        }
-    }
-    
-    /** 11.类方法
-     *  Hide func 延迟移除屏幕展示
-     */
-    @objc public static func hide(delay:TimeInterval = delayTime) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
             self.hide()
         })

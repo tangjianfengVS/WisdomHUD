@@ -27,15 +27,15 @@ import UIKit
 
 /** HUD指示Loading类型 */
 @objc public enum WisdomLoadingStyle: NSInteger {
-    case system=0   // 黑色半透明
-    case rotate=1  // 白色半透明
+    case system=0   // 系统的菊花
+    case rotate=1   // 经典的旋圈
 }
 
 public let delayTime: TimeInterval = 1.5
 
 public let padding: CGFloat = 12
 
-public let cornerRadius: CGFloat = 13.0
+public let cornerRadius: CGFloat = 12.0
 
 public let imageWidth_Height: CGFloat = 36
 

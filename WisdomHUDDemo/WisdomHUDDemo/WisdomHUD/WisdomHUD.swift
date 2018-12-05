@@ -15,13 +15,17 @@ public class WisdomHUD: NSObject {
     public static let shared: WisdomHUD = WisdomHUD()
     
     /** HUD遮罩颜色类型 */
-    var coverBarStyle: WisdomCoverBarStyle = .skyBlue
+    var coverBarStyle: WisdomCoverBarStyle = .dark
     
     /** HUD指示Loading类型 */
     var loadingStyle: WisdomLoadingStyle = .system
     
-    
-
+    /** 重置wisdomLayerView */
+    fileprivate func updateHUD(layerView: WisdomLayerView) {
+        wisdomLayerView?.removeFromSuperview()
+        wisdomLayerView?.screenView.removeFromSuperview()
+        wisdomLayerView = layerView
+    }
 }
 
 
@@ -33,7 +37,9 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showSuccess(text: String?)-> WisdomLayerView {
-        return WisdomLayerView.showSuccess(text: text, delay: delayTime, enable: false)
+        let layerView = WisdomLayerView.showSuccess(text: text, delay: delayTime, enable: false)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
+        return layerView
     }
     
     
@@ -44,7 +50,9 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showSuccess(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
-        return WisdomLayerView.showSuccess(text: text, delay: delay, enable: enable)
+        let layerView = WisdomLayerView.showSuccess(text: text, delay: delay, enable: enable)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
+        return layerView
     }
     
     
@@ -54,7 +62,9 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showError(text: String?)-> WisdomLayerView {
-        return WisdomLayerView.showError(text: text, delay: delayTime, enable: false)
+        let layerView = WisdomLayerView.showError(text: text, delay: delayTime, enable: false)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
+        return layerView
     }
     
     
@@ -65,7 +75,9 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showError(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
-        return WisdomLayerView.showError(text: text, delay: delay, enable: enable)
+        let layerView = WisdomLayerView.showError(text: text, delay: delay, enable: enable)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
+        return layerView
     }
     
     
@@ -75,7 +87,9 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showInfo(text: String?)-> WisdomLayerView {
-        return WisdomLayerView.showInfo(text: text, delay: delayTime, enable: false)
+        let layerView = WisdomLayerView.showInfo(text: text, delay: delayTime, enable: false)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
+        return layerView
     }
     
     
@@ -86,7 +100,9 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showInfo(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
-        return WisdomLayerView.showInfo(text: text, delay: delay, enable: enable)
+        let layerView = WisdomLayerView.showInfo(text: text, delay: delay, enable: enable)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
+        return layerView
     }
     
     
@@ -95,7 +111,8 @@ extension WisdomHUD {
      *   默认不可交互(全屏遮罩)
      */
     @objc public static func showLoading() {
-        WisdomLayerView.showLoading(text: nil, enable: false)
+        let layerView = WisdomLayerView.showLoading(text: nil, enable: false)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
     }
     
     
@@ -104,7 +121,8 @@ extension WisdomHUD {
      *   enable: 是否全屏遮罩
      */
     @objc public static func showLoading(text: String?, enable: Bool = false) {
-        WisdomLayerView.showLoading(text: text, enable: enable)
+        let layerView = WisdomLayerView.showLoading(text: text, enable: enable)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
     }
     
     
@@ -114,7 +132,9 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showText(text: String?)-> WisdomLayerView {
-        return WisdomLayerView.showText(text: text, delay: delayTime, enable: false)
+        let layerView = WisdomLayerView.showText(text: text, delay: delayTime, enable: false)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
+        return layerView
     }
     
     
@@ -125,7 +145,9 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showText(text: String?, delay: TimeInterval, enable: Bool = false)-> WisdomLayerView {
-        return WisdomLayerView.showText(text: text, delay: delay, enable: enable)
+        let layerView = WisdomLayerView.showText(text: text, delay: delay, enable: enable)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
+        return layerView
     }
 
     
@@ -145,7 +167,7 @@ extension WisdomHUD {
      *  Hide func 移除屏幕展示
      */
     @objc public static func dismiss() {
-        WisdomLayerView.hide()
+        WisdomHUD.shared.wisdomLayerView?.hide()
     }
     
     
@@ -153,6 +175,6 @@ extension WisdomHUD {
      *  Hide func 延迟移除屏幕展示
      */
     @objc public static func dismiss(delay: TimeInterval = delayTime) {
-        WisdomLayerView.hide(delay: delay)
+        WisdomHUD.shared.wisdomLayerView?.hide(delay: delay)
     }
 }

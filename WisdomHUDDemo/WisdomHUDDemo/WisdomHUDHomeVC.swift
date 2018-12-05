@@ -20,6 +20,18 @@ class WisdomHUDHomeVC: UIViewController {
             
         }
         
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+
+            WisdomHUD.showLoading(text: "加载中\n三秒后消失")
+
+            //WisdomHUD.showSuccess(text: "2次登录成功")
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4) {
+
+            WisdomHUD.showError(text: "登录失败", delay: TimeInterval(exactly: 3)!)
+        }
+        
         //WisdomHUD.showSuccess(text: "加载成功", delay: TimeInterval(exactly: 8)!)
         
         //WisdomHUD.showSuccess(text: "加载成功", delay: delayTime, enable: true)
@@ -54,9 +66,11 @@ class WisdomHUDHomeVC: UIViewController {
         WisdomHUD.showLoading(text: "加载中\n三秒后消失")
         
         //WisdomHUD.showLoading(text: "加载中", enable: true)
-        
+        //WisdomHUD.dismiss(delay: TimeInterval(exactly: 3)!)
         //3s关闭
-        WisdomHUD.dismiss(delay: TimeInterval(exactly: 3)!)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+           WisdomHUD.showSuccess(text: "登录成功", delay: TimeInterval(exactly: 3)!)
+        }
     }
     
     @IBAction func textButtonClick(_ sender: Any) {
@@ -79,5 +93,9 @@ class WisdomHUDHomeVC: UIViewController {
                                   offset: CGPoint(x: 0, y: view.frame.size.height / 2 - 100))
         hud.backgroundColor = UIColor(red: 18/255, green: 112/255, blue: 238/255, alpha: 0.9)
         hud.show()
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            hud.hide(delay: TimeInterval(exactly: 4)!)
+        }
     }
 }
