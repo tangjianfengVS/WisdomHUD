@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
   s.name         = "WisdomHUD"
-  s.version      = "0.0.4"
+  s.version      = "0.0.5"
   s.summary      = "A simple iOS interface to display reminders"
   s.description  = "A simple iOS interface display prompt, help to develop and implement various data state tracking display and loading tasks"
 
   s.homepage     = "https://github.com/tangjianfengVS/WisdomHUD"
-  s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+  s.license      = { :type => "MIT", :file => "LICENSE" }
 
   s.author             = { "tangjianfeng" => "497609288@qq.com" }
   s.platform     = :ios, "8.0"
