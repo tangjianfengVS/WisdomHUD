@@ -118,6 +118,16 @@ extension WisdomHUD {
     
     /**  8.耗时加载
      *   text:   Loading文字
+     *   默认不可交互(全屏遮罩)
+     */
+    @objc public static func showLoading(text: String?) {
+        let layerView = WisdomLayerView.showLoading(text: text, enable: false)
+        WisdomHUD.shared.updateHUD(layerView: layerView)
+    }
+    
+    
+    /**  9.耗时加载
+     *   text:   Loading文字
      *   enable: 是否全屏遮罩
      */
     @objc public static func showLoading(text: String?, enable: Bool = false) {
@@ -126,7 +136,7 @@ extension WisdomHUD {
     }
     
     
-    /**  9.无图片信息提示展示，纯文字
+    /**  10.无图片信息提示展示，纯文字
      *   text:   文字
      *   默认时间，默认不可交互(全屏遮罩)
      */
@@ -138,7 +148,7 @@ extension WisdomHUD {
     }
     
     
-    /**  10.无图片信息提示展示，纯文字
+    /**  11.无图片信息提示展示，纯文字
      *   text:   文字
      *   delay:  持续时间
      *   enable: 是否全屏遮罩
@@ -151,19 +161,19 @@ extension WisdomHUD {
     }
 
     
-    /**  11.dismiss() 移除屏幕展示 */
+    /**  12.dismiss() 移除屏幕展示 */
     @objc public func dismiss() {
         wisdomLayerView?.hide()
     }
     
     
-    /** 12.Hide func 延迟移除屏幕展示 */
+    /** 13.Hide func 延迟移除屏幕展示 */
     @objc public func dismiss(delay: TimeInterval = delayTime) {
         wisdomLayerView?.hide(delay: delay)
     }
     
     
-    /** 13.类方法
+    /** 14.类方法
      *  Hide func 移除屏幕展示
      */
     @objc public static func dismiss() {
@@ -171,7 +181,7 @@ extension WisdomHUD {
     }
     
     
-    /** 14.类方法
+    /** 15.类方法
      *  Hide func 延迟移除屏幕展示
      */
     @objc public static func dismiss(delay: TimeInterval = delayTime) {
