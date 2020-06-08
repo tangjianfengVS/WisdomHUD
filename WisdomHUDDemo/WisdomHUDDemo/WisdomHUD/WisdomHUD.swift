@@ -37,7 +37,7 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showSuccess(text: String?)-> WisdomLayerView {
-        let layerView = WisdomLayerView.showSuccess(text: text, delay: delayTime, enable: false)
+        let layerView = WisdomLayerView.showSuccess(text: text, delay: HUD_DelayTime, enable: false)
         WisdomHUD.shared.updateHUD(layerView: layerView)
         return layerView
     }
@@ -62,7 +62,7 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showError(text: String?)-> WisdomLayerView {
-        let layerView = WisdomLayerView.showError(text: text, delay: delayTime, enable: false)
+        let layerView = WisdomLayerView.showError(text: text, delay: HUD_DelayTime, enable: false)
         WisdomHUD.shared.updateHUD(layerView: layerView)
         return layerView
     }
@@ -87,7 +87,7 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showInfo(text: String?)-> WisdomLayerView {
-        let layerView = WisdomLayerView.showInfo(text: text, delay: delayTime, enable: false)
+        let layerView = WisdomLayerView.showInfo(text: text, delay: HUD_DelayTime, enable: false)
         WisdomHUD.shared.updateHUD(layerView: layerView)
         return layerView
     }
@@ -142,7 +142,7 @@ extension WisdomHUD {
      */
     @discardableResult
     @objc public static func showText(text: String?)-> WisdomLayerView {
-        let layerView = WisdomLayerView.showText(text: text, delay: delayTime, enable: false)
+        let layerView = WisdomLayerView.showText(text: text, delay: HUD_DelayTime, enable: false)
         WisdomHUD.shared.updateHUD(layerView: layerView)
         return layerView
     }
@@ -168,7 +168,7 @@ extension WisdomHUD {
     
     
     /** 13.Hide func 延迟移除屏幕展示 */
-    @objc public func dismiss(delay: TimeInterval = delayTime) {
+    @objc public func dismiss(delay: TimeInterval = HUD_DelayTime) {
         wisdomLayerView?.hide(delay: delay)
     }
     
@@ -184,7 +184,7 @@ extension WisdomHUD {
     /** 15.类方法
      *  Hide func 延迟移除屏幕展示
      */
-    @objc public static func dismiss(delay: TimeInterval = delayTime) {
+    @objc public static func dismiss(delay: TimeInterval = HUD_DelayTime) {
         WisdomHUD.shared.wisdomLayerView?.hide(delay: delay)
     }
 }

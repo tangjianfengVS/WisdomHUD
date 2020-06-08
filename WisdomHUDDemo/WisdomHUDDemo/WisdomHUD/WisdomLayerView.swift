@@ -10,7 +10,7 @@ import UIKit
 
 public class WisdomLayerView: UIView {
 
-    fileprivate var delay: TimeInterval = delayTime
+    fileprivate var delay: TimeInterval = HUD_DelayTime
     
     fileprivate var imageView: UIImageView?
     
@@ -38,19 +38,28 @@ public class WisdomLayerView: UIView {
         delay = delays
         text = texts
         type = types
-        super.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: selfWidth, height: selfWidth)))
+        super.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: selfWidth, height: selfHeight)))
         setupUI(enable: enable)
         addLabel()
         addHUDToKeyWindow(offset:offset)
     }
     
+    
     private func setupUI(enable: Bool) {
         backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
         translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = cornerRadius
-        
-        if text != nil {
-            selfWidth = 110
+        layer.cornerRadius = HUD_CornerRadius
+        // setting width
+        if text != nil && text!.count > 0 {
+            let textSize: CGSize = size_maxWH(from: text!)
+            
+            if textSize.width + HUD_Text_Padding_LR*2 > HUD_MAX_Width {
+                selfWidth = HUD_MAX_Width
+            } else if textSize.width + HUD_Text_Padding_LR*2 < HUD_MIN_Width{
+                selfWidth = HUD_MIN_Width
+            }else{
+                selfWidth = textSize.width + HUD_Text_Padding_LR*2
+            }
         }
         
         guard let type = type else {
@@ -71,7 +80,7 @@ public class WisdomLayerView: UIView {
         }
         
         if !enable {
-            keyWindow.addSubview(screenView)
+            UIApplication.shared.keyWindow!.addSubview(screenView)
         }
         
         let coverBarStyle = WisdomHUD.shared.coverBarStyle
@@ -88,38 +97,49 @@ public class WisdomLayerView: UIView {
         }
     }
     
+    
     private func addHUDToKeyWindow(offset:CGPoint) {
         guard self.superview == nil else { return }
-        keyWindow.addSubview(self)
+        UIApplication.shared.keyWindow!.addSubview(self)
         self.alpha = 0
         
         addConstraint(width: selfWidth, height: selfHeight)
-        keyWindow.addConstraint(toCenterX: self, constantx: offset.x, toCenterY: self, constanty: offset.y)
+        UIApplication.shared.keyWindow!.addConstraint(toCenterX: self, constantx: offset.x, toCenterY: self, constanty: offset.y)
     }
+    
     
     private func addLabel() {
         var labelY: CGFloat = 0.0
         if type == .text {
-            labelY = padding
+            labelY = HUD_Text_Padding_TB
         } else {
-            labelY = padding * 2 + imageWidth_Height - 5
+            labelY = HUD_Text_Padding_TB + HUD_ImageWidth_Height + HUD_Text_Padding_LR
         }
+        
         if let text = text {
             textLabel.text = text
             addSubview(textLabel)
-            
+            textLabel.layoutIfNeeded()
             addConstraint(to: textLabel, edageInset: UIEdgeInsets(top: labelY,
-                                                                  left: padding/2,
-                                                                  bottom: -padding,
-                                                                  right: -padding/2))
-            let textSize:CGSize = size(from: text)
-            selfHeight = textSize.height + labelY + padding + 6
+                                                                  left: HUD_Text_Padding_LR,
+                                                                  bottom: -HUD_Text_Padding_TB,
+                                                                  right: -HUD_Text_Padding_LR))
+            let textSize: CGSize = size_maxHeight(from: text)
+            selfHeight = labelY + textSize.height + HUD_Text_Padding_TB
+            selfWidth = selfWidth + 2
         }
     }
     
-    private func size(from text:String) -> CGSize {
-        return text.textSizeWithFont(font: textFont, constrainedToSize: CGSize(width:selfWidth - padding, height:CGFloat(MAXFLOAT)))
+    
+    private func size_maxHeight(from text:String) -> CGSize {
+        return text.textSizeWithFont(font: HUD_Text_Font, constrainedToSize: CGSize(width:selfWidth - HUD_Text_Padding_LR*2, height:CGFloat(MAXFLOAT)))
     }
+    
+    
+    private func size_maxWH(from text:String) -> CGSize {
+        return text.size(withAttributes: [NSAttributedString.Key.font: HUD_Text_Font])
+    }
+    
     
     private func addImageView(image:UIImage) {
         imageView = UIImageView(image: image)
@@ -128,6 +148,7 @@ public class WisdomLayerView: UIView {
         
         generalConstraint(at: imageView!)
     }
+    
     
     private func addActivityView() {
         let loadingStyle = WisdomHUD.shared.loadingStyle
@@ -152,33 +173,32 @@ public class WisdomLayerView: UIView {
         }
     }
     
+    
     private func generalConstraint(at view:UIView) {
         
-        view.addConstraint(width: imageWidth_Height,
-                           height: imageWidth_Height)
-        if let _ = text {
+        view.addConstraint(width: HUD_ImageWidth_Height, height: HUD_ImageWidth_Height)
+        
+        if text != nil && text!.count > 0 {
             addConstraint(toCenterX: view, toCenterY: nil)
             addConstraint(with: view,
                           topView: self,
                           leftView: nil,
                           bottomView: nil,
                           rightView: nil,
-                          edgeInset: UIEdgeInsets(top: padding, left: 0, bottom: 0, right: 0))
+                          edgeInset: UIEdgeInsets(top: HUD_Text_Padding_TB, left: 0, bottom: 0, right: 0))
         } else {
             addConstraint(toCenterX: view, toCenterY: view)
         }
     }
     
     private func loadGeneralConstraint(at view: UIImageView) {
-        let size = view.image?.size
-        let width = size!.width/size!.height * imageWidth_Height
         
-        view.addConstraint(width: width,
-                           height: imageWidth_Height)
-        if let _ = text {
+        view.addConstraint(width: HUD_ImageWidth_Height, height: HUD_ImageWidth_Height)
+        
+        if text != nil && text!.count > 0 {
             addConstraint(toCenterX: view, toCenterY: nil)
             
-            let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute:.top, multiplier: 1.0, constant: padding)
+            let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute:.top, multiplier: 1.0, constant: HUD_Text_Padding_TB)
             addConstraint(topConstraint)
         } else {
             addConstraint(toCenterX: view, toCenterY: view)
@@ -218,7 +238,7 @@ public class WisdomLayerView: UIView {
     private lazy var textLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textColor = UIColor.white
-        $0.font = textFont
+        $0.font = HUD_Text_Font
         $0.numberOfLines = 0
         $0.textAlignment = .center
         return $0
@@ -230,7 +250,7 @@ public class WisdomLayerView: UIView {
 }
 
 
-extension WisdomLayerView{
+extension WisdomLayerView {
     
     /** 1.定义任务结束时间回调 */
     @objc public func delayHanders(delayHanders: @escaping (TimeInterval, WisdomHUDType)->() ){
@@ -327,7 +347,7 @@ extension WisdomLayerView{
     }
     
     /** 9.Hide func 延迟移除屏幕展示 */
-    @objc public func hide(delay: TimeInterval = delayTime) {
+    @objc public func hide(delay: TimeInterval = HUD_DelayTime) {
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
             self.hide()
         })

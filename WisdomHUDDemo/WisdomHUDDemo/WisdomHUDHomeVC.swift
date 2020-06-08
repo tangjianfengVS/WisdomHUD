@@ -15,6 +15,7 @@ class WisdomHUDHomeVC: UIViewController {
     }
 
     @IBAction func successButtonClick(_ sender: Any) {
+        WisdomHUD.shared.loadingStyle = .system
         
         WisdomHUD.showSuccess(text: "加载成功").delayHanders { (timeInterval, type)  in
             
@@ -22,7 +23,7 @@ class WisdomHUDHomeVC: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
 
-            WisdomHUD.showLoading(text: "加载中\n三秒后消失")
+            WisdomHUD.showLoading(text: "")
 
             //WisdomHUD.showSuccess(text: "2次登录成功")
         }
@@ -63,7 +64,7 @@ class WisdomHUDHomeVC: UIViewController {
         WisdomHUD.shared.loadingStyle = .rotate
         //WisdomHUD.showLoading()
         
-        WisdomHUD.showLoading(text: "加载中\n三秒后消失")
+        WisdomHUD.showLoading(text: "加载中，三秒后消失")
         
         //WisdomHUD.showLoading(text: "加载中", enable: true)
         //WisdomHUD.dismiss(delay: TimeInterval(exactly: 3)!)

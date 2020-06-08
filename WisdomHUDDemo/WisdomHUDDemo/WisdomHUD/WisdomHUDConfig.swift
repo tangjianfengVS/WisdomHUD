@@ -31,16 +31,20 @@ import UIKit
     case rotate=1   // 经典的旋圈
 }
 
-public let delayTime: TimeInterval = 1.5
+public let HUD_DelayTime: TimeInterval = 1.5
 
-public let padding: CGFloat = 12
+public let HUD_CornerRadius: CGFloat = 12.0
 
-public let cornerRadius: CGFloat = 12.0
+public let HUD_ImageWidth_Height: CGFloat = 34
 
-public let imageWidth_Height: CGFloat = 36
+public let HUD_MIN_Width: CGFloat = 110
 
-public let textFont = UIFont.systemFont(ofSize: 14)
+public let HUD_MAX_Width: CGFloat = 180
 
-public let keyWindow = UIApplication.shared.keyWindow!
+public let HUD_Text_Padding_LR: CGFloat = 12.0
+
+public let HUD_Text_Padding_TB: CGFloat = 12.0
+
+public let HUD_Text_Font = UIFont.systemFont(ofSize: 14)
 
 public let WisdomHUDIdentifier = "WisdomTypeIdentifier"
