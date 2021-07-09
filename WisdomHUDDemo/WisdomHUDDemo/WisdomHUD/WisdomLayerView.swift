@@ -9,8 +9,19 @@
 import UIKit
 
 public class WisdomLayerView: UIView {
+    
+    fileprivate var text: String?
+    
+    fileprivate var textColor: UIColor?
+    
+    fileprivate let type: WisdomHUDType!
+    
+    fileprivate let barStyle: WisdomCoverBarStyle!
+    
+    fileprivate let loadingStyle: WisdomLoadingStyle!
 
-    fileprivate var delay: TimeInterval = HUD_DelayTime
+    fileprivate var delay: TimeInterval!
+    
     
     fileprivate var imageView: UIImageView?
     
@@ -18,52 +29,74 @@ public class WisdomLayerView: UIView {
     
     fileprivate var activityView: UIActivityIndicatorView?
     
-    let type: WisdomHUDType!
+    fileprivate lazy var textLabel: UILabel = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textColor = UIColor.white
+        $0.font = UIFont.systemFont(ofSize: HUD_Text_Font)
+        $0.numberOfLines = 0
+        $0.textAlignment = .center
+        return $0
+    }(UILabel())
     
-    fileprivate var text: String?
     
-    fileprivate var selfWidth: CGFloat = 90
+    fileprivate var selfWidth: CGFloat = 85
     
-    fileprivate var selfHeight: CGFloat = 90
+    fileprivate var selfHeight: CGFloat = 85
     
     fileprivate var delayHander: ((TimeInterval, WisdomHUDType)->())?
     
-    /** enable ：是否允许用户交互，默认允许 */
+    
     @objc public init(texts: String?,
+                      textColor: UIColor?,
                       types: WisdomHUDType,
-                      delays: TimeInterval,
-                      enable: Bool = true,
-                      offset: CGPoint = CGPoint(x: 0, y: -50)) {
-        
-        delay = delays
+                      barStyle: WisdomCoverBarStyle,
+                      loadingStyle: WisdomLoadingStyle=wisdomLoadingStyle,
+                      delays: TimeInterval) {
         text = texts
+        self.textColor = textColor
         type = types
-        super.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: selfWidth, height: selfHeight)))
-        setupUI(enable: enable)
-        addLabel()
-        addHUDToKeyWindow(offset:offset)
+        self.barStyle = barStyle
+        self.loadingStyle = loadingStyle
+        delay = delays
+        
+        super.init(frame: CGRect.zero)
+        
+        backgroundColor = UIColor.blue
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        setbarUI()
+        
+        settextUI()
+        
+        addConstraint(width: selfWidth, height: selfHeight)
     }
     
     
-    private func setupUI(enable: Bool) {
-        backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
-        translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = HUD_CornerRadius
-        // setting width
-        if text != nil && text!.count > 0 {
-            let textSize: CGSize = size_maxWH(from: text!)
+    private func setbarUI() {
+        
+        func addImageView(image: UIImage) {
+            imageView = UIImageView(image: image)
+            imageView?.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(imageView!)
             
-            if textSize.width + HUD_Text_Padding_LR*2 > HUD_MAX_Width {
-                selfWidth = HUD_MAX_Width
-            } else if textSize.width + HUD_Text_Padding_LR*2 < HUD_MIN_Width{
-                selfWidth = HUD_MIN_Width
-            }else{
-                selfWidth = textSize.width + HUD_Text_Padding_LR*2
-            }
+            generalConstraint(at: imageView!)
         }
         
-        guard let type = type else {
-            return
+        switch barStyle {
+        case .dark:
+            backgroundColor = UIColor.black.withAlphaComponent(0.75)
+            textLabel.textColor = textColor != nil ? textColor : UIColor.white
+        //case .light:
+        //    backgroundColor = UIColor.white.withAlphaComponent(0.75)
+        //    textLabel.textColor = textColor != nil ? textColor : UIColor.black
+        case .skyBlue:
+            backgroundColor = UIColor(red: 18/255, green: 112/255, blue: 238/255, alpha: 0.8)
+            textLabel.textColor = textColor != nil ? textColor : UIColor.white
+        case .hide:
+            backgroundColor = UIColor.clear
+            textLabel.textColor = textColor != nil ? textColor : UIColor.white
+        default: break
         }
         
         switch type {
@@ -71,87 +104,75 @@ public class WisdomLayerView: UIView {
             addImageView(image: WisdomHUDImage.imageOfSuccess)
         case .error:
             addImageView(image: WisdomHUDImage.imageOfError)
-        case .info:
-            addImageView(image: WisdomHUDImage.imageOfInfo)
+        case .warning:
+            addImageView(image: WisdomHUDImage.imageOfWarning)
         case .loading:
             addActivityView()
-        case .text:
+        case .textCentre, .textRoot:
+            break
+        default:
             break
         }
         
-        if !enable {
-            UIApplication.shared.keyWindow!.addSubview(screenView)
-        }
-        
-        let coverBarStyle = WisdomHUD.shared.coverBarStyle
-        switch coverBarStyle {
-        case .dark:
-            backgroundColor = UIColor.black.withAlphaComponent(0.8)
-            textLabel.textColor = UIColor.white
-        case .light:
-            backgroundColor = UIColor.white.withAlphaComponent(0.8)
-            textLabel.textColor = UIColor.black
-        case .skyBlue:
-            backgroundColor = UIColor(red: 18/255, green: 112/255, blue: 238/255, alpha: 0.8)
-            textLabel.textColor = UIColor.white
-        }
+        layer.cornerRadius = HUD_CornerRadius
     }
     
     
-    private func addHUDToKeyWindow(offset:CGPoint) {
-        guard self.superview == nil else { return }
-        UIApplication.shared.keyWindow!.addSubview(self)
-        self.alpha = 0
+    private func settextUI() {
         
-        addConstraint(width: selfWidth, height: selfHeight)
-        UIApplication.shared.keyWindow!.addConstraint(toCenterX: self, constantx: offset.x, toCenterY: self, constanty: offset.y)
-    }
-    
-    
-    private func addLabel() {
-        var labelY: CGFloat = 0.0
-        if type == .text {
-            labelY = HUD_Text_Padding_TB
-        } else {
-            labelY = HUD_Text_Padding_TB + HUD_ImageWidth_Height + HUD_Text_Padding_LR
-        }
-        
-        if let text = text {
-            textLabel.text = text
+        if let info = text {
+            var labelY: CGFloat = 0.0
+            if type == .textCentre || type == .textRoot {
+                labelY = HUD_Text_Padding_Bottom
+            } else {
+                labelY = HUD_Text_Padding_LRT + HUD_ImageWidth_Height + HUD_Text_Padding_Middle
+            }
+            
+            textLabel.text = info
+            
+            textLabel.numberOfLines = 0
+            
             addSubview(textLabel)
-            textLabel.layoutIfNeeded()
+            
             addConstraint(to: textLabel, edageInset: UIEdgeInsets(top: labelY,
-                                                                  left: HUD_Text_Padding_LR,
-                                                                  bottom: -HUD_Text_Padding_TB,
-                                                                  right: -HUD_Text_Padding_LR))
-            let textSize: CGSize = size_maxHeight(from: text)
-            selfHeight = labelY + textSize.height + HUD_Text_Padding_TB
-            selfWidth = selfWidth + 2
+                                                                  left: HUD_Text_Padding_LRT,
+                                                                  bottom: -HUD_Text_Padding_Bottom,
+                                                                  right: -HUD_Text_Padding_LRT))
+            
+            textLabel.sizeToFit()
+            
+            let textSize: CGSize = size_maxWH(from: info)
+
+            if textSize.width + HUD_Text_Padding_LRT*2 > HUD_MAX_Width {
+                let infoSize: CGSize = size_maxHeight(from: info)
+                
+                selfWidth = HUD_MAX_Width
+                selfHeight = labelY + infoSize.height + HUD_Text_Padding_Bottom + HUD_Text_Font/4.0
+                
+            }else if textSize.width + HUD_Text_Padding_LRT*2 < HUD_MIN_Width {
+                selfWidth = HUD_MIN_Width
+                selfHeight = labelY + textSize.height + HUD_Text_Padding_Bottom + HUD_Text_Font/4.0
+            }else {
+                selfWidth = textSize.width + HUD_Text_Padding_LRT*2 + HUD_Text_Font/1.5
+                selfHeight = labelY + textSize.height + HUD_Text_Padding_Bottom + HUD_Text_Font/4.0
+            }
         }
     }
     
     
     private func size_maxHeight(from text:String) -> CGSize {
-        return text.textSizeWithFont(font: HUD_Text_Font, constrainedToSize: CGSize(width:selfWidth - HUD_Text_Padding_LR*2, height:CGFloat(MAXFLOAT)))
+        return text.textSizeWithFont(font: UIFont.systemFont(ofSize: HUD_Text_Font),
+                                     constrainedToSize: CGSize(width:HUD_MAX_Width - HUD_Text_Padding_LRT*2,
+                                                               height:CGFloat(MAXFLOAT)))
     }
     
     
     private func size_maxWH(from text:String) -> CGSize {
-        return text.size(withAttributes: [NSAttributedString.Key.font: HUD_Text_Font])
+        return text.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: HUD_Text_Font)])
     }
-    
-    
-    private func addImageView(image:UIImage) {
-        imageView = UIImageView(image: image)
-        imageView?.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(imageView!)
-        
-        generalConstraint(at: imageView!)
-    }
-    
+
     
     private func addActivityView() {
-        let loadingStyle = WisdomHUD.shared.loadingStyle
         switch loadingStyle {
         case .system:
             activityView = UIActivityIndicatorView(style: .whiteLarge)
@@ -159,59 +180,78 @@ public class WisdomLayerView: UIView {
             activityView?.startAnimating()
             addSubview(activityView!)
             generalConstraint(at: activityView!)
-        
+
         case .rotate:
             let loadRotateImag = bundleImage(name: "loadRotate")
             loadImageView = UIImageView(image: loadRotateImag)
             loadImageView?.translatesAutoresizingMaskIntoConstraints = false
-            
+
             addRotationAnim(imageView: loadImageView!)
             addSubview(loadImageView!)
             loadGeneralConstraint(at: loadImageView!)
+        case .rotateBlue:
+            let loadRotateImag = bundleImage(name: "loadRotateBlue")
+            loadImageView = UIImageView(image: loadRotateImag)
+            loadImageView?.translatesAutoresizingMaskIntoConstraints = false
+
+            addRotationAnim(imageView: loadImageView!)
+            addSubview(loadImageView!)
+            loadGeneralConstraint(at: loadImageView!)
+            
+            textLabel.textColor = textColor != nil ? textColor : UIColor(red: 30/255, green: 144/255, blue: 255/255, alpha: 1)
         default:
             break
         }
     }
     
     
-    private func generalConstraint(at view:UIView) {
-        
+    private func generalConstraint(at view: UIView) {
+
         view.addConstraint(width: HUD_ImageWidth_Height, height: HUD_ImageWidth_Height)
-        
+
         if text != nil && text!.count > 0 {
             addConstraint(toCenterX: view, toCenterY: nil)
+            
             addConstraint(with: view,
                           topView: self,
                           leftView: nil,
                           bottomView: nil,
                           rightView: nil,
-                          edgeInset: UIEdgeInsets(top: HUD_Text_Padding_TB, left: 0, bottom: 0, right: 0))
-        } else {
+                          edgeInset: UIEdgeInsets(top: HUD_Text_Padding_LRT, left: 0, bottom: 0, right: 0))
+        }else {
             addConstraint(toCenterX: view, toCenterY: view)
         }
     }
+    
     
     private func loadGeneralConstraint(at view: UIImageView) {
-        
+
         view.addConstraint(width: HUD_ImageWidth_Height, height: HUD_ImageWidth_Height)
-        
+
         if text != nil && text!.count > 0 {
             addConstraint(toCenterX: view, toCenterY: nil)
-            
-            let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute:.top, multiplier: 1.0, constant: HUD_Text_Padding_TB)
+
+            let topConstraint = NSLayoutConstraint(item: view, attribute: .top,
+                                                   relatedBy: .equal,
+                                                   toItem: self,
+                                                   attribute:.top,
+                                                   multiplier: 1.0,
+                                                   constant: HUD_Text_Padding_LRT)
             addConstraint(topConstraint)
-        } else {
+        }else {
             addConstraint(toCenterX: view, toCenterY: view)
         }
     }
     
-    /** bundle图片 */
+    
+    /* bundle图片 */
     fileprivate func bundleImage(name: String)-> UIImage {
         let bundle = Bundle.init(path:Bundle.init(for: WisdomHUD.self).path(forResource: "WisdomHUD", ofType: "bundle")!)!
         let url = bundle.path(forResource: name, ofType: "png")!
         let image = UIImage(contentsOfFile: url)!
         return image
     }
+    
     
     fileprivate func addRotationAnim(imageView: UIImageView) {
         let rotationAnim = CABasicAnimation(keyPath: "transform.rotation.z")
@@ -223,133 +263,224 @@ public class WisdomLayerView: UIView {
         imageView.layer.add(rotationAnim, forKey: nil)
     }
     
+    
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private(set) lazy var screenView: UIView = {
-        $0.frame = UIScreen.main.bounds
-        $0.restorationIdentifier = WisdomHUDIdentifier
-        $0.isUserInteractionEnabled = true
-        $0.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        return $0
-    }(UIView())
-    
-    private lazy var textLabel: UILabel = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textColor = UIColor.white
-        $0.font = HUD_Text_Font
-        $0.numberOfLines = 0
-        $0.textAlignment = .center
-        return $0
-    }(UILabel())
     
     deinit {
-        print("WisdomLayerView------释放: " + String(self.type.rawValue))
+        print("WisdomLayerView-释放")
     }
 }
 
 
 extension WisdomLayerView {
     
-    /** 1.定义任务结束时间回调 */
-    @objc public func delayHanders(delayHanders: @escaping (TimeInterval, WisdomHUDType)->() ){
-        delayHander = delayHanders
+    /* 定义任务结束时间回调 */
+    @objc public func setDelayHander(delayHander: @escaping (TimeInterval, WisdomHUDType)->() ){
+        self.delayHander = delayHander
     }
     
     
-    /**  2.成功提示
-     *   text:   文字
-     *   delay:  持续时间
-     *   enable: 是否全屏遮罩
-     */
-    static func showSuccess(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
-        var successStr = text
-        if text == nil || text?.count == 0 {
-            successStr = "Success"
-        }
-        return WisdomLayerView(texts: successStr, types: .success, delays: delay,enable: enable).show()
-    }
-    
-    
-    /**  3.失败提示
-     *   text:   文字
-     *   delay:  持续时间
-     *   enable: 是否全屏遮罩
-     */
-    static func showError(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
-        var errorStr = text
-        if text == nil || text?.count == 0 {
-            errorStr = "Error"
-        }
-        return WisdomLayerView(texts: errorStr, types: .error, delays: delay,enable:enable).show()
-    }
-    
-    
-    /**  4.警告信息提示展示
-     *   text:   文字
-     *   delay:  持续时间
-     *   enable: 是否全屏遮罩
-     */
-    static func showInfo(text: String?, delay: TimeInterval, enable: Bool = true)-> WisdomLayerView {
-        var infoStr = text
-        if text == nil || text?.count == 0 {
-            infoStr = "Info"
-        }
-        return WisdomLayerView(texts: infoStr, types: .info, delays: delay,enable:enable).show()
-    }
-    
-    
-    /**  5.耗时加载
-     *   text:   Loading文字
-     *   enable: 是否全屏遮罩
-     */
-    static func showLoading(text: String?, enable: Bool = false)-> WisdomLayerView {
-        return WisdomLayerView(texts: text,types:.loading, delays: 0,enable:enable).show()
-    }
-    
-    
-    /**  6.无图片信息提示展示，纯文字
-     *   text:   文字
-     *   delay:  持续时间
-     *   enable: 是否全屏遮罩
-     */
-    static func showText(text: String?, delay: TimeInterval, enable: Bool = false)-> WisdomLayerView {
-        var textStr = text
-        if text == nil || text?.count == 0 {
-            textStr = "Text"
-        }
-        return WisdomLayerView(texts: textStr,types:.text,delays: delay,enable:enable).show()
-    }
-    
-    /** 7.自定义展示 */
-    @discardableResult
-    public func show() -> WisdomLayerView {
+    /* Success HUD */
+    static func showSuccess(text: String?,
+                            textColor: UIColor?,
+                            delay: TimeInterval,
+                            barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
+        let layerView = WisdomLayerView(texts: text,
+                                        textColor: textColor,
+                                        types: .success,
+                                        barStyle: barStyle,
+                                        delays: delay)
         
-        animate(hide: false) {
-            if self.delay > 0 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
-                    self.hide()
-                })
+        layerView.showWindow()
+        
+        layerView.keepTime()
+        
+        return layerView
+    }
+    
+    
+    /* Error HUD */
+    static func showError(text: String?,
+                          textColor: UIColor?,
+                          delay: TimeInterval,
+                          barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
+        let layerView = WisdomLayerView(texts: text,
+                                        textColor: textColor,
+                                        types: .error,
+                                        barStyle: barStyle,
+                                        delays: delay)
+        
+        layerView.showWindow()
+        
+        layerView.keepTime()
+        
+        return layerView
+    }
+    
+    
+    /* Warning HUD */
+    static func showWarning(text: String?,
+                            textColor: UIColor?,
+                            delay: TimeInterval,
+                            barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
+        let layerView = WisdomLayerView(texts: text,
+                                        textColor: textColor,
+                                        types: .warning,
+                                        barStyle: barStyle,
+                                        delays: delay)
+        
+        layerView.showWindow()
+        
+        layerView.keepTime()
+        
+        return layerView
+    }
+    
+    
+    /* Loading HUD */
+    static func showLoading(text: String?,
+                            textColor: UIColor?,
+                            barStyle: WisdomCoverBarStyle,
+                            loadingStyle: WisdomLoadingStyle) {
+        let layerView = WisdomLayerView(texts: text,
+                                        textColor: textColor,
+                                        types: .loading,
+                                        barStyle: barStyle,
+                                        delays: wisdomDelayTimes)
+        
+        layerView.showWindow()
+    }
+    
+    
+    /* Text HUD */
+    static func showText(text: String?,
+                         textColor: UIColor?,
+                         delay: TimeInterval,
+                         barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
+        let layerView = WisdomLayerView(texts: text,
+                                        textColor: textColor,
+                                        types: .textCentre,
+                                        barStyle: barStyle,
+                                        delays: delay)
+        
+        layerView.showWindow()
+        
+        layerView.keepTime()
+        
+        return layerView
+    }
+    
+    
+    /* Text Root HUD */
+    static func showTextRoot(text: String?,
+                             textColor: UIColor?,
+                             delay: TimeInterval,
+                             barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
+        let layerView = WisdomLayerView(texts: text,
+                                        textColor: textColor,
+                                        types: .textRoot,
+                                        barStyle: barStyle,
+                                        delays: delay)
+        
+        layerView.showWindow()
+        
+        layerView.keepTime()
+        
+        return layerView
+    }
+
+}
+
+
+extension WisdomLayerView {
+    
+    /* 展示 */
+    private func showWindow() {
+        let window = UIApplication.shared.keyWindow
+        let currentView = window?.viewWithTag(WisdomHUDWindowTag)
+        let offsetY = window!.bounds.size.height/10.0
+        
+        if let hudCoverVI = currentView as? WisdomLayerCoverView {
+            for view in hudCoverVI.subviews {
+                view.removeFromSuperview()
+            }
+            
+            hudCoverVI.addSubview(self)
+            
+            if type == WisdomHUDType.textRoot {
+                hudCoverVI.addConstraint(toCenterX: self, toCenterY: nil)
+                
+                hudCoverVI.addConstraint(NSLayoutConstraint(item: self,
+                                                            attribute: .bottom,
+                                                            relatedBy: .equal,
+                                                            toItem: hudCoverVI,
+                                                            attribute: .bottom,
+                                                            multiplier: 1,
+                                                            constant: -offsetY))
+            }else {
+                hudCoverVI.addConstraint(toCenterX: self, toCenterY: self)
+            }
+        }else {
+            let coverVI = WisdomLayerCoverView()
+            
+            coverVI.translatesAutoresizingMaskIntoConstraints = false
+            
+            coverVI.backgroundColor = UIColor(white: 0, alpha: 0.4)
+            
+            coverVI.tag = WisdomHUDWindowTag
+           
+            window?.addSubview(coverVI)
+            
+            window!.addConstraint(with: coverVI,
+                              topView: window!,
+                             leftView: window!,
+                           bottomView: window!,
+                            rightView: window!,
+                            edgeInset: UIEdgeInsets.zero)
+            
+            coverVI.addSubview(self)
+            
+            if type == WisdomHUDType.textRoot {
+                coverVI.addConstraint(toCenterX: self, toCenterY: nil)
+                
+                coverVI.addConstraint(NSLayoutConstraint(item: self,
+                                                         attribute: .bottom,
+                                                         relatedBy: .equal,
+                                                         toItem: coverVI,
+                                                         attribute: .bottom,
+                                                         multiplier: 1,
+                                                         constant: -offsetY))
+            }else {
+                coverVI.addConstraint(toCenterX: self, toCenterY: self)
             }
         }
-        return self
     }
     
-    /** 8.Hide func 移除屏幕展示 */
-    @objc public func hide() {
+    
+    /* 计时移除 */
+    private func keepTime() {
+        func setAlpha() {
+            self.alpha = 0
+            self.superview?.alpha = 0
+        }
         
-        animate(hide: true, completion: {
-            self.delayHander?(self.delay, self.type)
-            self.removeFromSuperview()
-            self.screenView.removeFromSuperview()
+        DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                setAlpha()
+            }) { _ in
+                self.delayHander?(self.delay, self.type)
+                WisdomHUD.dismiss()
+            }
         })
     }
+}
+
+
+public class WisdomLayerCoverView: UIView {
     
-    /** 9.Hide func 延迟移除屏幕展示 */
-    @objc public func hide(delay: TimeInterval = HUD_DelayTime) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
-            self.hide()
-        })
-    }
+    
 }

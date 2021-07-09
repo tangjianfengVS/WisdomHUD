@@ -11,18 +11,6 @@ import UIKit
 //TODO: Extension UIView
 extension UIView {
     
-    func animate(hide:Bool, completion:(() -> Void)? = nil) {
-        UIView.animate(withDuration: 0.3, animations: {
-            if hide {
-                self.alpha = 0
-            }else {
-                self.alpha = 1
-            }
-        }) { _ in
-            completion?()
-        }
-    }
-    
     func addConstraint(width: CGFloat,height:CGFloat) {
         if width > 0 {
             addConstraint(NSLayoutConstraint(item: self,

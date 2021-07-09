@@ -13,8 +13,9 @@ class WisdomHUDImage {
     struct HUD {
         static var imageOfSuccess: UIImage?
         static var imageOfError: UIImage?
-        static var imageOfInfo: UIImage?
+        static var imageOfWarning: UIImage?
     }
+    
     
     class func draw(_ type: WisdomHUDType) {
         let checkmarkShapePath = UIBezierPath()
@@ -41,16 +42,13 @@ class WisdomHUDImage {
             checkmarkShapePath.addLine(to: CGPoint(x: HUD_ImageWidth_Height/3*2+1, y: HUD_ImageWidth_Height/3-1))
             checkmarkShapePath.move(to: CGPoint(x: HUD_ImageWidth_Height/3-1, y: HUD_ImageWidth_Height/3-1))
             checkmarkShapePath.close()
-        case .info:
-            checkmarkShapePath.move(to: CGPoint(x: HUD_ImageWidth_Height/2, y: 8))
+        case .warning:
+            checkmarkShapePath.move(to: CGPoint(x: HUD_ImageWidth_Height/2, y: HUD_ImageWidth_Height/4))
             checkmarkShapePath.addLine(to: CGPoint(x: HUD_ImageWidth_Height/2, y: HUD_ImageWidth_Height/5*3))
-            checkmarkShapePath.move(to: CGPoint(x: HUD_ImageWidth_Height/2, y: 6))
             checkmarkShapePath.close()
-            UIColor.white.setStroke()
-            checkmarkShapePath.stroke()
             
             let checkmarkShapePath = UIBezierPath()
-            checkmarkShapePath.move(to: CGPoint(x: HUD_ImageWidth_Height/2, y: HUD_ImageWidth_Height-8))
+            checkmarkShapePath.move(to: CGPoint(x: HUD_ImageWidth_Height/2, y: HUD_ImageWidth_Height/4.0*3.0))
             checkmarkShapePath.addArc(withCenter: CGPoint(x: HUD_ImageWidth_Height/2, y: HUD_ImageWidth_Height/5*3+4),
                                       radius: 1.2,
                                       startAngle: 0,
@@ -60,20 +58,15 @@ class WisdomHUDImage {
             
             UIColor.white.setFill()
             checkmarkShapePath.fill()
-        case .loading:
-            break
-        case .text:
+        case .loading, .textCentre, .textRoot:
             break
         }
         
-        let coverBarStyle = WisdomHUD.shared.coverBarStyle
-        if coverBarStyle == .light {
-            UIColor.black.setStroke()
-        }else{
-            UIColor.white.setStroke()
-        }
+        UIColor.white.setStroke()
+
         checkmarkShapePath.stroke()
     }
+    
     
     static var imageOfSuccess: UIImage {
         
@@ -88,6 +81,7 @@ class WisdomHUDImage {
         return HUD.imageOfSuccess!
     }
     
+    
     static var imageOfError : UIImage {
         
         guard HUD.imageOfError == nil else { return HUD.imageOfError! }
@@ -98,14 +92,15 @@ class WisdomHUDImage {
         return HUD.imageOfError!
     }
     
-    static var imageOfInfo : UIImage {
+    
+    static var imageOfWarning : UIImage {
         
-        guard HUD.imageOfInfo == nil else { return HUD.imageOfInfo! }
+        guard HUD.imageOfWarning == nil else { return HUD.imageOfWarning! }
         UIGraphicsBeginImageContextWithOptions(CGSize(width: HUD_ImageWidth_Height,height: HUD_ImageWidth_Height), false, 0)
-        WisdomHUDImage.draw(.info)
-        HUD.imageOfInfo = UIGraphicsGetImageFromCurrentImageContext()
+        WisdomHUDImage.draw(.warning)
+        HUD.imageOfWarning = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return HUD.imageOfInfo!
+        return HUD.imageOfWarning!
     }
     
 }

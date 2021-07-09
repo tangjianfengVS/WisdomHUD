@@ -80,11 +80,11 @@
 		A582604D21B68192009421EB /* WisdomHUD */ = {
 			isa = PBXGroup;
 			children = (
-				A582605221B68192009421EB /* WisdomHUDConfig.swift */,
 				A582605121B68192009421EB /* WisdomHUD.swift */,
-				A582604E21B68192009421EB /* WisdomHUD+Extension.swift */,
-				A582604F21B68192009421EB /* WisdomHUDImage.swift */,
 				A582605021B68192009421EB /* WisdomLayerView.swift */,
+				A582605221B68192009421EB /* WisdomHUDConfig.swift */,
+				A582604F21B68192009421EB /* WisdomHUDImage.swift */,
+				A582604E21B68192009421EB /* WisdomHUD+Extension.swift */,
 				A582605C21B68C6A009421EB /* WisdomHUD.bundle */,
 			);
 			path = WisdomHUD;
@@ -314,7 +314,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "All-over-the-sky-star";
+				PRODUCT_BUNDLE_IDENTIFIER = "All-over-the-sky";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -333,7 +333,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "All-over-the-sky-star";
+				PRODUCT_BUNDLE_IDENTIFIER = "All-over-the-sky";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
