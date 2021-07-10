@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WisdomHUD"
-  s.version      = "0.1.0"
+  s.version      = "0.1.2"
   s.summary      = "A simple iOS interface to display reminders"
   s.description  = "A simple iOS interface display prompt, help to develop and implement various data state tracking display and loading tasks"
 
