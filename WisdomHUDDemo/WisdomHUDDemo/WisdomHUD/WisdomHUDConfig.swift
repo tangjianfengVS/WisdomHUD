@@ -46,7 +46,7 @@ let HUD_MAX_Width: CGFloat = 200
 
 let HUD_Text_Padding_LRT: CGFloat = 12.0
 
-let HUD_Text_Padding_Middle: CGFloat = 6.0
+let HUD_Text_Padding_Middle: CGFloat = 5.0
 
 let HUD_Text_Padding_Bottom: CGFloat = 10.0
 
