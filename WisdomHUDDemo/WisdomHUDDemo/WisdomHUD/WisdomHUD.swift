@@ -9,13 +9,13 @@
 import UIKit
 
 /* WisdomHUD 遮罩颜色类型 */
-public var wisdomCoverBarStyle: WisdomCoverBarStyle = .dark
+public private(set) var wisdomCoverBarStyle: WisdomCoverBarStyle = .dark
 
 /* WisdomHUD 显示时长 */
-public var wisdomDelayTimes: TimeInterval = 2.0
+public private(set) var wisdomDelayTimes: TimeInterval = 2.0
 
 /* WisdomHUD Loading类型 */
-public var wisdomLoadingStyle: WisdomLoadingStyle = .rotate
+public private(set) var wisdomLoadingStyle: WisdomLoadingStyle = .rotate
 
 
 @objc public class WisdomHUD: NSObject {
