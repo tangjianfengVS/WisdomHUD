@@ -52,4 +52,4 @@ let HUD_Text_Padding_Bottom: CGFloat = 10.0
 
 let HUD_Text_Font: CGFloat = 13.0
 
-let WisdomHUDWindowTag: NSInteger = 199010186191
+let WisdomHUDWindowTag: NSInteger = 901018
