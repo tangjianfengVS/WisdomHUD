@@ -10,6 +10,21 @@ import UIKit
 
 public class WisdomLayerView: UIView {
     
+    fileprivate let HUD_CornerRadius: CGFloat = 10.0
+
+    fileprivate let HUD_MIN_Width: CGFloat = 110
+
+    fileprivate let HUD_MAX_Width: CGFloat = 200
+
+    fileprivate let HUD_Text_Padding_LRT: CGFloat = 12.0
+
+    fileprivate let HUD_Text_Padding_Middle: CGFloat = 5.0
+
+    fileprivate let HUD_Text_Padding_Bottom: CGFloat = 10.0
+
+    fileprivate let HUD_Text_Font: CGFloat = 13.0
+    
+    
     fileprivate var text: String?
     
     fileprivate var textColor: UIColor?
