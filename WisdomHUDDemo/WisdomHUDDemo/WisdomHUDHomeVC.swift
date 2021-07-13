@@ -12,6 +12,10 @@ class WisdomHUDHomeVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        WisdomHUD.showSuccess(text: "欢迎使用 WisdomHUD SDK") { (timeInterval, wisdomHUDType) in
+            print("")
+        }
     }
 
     
@@ -19,18 +23,17 @@ class WisdomHUDHomeVC: UIViewController {
         
         WisdomHUD.setCoverBarStyle(coverBarStyle: .dark)
         
-        WisdomHUD.showSuccess(text: "加载成功").setDelayHander { (timeInterval, type)  in
-            
+        WisdomHUD.showSuccess(text: "加载成功") { (timeInterval, wisdomHUDType) in
+            print("")
         }
-        
     }
     
     
     @IBAction func errorButtonClick(_ sender: Any) {
         WisdomHUD.setCoverBarStyle(coverBarStyle: .dark)
         
-        WisdomHUD.showError(text: "加载失败").setDelayHander { (timeInterval, type)  in
-
+        WisdomHUD.showError(text: "加载失败"){ (timeInterval, wisdomHUDType) in
+            print("")
         }
     }
     
@@ -38,8 +41,7 @@ class WisdomHUDHomeVC: UIViewController {
     @IBAction func infoButtonClick(_ sender: Any) {
         WisdomHUD.setCoverBarStyle(coverBarStyle: .dark)
         
-        WisdomHUD.showWarning(text: "请先注册").setDelayHander { (timeInterval, type)  in
-
+        WisdomHUD.showWarning(text: "请先注册"){ (timeInterval, wisdomHUDType) in
             print("")
         }
 

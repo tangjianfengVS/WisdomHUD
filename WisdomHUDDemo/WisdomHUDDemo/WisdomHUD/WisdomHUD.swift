@@ -8,31 +8,31 @@
 
 import UIKit
 
-/* WisdomHUD 遮罩颜色类型 */
+/* WisdomHUD 全局 遮罩颜色类型 */
 public private(set) var wisdomCoverBarStyle: WisdomCoverBarStyle = .dark
 
-/* WisdomHUD 显示时长 */
+/* WisdomHUD 全局 显示时长 */
 public private(set) var wisdomDelayTimes: TimeInterval = 2.0
 
-/* WisdomHUD Loading类型 */
+/* WisdomHUD 全局 Loading类型 */
 public private(set) var wisdomLoadingStyle: WisdomLoadingStyle = .rotate
 
 
 @objc public class WisdomHUD: NSObject {
     
-    /* 更新 WisdomHUD 遮罩颜色类型 */
+    /* 更新 WisdomHUD 全局 遮罩颜色类型 */
     @objc public static func setCoverBarStyle(coverBarStyle: WisdomCoverBarStyle) {
         wisdomCoverBarStyle = coverBarStyle
     }
     
     
-    /* 更新 WisdomHUD 显示时长 */
+    /* 更新 WisdomHUD 全局 显示时长 */
     @objc public static func setHUDDelayTime(delayTimes: CGFloat) {
-        wisdomDelayTimes = TimeInterval(delayTimes)
+        wisdomDelayTimes = TimeInterval.init(delayTimes)
     }
     
     
-    /* 更新 WisdomHUD Loading类型 */
+    /* 更新 WisdomHUD 全局 Loading类型 */
     @objc public static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
         wisdomLoadingStyle = loadingStyle
     }
@@ -44,9 +44,8 @@ extension WisdomHUD {
     /* ------------------------- Success ------------------------- */
 
     /*  WisdomHUD Success */
-    @discardableResult
-    @objc public static func showSuccess(text: String?=nil)-> WisdomLayerView {
-        return WisdomHUD.showSuccess(text: text, delay: wisdomDelayTimes)
+    @objc public static func showSuccess(text: String?=nil) {
+        WisdomHUD.showSuccess(text: text, delay: wisdomDelayTimes)
     }
     
     
@@ -54,26 +53,26 @@ extension WisdomHUD {
      *  text:      文字
      *  delay:     持续时间
      *  barStyle:  HUD样式
+     *  delayHandler:  HUD延迟结束回调
      */
-    @discardableResult
     @objc public static func showSuccess(text: String?=nil,
                                          textColor: UIColor?=nil,
                                          delay: TimeInterval=wisdomDelayTimes,
-                                         barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView.showSuccess(text: text,
-                                                    textColor: textColor,
-                                                    delay: delay,
-                                                    barStyle: barStyle)
-        return layerView
+                                         barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
+                                         delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
+        WisdomLayerView.showSuccess(text: text,
+                                    textColor: textColor,
+                                    delay: delay,
+                                    barStyle: barStyle,
+                                    delayHandler: delayHandler)
     }
     
     
     /* ------------------------- Error ------------------------- */
     
     /*  WisdomHUD Error */
-    @discardableResult
-    @objc public static func showError(text: String?=nil)-> WisdomLayerView {
-        return WisdomHUD.showError(text: text, delay: wisdomDelayTimes)
+    @objc public static func showError(text: String?=nil) {
+        WisdomHUD.showError(text: text, delay: wisdomDelayTimes)
     }
     
     
@@ -82,26 +81,26 @@ extension WisdomHUD {
      *  textColor: 文字颜色
      *  delay:     持续时间
      *  barStyle:  HUD样式
+     *  delayHandler:  HUD延迟结束回调
      */
-    @discardableResult
     @objc public static func showError(text: String?=nil,
                                        textColor: UIColor?=nil,
                                        delay: TimeInterval=wisdomDelayTimes,
-                                       barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView.showError(text: text,
-                                                  textColor: textColor,
-                                                  delay: delay,
-                                                  barStyle: barStyle)
-        return layerView
+                                       barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
+                                       delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
+        WisdomLayerView.showError(text: text,
+                                  textColor: textColor,
+                                  delay: delay,
+                                  barStyle: barStyle,
+                                  delayHandler: delayHandler)
     }
     
     
     /* ------------------------- Warning ------------------------- */
     
     /*  WisdomHUD Warning */
-    @discardableResult
-    @objc public static func showWarning(text: String?=nil)-> WisdomLayerView {
-        return WisdomHUD.showWarning(text: text, delay: wisdomDelayTimes)
+    @objc public static func showWarning(text: String?=nil) {
+        WisdomHUD.showWarning(text: text, delay: wisdomDelayTimes)
     }
     
     
@@ -110,17 +109,18 @@ extension WisdomHUD {
      *  textColor: 文字颜色
      *  delay:     持续时间
      *  barStyle:  HUD样式
+     *  delayHandler:  HUD延迟结束回调
      */
-    @discardableResult
     @objc public static func showWarning(text: String?=nil,
                                          textColor: UIColor?=nil,
                                          delay: TimeInterval=wisdomDelayTimes,
-                                         barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView.showWarning(text: text,
-                                                    textColor: textColor,
-                                                    delay: delay,
-                                                    barStyle: barStyle)
-        return layerView
+                                         barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
+                                         delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
+        WisdomLayerView.showWarning(text: text,
+                                    textColor: textColor,
+                                    delay: delay,
+                                    barStyle: barStyle,
+                                    delayHandler: delayHandler)
     }
     
     
@@ -153,9 +153,8 @@ extension WisdomHUD {
     /* ------------------------- Text ------------------------- */
     
     /*  WisdomHUD Text */
-    @discardableResult
-    @objc public static func showText(text: String?=nil)-> WisdomLayerView {
-        return WisdomHUD.showText(text: text, delay: wisdomDelayTimes)
+    @objc public static func showText(text: String?=nil) {
+        WisdomHUD.showText(text: text, delay: wisdomDelayTimes)
     }
     
     
@@ -164,26 +163,26 @@ extension WisdomHUD {
      *  textColor: 文字颜色
      *  delay:     持续时间
      *  barStyle:  HUD样式
+     *  delayHandler:  HUD延迟结束回调
      */
-    @discardableResult
     @objc public static func showText(text: String?=nil,
                                       textColor: UIColor?=nil,
                                       delay: TimeInterval=wisdomDelayTimes,
-                                      barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView.showText(text: text,
-                                                 textColor: textColor,
-                                                 delay: delay,
-                                                 barStyle: barStyle)
-        return layerView
+                                      barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
+                                      delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
+        WisdomLayerView.showText(text: text,
+                                 textColor: textColor,
+                                 delay: delay,
+                                 barStyle: barStyle,
+                                 delayHandler: delayHandler)
     }
     
     
     /* ------------------------- TextRoot ------------------------- */
     
     /*  WisdomHUD TextRoot */
-    @discardableResult
-    @objc public static func showTextRoot(text: String?=nil)-> WisdomLayerView {
-        return WisdomHUD.showTextRoot(text: text, delay: wisdomDelayTimes)
+    @objc public static func showTextRoot(text: String?=nil) {
+        WisdomHUD.showTextRoot(text: text, delay: wisdomDelayTimes)
     }
     
     
@@ -192,28 +191,55 @@ extension WisdomHUD {
      *  textColor: 文字颜色
      *  delay:     持续时间
      *  barStyle:  HUD样式
+     *  delayHandler:  HUD延迟结束回调
      */
-    @discardableResult
     @objc public static func showTextRoot(text: String?=nil,
                                           textColor: UIColor?=nil,
                                           delay: TimeInterval=wisdomDelayTimes,
-                                          barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView.showTextRoot(text: text,
-                                                     textColor: textColor,
-                                                     delay: delay,
-                                                     barStyle: barStyle)
-        return layerView
+                                          barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
+                                          delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
+        WisdomLayerView.showTextRoot(text: text,
+                                     textColor: textColor,
+                                     delay: delay,
+                                     barStyle: barStyle,
+                                     delayHandler: delayHandler)
     }
 
 
     /* 移除 HUD */
     @objc public static func dismiss() {
-        let window = UIApplication.shared.keyWindow
-        let currentView = window?.viewWithTag(WisdomHUDWindowTag)
-        
-        if let hudCoverVI = currentView as? WisdomLayerCoverView {
-            hudCoverVI.removeFromSuperview()
+        DispatchQueue.main.async {
+            let window = WisdomHUD.getScreenWindow()
+            let currentView = window?.viewWithTag(WisdomHUDWindowTag)
+            
+            if let hudCoverVI = currentView as? WisdomLayerCoverView {
+                
+                UIView.animate(withDuration: 0.40, animations: {
+                    hudCoverVI.alpha = 0
+                }) { _ in
+                    hudCoverVI.removeFromSuperview()
+                }
+            }
         }
+    }
+    
+    
+    static func getScreenWindow() -> UIWindow? {
+        var screenWindow = UIApplication.shared.delegate?.window
+        
+        if screenWindow == nil {
+            screenWindow = UIApplication.shared.keyWindow
+            
+            if screenWindow == nil {
+                for currentWindow in UIApplication.shared.windows {
+                    if type(of: currentWindow) == UIWindow.self {
+                        screenWindow = currentWindow
+                        break
+                    }
+                }
+            }
+        }
+        return screenWindow ?? nil
     }
 
 }

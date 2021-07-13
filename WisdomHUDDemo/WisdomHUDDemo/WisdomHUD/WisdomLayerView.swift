@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class WisdomLayerView: UIView {
+class WisdomLayerView: UIView {
     
     fileprivate let HUD_CornerRadius: CGFloat = 10.0
 
@@ -58,7 +58,7 @@ public class WisdomLayerView: UIView {
     
     fileprivate var selfHeight: CGFloat = 85
     
-    fileprivate var delayHander: ((TimeInterval, WisdomHUDType)->())?
+    fileprivate var delayHandler: ((TimeInterval, WisdomHUDType)->())?
     
     
     @objc public init(texts: String?,
@@ -66,17 +66,17 @@ public class WisdomLayerView: UIView {
                       types: WisdomHUDType,
                       barStyle: WisdomCoverBarStyle,
                       loadingStyle: WisdomLoadingStyle=wisdomLoadingStyle,
-                      delays: TimeInterval) {
+                      delays: TimeInterval,
+                      delayHandler: ((TimeInterval, WisdomHUDType)->())?) {
         text = texts
         self.textColor = textColor
         type = types
         self.barStyle = barStyle
         self.loadingStyle = loadingStyle
         delay = delays
+        self.delayHandler = delayHandler
         
         super.init(frame: CGRect.zero)
-        
-        backgroundColor = UIColor.blue
         
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -292,28 +292,24 @@ public class WisdomLayerView: UIView {
 
 extension WisdomLayerView {
     
-    /* 定义任务结束时间回调 */
-    @objc public func setDelayHander(delayHander: @escaping (TimeInterval, WisdomHUDType)->() ){
-        self.delayHander = delayHander
-    }
-    
-    
     /* Success HUD */
     static func showSuccess(text: String?,
                             textColor: UIColor?,
                             delay: TimeInterval,
-                            barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView(texts: text,
-                                        textColor: textColor,
-                                        types: .success,
-                                        barStyle: barStyle,
-                                        delays: delay)
-        
-        layerView.showWindow()
-        
-        layerView.keepTime()
-        
-        return layerView
+                            barStyle: WisdomCoverBarStyle,
+                            delayHandler: ((TimeInterval, WisdomHUDType)->())?) {
+        DispatchQueue.main.async {
+            let layerView = WisdomLayerView(texts: text,
+                                            textColor: textColor,
+                                            types: .success,
+                                            barStyle: barStyle,
+                                            delays: delay,
+                                            delayHandler: delayHandler)
+            
+            layerView.addToWindow()
+            
+            layerView.keepTime()
+        }
     }
     
     
@@ -321,18 +317,20 @@ extension WisdomLayerView {
     static func showError(text: String?,
                           textColor: UIColor?,
                           delay: TimeInterval,
-                          barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView(texts: text,
-                                        textColor: textColor,
-                                        types: .error,
-                                        barStyle: barStyle,
-                                        delays: delay)
-        
-        layerView.showWindow()
-        
-        layerView.keepTime()
-        
-        return layerView
+                          barStyle: WisdomCoverBarStyle,
+                          delayHandler: ((TimeInterval, WisdomHUDType)->())?) {
+        DispatchQueue.main.async {
+            let layerView = WisdomLayerView(texts: text,
+                                            textColor: textColor,
+                                            types: .error,
+                                            barStyle: barStyle,
+                                            delays: delay,
+                                            delayHandler: delayHandler)
+            
+            layerView.addToWindow()
+            
+            layerView.keepTime()
+        }
     }
     
     
@@ -340,18 +338,20 @@ extension WisdomLayerView {
     static func showWarning(text: String?,
                             textColor: UIColor?,
                             delay: TimeInterval,
-                            barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView(texts: text,
-                                        textColor: textColor,
-                                        types: .warning,
-                                        barStyle: barStyle,
-                                        delays: delay)
-        
-        layerView.showWindow()
-        
-        layerView.keepTime()
-        
-        return layerView
+                            barStyle: WisdomCoverBarStyle,
+                            delayHandler: ((TimeInterval, WisdomHUDType)->())?) {
+        DispatchQueue.main.async {
+            let layerView = WisdomLayerView(texts: text,
+                                            textColor: textColor,
+                                            types: .warning,
+                                            barStyle: barStyle,
+                                            delays: delay,
+                                            delayHandler: delayHandler)
+            
+            layerView.addToWindow()
+            
+            layerView.keepTime()
+        }
     }
     
     
@@ -360,13 +360,16 @@ extension WisdomLayerView {
                             textColor: UIColor?,
                             barStyle: WisdomCoverBarStyle,
                             loadingStyle: WisdomLoadingStyle) {
-        let layerView = WisdomLayerView(texts: text,
-                                        textColor: textColor,
-                                        types: .loading,
-                                        barStyle: barStyle,
-                                        delays: wisdomDelayTimes)
-        
-        layerView.showWindow()
+        DispatchQueue.main.async {
+            let layerView = WisdomLayerView(texts: text,
+                                            textColor: textColor,
+                                            types: .loading,
+                                            barStyle: barStyle,
+                                            delays: wisdomDelayTimes,
+                                            delayHandler: nil)
+            
+            layerView.addToWindow()
+        }
     }
     
     
@@ -374,18 +377,20 @@ extension WisdomLayerView {
     static func showText(text: String?,
                          textColor: UIColor?,
                          delay: TimeInterval,
-                         barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView(texts: text,
-                                        textColor: textColor,
-                                        types: .textCentre,
-                                        barStyle: barStyle,
-                                        delays: delay)
-        
-        layerView.showWindow()
-        
-        layerView.keepTime()
-        
-        return layerView
+                         barStyle: WisdomCoverBarStyle,
+                         delayHandler: ((TimeInterval, WisdomHUDType)->())?) {
+        DispatchQueue.main.async {
+            let layerView = WisdomLayerView(texts: text,
+                                            textColor: textColor,
+                                            types: .textCentre,
+                                            barStyle: barStyle,
+                                            delays: delay,
+                                            delayHandler: delayHandler)
+            
+            layerView.addToWindow()
+            
+            layerView.keepTime()
+        }
     }
     
     
@@ -393,18 +398,20 @@ extension WisdomLayerView {
     static func showTextRoot(text: String?,
                              textColor: UIColor?,
                              delay: TimeInterval,
-                             barStyle: WisdomCoverBarStyle)-> WisdomLayerView {
-        let layerView = WisdomLayerView(texts: text,
-                                        textColor: textColor,
-                                        types: .textRoot,
-                                        barStyle: barStyle,
-                                        delays: delay)
-        
-        layerView.showWindow()
-        
-        layerView.keepTime()
-        
-        return layerView
+                             barStyle: WisdomCoverBarStyle,
+                             delayHandler: ((TimeInterval, WisdomHUDType)->())?) {
+        DispatchQueue.main.async {
+            let layerView = WisdomLayerView(texts: text,
+                                            textColor: textColor,
+                                            types: .textRoot,
+                                            barStyle: barStyle,
+                                            delays: delay,
+                                            delayHandler: delayHandler)
+            
+            layerView.addToWindow()
+            
+            layerView.keepTime()
+        }
     }
 
 }
@@ -413,63 +420,66 @@ extension WisdomLayerView {
 extension WisdomLayerView {
     
     /* 展示 */
-    private func showWindow() {
-        let window = UIApplication.shared.keyWindow
-        let currentView = window?.viewWithTag(WisdomHUDWindowTag)
-        let offsetY = window!.bounds.size.height/10.0
+    private func addToWindow() {
+        let window = WisdomHUD.getScreenWindow()
         
-        if let hudCoverVI = currentView as? WisdomLayerCoverView {
-            for view in hudCoverVI.subviews {
-                view.removeFromSuperview()
-            }
+        if window != nil {
+            let currentView = window!.viewWithTag(WisdomHUDWindowTag)
+            let offsetY = window!.bounds.size.height/10.0
             
-            hudCoverVI.addSubview(self)
-            
-            if type == WisdomHUDType.textRoot {
-                hudCoverVI.addConstraint(toCenterX: self, toCenterY: nil)
+            if let hudCoverVI = currentView as? WisdomLayerCoverView {
+                for view in hudCoverVI.subviews {
+                    view.removeFromSuperview()
+                }
                 
-                hudCoverVI.addConstraint(NSLayoutConstraint(item: self,
-                                                            attribute: .bottom,
-                                                            relatedBy: .equal,
-                                                            toItem: hudCoverVI,
-                                                            attribute: .bottom,
-                                                            multiplier: 1,
-                                                            constant: -offsetY))
-            }else {
-                hudCoverVI.addConstraint(toCenterX: self, toCenterY: self)
-            }
-        }else {
-            let coverVI = WisdomLayerCoverView()
-            
-            coverVI.translatesAutoresizingMaskIntoConstraints = false
-            
-            coverVI.backgroundColor = UIColor(white: 0, alpha: 0.4)
-            
-            coverVI.tag = WisdomHUDWindowTag
-           
-            window?.addSubview(coverVI)
-            
-            window!.addConstraint(with: coverVI,
-                              topView: window!,
-                             leftView: window!,
-                           bottomView: window!,
-                            rightView: window!,
-                            edgeInset: UIEdgeInsets.zero)
-            
-            coverVI.addSubview(self)
-            
-            if type == WisdomHUDType.textRoot {
-                coverVI.addConstraint(toCenterX: self, toCenterY: nil)
+                hudCoverVI.addSubview(self)
                 
-                coverVI.addConstraint(NSLayoutConstraint(item: self,
-                                                         attribute: .bottom,
-                                                         relatedBy: .equal,
-                                                         toItem: coverVI,
-                                                         attribute: .bottom,
-                                                         multiplier: 1,
-                                                         constant: -offsetY))
+                if type == WisdomHUDType.textRoot {
+                    hudCoverVI.addConstraint(toCenterX: self, toCenterY: nil)
+                    
+                    hudCoverVI.addConstraint(NSLayoutConstraint(item: self,
+                                                                attribute: .bottom,
+                                                                relatedBy: .equal,
+                                                                toItem: hudCoverVI,
+                                                                attribute: .bottom,
+                                                                multiplier: 1,
+                                                                constant: -offsetY))
+                }else {
+                    hudCoverVI.addConstraint(toCenterX: self, toCenterY: self)
+                }
             }else {
-                coverVI.addConstraint(toCenterX: self, toCenterY: self)
+                let coverVI = WisdomLayerCoverView()
+                
+                coverVI.translatesAutoresizingMaskIntoConstraints = false
+                
+                coverVI.backgroundColor = UIColor(white: 0, alpha: 0.35)
+                
+                coverVI.tag = WisdomHUDWindowTag
+               
+                window!.addSubview(coverVI)
+                
+                window!.addConstraint(with: coverVI,
+                                   topView: window!,
+                                  leftView: window!,
+                                bottomView: window!,
+                                 rightView: window!,
+                                 edgeInset: UIEdgeInsets.zero)
+                
+                coverVI.addSubview(self)
+                
+                if type == WisdomHUDType.textRoot {
+                    coverVI.addConstraint(toCenterX: self, toCenterY: nil)
+                    
+                    coverVI.addConstraint(NSLayoutConstraint(item: self,
+                                                             attribute: .bottom,
+                                                             relatedBy: .equal,
+                                                             toItem: coverVI,
+                                                             attribute: .bottom,
+                                                             multiplier: 1,
+                                                             constant: -offsetY))
+                }else {
+                    coverVI.addConstraint(toCenterX: self, toCenterY: self)
+                }
             }
         }
     }
@@ -482,20 +492,32 @@ extension WisdomLayerView {
             self.superview?.alpha = 0
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + self.delay, execute: {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + self.delay, execute: {
             
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: 0.40, animations: {
                 setAlpha()
             }) { _ in
-                self.delayHander?(self.delay, self.type)
-                WisdomHUD.dismiss()
+                self.animateEnd()
             }
         })
+    }
+    
+    
+    private func animateEnd() {
+        delayHandler?(self.delay, self.type)
+        
+        let window = WisdomHUD.getScreenWindow()
+        
+        let currentView = window?.viewWithTag(WisdomHUDWindowTag)
+        
+        if let hudCoverVI = currentView as? WisdomLayerCoverView {
+            hudCoverVI.removeFromSuperview()
+        }
     }
 }
 
 
-public class WisdomLayerCoverView: UIView {
+class WisdomLayerCoverView: UIView {
     
     
 }
