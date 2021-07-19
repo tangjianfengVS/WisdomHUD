@@ -213,12 +213,12 @@ extension WisdomHUD {
             let currentView = window?.viewWithTag(WisdomHUDWindowTag)
             
             if let hudCoverVI = currentView as? WisdomLayerCoverView {
-                
-                UIView.animate(withDuration: 0.40, animations: {
-                    hudCoverVI.alpha = 0
-                }) { _ in
-                    hudCoverVI.removeFromSuperview()
-                }
+                // 添加动画，会影响
+                //UIView.animate(withDuration: 0.40, animations: {
+                //    hudCoverVI.alpha = 0
+                //}) { _ in
+                hudCoverVI.removeFromSuperview()
+                //}
             }
         }
     }

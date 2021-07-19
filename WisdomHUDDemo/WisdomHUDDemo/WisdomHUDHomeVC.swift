@@ -53,11 +53,14 @@ class WisdomHUDHomeVC: UIViewController {
         
         WisdomHUD.setLoadingStyle(loadingStyle: .system)
         
-        WisdomHUD.showLoading(text: "加载中，8秒后消失")
+        WisdomHUD.showLoading(text: "加载中，5秒后消失", barStyle: .hide, loadingStyle: .rotateBlue)
         
         //8s关闭
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 10) {
-           WisdomHUD.showSuccess(text: "Loading 完成", delay: TimeInterval(exactly: 3)!)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
+            
+            WisdomHUD.dismiss()
+            
+            WisdomHUD.showSuccess(text: "Loading 完成", delay: TimeInterval(exactly: 3)!)
         }
     }
     

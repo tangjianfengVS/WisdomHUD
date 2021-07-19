@@ -365,6 +365,7 @@ extension WisdomLayerView {
                                             textColor: textColor,
                                             types: .loading,
                                             barStyle: barStyle,
+                                            loadingStyle: loadingStyle,
                                             delays: wisdomDelayTimes,
                                             delayHandler: nil)
             
