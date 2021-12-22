@@ -50,6 +50,7 @@
 		A582602F21B68174009421EB = {
 			isa = PBXGroup;
 			children = (
+				A582604D21B68192009421EB /* Source */,
 				A582603A21B68174009421EB /* WisdomHUDDemo */,
 				A582603921B68174009421EB /* Products */,
 			);
@@ -66,7 +67,6 @@
 		A582603A21B68174009421EB /* WisdomHUDDemo */ = {
 			isa = PBXGroup;
 			children = (
-				A582604D21B68192009421EB /* WisdomHUD */,
 				A582603B21B68174009421EB /* AppDelegate.swift */,
 				A582605821B68203009421EB /* WisdomHUDHomeVC.swift */,
 				A582605921B68203009421EB /* WisdomHUDHomeVC.xib */,
@@ -77,7 +77,7 @@
 			path = WisdomHUDDemo;
 			sourceTree = "<group>";
 		};
-		A582604D21B68192009421EB /* WisdomHUD */ = {
+		A582604D21B68192009421EB /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				A582605121B68192009421EB /* WisdomHUD.swift */,
@@ -87,7 +87,7 @@
 				A582604E21B68192009421EB /* WisdomHUD+Extension.swift */,
 				A582605C21B68C6A009421EB /* WisdomHUD.bundle */,
 			);
-			path = WisdomHUD;
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
