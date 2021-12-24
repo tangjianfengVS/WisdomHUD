@@ -14,8 +14,8 @@ struct WisdomActionThemeModel {
     let themeStyle: WisdomActionThemeStyle
     
     let titleColor: UIColor   // 标题
-    let infoClor: UIColor  // 详情
-    let tailClor: UIColor  // 尾签
+    let infoClor: UIColor     // 详情
+    let tailClor: UIColor     // 尾签
 
     let rightBtnClor: UIColor  // 确认
     let topBarColor: UIColor   // Bar
