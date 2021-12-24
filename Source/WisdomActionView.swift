@@ -359,7 +359,7 @@ class WisdomActionView: UIView {
     fileprivate func setShadow() {
         backgroundColor = UIColor.white
 
-        layer.cornerRadius = 5
+        layer.cornerRadius = 6
 
         layer.shadowOffset = CGSize.init(width: 0, height: 0)
 
