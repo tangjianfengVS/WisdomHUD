@@ -11,7 +11,8 @@ import UIKit
 //TODO: Extension UIView
 extension UIView {
     
-    func addConstraint(width: CGFloat,height:CGFloat) {
+    // MARK: - set layout size
+    @objc public func addConstraint(width: CGFloat, height: CGFloat) {
         if width > 0 {
             addConstraint(NSLayoutConstraint(item: self,
                                              attribute: .width,
@@ -32,14 +33,18 @@ extension UIView {
         }
     }
     
-    func addConstraint(toCenterX xView:UIView?,toCenterY yView:UIView?) {
+    
+    // MARK: - set layout center
+    @objc public func addConstraint(toCenterX xView:UIView?, toCenterY yView:UIView?) {
         addConstraint(toCenterX: xView, constantx: 0, toCenterY: yView, constanty: 0)
     }
     
-    func addConstraint(toCenterX xView:UIView?,
-                       constantx:CGFloat,
-                       toCenterY yView:UIView?,
-                       constanty:CGFloat) {
+    
+    // MARK: - set layout center offset
+    @objc public func addConstraint(toCenterX xView:UIView?,
+                                              constantx:CGFloat,
+                                    toCenterY yView:UIView?,
+                                              constanty:CGFloat) {
         if let xView = xView {
             addConstraint(NSLayoutConstraint(item: xView,
                                              attribute: .centerX,
@@ -59,7 +64,9 @@ extension UIView {
         }
     }
     
-    func addConstraint(to view:UIView,edageInset:UIEdgeInsets) {
+    
+    // MARK: - set layout edage inset
+    @objc public func addConstraint(to view:UIView, edageInset:UIEdgeInsets) {
         addConstraint(with: view,
                       topView: self,
                       leftView: self,
@@ -68,12 +75,14 @@ extension UIView {
                       edgeInset: edageInset)
     }
     
-    func addConstraint(with view:UIView,
-                                   topView:UIView?,
-                                   leftView:UIView?,
-                                   bottomView:UIView?,
-                                   rightView:UIView?,
-                                   edgeInset:UIEdgeInsets) {
+    
+    // MARK: - set layout edage inset to UIView
+    @objc public func addConstraint(with view:UIView,
+                                         topView:UIView?,
+                                         leftView:UIView?,
+                                         bottomView:UIView?,
+                                         rightView:UIView?,
+                                         edgeInset:UIEdgeInsets) {
         if let topView = topView {
             addConstraint(NSLayoutConstraint(item: view,
                                              attribute: .top,
@@ -116,11 +125,11 @@ extension UIView {
 
 extension String {
     
-    /** 计算String内容的大小
+    /*  计算String内容的大小
      *  font： 文字字号大小
      *  size： 内容大小限定
      */
-    func textSizeWithFont(font: UIFont, constrainedToSize size: CGSize) -> CGSize {
+    public func textSizeWithFont(font: UIFont, constrainedToSize size: CGSize) -> CGSize {
         var textSize:CGSize!
         if size.equalTo(CGSize.zero) {
             let attributes = NSDictionary(object: font, forKey: NSAttributedString.Key.font as NSCopying)
@@ -138,4 +147,5 @@ extension String {
         }
         return textSize
     }
+    
 }
