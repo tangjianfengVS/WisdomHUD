@@ -8,6 +8,55 @@
 
 import UIKit
 
+
+class WisdomLayerCoverView: UIView {
+    
+    // Height or Width: iPhone 6, iPhone 7, iPhone 8 及以下为小屏
+    static func isSmallScreen()->Bool{
+        
+        func getWidth() -> CGFloat {
+            if UIScreen.main.bounds.width > UIScreen.main.bounds.height {
+                return UIScreen.main.bounds.height
+            }else {
+                return UIScreen.main.bounds.width
+            }
+        }
+        
+        let resWidth = getWidth()
+        return resWidth <= 380.0 ? true : false
+    }
+    
+    
+    static func createColorLayerView(width: CGFloat, height: CGFloat=30, color: UIColor) -> UIView {
+        let bgView = UIView(frame: CGRect.init(x: 0, y: 5, width: width, height: height))
+        let colors = [UIColor(white: 0.6, alpha: 0.1).cgColor,
+                      color.cgColor,
+                      UIColor(white: 0.6, alpha: 0.1).cgColor,] as [Any]
+
+        let layer = CAGradientLayer()
+        layer.frame = bgView.bounds
+        layer.colors = colors
+        layer.startPoint = CGPoint(x: 0, y: 0)
+        layer.endPoint = CGPoint(x: 1, y: 0)
+        bgView.layer.addSublayer(layer)
+        return bgView
+    }
+    
+}
+
+
+
+protocol WisdomHUDProtocol{
+    
+    func addToWindow()
+    
+    func keepTime()
+    
+    func animateEnd()
+}
+
+
+
 class WisdomLayerView: UIView {
     
     fileprivate let HUD_CornerRadius: CGFloat = 10.0
@@ -418,10 +467,10 @@ extension WisdomLayerView {
 }
 
 
-extension WisdomLayerView {
+extension WisdomLayerView: WisdomHUDProtocol {
     
     /* 展示 */
-    private func addToWindow() {
+    func addToWindow() {
         let window = WisdomHUD.getScreenWindow()
         
         if window != nil {
@@ -487,7 +536,7 @@ extension WisdomLayerView {
     
     
     /* 计时移除 */
-    private func keepTime() {
+    func keepTime() {
         func setAlpha() {
             self.alpha = 0
             self.superview?.alpha = 0
@@ -504,7 +553,7 @@ extension WisdomLayerView {
     }
     
     
-    private func animateEnd() {
+    func animateEnd() {
         delayHandler?(self.delay, self.type)
         
         let window = WisdomHUD.getScreenWindow()
@@ -517,8 +566,3 @@ extension WisdomLayerView {
     }
 }
 
-
-class WisdomLayerCoverView: UIView {
-    
-    
-}

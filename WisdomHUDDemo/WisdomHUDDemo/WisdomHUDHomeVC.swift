@@ -77,4 +77,17 @@ class WisdomHUDHomeVC: UIViewController {
         
         WisdomHUD.showTextRoot(text: "锄禾日当午汗滴禾下土")
     }
+    
+    
+    
+    @IBAction func actionButtonClick(_ sender: Any) {
+   
+        WisdomHUD.showAction(title: "锄禾日提示",
+                             infoText: "锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土",
+                             tailText: "一定要节约？",
+                             actionList: ["再想想","我知道了"],
+                             themeStyle: WisdomActionThemeStyle.golden) { actionText, index in
+            
+        }
+    }
 }

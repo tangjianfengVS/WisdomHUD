@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -121,11 +121,29 @@
                         <action selector="errorButtonClick:" destination="-1" eventType="touchUpInside" id="j38-9F-TvK"/>
                     </connections>
                 </button>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sp8-oj-22h">
+                    <rect key="frame" x="153.5" y="576" width="68" height="35"/>
+                    <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
+                    <state key="normal" title="Action">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="actionButtonClick:" destination="-1" eventType="touchUpInside" id="riS-KI-vw0"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="sp8-oj-22h" firstAttribute="width" secondItem="IYW-7p-JLh" secondAttribute="width" id="2DX-1g-0kf"/>
                 <constraint firstItem="fJx-gd-AWi" firstAttribute="centerX" secondItem="viO-XJ-Hl2" secondAttribute="centerX" id="4Ok-1B-bIO"/>
                 <constraint firstItem="qTr-6d-Vq4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6Jk-2w-uSm"/>
+                <constraint firstItem="sp8-oj-22h" firstAttribute="height" secondItem="IYW-7p-JLh" secondAttribute="height" id="B0H-5e-PbH"/>
                 <constraint firstItem="z9m-iw-Mwa" firstAttribute="top" secondItem="viO-XJ-Hl2" secondAttribute="bottom" constant="30" id="Hou-mm-qPX"/>
                 <constraint firstAttribute="bottom" secondItem="qTr-6d-Vq4" secondAttribute="bottom" id="OGe-G1-Xah"/>
                 <constraint firstItem="uGi-bX-u9R" firstAttribute="top" secondItem="nQ0-qd-Lv9" secondAttribute="bottom" constant="30" id="Obf-Ys-qpU"/>
@@ -146,9 +164,11 @@
                 <constraint firstItem="z9m-iw-Mwa" firstAttribute="width" secondItem="viO-XJ-Hl2" secondAttribute="width" id="huu-TT-rRM"/>
                 <constraint firstItem="IYW-7p-JLh" firstAttribute="top" secondItem="z9m-iw-Mwa" secondAttribute="bottom" constant="30" id="i2N-Yk-3Bw"/>
                 <constraint firstItem="IYW-7p-JLh" firstAttribute="centerX" secondItem="z9m-iw-Mwa" secondAttribute="centerX" id="lDb-iz-HSY"/>
+                <constraint firstItem="sp8-oj-22h" firstAttribute="centerX" secondItem="IYW-7p-JLh" secondAttribute="centerX" id="lL7-TK-ssA"/>
                 <constraint firstItem="qTr-6d-Vq4" firstAttribute="centerX" secondItem="viO-XJ-Hl2" secondAttribute="centerX" id="nct-UA-ZMS"/>
                 <constraint firstItem="z9m-iw-Mwa" firstAttribute="centerX" secondItem="viO-XJ-Hl2" secondAttribute="centerX" id="s1f-h5-EG9"/>
                 <constraint firstItem="viO-XJ-Hl2" firstAttribute="top" secondItem="fJx-gd-AWi" secondAttribute="bottom" constant="30" id="uue-qJ-jfA"/>
+                <constraint firstItem="sp8-oj-22h" firstAttribute="top" secondItem="IYW-7p-JLh" secondAttribute="bottom" constant="30" id="wPF-aQ-imc"/>
                 <constraint firstItem="fJx-gd-AWi" firstAttribute="height" secondItem="viO-XJ-Hl2" secondAttribute="height" id="xUr-wK-Au0"/>
             </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="147.97601199400302"/>

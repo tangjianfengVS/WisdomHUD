@@ -28,7 +28,7 @@ import UIKit
 }
 
 
-/* HUD  Loading类型 */
+/* HUD Loading类型 */
 @objc public enum WisdomLoadingStyle: NSInteger {
     case system=0   // 系统的菊花
     case rotate     // 经典的旋圈
@@ -36,6 +36,20 @@ import UIKit
 }
 
 
+/* HUD Action主题类型 */
+@objc public enum WisdomActionThemeStyle: NSInteger {
+    case snowWhite=0   // 雪白
+    case blue          // 品蓝
+    case golden        // 亮金
+    case red           // 品红
+}
+
+
+
 let HUD_ImageWidth_Height: CGFloat = 28
 
 let WisdomHUDWindowTag: NSInteger = 901018
+
+
+// MARK: Height or Width -> iPhone 6, iPhone 7, iPhone 8 及以下为小屏
+public let IsSmallScreen: Bool = WisdomLayerCoverView.isSmallScreen()

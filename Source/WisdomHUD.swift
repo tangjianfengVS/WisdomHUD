@@ -8,31 +8,33 @@
 
 import UIKit
 
-/* WisdomHUD 全局 遮罩颜色类型 */
+
+// MARK: - WisdomHUD 全局 遮罩颜色类型
 public private(set) var wisdomCoverBarStyle: WisdomCoverBarStyle = .dark
 
-/* WisdomHUD 全局 显示时长 */
+// MARK: - WisdomHUD 全局 显示时长
 public private(set) var wisdomDelayTimes: TimeInterval = 2.0
 
-/* WisdomHUD 全局 Loading类型 */
+// MARK: - WisdomHUD 全局 Loading类型
 public private(set) var wisdomLoadingStyle: WisdomLoadingStyle = .rotate
+
 
 
 @objc public class WisdomHUD: NSObject {
     
-    /* 更新 WisdomHUD 全局 遮罩颜色类型 */
+    // MARK: - 更新 WisdomHUD 全局 遮罩颜色类型
     @objc public static func setCoverBarStyle(coverBarStyle: WisdomCoverBarStyle) {
         wisdomCoverBarStyle = coverBarStyle
     }
     
     
-    /* 更新 WisdomHUD 全局 显示时长 */
+    // MARK: - WisdomHUD 全局 显示时长
     @objc public static func setHUDDelayTime(delayTimes: CGFloat) {
         wisdomDelayTimes = TimeInterval.init(delayTimes)
     }
     
     
-    /* 更新 WisdomHUD 全局 Loading类型 */
+    // MARK: - 更新 WisdomHUD 全局 Loading类型
     @objc public static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
         wisdomLoadingStyle = loadingStyle
     }
@@ -41,7 +43,7 @@ public private(set) var wisdomLoadingStyle: WisdomLoadingStyle = .rotate
 
 extension WisdomHUD {
     
-    /* ------------------------- Success ------------------------- */
+    // MARK: --------------- Success ---------------
 
     /*  WisdomHUD Success */
     @objc public static func showSuccess(text: String?=nil) {
@@ -68,7 +70,7 @@ extension WisdomHUD {
     }
     
     
-    /* ------------------------- Error ------------------------- */
+    // MARK: --------------- Error ---------------
     
     /*  WisdomHUD Error */
     @objc public static func showError(text: String?=nil) {
@@ -96,7 +98,7 @@ extension WisdomHUD {
     }
     
     
-    /* ------------------------- Warning ------------------------- */
+    // MARK: --------------- Warning ---------------
     
     /*  WisdomHUD Warning */
     @objc public static func showWarning(text: String?=nil) {
@@ -124,7 +126,7 @@ extension WisdomHUD {
     }
     
     
-    /* ------------------------- Loading ------------------------- */
+    // MARK: --------------- Loading ---------------
     
     /*  WisdomHUD Loading */
     @objc public static func showLoading(text: String?=nil) {
@@ -150,7 +152,7 @@ extension WisdomHUD {
     }
     
 
-    /* ------------------------- Text ------------------------- */
+    // MARK: --------------- Text ---------------
     
     /*  WisdomHUD Text */
     @objc public static func showText(text: String?=nil) {
@@ -178,7 +180,7 @@ extension WisdomHUD {
     }
     
     
-    /* ------------------------- TextRoot ------------------------- */
+    // MARK: --------------- TextRoot ---------------
     
     /*  WisdomHUD TextRoot */
     @objc public static func showTextRoot(text: String?=nil) {
@@ -204,9 +206,66 @@ extension WisdomHUD {
                                      barStyle: barStyle,
                                      delayHandler: delayHandler)
     }
+    
+    
+    // MARK: --------------- Action ---------------
+    
+    /*  WisdomHUD ActionView
+     *  title:
+     *  infoText:
+     *  tailText:
+     *  actionList:
+     *  themeStyle:
+     *  actionHandler:
+     */
+    @objc public static func showAction(title: String,
+                                        infoText: String,
+                                        tailText: String,
+                                        actionList: [String],
+                                        themeStyle: WisdomActionThemeStyle=WisdomActionThemeStyle.snowWhite,
+                                        actionHandler: @escaping (String, NSInteger)->()) {
+        WisdomActionView.showAction(title: title,
+                                    infoText: infoText,
+                                    tailText: tailText,
+                                    actionList: actionList,
+                                    themeStyle: themeStyle,
+                                    actionHandler: actionHandler)
+    }
+    
+    
+    /*  WisdomHUD ActionView
+     *  text:      文字
+     *  textColor: 文字颜色
+     *  delay:     持续时间
+     *  barStyle:  HUD样式
+     *  delayHandler:  HUD延迟结束回调
+     */
+//    @objc public static func showAction(text: String?=nil,
+//                                        textColor: UIColor?=nil,
+//                                        delay: TimeInterval=wisdomDelayTimes,
+//                                        barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
+//                                        delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
+//        
+//    }
+    
+    
+    
+    // MARK: --------------- ColorView ---------------
+    
+    /*  WisdomHUD ColorView
+     *  text:
+     *  textColor:
+     *  delay:
+     *  barStyle:
+     *  delayHandler:
+     */
+    @objc public static func createColorView(width: CGFloat, height: CGFloat=30, color: UIColor) -> UIView{
+        
+        return WisdomLayerCoverView.createColorLayerView(width: width, height: height, color: color)
+    }
+    
 
-
-    /* 移除 HUD */
+    // MARK: - 移除 HUD
     @objc public static func dismiss() {
         DispatchQueue.main.async {
             let window = WisdomHUD.getScreenWindow()
@@ -224,7 +283,8 @@ extension WisdomHUD {
     }
     
     
-    static func getScreenWindow() -> UIWindow? {
+    // MARK: - 获取 UIApplication UIWindow
+    @objc static func getScreenWindow() -> UIWindow? {
         var screenWindow = UIApplication.shared.delegate?.window
         
         if screenWindow == nil {
