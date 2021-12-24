@@ -14,8 +14,8 @@ struct WisdomActionThemeModel {
     let themeStyle: WisdomActionThemeStyle
     
     let titleColor: UIColor   // 标题
-//    let infoClor: UIColor  // 详情
-//    let tailClor: UIColor  // 尾签
+    let infoClor: UIColor  // 详情
+    let tailClor: UIColor  // 尾签
 
     let rightBtnClor: UIColor  // 确认
     let topBarColor: UIColor   // Bar
@@ -31,23 +31,32 @@ struct WisdomActionThemeModel {
             layerColor = topBarColor
             rightBtnClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
  
+            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.8)
+            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
         case .blue:
             titleColor = UIColor.white
             topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "4169E1")
             layerColor = topBarColor
             rightBtnClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
             
+            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.8)
+            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
         case .golden:
             titleColor = UIColor.wisdom_SCHEXCOLOR(hex: "CD853F")
             topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "D9D919")
             layerColor = topBarColor
             rightBtnClor = UIColor.wisdom_SCHEXCOLOR(hex: "CD853F")
             
+            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.8)
+            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
         case .red:
             titleColor = UIColor.white
             topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "E3170D")
             layerColor = topBarColor
             rightBtnClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
+            
+            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.8)
+            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
         }
     }
 }
@@ -233,7 +242,7 @@ class WisdomActionView: UIView {
         
         infoLab.lineBreakMode = .byTruncatingTail
 
-        infoLab.textColor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E", alpha: 0.8)
+        infoLab.textColor = themeModel.infoClor
         
         infoLab.sizeToFit()
         
@@ -244,7 +253,7 @@ class WisdomActionView: UIView {
         
         tailLab.numberOfLines = 2
 
-        tailLab.textColor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
+        tailLab.textColor = themeModel.tailClor
         
         tailLab.sizeToFit()
         
