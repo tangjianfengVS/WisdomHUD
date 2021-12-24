@@ -16,7 +16,7 @@ struct WisdomActionThemeModel {
     let titleColor: UIColor   // 标题
 //    let infoClor: UIColor  // 详情
 //    let tailClor: UIColor  // 尾签
-//
+
     let rightBtnClor: UIColor  // 确认
     let topBarColor: UIColor   // Bar
     let layerColor: UIColor    // 阴影
@@ -50,11 +50,6 @@ struct WisdomActionThemeModel {
             rightBtnClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
         }
     }
-    
-//case snowWhite=0   // 雪色
-//case blue      // 蓝色
-//case golden    // 金色
-//case red       // 红色
 }
 
 
