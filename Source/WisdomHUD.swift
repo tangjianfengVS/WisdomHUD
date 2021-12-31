@@ -211,18 +211,18 @@ extension WisdomHUD {
     // MARK: --------------- Action ---------------
     
     /*  WisdomHUD ActionView
-     *  title:
-     *  infoText:
-     *  tailText:
-     *  actionList:
-     *  themeStyle:
-     *  actionHandler:
+     *  title        :   标题
+     *  infoText     :   详情
+     *  tailText     :   标签
+     *  actionList   :   选项集合
+     *  themeStyle   :   视图主题
+     *  actionHandler:   选项事件
      */
     @objc public static func showAction(title: String,
                                         infoText: String,
                                         tailText: String,
                                         actionList: [String],
-                                        themeStyle: WisdomActionThemeStyle=WisdomActionThemeStyle.snowWhite,
+                                        themeStyle: WisdomLayerThemeStyle=WisdomLayerThemeStyle.snowWhite,
                                         actionHandler: @escaping (String, NSInteger)->()) {
         WisdomActionView.showAction(title: title,
                                     infoText: infoText,
@@ -231,22 +231,6 @@ extension WisdomHUD {
                                     themeStyle: themeStyle,
                                     actionHandler: actionHandler)
     }
-    
-    
-    /*  WisdomHUD ActionView
-     *  text:      文字
-     *  textColor: 文字颜色
-     *  delay:     持续时间
-     *  barStyle:  HUD样式
-     *  delayHandler:  HUD延迟结束回调
-     */
-//    @objc public static func showAction(text: String?=nil,
-//                                        textColor: UIColor?=nil,
-//                                        delay: TimeInterval=wisdomDelayTimes,
-//                                        barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
-//                                        delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
-//        
-//    }
     
     
     

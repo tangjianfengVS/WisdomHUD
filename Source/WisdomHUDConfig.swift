@@ -37,9 +37,11 @@ import UIKit
 
 
 /* HUD Action主题类型 */
-@objc public enum WisdomActionThemeStyle: NSInteger {
-    case snowWhite=0   // 雪白
+@objc public enum WisdomLayerThemeStyle: NSInteger {
+    case yigou=0       // 透明黑
+    case snowWhite     // 雪白
     case blue          // 品蓝
+    case dodgerBlue    // 宝蓝
     case golden        // 亮金
     case red           // 品红
 }
