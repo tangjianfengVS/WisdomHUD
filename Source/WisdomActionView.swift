@@ -43,7 +43,7 @@ struct WisdomActionThemeModel {
             tailClor = UIColor.white
         case .blue:
             titleColor = UIColor.white
-            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "0000FF", alpha: 0.85)
+            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "0000FF", alpha: 0.82)
             layerColor = topBarColor
             rightBtnClor = topBarColor
             
