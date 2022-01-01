@@ -13,8 +13,17 @@ class WisdomHUDHomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        WisdomHUD.showSuccess(text: "欢迎使用 WisdomHUD SDK") { (timeInterval, wisdomHUDType) in
-            print("")
+        //WisdomHUD.showSuccess(text: "欢迎使用 WisdomHUD SDK") { (timeInterval, wisdomHUDType) in
+        //    print("")
+        //}
+        
+        
+        WisdomHUD.showAction(title: "欢迎使用提示",
+                             infoText: "欢迎使用 WisdomHUD SDK。WisdomHUD是一款提示工具，swift编写，兼容OC项目使用，提供了多样化样式！",
+                             tailText: "点击开始体验！",
+                             actionList: ["开始体验"],
+                             themeStyle: WisdomLayerThemeStyle.golden) { actionText, index in
+            
         }
     }
 
