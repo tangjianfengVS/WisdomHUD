@@ -129,7 +129,7 @@ extension String {
      *  font： 文字字号大小
      *  size： 内容大小限定
      */
-    @objc public func textSizeWithFont(font: UIFont, constrainedToSize size: CGSize) -> CGSize {
+    public func textSizeWithFont(font: UIFont, constrainedToSize size: CGSize) -> CGSize {
         var textSize:CGSize!
         if size.equalTo(CGSize.zero) {
             let attributes = NSDictionary(object: font, forKey: NSAttributedString.Key.font as NSCopying)

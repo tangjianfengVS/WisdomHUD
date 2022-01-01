@@ -22,7 +22,7 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </imageView>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQ0-qd-Lv9">
-                    <rect key="frame" x="153.5" y="186" width="68" height="35"/>
+                    <rect key="frame" x="153.5" y="121" width="68" height="35"/>
                     <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
                     <state key="normal" title="Success">
@@ -38,7 +38,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJx-gd-AWi">
-                    <rect key="frame" x="153.5" y="316" width="68" height="35"/>
+                    <rect key="frame" x="153.5" y="251" width="68" height="35"/>
                     <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="Wcx-wM-AM4"/>
@@ -58,7 +58,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="viO-XJ-Hl2">
-                    <rect key="frame" x="153.5" y="381" width="68" height="35"/>
+                    <rect key="frame" x="153.5" y="316" width="68" height="35"/>
                     <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
                     <state key="normal" title="Loading">
@@ -74,7 +74,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9m-iw-Mwa">
-                    <rect key="frame" x="153.5" y="446" width="68" height="35"/>
+                    <rect key="frame" x="153.5" y="381" width="68" height="35"/>
                     <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
                     <state key="normal" title="Text">
@@ -90,7 +90,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYW-7p-JLh">
-                    <rect key="frame" x="153.5" y="511" width="68" height="35"/>
+                    <rect key="frame" x="153.5" y="446" width="68" height="35"/>
                     <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
                     <state key="normal" title="Text 2">
@@ -106,7 +106,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGi-bX-u9R">
-                    <rect key="frame" x="153.5" y="251" width="68" height="35"/>
+                    <rect key="frame" x="153.5" y="186" width="68" height="35"/>
                     <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
                     <state key="normal" title="Error">
@@ -122,7 +122,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sp8-oj-22h">
-                    <rect key="frame" x="153.5" y="576" width="68" height="35"/>
+                    <rect key="frame" x="153.5" y="511" width="68" height="35"/>
                     <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
                     <state key="normal" title="Action">
@@ -140,6 +140,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="viO-XJ-Hl2" firstAttribute="centerY" secondItem="qTr-6d-Vq4" secondAttribute="centerY" id="29c-fm-NcZ"/>
                 <constraint firstItem="sp8-oj-22h" firstAttribute="width" secondItem="IYW-7p-JLh" secondAttribute="width" id="2DX-1g-0kf"/>
                 <constraint firstItem="fJx-gd-AWi" firstAttribute="centerX" secondItem="viO-XJ-Hl2" secondAttribute="centerX" id="4Ok-1B-bIO"/>
                 <constraint firstItem="qTr-6d-Vq4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6Jk-2w-uSm"/>
@@ -151,7 +152,6 @@
                 <constraint firstItem="fJx-gd-AWi" firstAttribute="width" secondItem="viO-XJ-Hl2" secondAttribute="width" id="Ojt-vi-sla"/>
                 <constraint firstItem="fJx-gd-AWi" firstAttribute="top" secondItem="uGi-bX-u9R" secondAttribute="bottom" constant="30" id="PaF-cE-53R"/>
                 <constraint firstItem="uGi-bX-u9R" firstAttribute="height" secondItem="fJx-gd-AWi" secondAttribute="height" id="Rc6-2q-zZw"/>
-                <constraint firstItem="fJx-gd-AWi" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="UgZ-8j-ouG"/>
                 <constraint firstItem="nQ0-qd-Lv9" firstAttribute="centerX" secondItem="viO-XJ-Hl2" secondAttribute="centerX" id="Xuj-Y8-HII"/>
                 <constraint firstItem="IYW-7p-JLh" firstAttribute="height" secondItem="z9m-iw-Mwa" secondAttribute="height" id="YGJ-Yt-CIa"/>
                 <constraint firstItem="fJx-gd-AWi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aI7-mf-adT"/>
