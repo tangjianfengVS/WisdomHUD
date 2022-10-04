@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WisdomHUD"
-  s.version      = "0.2.0"
+  s.version      = "0.2.1"
   s.summary      = "A simple iOS interface to display reminders"
   s.description  = "A simple iOS interface display prompt, help to develop and implement various data state tracking display and loading tasks"
 
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
 
   s.author             = { "tangjianfeng" => "497609288@qq.com" }
   s.platform     = :ios, "9.0"
-  s.swift_version= '4.2'
+  s.swift_version= '5.0'
   s.ios.deployment_target = "9.0"
   # s.osx.deployment_target = "10.7"
   # s.watchos.deployment_target = "2.0"
