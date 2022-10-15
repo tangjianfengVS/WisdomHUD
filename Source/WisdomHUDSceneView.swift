@@ -14,7 +14,7 @@ struct WisdomHUDContent {
     
     let text_Font: CGFloat = 13.2
     
-    let icon_Size: CGFloat = 29
+    private(set) var icon_Size: CGFloat = 29
     
     let top_icon_space: CGFloat = 20
     
@@ -28,12 +28,16 @@ struct WisdomHUDContent {
     func getContentHeight()->CGFloat{
         return top_icon_space + icon_Size + top_text_space + bottom_text_space
     }
+    
+    mutating func updateIcon_Size(icon_Size: CGFloat){
+        self.icon_Size = icon_Size
+    }
 }
 
 
 final class WisdomHUDSceneView: UIView {
 
-    let content = WisdomHUDContent()
+    private(set) var content = WisdomHUDContent()
     
     let hudStyle: WisdomHUDStyle
     
@@ -204,6 +208,10 @@ final class WisdomHUDSceneView: UIView {
 extension WisdomHUDSceneView: WisdomHUDContentable {
     
     func setLoadingContent(text: String, loadingStyle: WisdomLoadingStyle) {
+        if loadingStyle == .chaseBall {
+            content.updateIcon_Size(icon_Size: content.icon_Size+4)
+        }
+        
         iconView.setLoadingIcon(size: content.icon_Size, loadingStyle: loadingStyle, barStyle: barStyle)
         
         iconView.wisdom_addConstraint(width: content.icon_Size, height: content.icon_Size)

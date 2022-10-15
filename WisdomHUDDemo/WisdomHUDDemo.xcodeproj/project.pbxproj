@@ -54,6 +54,7 @@
 		8176E78A28FAE53B00E33F46 /* ConstraintDirectionalInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E76528FAE53A00E33F46 /* ConstraintDirectionalInsets.swift */; };
 		8176E78B28FAE53B00E33F46 /* ConstraintLayoutSupportDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E76628FAE53A00E33F46 /* ConstraintLayoutSupportDSL.swift */; };
 		8176E78C28FAE53B00E33F46 /* ConstraintMakerRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E76728FAE53A00E33F46 /* ConstraintMakerRelatable.swift */; };
+		8176E78E28FAF34400E33F46 /* WisdomHUDImageAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E78D28FAF34400E33F46 /* WisdomHUDImageAnim.swift */; };
 		A582603C21B68174009421EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582603B21B68174009421EB /* AppDelegate.swift */; };
 		A582604321B68175009421EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A582604221B68175009421EB /* Assets.xcassets */; };
 		A582604621B68175009421EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A582604421B68175009421EB /* LaunchScreen.storyboard */; };
@@ -109,6 +110,7 @@
 		8176E76528FAE53A00E33F46 /* ConstraintDirectionalInsets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintDirectionalInsets.swift; sourceTree = "<group>"; };
 		8176E76628FAE53A00E33F46 /* ConstraintLayoutSupportDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintLayoutSupportDSL.swift; sourceTree = "<group>"; };
 		8176E76728FAE53A00E33F46 /* ConstraintMakerRelatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintMakerRelatable.swift; sourceTree = "<group>"; };
+		8176E78D28FAF34400E33F46 /* WisdomHUDImageAnim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomHUDImageAnim.swift; sourceTree = "<group>"; };
 		A582603821B68174009421EB /* WisdomHUDDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomHUDDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A582603B21B68174009421EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A582604221B68175009421EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				8176E73628FAE3A900E33F46 /* WisdomHUDSceneView.swift */,
 				8176E73428FAE3A900E33F46 /* WisdomHUDIconView.swift */,
 				8176E73228FAE3A900E33F46 /* WisdomHUDImage.swift */,
+				8176E78D28FAF34400E33F46 /* WisdomHUDImageAnim.swift */,
 				8176E73328FAE3A900E33F46 /* WisdomHUDSelectView.swift */,
 				8176E72E28FAE3A900E33F46 /* WisdomHUD+Extension.swift */,
 			);
@@ -343,6 +346,7 @@
 				8176E76B28FAE53B00E33F46 /* ConstraintDescription.swift in Sources */,
 				8176E76D28FAE53B00E33F46 /* ConstraintViewDSL.swift in Sources */,
 				8176E77D28FAE53B00E33F46 /* ConstraintConstantTarget.swift in Sources */,
+				8176E78E28FAF34400E33F46 /* WisdomHUDImageAnim.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

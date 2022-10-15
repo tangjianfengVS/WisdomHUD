@@ -63,6 +63,16 @@ extension WisdomHUDIconView: WisdomHUDSetIconable {
                            bottomView: self,
                             rightView: self,
                             edgeInset: UIEdgeInsets.zero)
+        case .chaseBall:
+            iconView = WisdomHUDChaseBallView(size: size, barStyle: barStyle)
+            addSubview(iconView!)
+            
+            wisdom_addConstraint(with: iconView!,
+                              topView: self,
+                             leftView: self,
+                           bottomView: self,
+                            rightView: self,
+                            edgeInset: UIEdgeInsets.zero)
         default: break
         }
     }

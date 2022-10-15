@@ -24,6 +24,7 @@ enum WisdomHUDStyle: CaseIterable {
     case rotate       // 经典旋圈
     case progressArc  // 缩进弧
     case tadpoleArc   // 蝌蚪弧
+    case chaseBall    // 追逐球
     //case rotateBlue // 夜空蓝
 }
 

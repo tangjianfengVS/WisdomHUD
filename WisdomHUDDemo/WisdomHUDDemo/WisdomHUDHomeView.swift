@@ -89,6 +89,10 @@ class CustomNextCell: UITableViewCell {
             nextView.infoLabel.text = "\(hudStyle.self)"+".tadpoleArc"
             
             leftView = WisdomHUDTadpoleArcView(size: 24, barStyle:.dark)
+        case .chaseBall:
+            nextView.infoLabel.text = "\(hudStyle.self)"+".chaseBall"
+            
+            leftView = WisdomHUDChaseBallView(size: 24, barStyle:.dark)
         default: break
         }
         
