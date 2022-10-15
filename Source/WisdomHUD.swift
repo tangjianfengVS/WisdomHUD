@@ -1,6 +1,6 @@
 //
 //  WisdomHUD.swift
-//  WisdomScanKitDemo
+//  WisdomHUD
 //
 //  Created by jianfeng on 2018/12/3.
 //  Copyright © 2018年 All over the sky star. All rights reserved.
@@ -9,281 +9,312 @@
 import UIKit
 
 
-// MARK: - WisdomHUD 全局 遮罩颜色类型
-public private(set) var wisdomCoverBarStyle: WisdomCoverBarStyle = .dark
-
-// MARK: - WisdomHUD 全局 显示时长
-public private(set) var wisdomDelayTimes: TimeInterval = 2.0
-
-// MARK: - WisdomHUD 全局 Loading类型
-public private(set) var wisdomLoadingStyle: WisdomLoadingStyle = .rotate
-
-
-
-@objc public class WisdomHUD: NSObject {
+@objc public final class WisdomHUD: NSObject {
     
-    // MARK: - 更新 WisdomHUD 全局 遮罩颜色类型
-    @objc public static func setCoverBarStyle(coverBarStyle: WisdomCoverBarStyle) {
-        wisdomCoverBarStyle = coverBarStyle
+    @available(*, unavailable)
+    override init() {}
+}
+
+extension WisdomHUD: WisdomHUDSettingable {
+    
+    // MARK: HUD Set Loading Style
+    @objc static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
+        WisdomHUDOperate.setLoadingStyle(loadingStyle: loadingStyle)
     }
     
-    
-    // MARK: - WisdomHUD 全局 显示时长
-    @objc public static func setHUDDelayTime(delayTimes: CGFloat) {
-        wisdomDelayTimes = TimeInterval.init(delayTimes)
+    // MARK: HUD Set Scene Bar Style
+    @objc static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
+        WisdomHUDOperate.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
     }
     
+    // MARK: HUD Set Text Place Style
+    @objc static func setTextPlaceStyle(textStyle: WisdomTextPlaceStyle) {
+        WisdomHUDOperate.setTextPlaceStyle(textStyle: textStyle)
+    }
     
-    // MARK: - 更新 WisdomHUD 全局 Loading类型
-    @objc public static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
-        wisdomLoadingStyle = loadingStyle
+    // MARK: HUD Set Display Delay
+    @objc static func setDisplayDelay(delayTime: CGFloat) {
+        WisdomHUDOperate.setDisplayDelay(delayTime: delayTime)
+    }
+    
+    // MARK: HUD Set Cover BackgColor
+    @objc static func setCoverBackgColor(backgColor: UIColor) {
+        WisdomHUDOperate.setCoverBackgColor(backgColor: backgColor)
     }
 }
 
-
-extension WisdomHUD {
+extension WisdomHUD: WisdomHUDGlobalable {
     
-    // MARK: --------------- Success ---------------
-
-    /*  WisdomHUD Success */
-    @objc public static func showSuccess(text: String?=nil) {
-        WisdomHUD.showSuccess(text: text, delay: wisdomDelayTimes)
-    }
-    
-    
-    /*  WisdomHUD Success
-     *  text:      文字
-     *  delay:     持续时间
-     *  barStyle:  HUD样式
-     *  delayHandler:  HUD延迟结束回调
-     */
-    @objc public static func showSuccess(text: String?=nil,
-                                         textColor: UIColor?=nil,
-                                         delay: TimeInterval=wisdomDelayTimes,
-                                         barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
-                                         delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
-        WisdomLayerView.showSuccess(text: text,
-                                    textColor: textColor,
-                                    delay: delay,
-                                    barStyle: barStyle,
-                                    delayHandler: delayHandler)
-    }
-    
-    
-    // MARK: --------------- Error ---------------
-    
-    /*  WisdomHUD Error */
-    @objc public static func showError(text: String?=nil) {
-        WisdomHUD.showError(text: text, delay: wisdomDelayTimes)
-    }
-    
-    
-    /*  WisdomHUD Error
-     *  text:      文字
-     *  textColor: 文字颜色
-     *  delay:     持续时间
-     *  barStyle:  HUD样式
-     *  delayHandler:  HUD延迟结束回调
-     */
-    @objc public static func showError(text: String?=nil,
-                                       textColor: UIColor?=nil,
-                                       delay: TimeInterval=wisdomDelayTimes,
-                                       barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
-                                       delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
-        WisdomLayerView.showError(text: text,
-                                  textColor: textColor,
-                                  delay: delay,
-                                  barStyle: barStyle,
-                                  delayHandler: delayHandler)
-    }
-    
-    
-    // MARK: --------------- Warning ---------------
-    
-    /*  WisdomHUD Warning */
-    @objc public static func showWarning(text: String?=nil) {
-        WisdomHUD.showWarning(text: text, delay: wisdomDelayTimes)
-    }
-    
-    
-    /*  WisdomHUD Warning
-     *  text:      文字
-     *  textColor: 文字颜色
-     *  delay:     持续时间
-     *  barStyle:  HUD样式
-     *  delayHandler:  HUD延迟结束回调
-     */
-    @objc public static func showWarning(text: String?=nil,
-                                         textColor: UIColor?=nil,
-                                         delay: TimeInterval=wisdomDelayTimes,
-                                         barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
-                                         delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
-        WisdomLayerView.showWarning(text: text,
-                                    textColor: textColor,
-                                    delay: delay,
-                                    barStyle: barStyle,
-                                    delayHandler: delayHandler)
-    }
-    
-    
-    // MARK: --------------- Loading ---------------
-    
-    /*  WisdomHUD Loading */
-    @objc public static func showLoading(text: String?=nil) {
-        WisdomHUD.showLoading(text: text, loadingStyle: wisdomLoadingStyle)
-    }
-    
-    
-    /*  WisdomHUD Loading
-     *  text:      文字
-     *  textColor: 文字颜色
-     *  delay:     持续时间
-     *  barStyle:  HUD样式
-     *  loadingStyle: 加载样式
-     */
-    @objc public static func showLoading(text: String?=nil,
-                                         textColor: UIColor?=nil,
-                                         barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
-                                         loadingStyle: WisdomLoadingStyle=wisdomLoadingStyle) {
-        WisdomLayerView.showLoading(text: text,
-                                    textColor: textColor,
-                                    barStyle: barStyle,
-                                    loadingStyle: loadingStyle)
-    }
-    
-
-    // MARK: --------------- Text ---------------
-    
-    /*  WisdomHUD Text */
-    @objc public static func showText(text: String?=nil) {
-        WisdomHUD.showText(text: text, delay: wisdomDelayTimes)
-    }
-    
-    
-    /*  WisdomHUD Text
-     *  text:      文字
-     *  textColor: 文字颜色
-     *  delay:     持续时间
-     *  barStyle:  HUD样式
-     *  delayHandler:  HUD延迟结束回调
-     */
-    @objc public static func showText(text: String?=nil,
-                                      textColor: UIColor?=nil,
-                                      delay: TimeInterval=wisdomDelayTimes,
-                                      barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
-                                      delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
-        WisdomLayerView.showText(text: text,
-                                 textColor: textColor,
-                                 delay: delay,
-                                 barStyle: barStyle,
-                                 delayHandler: delayHandler)
-    }
-    
-    
-    // MARK: --------------- TextRoot ---------------
-    
-    /*  WisdomHUD TextRoot */
-    @objc public static func showTextRoot(text: String?=nil) {
-        WisdomHUD.showTextRoot(text: text, delay: wisdomDelayTimes)
-    }
-    
-    
-    /*  WisdomHUD TextRoot
-     *  text:      文字
-     *  textColor: 文字颜色
-     *  delay:     持续时间
-     *  barStyle:  HUD样式
-     *  delayHandler:  HUD延迟结束回调
-     */
-    @objc public static func showTextRoot(text: String?=nil,
-                                          textColor: UIColor?=nil,
-                                          delay: TimeInterval=wisdomDelayTimes,
-                                          barStyle: WisdomCoverBarStyle=wisdomCoverBarStyle,
-                                          delayHandler: ((TimeInterval, WisdomHUDType)->())?=nil) {
-        WisdomLayerView.showTextRoot(text: text,
-                                     textColor: textColor,
-                                     delay: delay,
-                                     barStyle: barStyle,
-                                     delayHandler: delayHandler)
-    }
-    
-    
-    // MARK: --------------- Action ---------------
-    
-    /*  WisdomHUD ActionView
-     *  title        :   标题
-     *  infoText     :   详情
-     *  tailText     :   标签
-     *  actionList   :   选项集合
-     *  themeStyle   :   视图主题
-     *  actionHandler:   选项事件
-     */
-    @objc public static func showAction(title: String,
-                                        infoText: String,
-                                        tailText: String,
-                                        actionList: [String],
-                                        themeStyle: WisdomLayerThemeStyle=WisdomLayerThemeStyle.snowWhite,
-                                        actionHandler: @escaping (String, NSInteger)->()) {
-        WisdomActionView.showAction(title: title,
-                                    infoText: infoText,
-                                    tailText: tailText,
-                                    actionList: actionList,
-                                    themeStyle: themeStyle,
-                                    actionHandler: actionHandler)
-    }
-    
-    
-    
-    // MARK: --------------- ColorView ---------------
-    
-    /*  WisdomHUD ColorView
-     *  text:
-     *  textColor:
-     *  delay:
-     *  barStyle:
-     *  delayHandler:
-     */
-    @objc public static func createColorView(width: CGFloat, height: CGFloat=30, color: UIColor) -> UIView{
-        
-        return WisdomLayerCoverView.createColorLayerView(width: width, height: height, color: color)
-    }
-    
-
-    // MARK: - 移除 HUD
+    // MARK: HUD dismiss
     @objc public static func dismiss() {
-        DispatchQueue.main.async {
-            let window = WisdomHUD.getScreenWindow()
-            let currentView = window?.viewWithTag(WisdomHUDWindowTag)
-            
-            if let hudCoverVI = currentView as? WisdomLayerCoverView {
-                // 添加动画，会影响
-                //UIView.animate(withDuration: 0.40, animations: {
-                //    hudCoverVI.alpha = 0
-                //}) { _ in
-                hudCoverVI.removeFromSuperview()
-                //}
-            }
-        }
+        WisdomHUDOperate.dismiss()
     }
     
-    
-    // MARK: - 获取 UIApplication UIWindow
-    @objc static func getScreenWindow() -> UIWindow? {
-        var screenWindow = UIApplication.shared.delegate?.window
-        
-        if screenWindow == nil {
-            screenWindow = UIApplication.shared.keyWindow
-            
-            if screenWindow == nil {
-                for currentWindow in UIApplication.shared.windows {
-                    if type(of: currentWindow) == UIWindow.self {
-                        screenWindow = currentWindow
-                        break
-                    }
-                }
-            }
-        }
-        return screenWindow ?? nil
+    // MARK: Get UIApplication UIWindow
+    @objc public static func getScreenWindow() -> UIWindow? {
+        return WisdomHUDOperate.getScreenWindow()
     }
+    
+    // MARK: Small Screen For Example: iPhone 8, iPhone 7, iPhone 6 and the following
+    static func isSmallScreen() -> Bool {
+        return WisdomHUDOperate.isSmallScreen()
+    }
+}
 
+extension WisdomHUD: WisdomHUDLoadingable {
+    
+    // MARK: Show Loading with: String
+    @objc public static func showLoading(text: String) {
+        WisdomHUDOperate.showLoading(text: text)
+    }
+    
+    // MARK: Show Loading with: String - UIView?
+    @objc public static func showLoading(text: String, inSupView: UIView?) {
+        WisdomHUDOperate.showLoading(text: text, inSupView: inSupView)
+    }
+    
+    // MARK: Show Loading with: String - WisdomSceneBarStyle
+    @objc public static func showLoading(text: String, barStyle: WisdomSceneBarStyle) {
+        WisdomHUDOperate.showLoading(text: text, barStyle: barStyle)
+    }
+    
+    // MARK: Show Loading with: String - WisdomLoadingStyle
+    @objc public static func showLoading(text: String, loadingStyle: WisdomLoadingStyle) {
+        WisdomHUDOperate.showLoading(text: text, loadingStyle: loadingStyle)
+    }
+    
+    // MARK: Show Loading with: String - WisdomLoadingStyle - WisdomSceneBarStyle
+    @objc public static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle) {
+        WisdomHUDOperate.showLoading(text: text, loadingStyle: loadingStyle, barStyle: barStyle)
+    }
+    
+    // MARK: Show Loading with: String - WisdomLoadingStyle - UIView?
+    @objc public static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, inSupView: UIView?) {
+        WisdomHUDOperate.showLoading(text: text, loadingStyle: loadingStyle, inSupView: inSupView)
+    }
+    
+    // MARK: Show Loading with: String - WisdomSceneBarStyle - UIView?
+    @objc public static func showLoading(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+        WisdomHUDOperate.showLoading(text: text, barStyle: barStyle, inSupView: inSupView)
+    }
+    
+    // MARK: Show Loading with: String - WisdomLoadingStyle - WisdomSceneBarStyle - UIView?
+    @objc public static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+        WisdomHUDOperate.showLoading(text: text, loadingStyle: loadingStyle, barStyle: barStyle, inSupView: inSupView)
+    }
+}
+
+extension WisdomHUD: WisdomHUDSuccessable {
+    
+    // MARK: Show Success with: String
+    @objc public static func showSuccess(text: String) {
+        WisdomHUDOperate.showSuccess(text: text)
+    }
+    
+    // MARK: Show Success with: String - UIView?
+    @objc public static func showSuccess(text: String, inSupView: UIView?) {
+        WisdomHUDOperate.showSuccess(text: text, inSupView: inSupView)
+    }
+    
+    // MARK: Show Success with: String - WisdomSceneBarStyle
+    @objc public static func showSuccess(text: String, barStyle: WisdomSceneBarStyle) {
+        WisdomHUDOperate.showSuccess(text: text, barStyle: barStyle)
+    }
+    
+    // MARK: Show Success with: String - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showSuccess(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showSuccess(text: text, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Success with: String - WisdomSceneBarStyle - UIView?
+    @objc public static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+        WisdomHUDOperate.showSuccess(text: text, barStyle: barStyle, inSupView: inSupView)
+    }
+    
+    // MARK: Show Success with: String - UIView? -TimeInterval - ((TimeInterval)->())? -
+    @objc public static func showSuccess(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showSuccess(text: text, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Success with: String - WisdomSceneBarStyle - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
+        WisdomHUDOperate.showSuccess(text: text, barStyle: barStyle, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Success with: String - WisdomSceneBarStyle - UIView? - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showSuccess(text: text, barStyle: barStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
+}
+
+extension WisdomHUD: WisdomHUDErrorable {
+    
+    // MARK: Show Error with: String
+    @objc public static func showError(text: String) {
+        WisdomHUDOperate.showError(text: text)
+    }
+    
+    // MARK: Show Error with: String - UIView?
+    @objc public static func showError(text: String, inSupView: UIView?) {
+        WisdomHUDOperate.showError(text: text, inSupView: inSupView)
+    }
+    
+    // MARK: Show Error with: String - WisdomSceneBarStyle
+    @objc public static func showError(text: String, barStyle: WisdomSceneBarStyle) {
+        WisdomHUDOperate.showError(text: text, barStyle: barStyle)
+    }
+    
+    // MARK: Show Error with: String - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showError(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showError(text: text, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Error with: String - WisdomSceneBarStyle - UIView?
+    @objc public static func showError(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+        WisdomHUDOperate.showError(text: text, barStyle: barStyle, inSupView: inSupView)
+    }
+    
+    // MARK: Show Error with: String - UIView? -TimeInterval - ((TimeInterval)->())? -
+    @objc public static func showError(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showError(text: text, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Error with: String - WisdomSceneBarStyle - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showError(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
+        WisdomHUDOperate.showError(text: text, barStyle: barStyle, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Error with: String - WisdomSceneBarStyle - UIView? - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showError(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showError(text: text, barStyle: barStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
+}
+
+extension WisdomHUD: WisdomHUDWarningable {
+    
+    // MARK: Show Warning with: String
+    @objc public static func showWarning(text: String) {
+        WisdomHUDOperate.showWarning(text: text)
+    }
+    
+    // MARK: Show Warning with: String - UIView?
+    @objc public static func showWarning(text: String, inSupView: UIView?) {
+        WisdomHUDOperate.showWarning(text: text, inSupView: inSupView)
+    }
+    
+    // MARK: Show Warning with: String - WisdomSceneBarStyle
+    @objc public static func showWarning(text: String, barStyle: WisdomSceneBarStyle) {
+        WisdomHUDOperate.showWarning(text: text, barStyle: barStyle)
+    }
+    
+    // MARK: Show Warning with: String - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showWarning(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showWarning(text: text, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Warning with: String - WisdomSceneBarStyle - UIView?
+    @objc public static func showWarning(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+        WisdomHUDOperate.showWarning(text: text, barStyle: barStyle, inSupView: inSupView)
+    }
+    
+    // MARK: Show Warning with: String - UIView? -TimeInterval - ((TimeInterval)->())? -
+    @objc public static func showWarning(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showWarning(text: text, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Warning with: String - WisdomSceneBarStyle - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showWarning(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
+        WisdomHUDOperate.showWarning(text: text, barStyle: barStyle, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Warning with: String - WisdomSceneBarStyle - UIView? - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showWarning(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showWarning(text: text, barStyle: barStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
+}
+
+extension WisdomHUD: WisdomHUDTextCenterable {
+    
+    // MARK: Show Text Center with: String
+    @objc public static func showTextCenter(text: String) {
+        WisdomHUDOperate.showTextCenter(text: text)
+    }
+    
+    // MARK: Show Text Center with: String - UIView?
+    @objc public static func showTextCenter(text: String, inSupView: UIView?) {
+        WisdomHUDOperate.showTextCenter(text: text, inSupView: inSupView)
+    }
+    
+    // MARK: Show Text Center with: String - WisdomSceneBarStyle
+    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle) {
+        WisdomHUDOperate.showTextCenter(text: text, barStyle: barStyle)
+    }
+    
+    // MARK: Show Text Center with: String - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showTextCenter(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showTextCenter(text: text, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Text Center with: String - WisdomSceneBarStyle - UIView?
+    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+        WisdomHUDOperate.showTextCenter(text: text, barStyle: barStyle, inSupView: inSupView)
+    }
+    
+    // MARK: Show Text Center with: String - UIView? -TimeInterval - ((TimeInterval)->())? -
+    @objc public static func showTextCenter(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showTextCenter(text: text, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Text Center with: String - WisdomSceneBarStyle - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
+        WisdomHUDOperate.showTextCenter(text: text, barStyle: barStyle, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Text Center with: String - WisdomSceneBarStyle - UIView? - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showTextCenter(text: text, barStyle: barStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
+}
+
+extension WisdomHUD: WisdomHUDTextBottomable {
+    
+    // MARK: Show Text Bottom with: String
+    @objc public static func showTextBottom(text: String) {
+        WisdomHUDOperate.showTextBottom(text: text)
+    }
+    
+    // MARK: Show Text Bottom with: String - UIView?
+    @objc public static func showTextBottom(text: String, inSupView: UIView?) {
+        WisdomHUDOperate.showTextBottom(text: text, inSupView: inSupView)
+    }
+    
+    // MARK: Show Text Bottom with: String - WisdomSceneBarStyle
+    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle) {
+        WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle)
+    }
+    
+    // MARK: Show Text Bottom with: String - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showTextBottom(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showTextBottom(text: text, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Text Bottom with: String - WisdomSceneBarStyle - UIView?
+    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+        WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle, inSupView: inSupView)
+    }
+    
+    // MARK: Show Text Bottom with: String - UIView? -TimeInterval - ((TimeInterval)->())? -
+    @objc public static func showTextBottom(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showTextBottom(text: text, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Text Bottom with: String - WisdomSceneBarStyle - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
+        WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle, delays: delays, delayClosure: delayClosure)
+    }
+    
+    // MARK: Show Text Bottom with: String - WisdomSceneBarStyle - UIView? - TimeInterval - ((TimeInterval)->())?
+    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+        WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,161 +16,7 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qTr-6d-Vq4">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                </imageView>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nQ0-qd-Lv9">
-                    <rect key="frame" x="153.5" y="121" width="68" height="35"/>
-                    <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
-                    <state key="normal" title="Success">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="successButtonClick:" destination="-1" eventType="touchUpInside" id="JyH-Lr-F45"/>
-                    </connections>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJx-gd-AWi">
-                    <rect key="frame" x="153.5" y="251" width="68" height="35"/>
-                    <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="35" id="Wcx-wM-AM4"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="68" id="v82-rI-UAM"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
-                    <state key="normal" title="Warning">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="infoButtonClick:" destination="-1" eventType="touchUpInside" id="uZj-9V-wnP"/>
-                    </connections>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="viO-XJ-Hl2">
-                    <rect key="frame" x="153.5" y="316" width="68" height="35"/>
-                    <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
-                    <state key="normal" title="Loading">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="loadingButtonClick:" destination="-1" eventType="touchUpInside" id="kJD-Ln-Xhf"/>
-                    </connections>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z9m-iw-Mwa">
-                    <rect key="frame" x="153.5" y="381" width="68" height="35"/>
-                    <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
-                    <state key="normal" title="Text">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="textButtonClick:" destination="-1" eventType="touchUpInside" id="whs-cm-U9c"/>
-                    </connections>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYW-7p-JLh">
-                    <rect key="frame" x="153.5" y="446" width="68" height="35"/>
-                    <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
-                    <state key="normal" title="Text 2">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="text2ButtonClick:" destination="-1" eventType="touchUpInside" id="zOf-Ba-XvK"/>
-                    </connections>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uGi-bX-u9R">
-                    <rect key="frame" x="153.5" y="186" width="68" height="35"/>
-                    <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
-                    <state key="normal" title="Error">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="errorButtonClick:" destination="-1" eventType="touchUpInside" id="j38-9F-TvK"/>
-                    </connections>
-                </button>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sp8-oj-22h">
-                    <rect key="frame" x="153.5" y="511" width="68" height="35"/>
-                    <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" name="HoeflerText-Regular" family="Hoefler Text" pointSize="17"/>
-                    <state key="normal" title="Action">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="actionButtonClick:" destination="-1" eventType="touchUpInside" id="riS-KI-vw0"/>
-                    </connections>
-                </button>
-            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-            <constraints>
-                <constraint firstItem="viO-XJ-Hl2" firstAttribute="centerY" secondItem="qTr-6d-Vq4" secondAttribute="centerY" id="29c-fm-NcZ"/>
-                <constraint firstItem="sp8-oj-22h" firstAttribute="width" secondItem="IYW-7p-JLh" secondAttribute="width" id="2DX-1g-0kf"/>
-                <constraint firstItem="fJx-gd-AWi" firstAttribute="centerX" secondItem="viO-XJ-Hl2" secondAttribute="centerX" id="4Ok-1B-bIO"/>
-                <constraint firstItem="qTr-6d-Vq4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6Jk-2w-uSm"/>
-                <constraint firstItem="sp8-oj-22h" firstAttribute="height" secondItem="IYW-7p-JLh" secondAttribute="height" id="B0H-5e-PbH"/>
-                <constraint firstItem="z9m-iw-Mwa" firstAttribute="top" secondItem="viO-XJ-Hl2" secondAttribute="bottom" constant="30" id="Hou-mm-qPX"/>
-                <constraint firstAttribute="bottom" secondItem="qTr-6d-Vq4" secondAttribute="bottom" id="OGe-G1-Xah"/>
-                <constraint firstItem="uGi-bX-u9R" firstAttribute="top" secondItem="nQ0-qd-Lv9" secondAttribute="bottom" constant="30" id="Obf-Ys-qpU"/>
-                <constraint firstItem="z9m-iw-Mwa" firstAttribute="height" secondItem="viO-XJ-Hl2" secondAttribute="height" id="Ohw-cy-uuT"/>
-                <constraint firstItem="fJx-gd-AWi" firstAttribute="width" secondItem="viO-XJ-Hl2" secondAttribute="width" id="Ojt-vi-sla"/>
-                <constraint firstItem="fJx-gd-AWi" firstAttribute="top" secondItem="uGi-bX-u9R" secondAttribute="bottom" constant="30" id="PaF-cE-53R"/>
-                <constraint firstItem="uGi-bX-u9R" firstAttribute="height" secondItem="fJx-gd-AWi" secondAttribute="height" id="Rc6-2q-zZw"/>
-                <constraint firstItem="nQ0-qd-Lv9" firstAttribute="centerX" secondItem="viO-XJ-Hl2" secondAttribute="centerX" id="Xuj-Y8-HII"/>
-                <constraint firstItem="IYW-7p-JLh" firstAttribute="height" secondItem="z9m-iw-Mwa" secondAttribute="height" id="YGJ-Yt-CIa"/>
-                <constraint firstItem="fJx-gd-AWi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aI7-mf-adT"/>
-                <constraint firstItem="uGi-bX-u9R" firstAttribute="width" secondItem="fJx-gd-AWi" secondAttribute="width" id="b6t-GY-aoN"/>
-                <constraint firstItem="IYW-7p-JLh" firstAttribute="width" secondItem="z9m-iw-Mwa" secondAttribute="width" id="cqs-bs-fYa"/>
-                <constraint firstItem="nQ0-qd-Lv9" firstAttribute="width" secondItem="viO-XJ-Hl2" secondAttribute="width" id="flv-aZ-MXP"/>
-                <constraint firstItem="nQ0-qd-Lv9" firstAttribute="height" secondItem="viO-XJ-Hl2" secondAttribute="height" id="frL-bd-OdN"/>
-                <constraint firstItem="uGi-bX-u9R" firstAttribute="centerX" secondItem="fJx-gd-AWi" secondAttribute="centerX" id="gTJ-Qi-Nga"/>
-                <constraint firstAttribute="trailing" secondItem="qTr-6d-Vq4" secondAttribute="trailing" id="guu-FC-dwR"/>
-                <constraint firstItem="z9m-iw-Mwa" firstAttribute="width" secondItem="viO-XJ-Hl2" secondAttribute="width" id="huu-TT-rRM"/>
-                <constraint firstItem="IYW-7p-JLh" firstAttribute="top" secondItem="z9m-iw-Mwa" secondAttribute="bottom" constant="30" id="i2N-Yk-3Bw"/>
-                <constraint firstItem="IYW-7p-JLh" firstAttribute="centerX" secondItem="z9m-iw-Mwa" secondAttribute="centerX" id="lDb-iz-HSY"/>
-                <constraint firstItem="sp8-oj-22h" firstAttribute="centerX" secondItem="IYW-7p-JLh" secondAttribute="centerX" id="lL7-TK-ssA"/>
-                <constraint firstItem="qTr-6d-Vq4" firstAttribute="centerX" secondItem="viO-XJ-Hl2" secondAttribute="centerX" id="nct-UA-ZMS"/>
-                <constraint firstItem="z9m-iw-Mwa" firstAttribute="centerX" secondItem="viO-XJ-Hl2" secondAttribute="centerX" id="s1f-h5-EG9"/>
-                <constraint firstItem="viO-XJ-Hl2" firstAttribute="top" secondItem="fJx-gd-AWi" secondAttribute="bottom" constant="30" id="uue-qJ-jfA"/>
-                <constraint firstItem="sp8-oj-22h" firstAttribute="top" secondItem="IYW-7p-JLh" secondAttribute="bottom" constant="30" id="wPF-aQ-imc"/>
-                <constraint firstItem="fJx-gd-AWi" firstAttribute="height" secondItem="viO-XJ-Hl2" secondAttribute="height" id="xUr-wK-Au0"/>
-            </constraints>
             <point key="canvasLocation" x="138.40000000000001" y="147.97601199400302"/>
         </view>
     </objects>

@@ -1,6 +1,6 @@
 //
 //  WisdomHUD+Extension.swift
-//  WisdomScanKitDemo
+//  WisdomHUD
 //
 //  Created by jianfeng on 2018/12/4.
 //  Copyright © 2018年 All over the sky star. All rights reserved.
@@ -12,14 +12,14 @@ import UIKit
 extension UIView {
     
     // MARK: - set layout size
-    @objc public func addConstraint(width: CGFloat, height: CGFloat) {
+    @objc public func wisdom_addConstraint(width: CGFloat, height: CGFloat) {
         if width > 0 {
             addConstraint(NSLayoutConstraint(item: self,
                                              attribute: .width,
                                              relatedBy: .equal,
                                              toItem: nil,
-                                             attribute: NSLayoutConstraint.Attribute(rawValue: 0)!,
-                                             multiplier: 1,
+                                             attribute: .notAnAttribute,
+                                             multiplier: 1.0,
                                              constant: width))
         }
         if height > 0 {
@@ -27,31 +27,30 @@ extension UIView {
                                              attribute: .height,
                                              relatedBy: .equal,
                                              toItem: nil,
-                                             attribute: NSLayoutConstraint.Attribute(rawValue: 0)!,
-                                             multiplier: 1,
+                                             attribute: .notAnAttribute,
+                                             multiplier: 1.0,
                                              constant: height))
         }
     }
     
-    
     // MARK: - set layout center
-    @objc public func addConstraint(toCenterX xView:UIView?, toCenterY yView:UIView?) {
-        addConstraint(toCenterX: xView, constantx: 0, toCenterY: yView, constanty: 0)
+    @objc public func wisdom_addConstraint(toCenterX xView: UIView?, toCenterY yView: UIView?) {
+        wisdom_addConstraint(toCenterX: xView, constantx: 0, toCenterY: yView, constanty: 0)
     }
     
-    
     // MARK: - set layout center offset
-    @objc public func addConstraint(toCenterX xView:UIView?,
-                                              constantx:CGFloat,
-                                    toCenterY yView:UIView?,
-                                              constanty:CGFloat) {
+    @objc public func wisdom_addConstraint(toCenterX xView: UIView?,
+                                                 constantx: CGFloat,
+                                           toCenterY yView: UIView?,
+                                                 constanty: CGFloat) {
         if let xView = xView {
             addConstraint(NSLayoutConstraint(item: xView,
                                              attribute: .centerX,
                                              relatedBy: .equal,
                                              toItem: self,
                                              attribute: .centerX,
-                                             multiplier: 1, constant: constantx))
+                                             multiplier: 1.0,
+                                             constant: constantx))
         }
         if let yView = yView {
             addConstraint(NSLayoutConstraint(item: yView,
@@ -59,37 +58,35 @@ extension UIView {
                                              relatedBy: .equal,
                                              toItem: self,
                                              attribute: .centerY,
-                                             multiplier: 1,
+                                             multiplier: 1.0,
                                              constant: constanty))
         }
     }
     
-    
     // MARK: - set layout edage inset
-    @objc public func addConstraint(to view:UIView, edageInset:UIEdgeInsets) {
-        addConstraint(with: view,
-                      topView: self,
-                      leftView: self,
-                      bottomView: self,
-                      rightView: self,
-                      edgeInset: edageInset)
+    @objc public func wisdom_addConstraint(to view: UIView, edageInset: UIEdgeInsets) {
+        wisdom_addConstraint(with: view,
+                          topView: self,
+                         leftView: self,
+                       bottomView: self,
+                        rightView: self,
+                        edgeInset: edageInset)
     }
     
-    
     // MARK: - set layout edage inset to UIView
-    @objc public func addConstraint(with view:UIView,
-                                         topView:UIView?,
-                                         leftView:UIView?,
-                                         bottomView:UIView?,
-                                         rightView:UIView?,
-                                         edgeInset:UIEdgeInsets) {
+    @objc public func wisdom_addConstraint(with view: UIView,
+                                             topView: UIView?,
+                                            leftView: UIView?,
+                                          bottomView: UIView?,
+                                           rightView: UIView?,
+                                           edgeInset: UIEdgeInsets) {
         if let topView = topView {
             addConstraint(NSLayoutConstraint(item: view,
                                              attribute: .top,
                                              relatedBy: .equal,
                                              toItem: topView,
                                              attribute: .top,
-                                             multiplier: 1,
+                                             multiplier: 1.0,
                                              constant: edgeInset.top))
         }
         if let leftView = leftView {
@@ -98,7 +95,7 @@ extension UIView {
                                              relatedBy: .equal,
                                              toItem: leftView,
                                              attribute: .left,
-                                             multiplier: 1,
+                                             multiplier: 1.0,
                                              constant: edgeInset.left))
         }
         if let bottomView = bottomView {
@@ -107,7 +104,7 @@ extension UIView {
                                              relatedBy: .equal,
                                              toItem: bottomView,
                                              attribute: .bottom,
-                                             multiplier: 1,
+                                             multiplier: 1.0,
                                              constant: edgeInset.bottom))
         }
         if let rightView = rightView {
@@ -116,7 +113,7 @@ extension UIView {
                                              relatedBy: .equal,
                                              toItem: rightView,
                                              attribute: .right,
-                                             multiplier: 1,
+                                             multiplier: 1.0,
                                              constant: edgeInset.right))
         }
     }
@@ -129,7 +126,7 @@ extension String {
      *  font： 文字字号大小
      *  size： 内容大小限定
      */
-    public func textSizeWithFont(font: UIFont, constrainedToSize size: CGSize) -> CGSize {
+    public func wisdom_textSize(font: UIFont, constrainedToSize size: CGSize) -> CGSize {
         var textSize:CGSize!
         if size.equalTo(CGSize.zero) {
             let attributes = NSDictionary(object: font, forKey: NSAttributedString.Key.font as NSCopying)
@@ -147,14 +144,13 @@ extension String {
         }
         return textSize
     }
-    
 }
 
 
 extension UIColor {
     
     // MARK: - 颜色转码
-    @objc public static func  wisdom_SCHEXCOLOR(hex: String, alpha: CGFloat=1) -> UIColor {
+    @objc public static func wisdom_colorHex(hex: String, alpha: CGFloat=1) -> UIColor {
         let scanner = Scanner(string: hex)
         scanner.scanLocation = 0
             
@@ -168,8 +164,7 @@ extension UIColor {
         return UIColor(
                 red: CGFloat(r) / 0xff,
                 green: CGFloat(g) / 0xff,
-                blue: CGFloat(b) / 0xff, alpha: alpha
-            )
+                blue: CGFloat(b) / 0xff, alpha: alpha)
     }
-    
 }
+
