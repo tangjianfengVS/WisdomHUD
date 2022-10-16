@@ -428,3 +428,84 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
         return animation
     }
 }
+
+
+// MARK: HUD PulseBallView: WisdomLoadingStyle.pulseBall
+@objc public final class WisdomHUDPulseBallView: UIView {
+    
+    @objc public let size: CGFloat
+    
+    @objc public private(set) var ballColor: UIColor = UIColor.white
+    
+    @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
+        self.size = size
+        super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .red
+        
+        switch barStyle {
+        case .dark:
+            ballColor = UIColor.white
+        case .light:
+            ballColor = UIColor.black
+        //case .skyBlue:
+        //    circleLayer.strokeColor = UIColor.white.cgColor
+        case .hide:
+            ballColor = UIColor.white
+        }
+        
+        let circleSize = self.size/4
+
+        setUpAnimation(layer: layer, circleSize: circleSize, color: ballColor)
+    }
+    
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc public func setUpAnimation(layer: CALayer, circleSize: CGFloat, color: UIColor) {
+        let circleSpacing: CGFloat = circleSize/2
+//        let circleSize: CGFloat = (circleSize - 2 * circleSpacing) / 3
+        let x: CGFloat = (layer.bounds.size.width - circleSize) / 2
+        let y: CGFloat = (layer.bounds.size.height - circleSize) / 2
+//        let duration: CFTimeInterval = 0.75
+//        let beginTime = CACurrentMediaTime()
+//        let beginTimes: [CFTimeInterval] = [0.12, 0.24, 0.36]
+//        let timingFunction = CAMediaTimingFunction(controlPoints: 0.2, 0.68, 0.18, 1.08)
+//        let animation = CAKeyframeAnimation(keyPath: "transform.scale")
+//
+//        // Animation
+//        animation.keyTimes = [0, 0.3, 1]
+//        animation.timingFunctions = [timingFunction, timingFunction]
+//        animation.values = [1, 0.3, 1]
+//        animation.duration = duration
+//        animation.repeatCount = HUGE
+//        animation.isRemovedOnCompletion = false
+
+        // Draw circles
+        for i in 0 ..< 3 {
+//            let circle = NVActivityIndicatorShape.circle.layerWith(size: CGSize(width: circleSize, height: circleSize), color: color)
+            var path: UIBezierPath = UIBezierPath()
+            path.addArc(withCenter: CGPoint(x: circleSpacing+(circleSpacing+circleSize/2)*i, y: size/2),
+                            radius: circleSize/2,
+                        startAngle: 0,
+                          endAngle: 2*Double.pi,
+                         clockwise: false)
+            
+            let circle: CAShapeLayer = CAShapeLayer()
+            circle.fillColor = color.cgColor
+            circle.path = path.cgPath
+            
+//            let frame = CGRect(x: x + circleSize * CGFloat(i) + circleSpacing * CGFloat(i),
+//                               y: y,
+//                               width: circleSize,
+//                               height: circleSize)
+
+//            animation.beginTime = beginTime + beginTimes[i]
+//            circle.frame = frame
+//            circle.add(animation, forKey: "animation")
+            
+            layer.addSublayer(circle)
+        }
+    }
+}

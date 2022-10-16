@@ -93,6 +93,10 @@ class CustomNextCell: UITableViewCell {
             nextView.infoLabel.text = "\(hudStyle.self)"+".chaseBall"
             
             leftView = WisdomHUDChaseBallView(size: 24, barStyle:.dark)
+        case .pulseBall:
+            nextView.infoLabel.text = "\(hudStyle.self)"+".pulseBall"
+            
+            leftView = WisdomHUDPulseBallView(size: 24, barStyle:.dark)
         default: break
         }
         

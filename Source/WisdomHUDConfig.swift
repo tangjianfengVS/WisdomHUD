@@ -25,7 +25,7 @@ enum WisdomHUDStyle: CaseIterable {
     case progressArc  // 缩进弧
     case tadpoleArc   // 蝌蚪弧
     case chaseBall    // 追逐球
-    //case rotateBlue // 夜空蓝
+    case pulseBall    // 脉冲球
 }
 
 
@@ -33,15 +33,14 @@ enum WisdomHUDStyle: CaseIterable {
 @objc public enum WisdomSceneBarStyle: NSInteger, CaseIterable {
     case dark=0    // 黑色半透明
     case light     // 白色半透明
-    //case skyBlue   // 天蓝半透明
     case hide      // 隐藏
 }
 
 
 /* HUD Text Place Style */
 @objc public enum WisdomTextPlaceStyle: NSInteger, CaseIterable {
-    case center=0    // 中心
-    case bottom      // 底部
+    case center=0  // 中心
+    case bottom    // 底部
 }
 
 
