@@ -396,7 +396,7 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
                                                  x: CGFloat,
                                                  y: CGFloat,
                                               size: CGSize) -> CAAnimationGroup {
-        let duration: CFTimeInterval = 1.6
+        let duration: CFTimeInterval = 1.5
         let fromScale = 1 - rate
         let toScale = 0.25 + rate
         let timeFunc = CAMediaTimingFunction(controlPoints: 0.5,0.15+rate,0.25,1)
