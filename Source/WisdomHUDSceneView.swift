@@ -209,7 +209,7 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
     
     func setLoadingContent(text: String, loadingStyle: WisdomLoadingStyle) {
         if loadingStyle == .chaseBall {
-            content.updateIcon_Size(icon_Size: content.icon_Size+4)
+            content.updateIcon_Size(icon_Size: content.icon_Size+2.5)
         }
         
         iconView.setLoadingIcon(size: content.icon_Size, loadingStyle: loadingStyle, barStyle: barStyle)
