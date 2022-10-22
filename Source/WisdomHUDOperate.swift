@@ -55,6 +55,8 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
             let window = WisdomHUDOperate.getScreenWindow()
             let coverVI = window?.viewWithTag(WisdomHUDCoverTag)
             if let hudCoverVI = coverVI as? WisdomHUDCoverView {
+                hudCoverVI.sceneView?.setDismissImage()
+                
                 hudCoverVI.removeFromSuperview()
             }
         }

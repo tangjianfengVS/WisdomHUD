@@ -43,6 +43,8 @@ final class WisdomHUDSceneView: UIView {
     
     private var barStyle: WisdomSceneBarStyle
     
+    private(set) var loadingStyle: WisdomLoadingStyle?
+    
     private(set) var placeStyle: WisdomTextPlaceStyle?
     
     private var delayClosure: ((TimeInterval)->())?
@@ -196,6 +198,8 @@ final class WisdomHUDSceneView: UIView {
 extension WisdomHUDSceneView: WisdomHUDContentable {
     
     func setLoadingContent(text: String, loadingStyle: WisdomLoadingStyle) {
+        self.loadingStyle = loadingStyle
+        
         if loadingStyle == .chaseBall {
             content.updateIcon_Size(icon_Size: content.icon_Size+2.5)
         }
@@ -237,25 +241,25 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
         set_shadowColor(cornerRadius: 10)
     }
     
-    func setSuccessContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval)->())?){
+    func setSuccessContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
         imageView.setSuccessImage(size: content.icon_Size, barStyle: barStyle, animat: animat)
         
         setImage_TextContent(text: text, delays: delays, delayClosure: delayClosure)
     }
     
-    func setErrorContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?){
+    func setErrorContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
         imageView.setErrorImage(size: content.icon_Size, barStyle: barStyle, animat: animat)
         
         setImage_TextContent(text: text, delays: delays, delayClosure: delayClosure)
     }
     
-    func setWarningContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?){
+    func setWarningContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
         imageView.setWarningImage(size: content.icon_Size, barStyle: barStyle, animat: animat)
         
         setImage_TextContent(text: text, delays: delays, delayClosure: delayClosure)
     }
     
-    func setTextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?){
+    func setTextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
         set_TextContent(text: text, delays: delays, delayClosure: delayClosure)
     }
     
@@ -267,7 +271,7 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
         case .dark:
             backgroundColor = UIColor.black.withAlphaComponent(0.90)
             textLabel.textColor = UIColor.white
-            shadowColor = UIColor.white.withAlphaComponent(0.2)
+            shadowColor = UIColor.white.withAlphaComponent(0.12)
         case .light:
             backgroundColor = UIColor.white.withAlphaComponent(0.95)
             textLabel.textColor = UIColor.black
@@ -275,11 +279,17 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
         case .hide:
             backgroundColor = UIColor.clear
             textLabel.textColor = UIColor.white
-            shadowColor = UIColor.clear//UIColor.black.withAlphaComponent(0.05)
+            shadowColor = UIColor.clear
         default:
             backgroundColor = UIColor.black.withAlphaComponent(0.90)
             textLabel.textColor = UIColor.white
-            shadowColor = UIColor.white.withAlphaComponent(0.2)
+            shadowColor = UIColor.white.withAlphaComponent(0.12)
+        }
+    }
+    
+    func setDismissImage() {
+        if loadingStyle != nil {
+            imageView.setDismissImage()
         }
     }
 }
@@ -304,6 +314,7 @@ extension WisdomHUDSceneView: WisdomHUDDelaysable {
             closure(delays)
         }
         delayClosure = nil
+        
         WisdomHUDOperate.dismiss()
     }
     
@@ -312,5 +323,7 @@ extension WisdomHUDSceneView: WisdomHUDDelaysable {
             closure(-1)
         }
         delayClosure = nil
+        
+        setDismissImage()
     }
 }

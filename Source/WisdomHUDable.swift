@@ -155,6 +155,8 @@ protocol WisdomHUDContentable {
     func setTextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)
     
     func setStyleContent(barStyle: WisdomSceneBarStyle, placeStyle: WisdomTextPlaceStyle?)
+    
+    func setDismissImage()
 }
 
 protocol WisdomHUDDelaysable {
@@ -175,6 +177,8 @@ protocol WisdomHUDSetImageable {
     func setErrorImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
     
     func setWarningImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
+    
+    func setDismissImage()
 }
 
 protocol WisdomHUDContextable {

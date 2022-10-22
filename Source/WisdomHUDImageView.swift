@@ -107,6 +107,10 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
         
         imageView?.beginAnimation(isRepeat: false)
     }
+    
+    func setDismissImage() {
+        imageView?.endDismiss()
+    }
 }
 
 

@@ -129,7 +129,7 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
         case .succes:
             WisdomHUD.showSuccess(text: "加载成功", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
-            }.setFocusing()
+            }
         case .error:
             WisdomHUD.showError(text: "加载失败", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
@@ -143,7 +143,12 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
                 WisdomHUD.showLoading(text: "正在加载中", loadingStyle: loadingStyle, barStyle: sceneBarStyle, inSupView: view)
 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
-                    WisdomHUD.dismiss()
+                    
+                    WisdomHUD.showLoading(text: "覆盖测试中", loadingStyle: loadingStyle, barStyle: .light)
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
+                        WisdomHUD.dismiss()
+                    }
                 }
             }
         case .text:
