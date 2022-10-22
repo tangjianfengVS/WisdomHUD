@@ -20,10 +20,17 @@ extension WisdomHUDContext: WisdomHUDContextable {
     
     // MARK: Set HUD CoverView Focusing
     @objc public func setFocusing() {
-        if let coverVI = coverView as? WisdomHUDCoverView{
-            coverVI.setFocusing()
+        if Thread.isMainThread {
+            doFocusing()
         }else {
-            focusing = true
+            DispatchQueue.main.async { doFocusing() }
+        }
+        func doFocusing() {
+            if let coverVI = coverView as? WisdomHUDCoverView{
+                coverVI.setFocusing()
+            }else {
+                focusing = true
+            }
         }
     }
 }

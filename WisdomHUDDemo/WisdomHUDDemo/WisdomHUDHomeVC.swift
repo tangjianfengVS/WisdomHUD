@@ -129,15 +129,15 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
         case .succes:
             WisdomHUD.showSuccess(text: "加载成功", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
-            }
+            }.setFocusing()
         case .error:
             WisdomHUD.showError(text: "加载失败", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
-            }
+            }.setFocusing()
         case .warning:
             WisdomHUD.showWarning(text: "加载警告", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
-            }
+            }.setFocusing()
         case .loading:
             if let loadingStyle = WisdomLoadingStyle(rawValue: indexPath.row) {
                 WisdomHUD.showLoading(text: "正在加载中", loadingStyle: loadingStyle, barStyle: sceneBarStyle, inSupView: view)

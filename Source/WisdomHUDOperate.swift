@@ -210,133 +210,148 @@ extension WisdomHUDOperate: WisdomHUDLoadingable {
 
 extension WisdomHUDOperate: WisdomHUDSuccessable {
     
-    static func showSuccess(text: String) {
-        showSuccess(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showSuccess(text: String)->WisdomHUDContext {
+        return showSuccess(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showSuccess(text: String, inSupView: UIView?) {
-        showSuccess(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showSuccess(text: String, inSupView: UIView?)->WisdomHUDContext {
+        return showSuccess(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle) {
-        showSuccess(text: text, barStyle: barStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDContext {
+        return showSuccess(text: text, barStyle: barStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showSuccess(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
-        showSuccess(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
+    static func showSuccess(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        return showSuccess(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
-        showSuccess(text: text, barStyle: barStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContext {
+        return showSuccess(text: text, barStyle: barStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showSuccess(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
-        showSuccess(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    static func showSuccess(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        return showSuccess(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
-        showSuccess(text: text, barStyle: barStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
+    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?)->WisdomHUDContext {
+        return showSuccess(text: text, barStyle: barStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        let context = WisdomHUDContext()
         if Thread.isMainThread {
             showHUD()
         }else {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            if let sceneView = getSceneView(hudStyle: .succes, barStyle: barStyle, inSupView: inSupView)?.1 {
-                sceneView.setSuccessContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
+            if let contentView = getSceneView(hudStyle: .succes, barStyle: barStyle, inSupView: inSupView) {
+                context.coverView = contentView.0
+                contentView.1.setSuccessContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
+                if context.focusing {
+                    context.setFocusing()
+                }
             }
         }
+        return context
     }
 }
 
 extension WisdomHUDOperate: WisdomHUDErrorable {
     
-    static func showError(text: String) {
-        showError(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showError(text: String)->WisdomHUDContext {
+        return showError(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showError(text: String, inSupView: UIView?) {
-        showError(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showError(text: String, inSupView: UIView?)->WisdomHUDContext {
+        return showError(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showError(text: String, barStyle: WisdomSceneBarStyle) {
-        showError(text: text, barStyle: barStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showError(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDContext {
+        return showError(text: text, barStyle: barStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showError(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
-        showError(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
+    static func showError(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        return showError(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showError(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
-        showError(text: text, barStyle: barStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showError(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContext {
+        return showError(text: text, barStyle: barStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showError(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
-        showError(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    static func showError(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        return showError(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showError(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
-        showError(text: text, barStyle: barStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
+    static func showError(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?)->WisdomHUDContext {
+        return showError(text: text, barStyle: barStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showError(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    static func showError(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        let context = WisdomHUDContext()
         if Thread.isMainThread {
             showHUD()
         }else {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            if let sceneView = getSceneView(hudStyle: .error, barStyle: barStyle, inSupView: inSupView)?.1 {
-                sceneView.setErrorContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
+            if let contentView = getSceneView(hudStyle: .error, barStyle: barStyle, inSupView: inSupView) {
+                context.coverView = contentView.0
+                contentView.1.setErrorContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
+                if context.focusing {
+                    context.setFocusing()
+                }
             }
         }
+        return context
     }
 }
 
 extension WisdomHUDOperate: WisdomHUDWarningable {
     
-    static func showWarning(text: String) {
-        showWarning(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showWarning(text: String)->WisdomHUDContext {
+        return showWarning(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showWarning(text: String, inSupView: UIView?) {
-        showWarning(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showWarning(text: String, inSupView: UIView?)->WisdomHUDContext {
+        return showWarning(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showWarning(text: String, barStyle: WisdomSceneBarStyle) {
-        showWarning(text: text, barStyle: barStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showWarning(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDContext {
+        return showWarning(text: text, barStyle: barStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showWarning(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
-        showWarning(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
+    static func showWarning(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        return showWarning(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showWarning(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
-        showWarning(text: text, barStyle: barStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showWarning(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContext {
+        return showWarning(text: text, barStyle: barStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showWarning(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
-        showWarning(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    static func showWarning(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        return showWarning(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showWarning(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
-        showWarning(text: text, barStyle: barStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
+    static func showWarning(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?)->WisdomHUDContext {
+        return showWarning(text: text, barStyle: barStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showWarning(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    static func showWarning(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        let context = WisdomHUDContext()
         if Thread.isMainThread {
             showHUD()
         }else {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            if let sceneView = getSceneView(hudStyle: .warning, barStyle: barStyle, inSupView: inSupView)?.1 {
-                sceneView.setWarningContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
+            if let contentView = getSceneView(hudStyle: .warning, barStyle: barStyle, inSupView: inSupView) {
+                context.coverView = contentView.0
+                contentView.1.setWarningContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
             }
         }
+        return context
     }
 }
 
