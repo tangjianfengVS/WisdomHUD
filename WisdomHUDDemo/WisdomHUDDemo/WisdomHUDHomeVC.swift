@@ -144,11 +144,11 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
 
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
                     
-                    WisdomHUD.showLoading(text: "覆盖测试中", loadingStyle: loadingStyle, barStyle: .light)
+                    //WisdomHUD.showLoading(text: "覆盖测试中", loadingStyle: loadingStyle, barStyle: .light)
 
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
+                    //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
                         WisdomHUD.dismiss()
-                    }
+                    //}
                 }
             }
         case .text:
