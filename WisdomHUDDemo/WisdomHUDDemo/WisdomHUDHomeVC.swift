@@ -8,26 +8,18 @@
 
 import UIKit
 
+var sceneBarStyle: WisdomSceneBarStyle = .dark
+
 class WisdomHUDHomeVC: UIViewController {
     
     let tableView = UITableView(frame: CGRect.zero, style: .grouped)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //WisdomHUD.showSuccess(text: "欢迎使用 WisdomHUD SDK") { (timeInterval, wisdomHUDType) in
-        //    print("")
-        //}
-        
-//        WisdomHUD.showAction(title: "欢迎使用提示",
-//                             infoText: "欢迎使用 WisdomHUD SDK。WisdomHUD是一款提示工具，swift编写，兼容OC项目使用，提供了多样化样式！",
-//                             tailText: "点击开始体验！",
-//                             actionList: ["开始体验"],
-//                             themeStyle: WisdomLayerThemeStyle.golden) { actionText, index in
-//
-//        }
-        
+        // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.wisdom_colorHex(hex: "F4F4F4")
+        
+        //WisdomHUD.setCoverBackgColor(backgColor: .clear)
         
         edgesForExtendedLayout = UIRectEdge.top
         title = "WisdomHUD"
@@ -40,25 +32,34 @@ class WisdomHUDHomeVC: UIViewController {
             make.top.bottom.equalTo(view)
         }
         
-        tableView.register(CustomNextCell.self, forCellReuseIdentifier: "\(CustomNextCell.self)")
+        tableView.register(WisdomCustomNextCell.self, forCellReuseIdentifier: "\(WisdomCustomNextCell.self)")
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
+        
+        let styleView = WisdomBarStyleView(resultClosure: {[weak self] barStyle in
+            sceneBarStyle = barStyle
+    
+            update(barStyle: barStyle)
+            
+            self?.tableView.reloadData()
+        })
+        
+        let barButtonItem = UIBarButtonItem(customView: styleView)
+        navigationItem.rightBarButtonItem = barButtonItem
+        
+        update(barStyle: sceneBarStyle)
+        
+        func update(barStyle: WisdomSceneBarStyle){
+            switch barStyle {
+            case .dark:  view.backgroundColor = UIColor.white
+            case .light: view.backgroundColor = UIColor.black
+            case .hide:  view.backgroundColor = UIColor.wisdom_colorHex(hex: "F8F8FF")
+            }
+        }
     }
-
-//    @IBAction func actionButtonClick(_ sender: Any) {
-//
-//        WisdomHUD.showAction(title: "锄禾日提示",
-//                             infoText: "锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土, 锄禾日当午汗滴禾下土",
-//                             tailText: "一定要节约？",
-//                             actionList: ["再想想","我知道了"],
-//                             themeStyle: WisdomLayerThemeStyle.red) { actionText, index in
-//
-//        }
-//    }
 }
-
 
 extension WisdomHUDHomeVC : UITableViewDataSource {
     
@@ -78,11 +79,11 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 52
+        return 50
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "\(CustomNextCell.self)", for: indexPath) as! CustomNextCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "\(WisdomCustomNextCell.self)", for: indexPath) as! WisdomCustomNextCell
         let hudStyle = WisdomHUDStyle.allCases[indexPath.section]
         var loadingStyle: WisdomLoadingStyle?
         var textPlaceStyle: WisdomTextPlaceStyle?
@@ -126,35 +127,38 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
         let style: WisdomHUDStyle = WisdomHUDStyle.allCases[indexPath.section]
         switch style {
         case .succes:
-            WisdomHUD.showSuccess(text: "加载成功", barStyle: .dark, inSupView: view, delays: 5) { interval in
+            WisdomHUD.showSuccess(text: "加载成功", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
             }
         case .error:
-            WisdomHUD.showError(text: "加载失败", barStyle: .dark, delays: 5) { interval in
+            WisdomHUD.showError(text: "加载失败", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
             }
         case .warning:
-            WisdomHUD.showWarning(text: "加载警告", barStyle: .dark, delays: 5) { interval in
+            WisdomHUD.showWarning(text: "加载警告", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
             }
         case .loading:
             if let loadingStyle = WisdomLoadingStyle(rawValue: indexPath.row) {
-                WisdomHUD.showLoading(text: "正在加载中", loadingStyle: loadingStyle, barStyle: .dark, inSupView: view)
+                WisdomHUD.showLoading(text: "正在加载中", loadingStyle: loadingStyle, barStyle: sceneBarStyle, inSupView: view)
 
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+15) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
                     WisdomHUD.dismiss()
                 }
             }
         case .text:
             switch WisdomTextPlaceStyle.allCases[indexPath.row] {
             case .center:
-                WisdomHUD.showTextCenter(text: "添加失败，请稍后重试", barStyle: .dark, inSupView: view, delays: 3) { interval in
+                WisdomHUD.showTextCenter(text: "添加失败，请稍后重试", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                     print("")//加载添加
                 }
             case .bottom:
-                WisdomHUD.showTextBottom(text: "添加失败，请稍后重试", barStyle: .dark, inSupView: view, delays: 3) { interval in
+                WisdomHUD.showTextBottom(text: "添加失败，请稍后重试,添加失败，请稍后重试,添加失败，请稍后重试,添加失败，请稍后重试,添加失败，请稍后重试",
+                                         barStyle: sceneBarStyle,
+                                         inSupView: view,
+                                         delays: 3) { interval in
                     print("")//加载添加
-                }
+                }.setFocusing()
             default: break
             }
         }

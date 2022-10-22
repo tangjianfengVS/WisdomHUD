@@ -27,11 +27,6 @@ extension WisdomHUD: WisdomHUDSettingable {
         WisdomHUDOperate.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
     }
     
-    // MARK: HUD Set Text Place Style
-    @objc static func setTextPlaceStyle(textStyle: WisdomTextPlaceStyle) {
-        WisdomHUDOperate.setTextPlaceStyle(textStyle: textStyle)
-    }
-    
     // MARK: HUD Set Display Delay
     @objc static func setDisplayDelay(delayTime: CGFloat) {
         WisdomHUDOperate.setDisplayDelay(delayTime: delayTime)
@@ -56,7 +51,7 @@ extension WisdomHUD: WisdomHUDGlobalable {
     }
     
     // MARK: Small Screen For Example: iPhone 8, iPhone 7, iPhone 6 and the following
-    static func isSmallScreen() -> Bool {
+    @objc public static func isSmallScreen() -> Bool {
         return WisdomHUDOperate.isSmallScreen()
     }
 }
@@ -236,42 +231,50 @@ extension WisdomHUD: WisdomHUDWarningable {
 extension WisdomHUD: WisdomHUDTextCenterable {
     
     // MARK: Show Text Center with: String
-    @objc public static func showTextCenter(text: String) {
+    @discardableResult
+    @objc public static func showTextCenter(text: String)->WisdomHUDContext {
         WisdomHUDOperate.showTextCenter(text: text)
     }
     
     // MARK: Show Text Center with: String - UIView?
-    @objc public static func showTextCenter(text: String, inSupView: UIView?) {
+    @discardableResult
+    @objc public static func showTextCenter(text: String, inSupView: UIView?)->WisdomHUDContext {
         WisdomHUDOperate.showTextCenter(text: text, inSupView: inSupView)
     }
     
     // MARK: Show Text Center with: String - WisdomSceneBarStyle
-    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle) {
+    @discardableResult
+    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDContext {
         WisdomHUDOperate.showTextCenter(text: text, barStyle: barStyle)
     }
     
     // MARK: Show Text Center with: String - TimeInterval - ((TimeInterval)->())?
-    @objc public static func showTextCenter(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    @discardableResult
+    @objc public static func showTextCenter(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
         WisdomHUDOperate.showTextCenter(text: text, delays: delays, delayClosure: delayClosure)
     }
     
     // MARK: Show Text Center with: String - WisdomSceneBarStyle - UIView?
-    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+    @discardableResult
+    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContext {
         WisdomHUDOperate.showTextCenter(text: text, barStyle: barStyle, inSupView: inSupView)
     }
     
-    // MARK: Show Text Center with: String - UIView? -TimeInterval - ((TimeInterval)->())? -
-    @objc public static func showTextCenter(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    // MARK: Show Text Center with: String - UIView? -TimeInterval - ((TimeInterval)->())?
+    @discardableResult
+    @objc public static func showTextCenter(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
         WisdomHUDOperate.showTextCenter(text: text, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
     
     // MARK: Show Text Center with: String - WisdomSceneBarStyle - TimeInterval - ((TimeInterval)->())?
-    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
+    @discardableResult
+    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?)->WisdomHUDContext {
         WisdomHUDOperate.showTextCenter(text: text, barStyle: barStyle, delays: delays, delayClosure: delayClosure)
     }
     
     // MARK: Show Text Center with: String - WisdomSceneBarStyle - UIView? - TimeInterval - ((TimeInterval)->())?
-    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    @discardableResult
+    @objc public static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
         WisdomHUDOperate.showTextCenter(text: text, barStyle: barStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
 }
@@ -279,42 +282,50 @@ extension WisdomHUD: WisdomHUDTextCenterable {
 extension WisdomHUD: WisdomHUDTextBottomable {
     
     // MARK: Show Text Bottom with: String
-    @objc public static func showTextBottom(text: String) {
+    @discardableResult
+    @objc public static func showTextBottom(text: String)->WisdomHUDContext {
         WisdomHUDOperate.showTextBottom(text: text)
     }
     
     // MARK: Show Text Bottom with: String - UIView?
-    @objc public static func showTextBottom(text: String, inSupView: UIView?) {
+    @discardableResult
+    @objc public static func showTextBottom(text: String, inSupView: UIView?)->WisdomHUDContext {
         WisdomHUDOperate.showTextBottom(text: text, inSupView: inSupView)
     }
     
     // MARK: Show Text Bottom with: String - WisdomSceneBarStyle
-    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle) {
+    @discardableResult
+    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDContext {
         WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle)
     }
     
     // MARK: Show Text Bottom with: String - TimeInterval - ((TimeInterval)->())?
-    @objc public static func showTextBottom(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    @discardableResult
+    @objc public static func showTextBottom(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
         WisdomHUDOperate.showTextBottom(text: text, delays: delays, delayClosure: delayClosure)
     }
     
     // MARK: Show Text Bottom with: String - WisdomSceneBarStyle - UIView?
-    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+    @discardableResult
+    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContext {
         WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle, inSupView: inSupView)
     }
     
-    // MARK: Show Text Bottom with: String - UIView? -TimeInterval - ((TimeInterval)->())? -
-    @objc public static func showTextBottom(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    // MARK: Show Text Bottom with: String - UIView? -TimeInterval - ((TimeInterval)->())?
+    @discardableResult
+    @objc public static func showTextBottom(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
         WisdomHUDOperate.showTextBottom(text: text, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
     
     // MARK: Show Text Bottom with: String - WisdomSceneBarStyle - TimeInterval - ((TimeInterval)->())?
-    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
+    @discardableResult
+    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?)->WisdomHUDContext {
         WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle, delays: delays, delayClosure: delayClosure)
     }
     
     // MARK: Show Text Bottom with: String - WisdomSceneBarStyle - UIView? - TimeInterval - ((TimeInterval)->())?
-    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    @discardableResult
+    @objc public static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
         WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
 }

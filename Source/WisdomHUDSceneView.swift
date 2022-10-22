@@ -41,12 +41,16 @@ final class WisdomHUDSceneView: UIView {
     
     let hudStyle: WisdomHUDStyle
     
-    let barStyle: WisdomSceneBarStyle
+    private var barStyle: WisdomSceneBarStyle
+    
+    private(set) var placeStyle: WisdomTextPlaceStyle?
     
     private var delayClosure: ((TimeInterval)->())?
     
-    private lazy var iconView: WisdomHUDIconView = {
-        let vi = WisdomHUDIconView(frame: .zero)
+    private var shadowColor: UIColor = .black
+    
+    private lazy var imageView: WisdomHUDImageView = {
+        let vi = WisdomHUDImageView(frame: .zero)
         addSubview(vi)
         return vi
     }()
@@ -56,8 +60,11 @@ final class WisdomHUDSceneView: UIView {
         $0.textColor = UIColor.white
         $0.numberOfLines = 2
         $0.textAlignment = .center
-        let maxWidth = UIScreen.main.bounds.width > UIScreen.main.bounds.height ? UIScreen.main.bounds.height : UIScreen.main.bounds.width
-        $0.preferredMaxLayoutWidth = maxWidth/1.7
+        var maxWidth = (UIScreen.main.bounds.width > UIScreen.main.bounds.height ? UIScreen.main.bounds.height : UIScreen.main.bounds.width)*0.60
+        if maxWidth > 400 {
+            maxWidth = 400
+        }
+        $0.preferredMaxLayoutWidth = maxWidth
         
         addSubview($0)
         return $0
@@ -69,7 +76,7 @@ final class WisdomHUDSceneView: UIView {
                              relatedBy: .equal,
                                 toItem: nil,
                              attribute: .width,
-                                  multiplier: 1.0,
+                            multiplier: 1.0,
                               constant: content.bar_Size.width)
     }()
     
@@ -83,39 +90,13 @@ final class WisdomHUDSceneView: UIView {
                               constant: content.bar_Size.height)
     }()
     
-    private lazy var layerMask: Bool = {
-        layoutIfNeeded()
-        let bezierPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 10, height: 10))
-        let radiusLayer = CAShapeLayer()
-        radiusLayer.frame = bounds
-        radiusLayer.path = bezierPath.cgPath
-        layer.mask = radiusLayer
-        return true
-    }()
-    
-    init(hudStyle: WisdomHUDStyle, barStyle: WisdomSceneBarStyle) {
+    init(hudStyle: WisdomHUDStyle, barStyle: WisdomSceneBarStyle, placeStyle: WisdomTextPlaceStyle?) {
         self.hudStyle = hudStyle
         self.barStyle = barStyle
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        setStyleContent(barStyle: barStyle, placeStyle: placeStyle)
         
-        switch barStyle {
-        case .dark:
-            backgroundColor = UIColor.black.withAlphaComponent(0.80)
-            textLabel.textColor = UIColor.white
-        case .light:
-            backgroundColor = UIColor(white: 1, alpha: 0.9)
-            textLabel.textColor = UIColor.black
-        //case .skyBlue:
-        //    backgroundColor = UIColor(red: 18/255, green: 112/255, blue: 238/255, alpha: 0.8)
-        //    textLabel.textColor = textColor != nil ? textColor : UIColor.white
-        case .hide:
-            backgroundColor = UIColor.clear
-            textLabel.textColor = UIColor.white
-        default:
-            backgroundColor = UIColor.black.withAlphaComponent(0.80)
-            textLabel.textColor = UIColor.white
-        }
         addConstraint(widthConstraint)
         addConstraint(heightConstraint)
     }
@@ -127,11 +108,11 @@ final class WisdomHUDSceneView: UIView {
     private func setImage_TextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
         self.delayClosure = delayClosure
         
-        wisdom_addConstraint(toCenterX: iconView, toCenterY: nil)
+        wisdom_addConstraint(toCenterX: imageView, toCenterY: nil)
         
-        iconView.wisdom_addConstraint(width: content.icon_Size, height: content.icon_Size)
+        imageView.wisdom_addConstraint(width: content.icon_Size, height: content.icon_Size)
         
-        addConstraint(NSLayoutConstraint(item: iconView,
+        addConstraint(NSLayoutConstraint(item: imageView,
                                          attribute: .top,
                                          relatedBy: .equal,
                                          toItem: self,
@@ -148,19 +129,19 @@ final class WisdomHUDSceneView: UIView {
         addConstraint(NSLayoutConstraint(item: textLabel,
                                          attribute: .top,
                                          relatedBy: .equal,
-                                         toItem: iconView,
+                                         toItem: imageView,
                                          attribute:.bottom,
                                          multiplier: 1.0,
                                          constant: content.top_text_space))
         
-        update_contentSize()
+        set_contentSize()
     
         startDelays(delays: delays)
         
-        _=layerMask
+        set_shadowColor(cornerRadius: 10)
     }
     
-    private func setTextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    private func set_TextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
         self.delayClosure = delayClosure
     
         // textLabel layout
@@ -184,15 +165,10 @@ final class WisdomHUDSceneView: UIView {
     
         startDelays(delays: delays)
         
-        layoutIfNeeded()
-        let bezierPath = UIBezierPath(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 6, height: 6))
-        let radiusLayer = CAShapeLayer()
-        radiusLayer.frame = bounds
-        radiusLayer.path = bezierPath.cgPath
-        layer.mask = radiusLayer
+        set_shadowColor(cornerRadius: 6)
     }
     
-    private func update_contentSize() {
+    private func set_contentSize() {
         textLabel.layoutIfNeeded()
         
         if textLabel.bounds.width + content.lr_text_space*2 >= content.bar_Size.width {
@@ -203,6 +179,18 @@ final class WisdomHUDSceneView: UIView {
             heightConstraint.constant = content.getContentHeight() + textLabel.bounds.height
         }
     }
+    
+    private func set_shadowColor(cornerRadius: CGFloat) {
+        layoutIfNeeded()
+        
+        layer.shadowColor = shadowColor.cgColor
+        layer.shadowOffset = CGSize.init(width: 0, height: 0)
+        layer.shadowOpacity = 1
+        layer.shadowRadius = 5
+        layer.cornerRadius = cornerRadius
+        let path = UIBezierPath.init(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize.init(width: cornerRadius/2, height: cornerRadius/2))
+        layer.shadowPath = path.cgPath
+    }
 }
 
 extension WisdomHUDSceneView: WisdomHUDContentable {
@@ -212,17 +200,17 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
             content.updateIcon_Size(icon_Size: content.icon_Size+2.5)
         }
         
-        iconView.setLoadingIcon(size: content.icon_Size, loadingStyle: loadingStyle, barStyle: barStyle)
+        imageView.setLoadingImage(size: content.icon_Size, loadingStyle: loadingStyle, barStyle: barStyle)
         
-        iconView.wisdom_addConstraint(width: content.icon_Size, height: content.icon_Size)
+        imageView.wisdom_addConstraint(width: content.icon_Size, height: content.icon_Size)
         
         if text.isEmpty {
-            wisdom_addConstraint(toCenterX: iconView, toCenterY: iconView)
+            wisdom_addConstraint(toCenterX: imageView, toCenterY: imageView)
         }else {
             // iconView layout
-            wisdom_addConstraint(toCenterX: iconView, toCenterY: nil)
+            wisdom_addConstraint(toCenterX: imageView, toCenterY: nil)
             
-            addConstraint(NSLayoutConstraint(item: iconView,
+            addConstraint(NSLayoutConstraint(item: imageView,
                                              attribute: .top,
                                              relatedBy: .equal,
                                              toItem: self,
@@ -239,36 +227,60 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
             addConstraint(NSLayoutConstraint(item: textLabel,
                                              attribute: .top,
                                              relatedBy: .equal,
-                                             toItem: iconView,
+                                             toItem: imageView,
                                              attribute:.bottom,
                                              multiplier: 1.0,
                                              constant: content.top_text_space))
             
-            update_contentSize()
+            set_contentSize()
         }
-        _=layerMask
+        set_shadowColor(cornerRadius: 10)
     }
     
     func setSuccessContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval)->())?){
-        iconView.setSuccessIcon(size: content.icon_Size, barStyle: barStyle, animat: animat)
+        imageView.setSuccessImage(size: content.icon_Size, barStyle: barStyle, animat: animat)
         
         setImage_TextContent(text: text, delays: delays, delayClosure: delayClosure)
     }
     
     func setErrorContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?){
-        iconView.setErrorIcon(size: content.icon_Size, barStyle: barStyle, animat: animat)
+        imageView.setErrorImage(size: content.icon_Size, barStyle: barStyle, animat: animat)
         
         setImage_TextContent(text: text, delays: delays, delayClosure: delayClosure)
     }
     
     func setWarningContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?){
-        iconView.setWarningIcon(size: content.icon_Size, barStyle: barStyle, animat: animat)
+        imageView.setWarningImage(size: content.icon_Size, barStyle: barStyle, animat: animat)
         
         setImage_TextContent(text: text, delays: delays, delayClosure: delayClosure)
     }
     
-    func showTextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?){
-        setTextContent(text: text, delays: delays, delayClosure: delayClosure)
+    func setTextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?){
+        set_TextContent(text: text, delays: delays, delayClosure: delayClosure)
+    }
+    
+    func setStyleContent(barStyle: WisdomSceneBarStyle, placeStyle: WisdomTextPlaceStyle?) {
+        self.barStyle = barStyle
+        self.placeStyle = placeStyle
+        
+        switch barStyle {
+        case .dark:
+            backgroundColor = UIColor.black.withAlphaComponent(0.90)
+            textLabel.textColor = UIColor.white
+            shadowColor = UIColor.white.withAlphaComponent(0.2)
+        case .light:
+            backgroundColor = UIColor.white.withAlphaComponent(0.95)
+            textLabel.textColor = UIColor.black
+            shadowColor = UIColor.black.withAlphaComponent(0.1)
+        case .hide:
+            backgroundColor = UIColor.clear
+            textLabel.textColor = UIColor.white
+            shadowColor = UIColor.clear//UIColor.black.withAlphaComponent(0.05)
+        default:
+            backgroundColor = UIColor.black.withAlphaComponent(0.90)
+            textLabel.textColor = UIColor.white
+            shadowColor = UIColor.white.withAlphaComponent(0.2)
+        }
     }
 }
 

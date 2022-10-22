@@ -8,31 +8,11 @@
 import UIKit
 
 
-fileprivate final class WisdomHUDCoverView: UIView {
-    var sceneView: WisdomHUDSceneView?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc private func dismiss(){
-        WisdomHUDOperate.dismiss()
-    }
-}
-
-
 struct WisdomHUDOperate {
     
     fileprivate static var WisdomLoadingStyle: WisdomLoadingStyle = .rotate
 
     fileprivate static var WisdomSceneBarStyle: WisdomSceneBarStyle = .dark
-    
-    fileprivate static var WisdomTextPlaceStyle: WisdomTextPlaceStyle = .center
 
     fileprivate static var WisdomDisplayDelays: TimeInterval = 2.2
     
@@ -41,6 +21,7 @@ struct WisdomHUDOperate {
     fileprivate static let WisdomHUDCoverTag = 221010
     
     //static let WisdomCache = NSCache<NSString, UIImage>()
+    static func getWisdom_Focusing()->String { return "Wisdom_Focusing"}
 }
 
 extension WisdomHUDOperate: WisdomHUDSettingable {
@@ -51,10 +32,6 @@ extension WisdomHUDOperate: WisdomHUDSettingable {
     
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
         WisdomSceneBarStyle = sceneBarStyle
-    }
-    
-    static func setTextPlaceStyle(textStyle: WisdomTextPlaceStyle) {
-        WisdomTextPlaceStyle = textStyle
     }
     
     static func setDisplayDelay(delayTime: CGFloat) {
@@ -115,37 +92,47 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
     private static func getSceneView(hudStyle: WisdomHUDStyle,
                                      placeStyle: WisdomTextPlaceStyle?=nil,
                                      barStyle: WisdomSceneBarStyle,
-                                     inSupView: UIView?) -> WisdomHUDSceneView? {
+                                     inSupView: UIView?) -> (WisdomHUDCoverView, WisdomHUDSceneView)? {
         var cur_inSupView = inSupView
         if cur_inSupView == nil { cur_inSupView = getScreenWindow() }
         
         if let rootVI = cur_inSupView {
             if let coverView = rootVI.viewWithTag(WisdomHUDCoverTag) as? WisdomHUDCoverView {
+                if coverView.focusing {
+                    coverView.removeFromSuperview()
+                    return createCoverView(rootVI: rootVI)
+                }
+                
                 if let sceneView = coverView.sceneView, sceneView.hudStyle == hudStyle {
                     sceneView.executeDelayClosure()
-                    return sceneView
-                }else {
-                    coverView.sceneView?.removeFromSuperview()
-                    return createAndSetupSceneView(supView: coverView)
+                    sceneView.setStyleContent(barStyle: barStyle, placeStyle: placeStyle)
+                    return (coverView, sceneView)
                 }
-            }else {
-                let coverView = WisdomHUDCoverView()
-                coverView.tag = WisdomHUDCoverTag
-                coverView.backgroundColor = WisdomCoverBackgColor
                 
-                rootVI.insertSubview(coverView, at: rootVI.subviews.count+50)
-                rootVI.wisdom_addConstraint(with: coverView,
-                                         topView: rootVI,
-                                        leftView: rootVI,
-                                      bottomView: rootVI,
-                                       rightView: rootVI,
-                                       edgeInset: UIEdgeInsets.zero)
-                return createAndSetupSceneView(supView: coverView)
+                coverView.sceneView?.removeFromSuperview()
+                return (coverView, createAndSetupSceneView(supView: coverView))
+            }else {
+                return createCoverView(rootVI: rootVI)
             }
         }
         
+        func createCoverView(rootVI: UIView) -> (WisdomHUDCoverView, WisdomHUDSceneView)? {
+            let coverView = WisdomHUDCoverView()
+            coverView.tag = WisdomHUDCoverTag
+            coverView.backgroundColor = WisdomCoverBackgColor
+            
+            rootVI.insertSubview(coverView, at: rootVI.subviews.count+50)
+            rootVI.wisdom_addConstraint(with: coverView,
+                                     topView: rootVI,
+                                    leftView: rootVI,
+                                  bottomView: rootVI,
+                                   rightView: rootVI,
+                                   edgeInset: UIEdgeInsets.zero)
+            return (coverView, createAndSetupSceneView(supView: coverView))
+        }
+        
         func createAndSetupSceneView(supView: WisdomHUDCoverView) -> WisdomHUDSceneView {
-            let sceneView = WisdomHUDSceneView(hudStyle: hudStyle, barStyle: barStyle)
+            let sceneView = WisdomHUDSceneView(hudStyle: hudStyle, barStyle: barStyle, placeStyle: placeStyle)
             supView.sceneView = sceneView
             supView.addSubview(sceneView)
             
@@ -156,13 +143,16 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
                 case .bottom:
                     supView.layoutIfNeeded()
                     supView.wisdom_addConstraint(toCenterX: sceneView, toCenterY: nil)
-                    supView.addConstraint(NSLayoutConstraint(item: sceneView,
-                                                        attribute: .bottom,
-                                                        relatedBy: .equal,
-                                                           toItem: supView,
-                                                        attribute: .bottom,
-                                                       multiplier: 1.0,
-                                                         constant: -supView.frame.height/10.5))
+                    
+                    let offsetConstant = NSLayoutConstraint(item: sceneView,
+                                                       attribute: .bottom,
+                                                       relatedBy: .equal,
+                                                          toItem: supView,
+                                                       attribute: .bottom,
+                                                      multiplier: 1.0,
+                                                        constant: -supView.frame.height/10.5)
+                    offsetConstant.identifier = WisdomHUDOperate.getWisdom_Focusing()
+                    supView.addConstraint(offsetConstant)
                 default: break
                 }
             }else {
@@ -211,7 +201,7 @@ extension WisdomHUDOperate: WisdomHUDLoadingable {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD(){
-            if let sceneView = getSceneView(hudStyle: .loading, barStyle: barStyle, inSupView: inSupView) {
+            if let sceneView = getSceneView(hudStyle: .loading, barStyle: barStyle, inSupView: inSupView)?.1 {
                 sceneView.setLoadingContent(text: text, loadingStyle: loadingStyle)
             }
         }
@@ -255,7 +245,7 @@ extension WisdomHUDOperate: WisdomHUDSuccessable {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            if let sceneView = getSceneView(hudStyle: .succes, barStyle: barStyle, inSupView: inSupView) {
+            if let sceneView = getSceneView(hudStyle: .succes, barStyle: barStyle, inSupView: inSupView)?.1 {
                 sceneView.setSuccessContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
             }
         }
@@ -299,7 +289,7 @@ extension WisdomHUDOperate: WisdomHUDErrorable {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            if let sceneView = getSceneView(hudStyle: .error, barStyle: barStyle, inSupView: inSupView) {
+            if let sceneView = getSceneView(hudStyle: .error, barStyle: barStyle, inSupView: inSupView)?.1 {
                 sceneView.setErrorContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
             }
         }
@@ -343,7 +333,7 @@ extension WisdomHUDOperate: WisdomHUDWarningable {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            if let sceneView = getSceneView(hudStyle: .warning, barStyle: barStyle, inSupView: inSupView) {
+            if let sceneView = getSceneView(hudStyle: .warning, barStyle: barStyle, inSupView: inSupView)?.1 {
                 sceneView.setWarningContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
             }
         }
@@ -352,88 +342,100 @@ extension WisdomHUDOperate: WisdomHUDWarningable {
 
 extension WisdomHUDOperate: WisdomHUDTextCenterable {
     
-    static func showTextCenter(text: String) {
+    static func showTextCenter(text: String)->WisdomHUDContext {
         showTextCenter(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showTextCenter(text: String, inSupView: UIView?) {
+    static func showTextCenter(text: String, inSupView: UIView?)->WisdomHUDContext {
         showTextCenter(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle) {
+    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDContext {
         showTextCenter(text: text, barStyle: barStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showTextCenter(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    static func showTextCenter(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
         showTextCenter(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
+    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContext {
         showTextCenter(text: text, barStyle: barStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showTextCenter(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    static func showTextCenter(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
         showTextCenter(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
+    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?)->WisdomHUDContext {
         showTextCenter(text: text, barStyle: barStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        let context = WisdomHUDContext()
         if Thread.isMainThread {
             showHUD()
         }else {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            if let sceneView = getSceneView(hudStyle: .text, placeStyle: .center, barStyle: barStyle, inSupView: inSupView) {
-                sceneView.showTextContent(text: text, delays: delays, delayClosure: delayClosure)
+            if let contentView = getSceneView(hudStyle: .text, placeStyle: .center, barStyle: barStyle, inSupView: inSupView) {
+                context.coverView = contentView.0
+                contentView.1.setTextContent(text: text, delays: delays, delayClosure: delayClosure)
+                if context.focusing {
+                    context.setFocusing()
+                }
             }
         }
+        return context
     }
 }
 
 extension WisdomHUDOperate: WisdomHUDTextBottomable {
     
-    static func showTextBottom(text: String) {
-        showTextBottom(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showTextBottom(text: String)->WisdomHUDContext {
+        return showTextBottom(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showTextBottom(text: String, inSupView: UIView?) {
-        showTextBottom(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showTextBottom(text: String, inSupView: UIView?)->WisdomHUDContext {
+        return showTextBottom(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle) {
-        showTextBottom(text: text, barStyle: barStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDContext {
+        return showTextBottom(text: text, barStyle: barStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showTextBottom(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
-        showTextBottom(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
+    static func showTextBottom(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        return showTextBottom(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) {
-        showTextBottom(text: text, barStyle: barStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
+    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContext {
+        return showTextBottom(text: text, barStyle: barStyle, inSupView: inSupView, delays: WisdomDisplayDelays, delayClosure: nil)
     }
     
-    static func showTextBottom(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
-        showTextBottom(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
+    static func showTextBottom(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        return showTextBottom(text: text, barStyle: WisdomSceneBarStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?) {
-        showTextBottom(text: text, barStyle: barStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
+    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?)->WisdomHUDContext {
+        return showTextBottom(text: text, barStyle: barStyle, inSupView: nil, delays: delays, delayClosure: delayClosure)
     }
     
-    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
+    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext {
+        let context = WisdomHUDContext()
         if Thread.isMainThread {
             showHUD()
         }else {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            if let sceneView = getSceneView(hudStyle: .text, placeStyle: .bottom, barStyle: barStyle, inSupView: inSupView) {
-                sceneView.showTextContent(text: text, delays: delays, delayClosure: delayClosure)
+            if let contentView = getSceneView(hudStyle: .text, placeStyle: .bottom, barStyle: barStyle, inSupView: inSupView) {
+                context.coverView = contentView.0
+                contentView.1.setTextContent(text: text, delays: delays, delayClosure: delayClosure)
+                if context.focusing {
+                    context.setFocusing()
+                }
             }
         }
+        return context
     }
 }

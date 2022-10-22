@@ -26,13 +26,14 @@ enum WisdomHUDStyle: CaseIterable {
     case tadpoleArc   // 蝌蚪弧
     case chaseBall    // 追逐球
     case pulseBall    // 脉冲球
+    case pulseShape   // 脉冲形状
 }
 
 
 /* HUD Scene Bar Style */
 @objc public enum WisdomSceneBarStyle: NSInteger, CaseIterable {
-    case dark=0    // 黑色半透明
-    case light     // 白色半透明
+    case dark=0    // 黑色
+    case light     // 白色
     case hide      // 隐藏
 }
 
@@ -53,8 +54,3 @@ enum WisdomHUDStyle: CaseIterable {
 //    case golden        // 亮金
 //    case red           // 品红
 //}
-//
-
-
-// MARK: Height or Width -> iPhone 6, iPhone 7, iPhone 8 及以下为小屏
-//public let IsSmallScreen: Bool = WisdomLayerCoverView.isSmallScreen()

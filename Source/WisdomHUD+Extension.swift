@@ -81,40 +81,48 @@ extension UIView {
                                            rightView: UIView?,
                                            edgeInset: UIEdgeInsets) {
         if let topView = topView {
-            addConstraint(NSLayoutConstraint(item: view,
-                                             attribute: .top,
-                                             relatedBy: .equal,
-                                             toItem: topView,
-                                             attribute: .top,
-                                             multiplier: 1.0,
-                                             constant: edgeInset.top))
+            let topConstraint = NSLayoutConstraint(item: view,
+                                                   attribute: .top,
+                                                   relatedBy: .equal,
+                                                   toItem: topView,
+                                                   attribute: .top,
+                                                   multiplier: 1.0,
+                                                   constant: edgeInset.top)
+            topConstraint.identifier = WisdomHUDOperate.getWisdom_Focusing()
+            addConstraint(topConstraint)
         }
         if let leftView = leftView {
-            addConstraint(NSLayoutConstraint(item: view,
-                                             attribute: .left,
-                                             relatedBy: .equal,
-                                             toItem: leftView,
-                                             attribute: .left,
-                                             multiplier: 1.0,
-                                             constant: edgeInset.left))
+            let leftConstraint = NSLayoutConstraint(item: view,
+                                                    attribute: .left,
+                                                    relatedBy: .equal,
+                                                    toItem: leftView,
+                                                    attribute: .left,
+                                                    multiplier: 1.0,
+                                                    constant: edgeInset.left)
+            leftConstraint.identifier = WisdomHUDOperate.getWisdom_Focusing()
+            addConstraint(leftConstraint)
         }
         if let bottomView = bottomView {
-            addConstraint(NSLayoutConstraint(item: view,
-                                             attribute: .bottom,
-                                             relatedBy: .equal,
-                                             toItem: bottomView,
-                                             attribute: .bottom,
-                                             multiplier: 1.0,
-                                             constant: edgeInset.bottom))
+            let bottomConstraint = NSLayoutConstraint(item: view,
+                                                      attribute: .bottom,
+                                                      relatedBy: .equal,
+                                                      toItem: bottomView,
+                                                      attribute: .bottom,
+                                                      multiplier: 1.0,
+                                                      constant: edgeInset.bottom)
+            bottomConstraint.identifier = WisdomHUDOperate.getWisdom_Focusing()
+            addConstraint(bottomConstraint)
         }
         if let rightView = rightView {
-            addConstraint(NSLayoutConstraint(item: view,
-                                             attribute: .right,
-                                             relatedBy: .equal,
-                                             toItem: rightView,
-                                             attribute: .right,
-                                             multiplier: 1.0,
-                                             constant: edgeInset.right))
+            let rightConstraint = NSLayoutConstraint(item: view,
+                                                     attribute: .right,
+                                                     relatedBy: .equal,
+                                                     toItem: rightView,
+                                                     attribute: .right,
+                                                     multiplier: 1.0,
+                                                     constant: edgeInset.right)
+            rightConstraint.identifier = WisdomHUDOperate.getWisdom_Focusing()
+            addConstraint(rightConstraint)
         }
     }
 }
@@ -122,10 +130,7 @@ extension UIView {
 
 extension String {
     
-    /*  计算String内容的大小
-     *  font： 文字字号大小
-     *  size： 内容大小限定
-     */
+    // MARK: - Get Text Size With: UIFont - CGSize
     public func wisdom_textSize(font: UIFont, constrainedToSize size: CGSize) -> CGSize {
         var textSize:CGSize!
         if size.equalTo(CGSize.zero) {
@@ -149,7 +154,7 @@ extension String {
 
 extension UIColor {
     
-    // MARK: - 颜色转码
+    // MARK: - Get Color with: String
     @objc public static func wisdom_colorHex(hex: String, alpha: CGFloat=1) -> UIColor {
         let scanner = Scanner(string: hex)
         scanner.scanLocation = 0
@@ -160,11 +165,7 @@ extension UIColor {
         let r = (rgbValue & 0xff0000) >> 16
         let g = (rgbValue & 0xff00) >> 8
         let b = rgbValue & 0xff
-        
-        return UIColor(
-                red: CGFloat(r) / 0xff,
-                green: CGFloat(g) / 0xff,
-                blue: CGFloat(b) / 0xff, alpha: alpha)
+        return UIColor(red:CGFloat(r)/0xff, green:CGFloat(g)/0xff, blue:CGFloat(b)/0xff, alpha:alpha)
     }
 }
 

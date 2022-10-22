@@ -14,8 +14,6 @@ protocol WisdomHUDSettingable {
     
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle)
     
-    static func setTextPlaceStyle(textStyle: WisdomTextPlaceStyle)
-    
     static func setDisplayDelay(delayTime: CGFloat)
     
     static func setCoverBackgColor(backgColor: UIColor) 
@@ -108,40 +106,40 @@ protocol WisdomHUDWarningable {
 
 protocol WisdomHUDTextCenterable {
     
-    static func showTextCenter(text: String)
+    static func showTextCenter(text: String)->WisdomHUDContext
     
-    static func showTextCenter(text: String, inSupView: UIView?) // inSupView
+    static func showTextCenter(text: String, inSupView: UIView?)->WisdomHUDContext // inSupView
     
-    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle) // barStyle
+    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDContext // barStyle
     
-    static func showTextCenter(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) // delays
+    static func showTextCenter(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext // delays
     
-    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) // barStyle/inSupView
+    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContext // barStyle/inSupView
     
-    static func showTextCenter(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) // inSupView/delays
+    static func showTextCenter(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext // inSupView/delays
     
-    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) // barStyle/delays
+    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext // barStyle/delays
     
-    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) // barStyle/inSupView/delays
+    static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext // barStyle/inSupView/delays
 }
 
 protocol WisdomHUDTextBottomable {
     
-    static func showTextBottom(text: String)
+    static func showTextBottom(text: String)->WisdomHUDContext
     
-    static func showTextBottom(text: String, inSupView: UIView?) // inSupView
+    static func showTextBottom(text: String, inSupView: UIView?)->WisdomHUDContext // inSupView
     
-    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle) // barStyle
+    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDContext // barStyle
     
-    static func showTextBottom(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) // delays
+    static func showTextBottom(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext // delays
     
-    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?) // barStyle/inSupView
+    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContext // barStyle/inSupView
     
-    static func showTextBottom(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) // inSupView/delays
+    static func showTextBottom(text: String, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext // inSupView/delays
     
-    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) // barStyle/delays
+    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext // barStyle/delays
     
-    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) // barStyle/inSupView/delays
+    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContext // barStyle/inSupView/delays
 }
 
 protocol WisdomHUDContentable {
@@ -154,7 +152,9 @@ protocol WisdomHUDContentable {
     
     func setWarningContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval) -> ())?)
     
-    func showTextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)
+    func setTextContent(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)
+    
+    func setStyleContent(barStyle: WisdomSceneBarStyle, placeStyle: WisdomTextPlaceStyle?)
 }
 
 protocol WisdomHUDDelaysable {
@@ -166,13 +166,18 @@ protocol WisdomHUDDelaysable {
     func executeDelayClosure()
 }
 
-protocol WisdomHUDSetIconable {
+protocol WisdomHUDSetImageable {
     
-    func setLoadingIcon(size: CGFloat, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle)
+    func setLoadingImage(size: CGFloat, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle)
     
-    func setSuccessIcon(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
+    func setSuccessImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
     
-    func setErrorIcon(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
+    func setErrorImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
     
-    func setWarningIcon(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
+    func setWarningImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
+}
+
+protocol WisdomHUDContextable {
+    
+    func setFocusing()
 }

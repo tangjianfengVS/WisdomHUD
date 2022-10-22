@@ -9,14 +9,13 @@
 import UIKit
 
 
-// 进入下级图标
-class CustomNextCell: UITableViewCell {
+class WisdomCustomNextCell: UITableViewCell {
     
     private var loadingStyle: WisdomLoadingStyle?
     
     private var textPlaceStyle: WisdomTextPlaceStyle?
     
-    let nextView = CustomNextView(frame: .zero)
+    let nextView = WisdomCustomNextView(frame: .zero)
     
     private var leftView: UIView?
     
@@ -52,8 +51,6 @@ class CustomNextCell: UITableViewCell {
         
     }
     
-    //static var info: [String:Bool] = [:]
-    
     func setTitle(hudStyle: WisdomHUDStyle, loadingStyle: WisdomLoadingStyle?, textPlaceStyle: WisdomTextPlaceStyle?) {
         nextView.infoLabel.text = "\(hudStyle.self)"
         leftView?.removeFromSuperview()
@@ -61,13 +58,13 @@ class CustomNextCell: UITableViewCell {
         
         switch hudStyle {
         case .succes:
-            leftView = WisdomHUDSuccessView(size: 24, barStyle: .dark)
+            leftView = WisdomHUDSuccessView(size: 24, barStyle: sceneBarStyle)
             (leftView as? WisdomHUDSuccessView)?.beginAnimation(isRepeat: false)
         case .error:
-            leftView = WisdomHUDErrorView(size: 24, barStyle: .dark)
+            leftView = WisdomHUDErrorView(size: 24, barStyle: sceneBarStyle)
             (leftView as? WisdomHUDErrorView)?.beginAnimation(isRepeat: false)
         case .warning:
-            leftView = WisdomHUDWarningView(size: 24, barStyle: .dark)
+            leftView = WisdomHUDWarningView(size: 24, barStyle: sceneBarStyle)
             (leftView as? WisdomHUDWarningView)?.beginAnimation(isRepeat: false)
         default: break
         }
@@ -76,28 +73,47 @@ class CustomNextCell: UITableViewCell {
         case .system:
             nextView.infoLabel.text = "\(hudStyle.self)"+".system"
         
-            leftView = WisdomHUDIndicatorView(size: 24, barStyle: .dark)
+            leftView = WisdomHUDIndicatorView(size: 24, barStyle: sceneBarStyle)
         case .rotate:
             nextView.infoLabel.text = "\(hudStyle.self)"+".rotate"
             
-            leftView = WisdomHUDRotateView(size: 24, barStyle: .dark)
+            leftView = WisdomHUDRotateView(size: 24, barStyle: sceneBarStyle)
         case .progressArc:
             nextView.infoLabel.text = "\(hudStyle.self)"+".progressArc"
             
-            leftView = WisdomHUDProgressArcView(size: 24, barStyle:.dark)
+            leftView = WisdomHUDProgressArcView(size: 24, barStyle: sceneBarStyle)
         case .tadpoleArc:
             nextView.infoLabel.text = "\(hudStyle.self)"+".tadpoleArc"
             
-            leftView = WisdomHUDTadpoleArcView(size: 24, barStyle:.dark)
+            leftView = WisdomHUDTadpoleArcView(size: 24, barStyle: sceneBarStyle)
         case .chaseBall:
             nextView.infoLabel.text = "\(hudStyle.self)"+".chaseBall"
             
-            leftView = WisdomHUDChaseBallView(size: 24, barStyle:.dark)
+            leftView = WisdomHUDChaseBallView(size: 24, barStyle: sceneBarStyle)
         case .pulseBall:
             nextView.infoLabel.text = "\(hudStyle.self)"+".pulseBall"
             
-            leftView = WisdomHUDPulseBallView(size: 24, barStyle:.dark)
+            leftView = WisdomHUDPulseBallView(size: 24, barStyle: sceneBarStyle)
+        case .pulseShape:
+            nextView.infoLabel.text = "\(hudStyle.self)"+".pulseBall"
+            
+            leftView = WisdomHUDPulseShapeView(size: 24, barStyle: sceneBarStyle)
         default: break
+        }
+        
+        switch sceneBarStyle {
+        case .dark:
+            nextView.backgroundColor = UIColor.black
+            nextView.infoLabel.textColor = UIColor.white
+            nextView.imageView.image = UIImage(named: "G_Next_Gray")
+        case .light:
+            nextView.backgroundColor = UIColor.white
+            nextView.infoLabel.textColor = UIColor.black
+            nextView.imageView.image = UIImage(named: "G_Next_Black")
+        case .hide:
+            nextView.backgroundColor = UIColor.black
+            nextView.infoLabel.textColor = UIColor.white
+            nextView.imageView.image = UIImage(named: "G_Next_Gray")
         }
         
         switch textPlaceStyle {
@@ -119,8 +135,7 @@ class CustomNextCell: UITableViewCell {
 }
 
 
-// 下级图标-视图
-class CustomNextView: UIView {
+class WisdomCustomNextView: UIView {
     
     let imageView = UIImageView(image: UIImage(named: "G_Next_Gray"))
 
@@ -132,13 +147,9 @@ class CustomNextView: UIView {
         return label
     }()
 
-    
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        
-        backgroundColor = UIColor(white: 0, alpha: 0.8)
         addSubview(imageView)
-        
         addSubview(infoLabel)
         
         imageView.contentMode = .scaleAspectFit
@@ -160,35 +171,88 @@ class CustomNextView: UIView {
 }
 
 
-
-extension String {
-    /// 十六进制字符串颜色转为UIColor
-    /// - Parameter alpha: 透明度
-    func uicolor(alpha: CGFloat = 1.0) -> UIColor {
-        // 存储转换后的数值
-        var red: UInt64 = 0, green: UInt64 = 0, blue: UInt64 = 0
-        var hex = self
-        // 如果传入的十六进制颜色有前缀，去掉前缀
-        if hex.hasPrefix("0x") || hex.hasPrefix("0X") {
-            hex = String(hex[hex.index(hex.startIndex, offsetBy: 2)...])
-        } else if hex.hasPrefix("#") {
-            hex = String(hex[hex.index(hex.startIndex, offsetBy: 1)...])
-        }
-        // 如果传入的字符数量不足6位按照后边都为0处理，当然你也可以进行其它操作
-        if hex.count < 6 {
-            for _ in 0..<6-hex.count {
-                hex += "0"
+// 下级图标-视图
+class WisdomBarStyleView: UIView {
+    
+    let resultClosure: (WisdomSceneBarStyle)->()
+    
+    private var selBtn: UIButton?
+    
+    init(resultClosure: @escaping (WisdomSceneBarStyle)->()) {
+        self.resultClosure = resultClosure
+        super.init(frame: .zero)
+        backgroundColor = UIColor.clear
+        var lastBtn: UIButton?
+        
+        for barStyle in WisdomSceneBarStyle.allCases {
+            let btn = UIButton()
+            btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 13)
+            btn.addTarget(self, action: #selector(clickAction(btn:)), for: .touchUpInside)
+            addSubview(btn)
+            
+            btn.snp.makeConstraints { make in
+                make.top.bottom.equalTo(self)
+                make.width.equalTo(40)
+                make.height.equalTo(30)
+                if let curBtn = lastBtn {
+                    make.left.equalTo(curBtn.snp.right)
+                }else {
+                    make.left.equalTo(self)
+                }
+            }
+            update(selBtn: btn, barStyle: barStyle)
+            btn.tag = barStyle.rawValue
+            lastBtn = btn
+            
+            if barStyle == sceneBarStyle {
+                btn.backgroundColor = UIColor.systemPink
+                btn.setTitleColor(UIColor.white, for: .normal)
+                selBtn = btn
             }
         }
-
-        // 分别进行转换
-        // 红
-        Scanner(string: String(hex[..<hex.index(hex.startIndex, offsetBy: 2)])).scanHexInt64(&red)
-        // 绿
-        Scanner(string: String(hex[hex.index(hex.startIndex, offsetBy: 2)..<hex.index(hex.startIndex, offsetBy: 4)])).scanHexInt64(&green)
-        // 蓝
-        Scanner(string: String(hex[hex.index(startIndex, offsetBy: 4)...])).scanHexInt64(&blue)
-
-        return UIColor(red: CGFloat(red)/255.0, green: CGFloat(green)/255.0, blue: CGFloat(blue)/255.0, alpha: alpha)
+        
+        if let curBtn = lastBtn {
+            snp.makeConstraints { make in
+                make.right.equalTo(curBtn)
+            }
+        }
+        
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 0.1
+        layer.cornerRadius = 6
+        layer.masksToBounds = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func update(selBtn: UIButton, barStyle: WisdomSceneBarStyle) {
+        switch barStyle {
+        case .dark:
+            selBtn.setTitle(".dark", for: .normal)
+            selBtn.backgroundColor = UIColor.black
+            selBtn.setTitleColor(UIColor.white, for: .normal)
+        case .light:
+            selBtn.setTitle(".light", for: .normal)
+            selBtn.backgroundColor = UIColor.white
+            selBtn.setTitleColor(UIColor.black, for: .normal)
+        case .hide:
+            selBtn.setTitle(".hide", for: .normal)
+            selBtn.backgroundColor = UIColor.black
+            selBtn.setTitleColor(UIColor.white, for: .normal)
+        }
+    }
+    
+    @objc private func clickAction(btn: UIButton) {
+        if let oldBtn = selBtn, let barStyle = WisdomSceneBarStyle(rawValue: oldBtn.tag) {
+            update(selBtn: oldBtn, barStyle: barStyle)
+        }
+        if let barStyle = WisdomSceneBarStyle(rawValue: btn.tag) {
+            btn.backgroundColor = UIColor.systemPink
+            btn.setTitleColor(UIColor.white, for: .normal)
+            resultClosure(barStyle)
+        }
+        selBtn = btn
     }
 }
