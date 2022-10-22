@@ -154,9 +154,9 @@ extension WisdomHUDImageBaseView {
     private lazy var circleLayer: CAShapeLayer = {
         let path = UIBezierPath()
         path.addArc(withCenter: CGPoint(x: size/2, y: size/2),
-                    radius: (size - getLineWidth())/2,
-                    startAngle: Double.pi*1.5,
-                      endAngle: Double.pi*3.5,
+                        radius: (size - getLineWidth())/2,
+                    startAngle: Double.pi*1.25,
+                      endAngle: Double.pi*3.25,
                      clockwise: true)
         
         path.move(to: CGPoint(x: size/3.9, y: size/2))
@@ -224,8 +224,8 @@ extension WisdomHUDImageBaseView {
         let path = UIBezierPath()
         path.addArc(withCenter: CGPoint(x: size/2, y: size/2),
                         radius: (size - getLineWidth())/2,
-                    startAngle: Double.pi*1.5,
-                      endAngle: Double.pi*3.5,
+                    startAngle: Double.pi*1.25,
+                      endAngle: Double.pi*3.25,
                      clockwise: true)
         
         path.move(to: CGPoint(x: size/3, y: size/3))
