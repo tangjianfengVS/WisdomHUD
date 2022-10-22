@@ -127,7 +127,7 @@ public class WisdomHUDImageBaseView: UIView {
 
 extension WisdomHUDImageBaseView {
     
-    @objc public class func getLineWidth()->CGFloat{
+    @objc public func getLineWidth()->CGFloat{
         return 1.2
     }
     
@@ -154,7 +154,7 @@ extension WisdomHUDImageBaseView {
     private lazy var circleLayer: CAShapeLayer = {
         let path = UIBezierPath()
         path.addArc(withCenter: CGPoint(x: size/2, y: size/2),
-                    radius: (size - Self.getLineWidth())/2,
+                    radius: (size - getLineWidth())/2,
                     startAngle: Double.pi*1.5,
                       endAngle: Double.pi*3.5,
                      clockwise: true)
@@ -167,7 +167,7 @@ extension WisdomHUDImageBaseView {
         circle.fillColor = UIColor.clear.cgColor
         circle.strokeColor = UIColor.white.cgColor
         circle.lineCap = CAShapeLayerLineCap.round
-        circle.lineWidth = Self.getLineWidth()
+        circle.lineWidth = getLineWidth()
         circle.strokeEnd = 1.0
         circle.path = path.cgPath
         return circle
@@ -199,8 +199,8 @@ extension WisdomHUDImageBaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc public override class func getLineWidth()->CGFloat{
-        return 1.2
+    @objc public override func getLineWidth()->CGFloat{
+        return size/24//29-1.2
     }
     
     @objc public override class func getAnimDuration()->CGFloat{
@@ -223,7 +223,7 @@ extension WisdomHUDImageBaseView {
     private lazy var circleLayer: CAShapeLayer = {
         let path = UIBezierPath()
         path.addArc(withCenter: CGPoint(x: size/2, y: size/2),
-                        radius: (size - Self.getLineWidth())/2,
+                        radius: (size - getLineWidth())/2,
                     startAngle: Double.pi*1.5,
                       endAngle: Double.pi*3.5,
                      clockwise: true)
@@ -237,7 +237,7 @@ extension WisdomHUDImageBaseView {
         circle.fillColor = UIColor.clear.cgColor
         circle.strokeColor = UIColor.white.cgColor
         circle.lineCap = CAShapeLayerLineCap.round
-        circle.lineWidth = Self.getLineWidth()
+        circle.lineWidth = getLineWidth()
         circle.strokeEnd = 1.0
         circle.path = path.cgPath
         return circle
@@ -269,8 +269,8 @@ extension WisdomHUDImageBaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc public override class func getLineWidth()->CGFloat{
-        return WisdomHUDSuccessView.getLineWidth()
+    @objc public override func getLineWidth()->CGFloat{
+        return size/24//29-1.2
     }
     
     @objc public override class func getAnimDuration()->CGFloat{
@@ -293,7 +293,7 @@ extension WisdomHUDImageBaseView {
     private lazy var circleLayer: CAShapeLayer = {
         let path = UIBezierPath()
         path.addArc(withCenter: CGPoint(x: size/2, y: size/2),
-                        radius: (size - Self.getLineWidth())/2,
+                        radius: (size - getLineWidth())/2,
                     startAngle: Double.pi*1.5,
                       endAngle: Double.pi*3.5,
                      clockwise: true)
@@ -315,7 +315,7 @@ extension WisdomHUDImageBaseView {
         circle.fillColor = UIColor.clear.cgColor
         circle.strokeColor = UIColor.white.cgColor
         circle.lineCap = CAShapeLayerLineCap.round
-        circle.lineWidth = Self.getLineWidth()
+        circle.lineWidth = getLineWidth()
         circle.strokeEnd = 1.0
         circle.path = path.cgPath
         return circle
@@ -347,8 +347,8 @@ extension WisdomHUDImageBaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc public override class func getLineWidth()->CGFloat{
-        return WisdomHUDSuccessView.getLineWidth()
+    @objc public override func getLineWidth()->CGFloat{
+        return size/24//29-1.2
     }
     
     @objc public override class func getAnimDuration()->CGFloat{

@@ -39,9 +39,8 @@ import UIKit
 // MARK: HUD RotateView: WisdomLoadingStyle.rotate
 @objc public final class WisdomHUDRotateView: WisdomHUDImageBaseView {
     
-    @objc public private(set) lazy var lineWidth: CGFloat = size/14.0
-    
     private lazy var circleLayer: CAShapeLayer = {
+        let lineWidth = getLineWidth()
         let path = UIBezierPath(arcCenter: CGPoint(x: size/2, y: size/2),
                                    radius: size/2.0-lineWidth,
                                startAngle: Double.pi*1.5,
@@ -86,6 +85,10 @@ import UIKit
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc public override func getLineWidth()->CGFloat {
+        return size/14.0
+    }
+    
     @objc public override class func getAnimDuration()->CGFloat{
         return 0.6
     }
@@ -116,8 +119,6 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
 // MARK: HUD ProgressArcView: WisdomLoadingStyle.progressArc
 @objc public final class WisdomHUDProgressArcView: WisdomHUDImageBaseView {
     
-    @objc public private(set) lazy var lineWidth: CGFloat = size/14.0
-    
     @objc public private(set) var lineColor: UIColor = UIColor.white
     
     private lazy var timer: DispatchSourceTimer = {
@@ -144,7 +145,7 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
         circle.fillColor = UIColor.clear.cgColor
         circle.strokeColor = lineColor.cgColor
         circle.lineCap = CAShapeLayerLineCap.round
-        circle.lineWidth = lineWidth
+        circle.lineWidth = getLineWidth()
         circle.strokeEnd = 1.0
         return circle
     }()
@@ -173,7 +174,7 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
         layer.addSublayer(circleLayer)
         
         let path = UIBezierPath(arcCenter: CGPoint(x: size/2, y: size/2),
-                                   radius: size/2.0-lineWidth,
+                                   radius: size/2.0-getLineWidth(),
                                startAngle: origin,
                                  endAngle: Double.pi*3.5,
                                 clockwise: true)
@@ -210,7 +211,7 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
             }
             
             let path = UIBezierPath(arcCenter: CGPoint(x: size/2, y: size/2),
-                                       radius: size/2.0-lineWidth,
+                                       radius: size/2.0-getLineWidth(),
                                    startAngle: originStart,
                                      endAngle: originEnd,
                                     clockwise: true)
@@ -225,6 +226,10 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
         //}
     }
     
+    @objc public override func getLineWidth()->CGFloat {
+        return size/14.0
+    }
+    
     @objc public override class func getAnimDuration()->CGFloat{
         return 0.75
     }
@@ -235,7 +240,7 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
         timer.resume()
     }
     
-    public override func endDismiss() {
+    @objc public override func endDismiss() {
         timer.suspend()
         timer.cancel()
     }
@@ -256,7 +261,7 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
     
     @objc public private(set) var strokeColor: UIColor = UIColor.white
 
-    private lazy var distance = { return size/10.0 }()
+    @objc public private(set) lazy var distance = { return size/10.0 }()
     
     @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
         super.init(size: size)
@@ -319,10 +324,10 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getLayerView() -> UIView {
+    @objc public func getLayerView() -> UIView {
         let topPoint = CGPoint(x: size/2+distance, y: distance/1.7)
         let inoutPoint = CGPoint(x: size-distance/2.5, y: (size-distance*2)/3*2.2+distance)
-        let insidePoint = CGPoint(x: inoutPoint.x-distance*0.74, y: (size-distance*2)/3*2.1+distance)
+        let insidePoint = CGPoint(x: inoutPoint.x-getLineWidth(), y: (size-distance*2)/3*2.1+distance)
         
         let path = UIBezierPath()
         path.move(to: topPoint)
@@ -351,6 +356,10 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
         vi.backgroundColor = UIColor.clear
         vi.layer.addSublayer(circle)
         return vi
+    }
+    
+    @objc public override func getLineWidth()->CGFloat{
+        return distance*0.74
     }
     
     @objc public override class func getAnimDuration()->CGFloat{
@@ -425,12 +434,16 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
         return animation
     }
     
+    @objc public override func getLineWidth()->CGFloat{
+        return size/5.5
+    }
+    
     @objc public override class func getAnimDuration()->CGFloat{
         return 1.25
     }
     
     @objc public override func beginAnimation(isRepeat: Bool){
-        let circleSize = size/5.5
+        let circleSize = getLineWidth()
         // Draw circles
         for i in 0 ..< 5 {
             let factor = Float(i)*1/5
@@ -482,13 +495,17 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc public override func getLineWidth()->CGFloat{
+        return size/4.8
+    }
+    
     @objc public override class func getAnimDuration()->CGFloat{
         return 0.75
     }
     
     @objc public override func beginAnimation(isRepeat: Bool){
         let count: Int = 3
-        let circleSize: CGFloat = size/4.8
+        let circleSize = getLineWidth()
         let circleSpacing: CGFloat = (size - circleSize * CGFloat(count))/CGFloat(count - 1)
         
         let duration: CFTimeInterval = Self.getAnimDuration()
@@ -553,14 +570,18 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc public override func getLineWidth()->CGFloat{
+        return size/6.1
+    }
+    
     @objc public override class func getAnimDuration()->CGFloat{
         return WisdomHUDPulseBallView.getAnimDuration()
     }
     
     @objc public override func beginAnimation(isRepeat: Bool){
         let count: Int = 3
-        let shapeSize: CGFloat = size/6.1
-        let lf_margin: CGFloat = shapeSize
+        let shapeSize = getLineWidth()
+        let lf_margin = shapeSize
         let middle_margin: CGFloat = (size-shapeSize*3.0-lf_margin)/2.0
         let heightSize: CGFloat = shapeSize*2.0
         
