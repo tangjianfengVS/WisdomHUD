@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/tangjianfengVS/WisdomHUD.git", :tag => s.version }
 
   s.source_files  = "Source/*.swift"
-  s.resources = "Source/WisdomHUD.bundle"
+  # s.resources = "Source/WisdomHUD.bundle"
 end
