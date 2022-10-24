@@ -11,8 +11,7 @@ import UIKit
     
     private(set) var focusing = false
     
-    // CoverView
-    weak var coverView: UIView?
+    weak var coverView: UIView? // CoverView
     
 }
 
