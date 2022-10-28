@@ -7,12 +7,38 @@
 
 import UIKit
 
-@objc public final class WisdomHUDContext: NSObject {
+
+class WisdomHUDBaseContext {
+    
+    private(set) weak var coverView: UIView? // CoverView
+    
+    private(set) var isSetting = false
+    
+    //    private(set) var textFont: UIFont?
+    //
+    //    private(set) var textColor: UIColor?
+}
+
+extension WisdomHUDBaseContext {
+    
+    func setCoverView(coverView: UIView) {
+        self.coverView = coverView
+    }
+}
+
+//    func setTextFont(textFont: UIFont)->Self{
+//        self.textFont = textFont
+//        return self
+//    }
+//
+//    func setTextColor(textColor: UIColor)->Self{
+//        self.textColor = textColor
+//        return self
+//    }
+
+final class WisdomHUDContext: WisdomHUDBaseContext {
     
     private(set) var focusing = false
-    
-    weak var coverView: UIView? // CoverView
-    
 }
 
 extension WisdomHUDContext: WisdomHUDContextable {
@@ -25,11 +51,31 @@ extension WisdomHUDContext: WisdomHUDContextable {
             DispatchQueue.main.async { doFocusing() }
         }
         func doFocusing() {
-            if let coverVI = coverView as? WisdomHUDCoverView{
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                focusing = false
                 coverVI.setFocusing()
             }else {
                 focusing = true
             }
+        }
+    }
+}
+
+
+class WisdomHUDLoadingContext: WisdomHUDBaseContext {
+    
+    private(set) var timeout: (TimeInterval, (TimeInterval)->())?
+}
+
+extension WisdomHUDLoadingContext: WisdomHUDLoadingContextable {
+    
+    // MARK: Set HUD CoverView Loading Timeout
+    @objc public func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->())){
+        if let coverVI = coverView as? WisdomHUDCoverView {
+            timeout = nil
+            coverVI.setTimeout(time: time, timeoutClosure: timeoutClosure)
+        }else {
+            timeout = (time, timeoutClosure)
         }
     }
 }

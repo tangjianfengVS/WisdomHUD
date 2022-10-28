@@ -197,7 +197,7 @@ final class WisdomHUDSceneView: UIView {
 
 extension WisdomHUDSceneView: WisdomHUDContentable {
     
-    func setLoadingContent(text: String, loadingStyle: WisdomLoadingStyle) {
+    func setLoadingContent(text: String, loadingStyle: WisdomLoadingStyle, timeout: (TimeInterval, (TimeInterval)->())?) {
         self.loadingStyle = loadingStyle
         
         if loadingStyle == .chaseBall {
@@ -239,6 +239,10 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
             set_contentSize()
         }
         set_shadowColor(cornerRadius: 10)
+        
+        if let timeoutInfo = timeout {
+            setTimeout(time: timeoutInfo.0, timeoutClosure: timeoutInfo.1)
+        }
     }
     
     func setSuccessContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
@@ -294,6 +298,14 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
     }
 }
 
+extension WisdomHUDSceneView: WisdomHUDLoadingContextable {
+    
+    func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->())) {
+        self.delayClosure = timeoutClosure
+        startDelays(delays: time)
+    }
+}
+
 extension WisdomHUDSceneView: WisdomHUDDelaysable {
     
     func startDelays(delays: TimeInterval) {
@@ -315,7 +327,11 @@ extension WisdomHUDSceneView: WisdomHUDDelaysable {
         }
         delayClosure = nil
         
-        WisdomHUDOperate.dismiss()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: { [weak self] in
+            if let _ = self?.superview{
+                WisdomHUDOperate.dismiss()
+            }
+        })
     }
     
     func executeDelayClosure(){

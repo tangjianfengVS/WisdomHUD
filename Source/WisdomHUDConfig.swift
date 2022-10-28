@@ -9,7 +9,7 @@
 import UIKit
 
 /* HUD Style */
-enum WisdomHUDStyle: CaseIterable {
+public enum WisdomHUDStyle: CaseIterable {
     case succes   // image + text
     case error    // image + text
     case warning  // image + text

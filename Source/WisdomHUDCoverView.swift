@@ -10,9 +10,9 @@ import UIKit
 
 final class WisdomHUDCoverView: UIView {
     
-    private(set) var focusing = false
+    private(set) var isSetting = false
     
-    var sceneView: WisdomHUDSceneView?
+    weak var sceneView: WisdomHUDSceneView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,7 +27,7 @@ final class WisdomHUDCoverView: UIView {
 extension WisdomHUDCoverView: WisdomHUDContextable {
     
     func setFocusing(){
-        focusing = true
+        isSetting = true
         
         if let cur_sceneView = sceneView {
             backgroundColor = UIColor.clear
@@ -62,5 +62,13 @@ extension WisdomHUDCoverView: WisdomHUDContextable {
                                  rightView: self,
                                  edgeInset: UIEdgeInsets.zero)
         }
+    }
+}
+
+extension WisdomHUDCoverView: WisdomHUDLoadingContextable {
+    
+    func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->())) {
+        isSetting = true
+        sceneView?.setTimeout(time: time, timeoutClosure: timeoutClosure)
     }
 }

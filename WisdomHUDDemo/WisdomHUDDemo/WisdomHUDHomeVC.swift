@@ -140,16 +140,20 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
             }.setFocusing()
         case .loading:
             if let loadingStyle = WisdomLoadingStyle(rawValue: indexPath.row) {
-                WisdomHUD.showLoading(text: "正在加载中", loadingStyle: loadingStyle, barStyle: sceneBarStyle, inSupView: view)
-
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
+                DispatchQueue.global().async {
+                    WisdomHUD.showLoading(text: "正在加载中", loadingStyle: loadingStyle, barStyle: sceneBarStyle).setTimeout(time: 8) { _ in
+                        WisdomHUD.showTextBottom(text: "加载超时，稍后重试", barStyle: sceneBarStyle, delays: 5, delayClosure: nil)
+                    }
+                }
+                
+                //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
                     
                     //WisdomHUD.showLoading(text: "覆盖测试中", loadingStyle: loadingStyle, barStyle: .light)
 
                     //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
-                        WisdomHUD.dismiss()
+                    //    WisdomHUD.dismiss()
                     //}
-                }
+                //}
             }
         case .text:
             switch WisdomTextPlaceStyle.allCases[indexPath.row] {
