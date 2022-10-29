@@ -27,7 +27,7 @@ class WisdomCustomNextCell: UITableViewCell {
         contentView.addSubview(nextView)
         
         nextView.snp.makeConstraints { make in
-            make.bottom.top.equalTo(contentView)
+            make.top.equalTo(contentView)
             make.bottom.equalTo(contentView).offset(-1)
             make.left.equalTo(contentView).offset(0)
             make.right.equalTo(contentView).offset(-0)

@@ -101,6 +101,8 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
         if let rootVI = cur_inSupView {
             if let coverView = rootVI.viewWithTag(WisdomHUDCoverTag) as? WisdomHUDCoverView {
                 if coverView.isSetting {
+                    
+                    coverView.sceneView?.setDismissImage()
                     coverView.removeFromSuperview()
                     return createCoverView(rootVI: rootVI)
                 }
@@ -108,10 +110,13 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
                 if let sceneView = coverView.sceneView, sceneView.hudStyle == hudStyle {
                     sceneView.executeDelayClosure()
                     sceneView.setStyleContent(barStyle: barStyle, placeStyle: placeStyle)
+                    coverView.alpha = 1
                     return (coverView, sceneView)
                 }
                 
+                coverView.sceneView?.setDismissImage()
                 coverView.sceneView?.removeFromSuperview()
+                coverView.alpha = 1
                 return (coverView, createAndSetupSceneView(supView: coverView))
             }else {
                 return createCoverView(rootVI: rootVI)
@@ -207,6 +212,14 @@ extension WisdomHUDOperate: WisdomHUDLoadingable {
             if let contentView = getSceneView(hudStyle: .loading, barStyle: barStyle, inSupView: inSupView) {
                 context.setCoverView(coverView: contentView.0)
                 contentView.1.setLoadingContent(text: text, loadingStyle: loadingStyle, timeout: context.timeout)
+                
+                if let textColor = context.textColor {
+                    _=context.setTextColor(color: textColor)
+                }
+                
+                if let textFont = context.textFont {
+                    _=context.setTextFont(font: textFont)
+                }
             }
         }
         return context
@@ -254,8 +267,17 @@ extension WisdomHUDOperate: WisdomHUDSuccessable {
             if let contentView = getSceneView(hudStyle: .succes, barStyle: barStyle, inSupView: inSupView) {
                 context.setCoverView(coverView: contentView.0)
                 contentView.1.setSuccessContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
+                
                 if context.focusing {
-                    context.setFocusing()
+                    _=context.setFocusing()
+                }
+                
+                if let textColor = context.textColor {
+                    _=context.setTextColor(color: textColor)
+                }
+                
+                if let textFont = context.textFont {
+                    _=context.setTextFont(font: textFont)
                 }
             }
         }
@@ -304,8 +326,17 @@ extension WisdomHUDOperate: WisdomHUDErrorable {
             if let contentView = getSceneView(hudStyle: .error, barStyle: barStyle, inSupView: inSupView) {
                 context.setCoverView(coverView: contentView.0)
                 contentView.1.setErrorContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
+                
                 if context.focusing {
-                    context.setFocusing()
+                    _=context.setFocusing()
+                }
+                
+                if let textColor = context.textColor {
+                    _=context.setTextColor(color: textColor)
+                }
+                
+                if let textFont = context.textFont {
+                    _=context.setTextFont(font: textFont)
                 }
             }
         }
@@ -354,8 +385,17 @@ extension WisdomHUDOperate: WisdomHUDWarningable {
             if let contentView = getSceneView(hudStyle: .warning, barStyle: barStyle, inSupView: inSupView) {
                 context.setCoverView(coverView: contentView.0)
                 contentView.1.setWarningContent(text: text, animat: false, delays: delays, delayClosure: delayClosure)
+                
                 if context.focusing {
-                    context.setFocusing()
+                    _=context.setFocusing()
+                }
+                
+                if let textColor = context.textColor {
+                    _=context.setTextColor(color: textColor)
+                }
+                
+                if let textFont = context.textFont {
+                    _=context.setTextFont(font: textFont)
                 }
             }
         }
@@ -404,8 +444,17 @@ extension WisdomHUDOperate: WisdomHUDTextCenterable {
             if let contentView = getSceneView(hudStyle: .text, placeStyle: .center, barStyle: barStyle, inSupView: inSupView) {
                 context.setCoverView(coverView: contentView.0)
                 contentView.1.setTextContent(text: text, delays: delays, delayClosure: delayClosure)
+                
                 if context.focusing {
-                    context.setFocusing()
+                    _=context.setFocusing()
+                }
+                
+                if let textColor = context.textColor {
+                    _=context.setTextColor(color: textColor)
+                }
+                
+                if let textFont = context.textFont {
+                    _=context.setTextFont(font: textFont)
                 }
             }
         }
@@ -454,8 +503,17 @@ extension WisdomHUDOperate: WisdomHUDTextBottomable {
             if let contentView = getSceneView(hudStyle: .text, placeStyle: .bottom, barStyle: barStyle, inSupView: inSupView) {
                 context.setCoverView(coverView: contentView.0)
                 contentView.1.setTextContent(text: text, delays: delays, delayClosure: delayClosure)
+                
                 if context.focusing {
-                    context.setFocusing()
+                    _=context.setFocusing()
+                }
+                
+                if let textColor = context.textColor {
+                    _=context.setTextColor(color: textColor)
+                }
+                
+                if let textFont = context.textFont {
+                    _=context.setTextFont(font: textFont)
                 }
             }
         }

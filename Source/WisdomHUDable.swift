@@ -181,12 +181,23 @@ protocol WisdomHUDSetImageable {
     func setDismissImage()
 }
 
-@objc public protocol  WisdomHUDContextable {
+@objc public protocol WisdomHUDBaseContextable {
     
-    @objc func setFocusing()
+    @discardableResult
+    @objc func setTextFont(font: UIFont)->Self
+    
+    @discardableResult
+    @objc func setTextColor(color: UIColor)->Self
 }
 
-@objc public protocol WisdomHUDLoadingContextable {
+@objc public protocol WisdomHUDContextable: WisdomHUDBaseContextable {
     
-    @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))
+    @discardableResult
+    @objc func setFocusing()->Self
+}
+
+@objc public protocol WisdomHUDLoadingContextable: WisdomHUDBaseContextable {
+    
+    @discardableResult
+    @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
 }
