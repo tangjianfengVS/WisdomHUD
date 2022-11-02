@@ -18,22 +18,22 @@ import UIKit
 extension WisdomHUD: WisdomHUDSettingable {
     
     // MARK: HUD Set Loading Style
-    @objc static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
+    @objc public static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
         WisdomHUDOperate.setLoadingStyle(loadingStyle: loadingStyle)
     }
     
     // MARK: HUD Set Scene Bar Style
-    @objc static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
+    @objc public static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
         WisdomHUDOperate.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
     }
     
     // MARK: HUD Set Display Delay
-    @objc static func setDisplayDelay(delayTime: CGFloat) {
+    @objc public static func setDisplayDelay(delayTime: CGFloat) {
         WisdomHUDOperate.setDisplayDelay(delayTime: delayTime)
     }
     
     // MARK: HUD Set Cover BackgColor
-    @objc static func setCoverBackgColor(backgColor: UIColor) {
+    @objc public static func setCoverBackgColor(backgColor: UIColor) {
         WisdomHUDOperate.setCoverBackgColor(backgColor: backgColor)
     }
 }
