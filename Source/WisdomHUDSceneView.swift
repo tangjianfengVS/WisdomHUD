@@ -159,7 +159,7 @@ final class WisdomHUDSceneView: UIView {
         startDelays(delays: delays)
     }
     
-    private func set_imageContentSize() {
+    func set_imageContentSize() {
         textLabel.sizeToFit()
         layoutIfNeeded()
         

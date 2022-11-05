@@ -65,6 +65,10 @@ extension WisdomHUDCoverView: WisdomHUDContextable {
                                  bottomView: self,
                                  rightView: self,
                                  edgeInset: UIEdgeInsets.zero)
+            
+            if cur_sceneView.hudStyle != .text{
+                cur_sceneView.set_imageContentSize()
+            }
         }
         return self
     }
