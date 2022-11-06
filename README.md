@@ -24,6 +24,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 (1)：`WisdomHUD`的 Loading 加载样式支持：
 
 /* HUD Loading Style */
+
 @objc public enum WisdomLoadingStyle: NSInteger, CaseIterable {
     case system=0     // 系统菊花
     case rotate       // 经典旋圈
@@ -37,6 +38,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 (2)：`WisdomHUD`的 BarStyle 背景样式支持：
 
 /* HUD Scene Bar Style */
+
 @objc public enum WisdomSceneBarStyle: NSInteger, CaseIterable {
     case dark=0    // 黑色
     case light     // 白色
@@ -46,6 +48,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 (3)：`WisdomHUD`的 TextPlace 位置样式支持：
 
 /* HUD Text Place Style */
+
 @objc public enum WisdomTextPlaceStyle: NSInteger, CaseIterable {
     case center=0  // 中心
     case bottom    // 底部
@@ -54,6 +57,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 (4)：`WisdomHUD`的 Context Info 信息调整：
 
 /* HUD Text Context Set Info */
+
 @objc public protocol WisdomHUDBaseContextable {
     
     // 文字大小调整
@@ -68,6 +72,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 (5)：`WisdomHUD`的 Context Focusing 聚焦设置（去除遮盖视图）：
 
 /* HUD Text Context Set Focusing */
+
 @objc public protocol WisdomHUDContextable: WisdomHUDBaseContextable {
     
     @discardableResult
@@ -77,6 +82,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 (6)：`WisdomHUD`的 Loading Context Timeout 超时设置：
 
 /* HUD Text Context Set Loading Timeout */
+
 @objc public protocol WisdomHUDLoadingContextable: WisdomHUDBaseContextable {
     
     @discardableResult
