@@ -11,7 +11,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 'WisdomHUD' API call convenient/flexible, later will update iteration, recommended use.
 
 
-`WisdomHUD` 是一款多种样式的 HUD 弹框指示器 SDK。 
+`WisdomHUD` 是一款多种样式的 HUD 弹框指示器 SDK。\n 
 `WisdomHUD` 系统最低支持 iOS 9.0版本，由Swift 5.0 编写，兼容 OC 类调用使用。 
 `WisdomHUD` 支持 全局/单点 HUD 内部属性动态 调整，支持视图 聚焦显示设置。
 `WisdomHUD` 支持 超时/延迟 时间设置，支持 超时/延迟 结束事件回调处理。
