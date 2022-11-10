@@ -37,6 +37,9 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 `WisdomHUD` API 调用方便/灵活，后期会更新迭代，推荐使用。
 
 
+![image](🔗https://github.com/lexsaints/powershell/blob/master/IMG/ps2.png)
+
+
 (1)：`WisdomHUD`的 Loading 加载样式支持：
 
 /* HUD Loading Style */
