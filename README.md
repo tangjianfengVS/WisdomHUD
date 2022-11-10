@@ -18,6 +18,8 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 'WisdomHUD' API call convenient/flexible, later will update iteration, recommended use.
 
 
+
+
 `WisdomHUD` 是一款多种样式的 HUD 弹框指示器 SDK。
 
 `WisdomHUD` 系统最低支持 iOS 9.0版本，由Swift 5.0 编写，兼容 OC 类调用使用。
@@ -40,13 +42,21 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 /* HUD Loading Style */
 
 @objc public enum WisdomLoadingStyle: NSInteger, CaseIterable {
+
     case system=0     // 系统菊花
+    
     case rotate       // 经典旋圈
+    
     case progressArc  // 缩进弧
+    
     case tadpoleArc   // 蝌蚪弧
+    
     case chaseBall    // 追逐球
+    
     case pulseBall    // 脉冲球
+    
     case pulseShape   // 脉冲形状
+    
 }
 
 (2)：`WisdomHUD`的 BarStyle 背景样式支持：
@@ -54,9 +64,13 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 /* HUD Scene Bar Style */
 
 @objc public enum WisdomSceneBarStyle: NSInteger, CaseIterable {
+
     case dark=0    // 黑色
+    
     case light     // 白色
+    
     case hide      // 隐藏
+    
 }
 
 (3)：`WisdomHUD`的 TextPlace 位置样式支持：
@@ -64,8 +78,11 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 /* HUD Text Place Style */
 
 @objc public enum WisdomTextPlaceStyle: NSInteger, CaseIterable {
+
     case center=0  // 中心
+    
     case bottom    // 底部
+    
 }
 
 (4)：`WisdomHUD`的 Context Info 信息调整：
@@ -75,12 +92,17 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 @objc public protocol WisdomHUDBaseContextable {
     
     // 文字大小调整
+    
     @discardableResult
+    
     @objc func setTextFont(font: UIFont)->Self
     
     // 文字颜色调整
+    
     @discardableResult
+    
     @objc func setTextColor(color: UIColor)->Self
+    
 }
 
 (5)：`WisdomHUD`的 Context Focusing 聚焦设置（去除遮盖视图）：
@@ -90,7 +112,9 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 @objc public protocol WisdomHUDContextable: WisdomHUDBaseContextable {
     
     @discardableResult
+    
     @objc func setFocusing()->Self
+    
 }
 
 (6)：`WisdomHUD`的 Loading Context Timeout 超时设置：
@@ -100,5 +124,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 @objc public protocol WisdomHUDLoadingContextable: WisdomHUDBaseContextable {
     
     @discardableResult
+    
     @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
+    
 }
