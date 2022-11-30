@@ -108,7 +108,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
     
 }
 
-(5)：`WisdomHUD`的 Context Focusing 聚焦设置（去除遮盖视图）：
+(5)：`WisdomHUD`的 Context Focusing 聚焦设置（去除遮盖视图，允许底部试图交互，Loading HUD不支持）：
 
 /* HUD Text Context Set Focusing */
 
@@ -120,7 +120,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
     
 }
 
-(6)：`WisdomHUD`的 Loading Context Timeout 超时设置：
+(6)：`WisdomHUD`的 Loading Context Timeout 超时设置（超时时间到了 Loading HUD 回调结束，并自动移除）：
 
 /* HUD Text Context Set Loading Timeout */
 
@@ -130,4 +130,39 @@ https://github.com/tangjianfengVS/WisdomHUD.git
     
     @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
     
+}
+
+(7)：`WisdomHUD`的 全局属性设置：
+
+/* HUD Setting able */
+
+extension WisdomHUD: WisdomHUDSettingable {
+    
+    // MARK: HUD Set Loading Style
+    
+    @objc public static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
+    
+        WisdomHUDOperate.setLoadingStyle(loadingStyle: loadingStyle)
+    }
+    
+    // MARK: HUD Set Scene Bar Style
+    
+    @objc public static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
+    
+        WisdomHUDOperate.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
+    }
+    
+    // MARK: HUD Set Display Delay
+    
+    @objc public static func setDisplayDelay(delayTime: CGFloat) {
+    
+        WisdomHUDOperate.setDisplayDelay(delayTime: delayTime)
+    }
+    
+    // MARK: HUD Set Cover BackgColor
+    
+    @objc public static func setCoverBackgColor(backgColor: UIColor) {
+    
+        WisdomHUDOperate.setCoverBackgColor(backgColor: backgColor)
+    }
 }
