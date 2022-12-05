@@ -59,7 +59,7 @@ protocol WisdomHUDProgressable {
     
     static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable // progressStyle/barStyle
     
-    static func showProgress(text: String, progressStyle: WisdomProgressStyle, inSupView: UIView?)->WisdomHUDProgressContextable // loadingStyle/inSupView
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, inSupView: UIView?)->WisdomHUDProgressContextable // progressStyle/inSupView
     
     static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable // barStyle/inSupView
     
