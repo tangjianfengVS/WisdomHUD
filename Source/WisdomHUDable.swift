@@ -47,6 +47,25 @@ protocol WisdomHUDLoadingable {
     static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDLoadingContextable // loadingStyle/barStyle/inSupView
 }
 
+protocol WisdomHUDProgressable {
+    
+    static func showProgress(text: String)->WisdomHUDProgressContextable
+    
+    static func showProgress(text: String, inSupView: UIView?)->WisdomHUDProgressContextable // inSupView
+    
+    static func showProgress(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable // barStyle
+    
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle)->WisdomHUDProgressContextable // progressStyle
+    
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable // progressStyle/barStyle
+    
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, inSupView: UIView?)->WisdomHUDProgressContextable // loadingStyle/inSupView
+    
+    static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable // barStyle/inSupView
+    
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable // progressStyle/barStyle/inSupView
+}
+
 protocol WisdomHUDSuccessable {
     
     static func showSuccess(text: String)->WisdomHUDContextable
@@ -201,3 +220,12 @@ protocol WisdomHUDSetImageable {
     @discardableResult
     @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
 }
+
+@objc public protocol WisdomHUDProgressContextable: WisdomHUDLoadingContextable {
+    
+    @discardableResult
+    @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
+    
+    // 调解进度
+}
+

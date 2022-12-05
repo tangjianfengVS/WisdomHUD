@@ -15,6 +15,7 @@ public enum WisdomHUDStyle: CaseIterable {
     case warning  // image + text
     case loading  // image + text
     case text     // text
+    case progress // image + text
 }
 
 
@@ -42,6 +43,12 @@ public enum WisdomHUDStyle: CaseIterable {
 @objc public enum WisdomTextPlaceStyle: NSInteger, CaseIterable {
     case center=0  // 中心
     case bottom    // 底部
+}
+
+
+/* HUD Progress Style */
+@objc public enum WisdomProgressStyle: NSInteger, CaseIterable {
+    case circle=0  // 中心
 }
 
 
