@@ -75,6 +75,7 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
         case .warning: return 1
         case .loading: return WisdomLoadingStyle.allCases.count
         case .text: return WisdomTextPlaceStyle.allCases.count
+        case .progress: return WisdomProgressStyle.allCases.count
         }
     }
     
@@ -96,6 +97,8 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
             loadingStyle = WisdomLoadingStyle(rawValue: indexPath.row)
         case .text:
             textPlaceStyle = WisdomTextPlaceStyle.allCases[indexPath.row]
+        case .progress:
+            break
         }
         
         cell.setTitle(hudStyle: hudStyle, loadingStyle: loadingStyle, textPlaceStyle: textPlaceStyle)
@@ -181,6 +184,8 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
                 
             default: break
             }
+        case .progress:
+            break
         }
     }
 }
