@@ -165,6 +165,8 @@ protocol WisdomHUDContentable {
     
     func setLoadingContent(text: String, loadingStyle: WisdomLoadingStyle, timeout: (TimeInterval, (TimeInterval)->())?)
     
+    func setProgressContent(text: String, progressStyle: WisdomProgressStyle, timeout: (TimeInterval, (TimeInterval)->())?)
+    
     func setSuccessContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)
     
     func setErrorContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)
@@ -191,6 +193,8 @@ protocol WisdomHUDSetImageable {
     
     func setLoadingImage(size: CGFloat, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle)
     
+    func setProgressImage(size: CGFloat, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)
+    
     func setSuccessImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
     
     func setErrorImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
@@ -202,30 +206,37 @@ protocol WisdomHUDSetImageable {
 
 @objc public protocol WisdomHUDBaseContextable {
     
+    // Set the Context text size
     @discardableResult
     @objc func setTextFont(font: UIFont)->Self
     
+    // Set the Context text color
     @discardableResult
     @objc func setTextColor(color: UIColor)->Self
 }
 
 @objc public protocol WisdomHUDContextable: WisdomHUDBaseContextable {
     
+    // Set the Context focusing. The underlying view interaction is not affected
     @discardableResult
     @objc func setFocusing()->Self
 }
 
 @objc public protocol WisdomHUDLoadingContextable: WisdomHUDBaseContextable {
     
+    // Set the Loading Context timeout. The timeout callback is automatically removed
     @discardableResult
     @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
 }
 
 @objc public protocol WisdomHUDProgressContextable: WisdomHUDLoadingContextable {
     
+    // Set the Progress Context Color. The progress bar color
     @discardableResult
-    @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
+    @objc func setProgressColor(progressColor: UIColor)->Self
     
-    // 调解进度
+    // Set the Progress Context did task value.
+    @discardableResult
+    @objc func setProgressDid(value: UInt)->Self
 }
 

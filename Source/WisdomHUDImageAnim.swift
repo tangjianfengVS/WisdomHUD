@@ -10,7 +10,7 @@ import UIKit
 
 
 // MARK: HUD IndicatorView: WisdomLoadingStyle.system
-@objc public final class WisdomHUDIndicatorView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDIndicatorView: WisdomHUDImageAnimView {
     
     let indicatorView: UIActivityIndicatorView
     
@@ -37,7 +37,7 @@ import UIKit
 
 
 // MARK: HUD RotateView: WisdomLoadingStyle.rotate
-@objc public final class WisdomHUDRotateView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDRotateView: WisdomHUDImageAnimView {
     
     private lazy var circleLayer: CAShapeLayer = {
         let lineWidth = getLineWidth()
@@ -117,7 +117,7 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
 
 
 // MARK: HUD ProgressArcView: WisdomLoadingStyle.progressArc
-@objc public final class WisdomHUDProgressArcView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDProgressArcView: WisdomHUDImageAnimView {
     
     @objc public private(set) var lineColor: UIColor = UIColor.white
     
@@ -255,7 +255,7 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
 
 
 // MARK: HUD TadpoleArcView: WisdomLoadingStyle.tadpoleArc
-@objc public final class WisdomHUDTadpoleArcView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDTadpoleArcView: WisdomHUDImageAnimView {
     
     @objc public private(set) var fillColor: UIColor = UIColor.white
     
@@ -379,7 +379,7 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
 
 
 // MARK: HUD ChaseBallView: WisdomLoadingStyle.chaseBall
-@objc public final class WisdomHUDChaseBallView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDChaseBallView: WisdomHUDImageAnimView {
     
     @objc public private(set) var ballColor: UIColor = UIColor.white
     
@@ -474,7 +474,7 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
 
 
 // MARK: HUD PulseBallView: WisdomLoadingStyle.pulseBall
-@objc public final class WisdomHUDPulseBallView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDPulseBallView: WisdomHUDImageAnimView {
     
     @objc public private(set) var ballColor: UIColor = UIColor.white
     
@@ -549,7 +549,7 @@ extension WisdomHUDProgressArcView: CAAnimationDelegate {
 
 
 // MARK: HUD PulseShapeView: WisdomLoadingStyle.pulseShape
-@objc public final class WisdomHUDPulseShapeView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDPulseShapeView: WisdomHUDImageAnimView {
     
     @objc public private(set) var ballColor: UIColor = UIColor.white
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3EBBC677293EDA2900FE1422 /* WisdomHUDImageProgre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBC676293EDA2900FE1422 /* WisdomHUDImageProgre.swift */; };
 		8176E73728FAE3A900E33F46 /* WisdomHUD+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E72E28FAE3A900E33F46 /* WisdomHUD+Extension.swift */; };
 		8176E73828FAE3A900E33F46 /* WisdomHUDable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E72F28FAE3A900E33F46 /* WisdomHUDable.swift */; };
 		8176E73928FAE3A900E33F46 /* WisdomHUDConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E73028FAE3A900E33F46 /* WisdomHUDConfig.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3EBBC676293EDA2900FE1422 /* WisdomHUDImageProgre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomHUDImageProgre.swift; sourceTree = "<group>"; };
 		8176E72E28FAE3A900E33F46 /* WisdomHUD+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WisdomHUD+Extension.swift"; sourceTree = "<group>"; };
 		8176E72F28FAE3A900E33F46 /* WisdomHUDable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WisdomHUDable.swift; sourceTree = "<group>"; };
 		8176E73028FAE3A900E33F46 /* WisdomHUDConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WisdomHUDConfig.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				8176E78D28FAF34400E33F46 /* WisdomHUDImageAnim.swift */,
 				8176E73328FAE3A900E33F46 /* WisdomHUDSelectView.swift */,
 				8176E72E28FAE3A900E33F46 /* WisdomHUD+Extension.swift */,
+				3EBBC676293EDA2900FE1422 /* WisdomHUDImageProgre.swift */,
 			);
 			name = Source;
 			path = ../Source;
@@ -319,6 +322,7 @@
 				8176E73F28FAE3A900E33F46 /* WisdomHUDSceneView.swift in Sources */,
 				A582603C21B68174009421EB /* AppDelegate.swift in Sources */,
 				8176E73E28FAE3A900E33F46 /* WisdomHUDOperate.swift in Sources */,
+				3EBBC677293EDA2900FE1422 /* WisdomHUDImageProgre.swift in Sources */,
 				8176E76F28FAE53B00E33F46 /* ConstraintInsets.swift in Sources */,
 				818427E82903E4BA00522922 /* WisdomHUDContext.swift in Sources */,
 				8176E78728FAE53B00E33F46 /* ConstraintRelatableTarget.swift in Sources */,

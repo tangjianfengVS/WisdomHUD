@@ -22,9 +22,14 @@ final class WisdomHUDContext: WisdomHUDBaseContext {
     private(set) var focusing = false
 }
 
-final class WisdomHUDLoadingContext: WisdomHUDBaseContext {
+class WisdomHUDLoadingContext: WisdomHUDBaseContext {
     
     private(set) var timeout: (TimeInterval, (TimeInterval)->())?
+}
+
+final class WisdomHUDProgressContext: WisdomHUDLoadingContext {
+    
+    private(set) var progressColor: UIColor?
 }
 
 
@@ -34,7 +39,6 @@ extension WisdomHUDBaseContext {
         self.coverView = coverView
     }
 }
-
 
 extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
 
@@ -115,6 +119,34 @@ extension WisdomHUDLoadingContext: WisdomHUDLoadingContextable {
                 _=coverVI.setTimeout(time: time, timeoutClosure: timeoutClosure)
             }else {
                 timeout = (time, timeoutClosure)
+            }
+        }
+        return self
+    }
+}
+
+extension WisdomHUDProgressContext: WisdomHUDProgressContextable {
+    
+    func setProgressDid(value: UInt)->Self {
+        
+        return self
+    }
+    
+    
+    // MARK: Set HUD CoverView Progress Color
+    public func setProgressColor(progressColor: UIColor)->Self {
+        if Thread.isMainThread {
+            doProgressColor()
+        }else {
+            DispatchQueue.main.async { doProgressColor() }
+        }
+        
+        func doProgressColor(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.progressColor = nil
+                //_=coverVI.setTextFont(font: font)
+            }else {
+                self.progressColor = progressColor
             }
         }
         return self

@@ -63,6 +63,28 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
         }
     }
     
+    func setProgressImage(size: CGFloat, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle) {
+        imageView?.removeFromSuperview()
+        imageView = nil
+        
+        switch progressStyle {
+        case .circle:
+            imageView = WisdomHUDImageCircleView(size: size, barStyle: barStyle)
+        default: break
+        }
+        
+        if let itemVi = imageView {
+            addSubview(itemVi)
+            
+            wisdom_addConstraint(with: itemVi,
+                              topView: self,
+                             leftView: self,
+                           bottomView: self,
+                            rightView: self,
+                            edgeInset: UIEdgeInsets.zero)
+        }
+    }
+    
     func setSuccessImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool) {
         imageView?.removeFromSuperview()
         imageView = WisdomHUDSuccessView(size: size, barStyle: barStyle)
@@ -75,7 +97,7 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
                         rightView: self,
                         edgeInset: UIEdgeInsets.zero)
         
-        imageView?.beginAnimation(isRepeat: false)
+        (imageView as? WisdomHUDSuccessView)?.beginAnimation(isRepeat: false)
     }
     
     func setErrorImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool) {
@@ -90,7 +112,7 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
                         rightView: self,
                         edgeInset: UIEdgeInsets.zero)
         
-        imageView?.beginAnimation(isRepeat: false)
+        (imageView as? WisdomHUDErrorView)?.beginAnimation(isRepeat: false)
     }
     
     func setWarningImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool) {
@@ -105,11 +127,11 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
                         rightView: self,
                         edgeInset: UIEdgeInsets.zero)
         
-        imageView?.beginAnimation(isRepeat: false)
+        (imageView as? WisdomHUDWarningView)?.beginAnimation(isRepeat: false)
     }
     
     func setDismissImage() {
-        imageView?.endDismiss()
+        (imageView as? WisdomHUDImageAnimView)?.endDismiss()
     }
 }
 
@@ -129,7 +151,8 @@ public class WisdomHUDImageBaseView: UIView {
     }
 }
 
-extension WisdomHUDImageBaseView {
+
+public class WisdomHUDImageAnimView: WisdomHUDImageBaseView {
     
     @objc public func getLineWidth()->CGFloat{
         return 1.2
@@ -153,7 +176,7 @@ extension WisdomHUDImageBaseView {
 }
 
 
-@objc public final class WisdomHUDSuccessView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDSuccessView: WisdomHUDImageAnimView {
     
     private lazy var circleLayer: CAShapeLayer = {
         let path = UIBezierPath()
@@ -222,7 +245,7 @@ extension WisdomHUDImageBaseView {
 }
 
 
-@objc public final class WisdomHUDErrorView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDErrorView: WisdomHUDImageAnimView {
     
     private lazy var circleLayer: CAShapeLayer = {
         let path = UIBezierPath()
@@ -292,7 +315,7 @@ extension WisdomHUDImageBaseView {
 }
 
 
-@objc public final class WisdomHUDWarningView: WisdomHUDImageBaseView {
+@objc public final class WisdomHUDWarningView: WisdomHUDImageAnimView {
     
     private lazy var circleLayer: CAShapeLayer = {
         let path = UIBezierPath()

@@ -185,7 +185,11 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
             default: break
             }
         case .progress:
-            break
+            let contextable = WisdomHUD.showProgress(text: "正在上传文件")
+//                .setTimeout(time: 10) { interval in
+//
+//            }
+            contextable.setProgressDid(value: 20)
         }
     }
 }

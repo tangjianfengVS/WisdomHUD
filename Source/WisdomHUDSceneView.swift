@@ -256,6 +256,54 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
         }
     }
     
+    func setProgressContent(text: String, progressStyle: WisdomProgressStyle, timeout: (TimeInterval, (TimeInterval)->())?){
+        
+        content.updateIcon_Size(icon_Size: content.icon_Size*1.8)
+        
+        imageView.setProgressImage(size: content.icon_Size, progressStyle: progressStyle, barStyle: barStyle)
+        
+        imageView.wisdom_addConstraint(width: content.icon_Size, height: content.icon_Size)
+        
+        //imageView.backgroundColor = UIColor.cyan
+        
+        if text.isEmpty {
+            wisdom_addConstraint(toCenterX: imageView, toCenterY: imageView)
+        }else {
+            // iconView layout
+            wisdom_addConstraint(toCenterX: imageView, toCenterY: nil)
+            
+            addConstraint(NSLayoutConstraint(item: imageView,
+                                             attribute: .top,
+                                             relatedBy: .equal,
+                                             toItem: self,
+                                             attribute: .top,
+                                             multiplier: 1.0,
+                                             constant: content.top_icon_space))
+            
+            // textLabel layout
+            textLabel.text = text
+            textLabel.font = UIFont.systemFont(ofSize: content.text_Font)
+            
+            wisdom_addConstraint(toCenterX: textLabel, toCenterY: nil)
+            
+            addConstraint(NSLayoutConstraint(item: textLabel,
+                                             attribute: .top,
+                                             relatedBy: .equal,
+                                             toItem: imageView,
+                                             attribute:.bottom,
+                                             multiplier: 1.0,
+                                             constant: content.top_text_space))
+            
+            set_imageContentSize()
+        }
+        
+        set_shadowColor(cornerRadius: 10)
+        
+        if let timeoutInfo = timeout {
+            _=setTimeout(time: timeoutInfo.0, timeoutClosure: timeoutInfo.1)
+        }
+    }
+    
     func setSuccessContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval)->())?) {
         imageView.setSuccessImage(size: content.icon_Size, barStyle: barStyle, animat: animat)
         

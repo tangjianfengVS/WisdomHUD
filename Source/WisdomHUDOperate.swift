@@ -226,6 +226,65 @@ extension WisdomHUDOperate: WisdomHUDLoadingable {
     }
 }
 
+extension WisdomHUDOperate:  WisdomHUDProgressable {
+    
+    static func showProgress(text: String)->WisdomHUDProgressContextable {
+        return showProgress(text: text, progressStyle: .circle, barStyle: WisdomSceneBarStyle, inSupView: nil)
+    }
+    
+    static func showProgress(text: String, inSupView: UIView?)->WisdomHUDProgressContextable {
+        return showProgress(text: text, progressStyle: .circle, barStyle: WisdomSceneBarStyle, inSupView: inSupView)
+    }
+    
+    static func showProgress(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable {
+        return showProgress(text: text, progressStyle: .circle, barStyle: barStyle, inSupView: nil)
+    }
+    
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle)->WisdomHUDProgressContextable {
+        return showProgress(text: text, progressStyle: progressStyle, barStyle: WisdomSceneBarStyle, inSupView: nil)
+    }
+    
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable {
+        return showProgress(text: text, progressStyle: progressStyle, barStyle: barStyle, inSupView: nil)
+    }
+    
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
+        return showProgress(text: text, progressStyle: progressStyle, barStyle: WisdomSceneBarStyle, inSupView: inSupView)
+    }
+    
+    static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
+        return showProgress(text: text, progressStyle: .circle, barStyle: barStyle, inSupView: inSupView)
+    }
+    
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
+        let context = WisdomHUDProgressContext()
+        if Thread.isMainThread {
+            showHUD()
+        }else {
+            DispatchQueue.main.async { showHUD() }
+        }
+        func showHUD() {
+            if let contentView = getSceneView(hudStyle: .progress, barStyle: barStyle, inSupView: inSupView) {
+                context.setCoverView(coverView: contentView.0)
+                contentView.1.setProgressContent(text: text, progressStyle: progressStyle, timeout: context.timeout)
+                
+                if let textColor = context.textColor {
+                    _=context.setTextColor(color: textColor)
+                }
+                
+                if let textFont = context.textFont {
+                    _=context.setTextFont(font: textFont)
+                }
+                
+                if let progressColor = context.progressColor {
+                    _=context.setProgressColor(progressColor: progressColor)
+                }
+            }
+        }
+        return context
+    }
+}
+
 extension WisdomHUDOperate: WisdomHUDSuccessable {
     
     static func showSuccess(text: String)->WisdomHUDContextable {
