@@ -147,9 +147,9 @@
 				8176E73628FAE3A900E33F46 /* WisdomHUDSceneView.swift */,
 				818427EB2903E4D800522922 /* WisdomHUDImageView.swift */,
 				8176E78D28FAF34400E33F46 /* WisdomHUDImageAnim.swift */,
+				3EBBC676293EDA2900FE1422 /* WisdomHUDImageProgre.swift */,
 				8176E73328FAE3A900E33F46 /* WisdomHUDSelectView.swift */,
 				8176E72E28FAE3A900E33F46 /* WisdomHUD+Extension.swift */,
-				3EBBC676293EDA2900FE1422 /* WisdomHUDImageProgre.swift */,
 			);
 			name = Source;
 			path = ../Source;
