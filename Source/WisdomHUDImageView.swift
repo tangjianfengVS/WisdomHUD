@@ -133,6 +133,18 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
     func setDismissImage() {
         (imageView as? WisdomHUDImageAnimView)?.endDismiss()
     }
+    
+    func setProgressColor(color: UIColor) {
+        (imageView as? WisdomHUDImageProgreView)?.setProgressColor(color: color)
+    }
+    
+    func setProgressValue(value: UInt) {
+        (imageView as? WisdomHUDImageProgreView)?.setProgressValue(value: value)
+    }
+    
+    func setProgressTextColor(color: UIColor) {
+        (imageView as? WisdomHUDImageProgreView)?.setProgressTextColor(color: color)
+    }
 }
 
 

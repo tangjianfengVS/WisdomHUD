@@ -21,7 +21,7 @@ struct WisdomHUDOperate {
     fileprivate static let WisdomHUDCoverTag = 221010
     
     //static let WisdomCache = NSCache<NSString, UIImage>()
-    static func getWisdom_Focusing()->String { return "Wisdom_Focusing"}
+    static func getWisdomHUD_Focusing()->String { return "WisdomHUD_Focusing"}
 }
 
 extension WisdomHUDOperate: WisdomHUDSettingable {
@@ -158,7 +158,7 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
                                                        attribute: .bottom,
                                                       multiplier: 1.0,
                                                         constant: -supView.frame.height/10.5)
-                    offsetConstant.identifier = WisdomHUDOperate.getWisdom_Focusing()
+                    offsetConstant.identifier = WisdomHUDOperate.getWisdomHUD_Focusing()
                     supView.addConstraint(offsetConstant)
                 default: break
                 }
@@ -271,13 +271,18 @@ extension WisdomHUDOperate:  WisdomHUDProgressable {
                 if let textColor = context.textColor {
                     _=context.setTextColor(color: textColor)
                 }
-                
                 if let textFont = context.textFont {
                     _=context.setTextFont(font: textFont)
                 }
                 
                 if let progressColor = context.progressColor {
-                    _=context.setProgressColor(progressColor: progressColor)
+                    _=context.setProgressColor(color: progressColor)
+                }
+                if let progressValue = context.progressValue {
+                    _=context.setProgressValue(value: progressValue)
+                }
+                if let progressTextColor = context.progressTextColor {
+                    _=context.setProgressTextColor(color: progressTextColor)
                 }
             }
         }

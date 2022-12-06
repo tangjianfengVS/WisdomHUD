@@ -87,6 +87,7 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(WisdomCustomNextCell.self)", for: indexPath) as! WisdomCustomNextCell
         let hudStyle = WisdomHUDStyle.allCases[indexPath.section]
         var loadingStyle: WisdomLoadingStyle?
+        var progressStyle: WisdomProgressStyle?
         var textPlaceStyle: WisdomTextPlaceStyle?
         
         switch hudStyle {
@@ -98,10 +99,10 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
         case .text:
             textPlaceStyle = WisdomTextPlaceStyle.allCases[indexPath.row]
         case .progress:
-            break
+            progressStyle = WisdomProgressStyle.allCases[indexPath.row]
         }
         
-        cell.setTitle(hudStyle: hudStyle, loadingStyle: loadingStyle, textPlaceStyle: textPlaceStyle)
+        cell.setTitle(hudStyle: hudStyle, loadingStyle: loadingStyle, progressStyle: progressStyle,textPlaceStyle: textPlaceStyle)
         return cell
     }
     
@@ -158,14 +159,14 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
                     }
                 }
                 
-                //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
-                    
-                    //WisdomHUD.showLoading(text: "覆盖测试中", loadingStyle: loadingStyle, barStyle: .light)
-
-                    //DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
-                    //    WisdomHUD.dismiss()
-                    //}
-                //}
+//                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
+//
+//                    WisdomHUD.showLoading(text: "覆盖测试中", loadingStyle: loadingStyle, barStyle: .light)
+//
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8) {
+//                        WisdomHUD.dismiss()
+//                    }
+//                }
             }
         case .text:
             switch WisdomTextPlaceStyle.allCases[indexPath.row] {
@@ -185,11 +186,19 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
             default: break
             }
         case .progress:
-            let contextable = WisdomHUD.showProgress(text: "正在上传文件")
-//                .setTimeout(time: 10) { interval in
-//
-//            }
-            contextable.setProgressDid(value: 20)
+            let contextable = WisdomHUD.showProgress(text: "上传文件").setProgressColor(color: .systemPink).setProgressTextColor(color: .systemPink)
+            let list: [UInt] = [1,2,3,4,5,6,7,8,9,10]
+            for item in list {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+TimeInterval(item)) {
+                    contextable.setProgressValue(value: item*10)
+                    if item*10 >= 100 {
+                        
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5) {
+                            WisdomHUD.dismiss()
+                        }
+                    }
+                }
+            }
         }
     }
 }

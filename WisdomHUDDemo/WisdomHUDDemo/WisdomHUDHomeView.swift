@@ -51,11 +51,12 @@ class WisdomCustomNextCell: UITableViewCell {
         
     }
     
-    func setTitle(hudStyle: WisdomHUDStyle, loadingStyle: WisdomLoadingStyle?, textPlaceStyle: WisdomTextPlaceStyle?) {
+    func setTitle(hudStyle: WisdomHUDStyle, loadingStyle: WisdomLoadingStyle?, progressStyle: WisdomProgressStyle?, textPlaceStyle: WisdomTextPlaceStyle?) {
         nextView.infoLabel.text = "\(hudStyle.self)"
         leftView?.removeFromSuperview()
         leftView = nil
-        
+        var itemWidth: CGFloat = 24
+        var leftSpec: CGFloat = 35
         switch hudStyle {
         case .succes:
             leftView = WisdomHUDSuccessView(size: 24, barStyle: sceneBarStyle)
@@ -101,6 +102,18 @@ class WisdomCustomNextCell: UITableViewCell {
         default: break
         }
         
+        switch progressStyle {
+        case .circle:
+            nextView.infoLabel.text = "\(hudStyle.self)"+".circle"
+            itemWidth = 35
+            leftSpec = 30
+            leftView = WisdomHUDImageCircleView(size: itemWidth, barStyle: sceneBarStyle)
+            (leftView as? WisdomHUDImageCircleView)?.setProgressValue(value: 60)
+            (leftView as? WisdomHUDImageCircleView)?.setProgressColor(color: .systemPink)
+            (leftView as? WisdomHUDImageCircleView)?.setProgressTextColor(color: .systemPink)
+        default: break
+        }
+        
         switch sceneBarStyle {
         case .dark:
             nextView.backgroundColor = UIColor.black
@@ -126,9 +139,9 @@ class WisdomCustomNextCell: UITableViewCell {
             contentView.addSubview(vi)
             
             vi.snp.makeConstraints({ make in
-                make.left.equalTo(nextView).offset(35)
+                make.left.equalTo(nextView).offset(leftSpec)
                 make.centerY.equalTo(contentView)
-                make.width.height.equalTo(24)
+                make.width.height.equalTo(itemWidth)
             })
         }
     }

@@ -37,10 +37,10 @@ extension WisdomHUDCoverView: WisdomHUDContextable {
             backgroundColor = UIColor.clear
             
             let coverConstraints = constraints.filter {
-                $0.identifier == WisdomHUDOperate.getWisdom_Focusing()
+                $0.identifier == WisdomHUDOperate.getWisdomHUD_Focusing()
             }
             let superConstraints = superview?.constraints.filter {
-                $0.identifier == WisdomHUDOperate.getWisdom_Focusing()
+                $0.identifier == WisdomHUDOperate.getWisdomHUD_Focusing()
             }
             removeConstraints(coverConstraints)
             superview?.removeConstraints(superConstraints ?? [])
@@ -92,6 +92,24 @@ extension WisdomHUDCoverView: WisdomHUDBaseContextable {
     
     func setTextColor(color: UIColor)->Self {
         _=sceneView?.setTextColor(color: color)
+        return self
+    }
+}
+
+extension WisdomHUDCoverView: WisdomHUDProgressContextable {
+    
+    func setProgressColor(color: UIColor)->Self {
+        _=sceneView?.setProgressColor(color: color)
+        return self
+    }
+    
+    func setProgressValue(value: UInt)->Self {
+        _=sceneView?.setProgressValue(value: value)
+        return self
+    }
+    
+    func setProgressTextColor(color: UIColor)->Self {
+        _=sceneView?.setProgressTextColor(color: color)
         return self
     }
 }

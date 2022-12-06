@@ -10,11 +10,11 @@ import UIKit
 
 struct WisdomHUDContent {
     
-    let bar_Size = CGSize(width: 97, height: 92)
-    
-    let text_Font: CGFloat = 13.2
+    private(set) var bar_Size = CGSize(width: 97, height: 94)
     
     private(set) var icon_Size: CGFloat = 29
+    
+    let text_Font: CGFloat = 13.2
     
     let top_icon_space: CGFloat = 20
     
@@ -25,12 +25,15 @@ struct WisdomHUDContent {
     let bottom_text_space: CGFloat = 12
     
     
-    func getContentHeight()->CGFloat{
+    fileprivate func getContentHeight()->CGFloat{
         return top_icon_space + icon_Size + top_text_space + bottom_text_space
     }
     
-    mutating func updateIcon_Size(icon_Size: CGFloat){
+    fileprivate mutating func updateIcon_Size(icon_Size: CGFloat, needUpdateBar: Bool?=false){
         self.icon_Size = icon_Size
+        if needUpdateBar==true {
+            self.bar_Size = CGSize(width: 97+(97-icon_Size)/3.5, height: 94)
+        }
     }
 }
 
@@ -43,7 +46,9 @@ final class WisdomHUDSceneView: UIView {
     
     private var barStyle: WisdomSceneBarStyle
     
-    private(set) var loadingStyle: WisdomLoadingStyle?
+    private var loadingStyle: WisdomLoadingStyle?
+    
+    private var progressStyle: WisdomProgressStyle?
     
     private(set) var placeStyle: WisdomTextPlaceStyle?
     
@@ -257,14 +262,17 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
     }
     
     func setProgressContent(text: String, progressStyle: WisdomProgressStyle, timeout: (TimeInterval, (TimeInterval)->())?){
+        self.progressStyle = progressStyle
         
-        content.updateIcon_Size(icon_Size: content.icon_Size*1.8)
+        content.updateIcon_Size(icon_Size: content.icon_Size*1.8, needUpdateBar: !text.isEmpty)
+        
+        widthConstraint.constant = content.bar_Size.width
+        
+        heightConstraint.constant = content.bar_Size.height
         
         imageView.setProgressImage(size: content.icon_Size, progressStyle: progressStyle, barStyle: barStyle)
         
         imageView.wisdom_addConstraint(width: content.icon_Size, height: content.icon_Size)
-        
-        //imageView.backgroundColor = UIColor.cyan
         
         if text.isEmpty {
             wisdom_addConstraint(toCenterX: imageView, toCenterY: imageView)
@@ -351,7 +359,7 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
     }
     
     func setDismissImage() {
-        if loadingStyle != nil {
+        if loadingStyle != nil || progressStyle != nil {
             imageView.setDismissImage()
         }
     }
@@ -381,6 +389,30 @@ extension WisdomHUDSceneView: WisdomHUDLoadingContextable {
     func setTextColor(color: UIColor)->Self {
         if textLabel.text?.count ?? 0 > 0 {
             textLabel.textColor = color
+        }
+        return self
+    }
+}
+
+extension WisdomHUDSceneView: WisdomHUDProgressContextable {
+    
+    func setProgressColor(color: UIColor)->Self {
+        if progressStyle != nil {
+            imageView.setProgressColor(color: color)
+        }
+        return self
+    }
+    
+    func setProgressValue(value: UInt)->Self {
+        if progressStyle != nil {
+            imageView.setProgressValue(value: value)
+        }
+        return self
+    }
+    
+    func setProgressTextColor(color: UIColor)->Self {
+        if progressStyle != nil {
+            imageView.setProgressTextColor(color: color)
         }
         return self
     }

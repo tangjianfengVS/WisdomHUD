@@ -9,7 +9,7 @@
 import UIKit
 
 
-struct WisdomActionThemeModel {
+//struct WisdomActionThemeModel {
     
 //    let themeStyle: WisdomLayerThemeStyle
 //    
@@ -468,4 +468,4 @@ struct WisdomActionThemeModel {
 //        
 //    }
     
-}
+//}

@@ -202,6 +202,12 @@ protocol WisdomHUDSetImageable {
     func setWarningImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
     
     func setDismissImage()
+    
+    func setProgressColor(color: UIColor)
+    
+    func setProgressValue(value: UInt)
+    
+    func setProgressTextColor(color: UIColor)
 }
 
 @objc public protocol WisdomHUDBaseContextable {
@@ -233,10 +239,14 @@ protocol WisdomHUDSetImageable {
     
     // Set the Progress Context Color. The progress bar color
     @discardableResult
-    @objc func setProgressColor(progressColor: UIColor)->Self
+    @objc func setProgressColor(color: UIColor)->Self
     
-    // Set the Progress Context did task value.
+    // Set the Progress Context task value.
     @discardableResult
-    @objc func setProgressDid(value: UInt)->Self
+    @objc func setProgressValue(value: UInt)->Self
+    
+    // Set the Progress Context text color.
+    @discardableResult
+    @objc func setProgressTextColor(color: UIColor)->Self
 }
 

@@ -30,6 +30,10 @@ class WisdomHUDLoadingContext: WisdomHUDBaseContext {
 final class WisdomHUDProgressContext: WisdomHUDLoadingContext {
     
     private(set) var progressColor: UIColor?
+    
+    private(set) var progressValue: UInt?
+    
+    private(set) var progressTextColor: UIColor?
 }
 
 
@@ -127,14 +131,27 @@ extension WisdomHUDLoadingContext: WisdomHUDLoadingContextable {
 
 extension WisdomHUDProgressContext: WisdomHUDProgressContextable {
     
-    func setProgressDid(value: UInt)->Self {
+    // MARK: Set HUD CoverView Progress Value
+    public func setProgressValue(value: UInt)->Self {
+        if Thread.isMainThread {
+            doProgressValue()
+        }else {
+            DispatchQueue.main.async { doProgressValue() }
+        }
         
+        func doProgressValue(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.progressValue = nil
+                _=coverVI.setProgressValue(value: value)
+            }else {
+                self.progressValue = value
+            }
+        }
         return self
     }
     
-    
     // MARK: Set HUD CoverView Progress Color
-    public func setProgressColor(progressColor: UIColor)->Self {
+    public func setProgressColor(color: UIColor)->Self {
         if Thread.isMainThread {
             doProgressColor()
         }else {
@@ -144,9 +161,29 @@ extension WisdomHUDProgressContext: WisdomHUDProgressContextable {
         func doProgressColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.progressColor = nil
-                //_=coverVI.setTextFont(font: font)
+                _=coverVI.setProgressColor(color: color)
             }else {
-                self.progressColor = progressColor
+                self.progressColor = color
+            }
+        }
+        return self
+    }
+    
+    // MARK: Set the Progress Context text color
+    @discardableResult
+    @objc func setProgressTextColor(color: UIColor)->Self{
+        if Thread.isMainThread {
+            doProgressTextColor()
+        }else {
+            DispatchQueue.main.async { doProgressTextColor() }
+        }
+        
+        func doProgressTextColor(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.progressTextColor = nil
+                _=coverVI.setProgressTextColor(color: color)
+            }else {
+                self.progressTextColor = color
             }
         }
         return self

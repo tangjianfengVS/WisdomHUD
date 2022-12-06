@@ -9,7 +9,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 
 'WisdomHUD' support timeout/delay time setting, support timeout/delay end event callback processing.
 
-'WisdomHUD' supports multiple Loading load style, and succes/error/warning/text prompt style, allows you to set tip animation.
+'WisdomHUD' supports multiple Loading/Progress load style, and succes/error/warning/text prompt style, allows you to set tip animation.
 
 'WisdomHUD' icon is realized by drawing, and icon cache is added to avoid the repetitive drawing task, which is also the only way for HUD SDK to achieve high performance.
 
@@ -28,7 +28,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 
 `WisdomHUD` 支持 超时/延迟 时间设置，支持 超时/延迟 结束事件回调处理。
 
-`WisdomHUD` 支持多种 Loading加载样式，和 succes/error/warning/text 提示样式，支持设置提示动画。
+`WisdomHUD` 支持多种 Loading/Progress 加载样式，和 succes/error/warning/text 提示样式，支持设置提示动画。
 
 `WisdomHUD` 图标通过 绘制实现，且加入了 图标缓存，避让了重复绘制任务，也是 HUD SDK 高性能必经之路。
 
@@ -40,7 +40,27 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 ![image](https://github.com/tangjianfengVS/WisdomHUD/blob/master/IMG/IMG_HUD.png)
 
 
-(1)：`WisdomHUD`的 Loading 加载样式支持：
+(1)：`WisdomHUD`的 所有样式支持：
+
+/* HUD Style */
+
+public enum WisdomHUDStyle: CaseIterable {
+
+    case succes   // image + text
+    
+    case error    // image + text
+    
+    case warning  // image + text
+    
+    case loading  // image + text
+        
+    case progress // image + text
+    
+    case text     // text
+
+}
+
+(2)：`WisdomHUD`的 Loading 加载样式支持：
 
 /* HUD Loading Style */
 
@@ -62,7 +82,17 @@ https://github.com/tangjianfengVS/WisdomHUD.git
     
 }
 
-(2)：`WisdomHUD`的 BarStyle 背景样式支持：
+(3)：`WisdomHUD`的 Progress 加载样式支持：
+
+/* HUD Progress Style */
+
+@objc public enum WisdomProgressStyle: NSInteger, CaseIterable {
+
+    case circle=0  // 中心圆
+    
+}
+
+(4)：`WisdomHUD`的 BarStyle 背景样式支持：
 
 /* HUD Scene Bar Style */
 
@@ -76,7 +106,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
     
 }
 
-(3)：`WisdomHUD`的 TextPlace 位置样式支持：
+(5)：`WisdomHUD`的 TextPlace 位置样式支持：
 
 /* HUD Text Place Style */
 
@@ -88,7 +118,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
     
 }
 
-(4)：`WisdomHUD`的 Context Info 信息调整：
+(6)：`WisdomHUD`的 Context Info 信息调整：
 
 /* HUD Text Context Set Info */
 
@@ -108,7 +138,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
     
 }
 
-(5)：`WisdomHUD`的 Context Focusing 聚焦设置（去除遮盖视图，允许底部试图交互，Loading HUD不支持）：
+(7)：`WisdomHUD`的 Context Focusing 聚焦设置（去除遮盖视图，允许底部试图交互，Loading HUD不支持）：
 
 /* HUD Text Context Set Focusing */
 
@@ -120,7 +150,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
     
 }
 
-(6)：`WisdomHUD`的 Loading Context Timeout 超时设置（超时时间到了 Loading HUD 回调结束，并自动移除）：
+(8)：`WisdomHUD`的 Loading Context Timeout 超时设置（超时时间到了 Loading HUD 回调结束，并自动移除）：
 
 /* HUD Text Context Set Loading Timeout */
 
@@ -132,7 +162,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
     
 }
 
-(7)：`WisdomHUD`的 全局属性设置：
+(9)：`WisdomHUD`的 全局属性设置：
 
 /* HUD Setting able */
 
@@ -166,3 +196,115 @@ extension WisdomHUD: WisdomHUDSettingable {
         WisdomHUDOperate.setCoverBackgColor(backgColor: backgColor)
     }
 }
+
+(10)：`WisdomHUD`的 使用案例：
+
+    let style: WisdomHUDStyle = WisdomHUDStyle.allCases[indexPath.section]
+    
+    switch style {
+    
+    case .succes:  // 成功样式：延迟时间设置
+    
+        WisdomHUD.showSuccess(text: "加载成功", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
+        
+            print("3秒显示结束")
+                
+        }
+            
+    case .error:  // 失败样式：延迟时间设置/指定视图添加/设置聚焦/设置文字颜色和大小
+    
+        WisdomHUD.showError(text: "加载失败", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
+                
+            print("3秒显示结束")
+                
+        }.setFocusing().setTextColor(color: .red).setTextFont(font: UIFont.boldSystemFont(ofSize: 14))
+            
+    case .warning: // 警告样式：延迟时间设置/指定视图添加/设置聚焦
+    
+        WisdomHUD.showWarning(text: "加载警告", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
+        
+            print("3秒显示结束")
+            
+        }.setFocusing()
+            
+    case .loading: // 加载样式：异步加载/超时时间设置
+    
+        if let loadingStyle = WisdomLoadingStyle(rawValue: indexPath.row) {
+        
+            DispatchQueue.global().async {
+                    
+                WisdomHUD.showLoading(text: "正在加载中",
+                
+                                      loadingStyle: loadingStyle,
+                                      
+                                      barStyle: sceneBarStyle).setTimeout(time: 8) { _ in
+                        
+                    WisdomHUD.showTextBottom(text: "加载超时，稍后重试",
+                    
+                                                 barStyle: sceneBarStyle,
+                                                 
+                                                 delays: 5, delayClosure: nil).setFocusing()
+                        
+                }
+                    
+            }
+    
+        }
+        
+    case .text: // 文字样式
+    
+        switch WisdomTextPlaceStyle.allCases[indexPath.row] {
+        
+        case .center: // 中心文字样式：延迟时间设置/指定视图添加/设置聚焦/设置文字颜色和大小
+        
+            WisdomHUD.showTextCenter(text: "inSupView 添加失败，请稍后重试", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
+            
+                print("3秒显示结束")
+                
+            }.setFocusing().setTextColor(color: .blue).setTextFont(font: UIFont.boldSystemFont(ofSize: 14))
+                
+        case .bottom: // 底部文字样式：延迟时间设置/指定视图添加/设置聚焦
+        
+            WisdomHUD.showTextBottom(text: "inSupView 添加失败，请稍后重试,添加失败，请稍后重试,添加失败，请稍后重试,添加失败，请稍后重试",
+            
+                                     barStyle: sceneBarStyle,
+                                         
+                                     inSupView: view,
+                                     
+                                     delays: 3) { interval in
+                                     
+                print("3秒显示结束")
+                
+            }.setFocusing()
+                
+        default: break
+        
+        }
+        
+    case .progress: // 进度样式：设置进度颜色/设置进度文字颜色/设置进度值/完成移除
+    
+        let contextable = WisdomHUD.showProgress(text: "上传文件").setProgressColor(color: .systemPink).setProgressTextColor(color: .systemPink)
+        
+        let list: [UInt] = [1,2,3,4,5,6,7,8,9,10]
+        
+        for item in list {
+        
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+TimeInterval(item)) {
+            
+                contextable.setProgressValue(value: item*10)
+                
+                if item*10 >= 100 {
+                        
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5) {
+                    
+                        WisdomHUD.dismiss()
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
