@@ -11,6 +11,8 @@ import UIKit
 struct WisdomHUDOperate {
     
     fileprivate static var WisdomLoadingStyle: WisdomLoadingStyle = .rotate
+    
+    fileprivate static var WisdomProgressStyle: WisdomProgressStyle = .circle
 
     fileprivate static var WisdomSceneBarStyle: WisdomSceneBarStyle = .dark
 
@@ -28,6 +30,10 @@ extension WisdomHUDOperate: WisdomHUDSettingable {
     
     static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
         WisdomLoadingStyle = loadingStyle
+    }
+    
+    static func setProgressStyle(progressStyle: WisdomProgressStyle) {
+        WisdomProgressStyle = progressStyle
     }
     
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
@@ -57,6 +63,21 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
             if let hudCoverVI = coverVI as? WisdomHUDCoverView {
                 hudCoverVI.sceneView?.setDismissImage()
                 
+                hudCoverVI.removeFromSuperview()
+            }
+        }
+    }
+    
+    static func dismissAction() {
+        if Thread.isMainThread {
+            remove()
+        }else {
+            DispatchQueue.main.async { remove() }
+        }
+        func remove(){
+            let window = WisdomHUDOperate.getScreenWindow()
+            let coverVI = window?.viewWithTag(WisdomHUDCoverTag>>1)
+            if let hudCoverVI = coverVI as? WisdomHUDCoverView {
                 hudCoverVI.removeFromSuperview()
             }
         }
@@ -229,15 +250,15 @@ extension WisdomHUDOperate: WisdomHUDLoadingable {
 extension WisdomHUDOperate:  WisdomHUDProgressable {
     
     static func showProgress(text: String)->WisdomHUDProgressContextable {
-        return showProgress(text: text, progressStyle: .circle, barStyle: WisdomSceneBarStyle, inSupView: nil)
+        return showProgress(text: text, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: nil)
     }
     
     static func showProgress(text: String, inSupView: UIView?)->WisdomHUDProgressContextable {
-        return showProgress(text: text, progressStyle: .circle, barStyle: WisdomSceneBarStyle, inSupView: inSupView)
+        return showProgress(text: text, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: inSupView)
     }
     
     static func showProgress(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable {
-        return showProgress(text: text, progressStyle: .circle, barStyle: barStyle, inSupView: nil)
+        return showProgress(text: text, progressStyle: WisdomProgressStyle, barStyle: barStyle, inSupView: nil)
     }
     
     static func showProgress(text: String, progressStyle: WisdomProgressStyle)->WisdomHUDProgressContextable {
@@ -253,7 +274,7 @@ extension WisdomHUDOperate:  WisdomHUDProgressable {
     }
     
     static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
-        return showProgress(text: text, progressStyle: .circle, barStyle: barStyle, inSupView: inSupView)
+        return showProgress(text: text, progressStyle: WisdomProgressStyle, barStyle: barStyle, inSupView: inSupView)
     }
     
     static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable {

@@ -120,3 +120,78 @@ extension WisdomHUDImageProgreView {
         progreLabel.textColor = color
     }
 }
+
+
+@objc public class WisdomHUDImageLineView: WisdomHUDImageProgreView {
+
+    @objc public private(set) var circleColor = UIColor.white
+    
+    private lazy var circleLayer: CAShapeLayer = {
+        let path = UIBezierPath(arcCenter: CGPoint(x: size/2, y: size/2),
+                                   radius: size/2.0-progreWidth,
+                               startAngle: Double.pi,
+                                 endAngle: Double.pi*3,
+                                clockwise: true)
+
+        let circle = CAShapeLayer()
+        circle.fillColor = UIColor.clear.cgColor
+        circle.strokeColor = UIColor(white: 0.5, alpha: 0.5).cgColor
+        circle.lineCap = CAShapeLayerLineCap.round
+        circle.lineWidth = progreWidth
+        circle.strokeEnd = 1.0
+        circle.path = path.cgPath
+        return circle
+    }()
+    
+    private lazy var task_circleLayer: CAShapeLayer = {
+        let path = UIBezierPath(arcCenter: CGPoint(x: size/2, y: size/2),
+                                   radius: size/2.0-progreWidth,
+                               startAngle: Double.pi*1.5,
+                                 endAngle: Double.pi*3.5,
+                                clockwise: true)
+
+        let circle = CAShapeLayer()
+        circle.fillColor = UIColor.clear.cgColor
+        circle.strokeColor = circleColor.cgColor
+        circle.lineCap = CAShapeLayerLineCap.round
+        circle.lineWidth = progreWidth
+        circle.strokeEnd = 0
+        circle.path = path.cgPath
+        return circle
+    }()
+    
+    @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
+        super.init(size: size)
+        switch barStyle {
+        case .dark:  circleColor = UIColor.white
+        case .light: circleColor = UIColor.black
+        case .hide:  circleColor = UIColor.white
+        }
+        progreLabel.textColor = circleColor
+        
+        layer.addSublayer(circleLayer)
+        layer.addSublayer(task_circleLayer)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc override public func setProgressValue(value: UInt){
+        if value>=100 {
+            task_circleLayer.strokeEnd = 1
+            progreLabel.text = "100%"
+        }else {
+            task_circleLayer.strokeEnd = CGFloat(value)/100.0
+            progreLabel.text = "\(value)%"
+        }
+    }
+    
+    @objc override public func setProgressColor(color: UIColor){
+        task_circleLayer.strokeColor = color.cgColor
+    }
+    
+    @objc override public func setProgressTextColor(color: UIColor){
+        progreLabel.textColor = color
+    }
+}

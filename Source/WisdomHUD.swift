@@ -22,6 +22,11 @@ extension WisdomHUD: WisdomHUDSettingable {
         WisdomHUDOperate.setLoadingStyle(loadingStyle: loadingStyle)
     }
     
+    // MARK: HUD Set Progress Style
+    static func setProgressStyle(progressStyle: WisdomProgressStyle) {
+        WisdomHUDOperate.setProgressStyle(progressStyle: progressStyle)
+    }
+    
     // MARK: HUD Set Scene Bar Style
     @objc public static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
         WisdomHUDOperate.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
@@ -43,6 +48,11 @@ extension WisdomHUD: WisdomHUDGlobalable {
     // MARK: HUD dismiss
     @objc public static func dismiss() {
         WisdomHUDOperate.dismiss()
+    }
+    
+    // MARK: HUD dismiss Action
+    @objc public static func dismissAction() {
+        WisdomHUDOperate.dismissAction()
     }
     
     // MARK: Get UIApplication UIWindow

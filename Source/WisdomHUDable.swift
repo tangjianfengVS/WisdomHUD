@@ -12,6 +12,8 @@ protocol WisdomHUDSettingable {
 
     static func setLoadingStyle(loadingStyle: WisdomLoadingStyle)
     
+    static func setProgressStyle(progressStyle: WisdomProgressStyle)
+    
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle)
     
     static func setDisplayDelay(delayTime: CGFloat)
@@ -26,6 +28,8 @@ protocol WisdomHUDGlobalable {
     static func getScreenWindow() -> UIWindow?
     
     static func dismiss()
+    
+    static func dismissAction()
 }
 
 protocol WisdomHUDLoadingable {

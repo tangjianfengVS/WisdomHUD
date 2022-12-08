@@ -52,12 +52,12 @@ public enum WisdomHUDStyle: CaseIterable {
 }
 
 
-///* HUD Action主题类型 */
-//@objc public enum WisdomLayerThemeStyle: NSInteger {
-//    case yigou=0       // 透明黑
-//    case snowWhite     // 雪白
-//    case blue          // 品蓝
-//    case dodgerBlue    // 宝蓝
-//    case golden        // 亮金
-//    case red           // 品红
-//}
+/* HUD Action Theme Style */
+@objc public enum WisdomThemeStyle: NSInteger, CaseIterable{
+    case white=0    // 雪白
+    case dark       // 透明暗
+    case dodgerBlue // 成功-宝蓝
+    case blue       // 成功/品蓝
+    case red        // 错误/品红
+    case golden     // 警告/亮金
+}
