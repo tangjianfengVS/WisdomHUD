@@ -18,7 +18,7 @@ struct WisdomHUDContent {
     
     let top_icon_space: CGFloat = 20
     
-    let top_text_space: CGFloat = 10
+    let top_text_space: CGFloat = 11
     
     let lr_text_space: CGFloat = 12
     
