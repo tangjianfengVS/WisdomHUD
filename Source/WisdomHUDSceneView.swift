@@ -394,25 +394,32 @@ extension WisdomHUDSceneView: WisdomHUDLoadingContextable {
     }
 }
 
-extension WisdomHUDSceneView: WisdomHUDProgressContextable {
+extension WisdomHUDSceneView: WisdomHUDProgreContextable {
     
-    func setProgressColor(color: UIColor)->Self {
+    func setProgreColor(color: UIColor)->Self {
         if progressStyle != nil {
-            imageView.setProgressColor(color: color)
+            imageView.setProgreColor(color: color)
         }
         return self
     }
     
-    func setProgressValue(value: UInt)->Self {
+    func setProgreValue(value: UInt)->Self {
         if progressStyle != nil {
-            imageView.setProgressValue(value: value)
+            imageView.setProgreValue(value: value)
         }
         return self
     }
     
-    func setProgressTextColor(color: UIColor)->Self {
+    func setProgreTextColor(color: UIColor)->Self {
         if progressStyle != nil {
-            imageView.setProgressTextColor(color: color)
+            imageView.setProgreTextColor(color: color)
+        }
+        return self
+    }
+
+    func setProgreShadowColor(color: UIColor)->Self {
+        if progressStyle != nil {
+            imageView.setProgreShadowColor(color: color)
         }
         return self
     }

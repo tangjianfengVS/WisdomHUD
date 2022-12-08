@@ -108,17 +108,17 @@ class WisdomCustomNextCell: UITableViewCell {
             itemWidth = 35
             leftSpec = 30
             leftView = WisdomHUDImageCircleView(size: itemWidth, barStyle: sceneBarStyle)
-            (leftView as? WisdomHUDImageCircleView)?.setProgressValue(value: 60)
-            (leftView as? WisdomHUDImageCircleView)?.setProgressColor(color: .systemPink)
-            (leftView as? WisdomHUDImageCircleView)?.setProgressTextColor(color: .systemPink)
+            (leftView as? WisdomHUDImageCircleView)?.setProgreValue(value: 60)
+            (leftView as? WisdomHUDImageCircleView)?.setProgreColor(color: .systemPink)
+            (leftView as? WisdomHUDImageCircleView)?.setProgreTextColor(color: .systemPink)
         case .linear:
             nextView.infoLabel.text = "\(hudStyle.self)"+".linear"
             itemWidth = 35
             leftSpec = 30
             leftView = WisdomHUDImageLinearView(size: itemWidth, barStyle: sceneBarStyle)
-            (leftView as? WisdomHUDImageLinearView)?.setProgressValue(value: 60)
-            (leftView as? WisdomHUDImageLinearView)?.setProgressColor(color: .systemPink)
-            (leftView as? WisdomHUDImageLinearView)?.setProgressTextColor(color: .systemPink)
+            (leftView as? WisdomHUDImageLinearView)?.setProgreValue(value: 60)
+            (leftView as? WisdomHUDImageLinearView)?.setProgreColor(color: .systemPink)
+            (leftView as? WisdomHUDImageLinearView)?.setProgreTextColor(color: .systemPink)
         default: break
         }
         

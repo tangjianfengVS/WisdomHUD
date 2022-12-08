@@ -193,14 +193,14 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
             default: break
             }
             if let cur_state = state {
-                let contextable = WisdomHUD.showProgress(text: "上传文件", progressStyle: cur_state).setProgressColor(color: .systemPink).setProgressTextColor(color: .systemPink)
+                let contextable = WisdomHUD.showProgress(text: "上传文件", progressStyle: cur_state).setProgreColor(color: .systemPink).setProgreTextColor(color: .systemPink)//.setProgreShadowColor(color: .green)
                 let list: [UInt] = [1,2,3,4,5,6,7,8,9,10]
                 for item in list {
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+TimeInterval(item)) {
-                        contextable.setProgressValue(value: item*10)
+                        contextable.setProgreValue(value: item*10)
                         if item*10 >= 100 {
                             
-                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5) {
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3) {
                                 WisdomHUD.dismiss()
                             }
                         }

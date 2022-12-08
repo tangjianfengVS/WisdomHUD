@@ -96,20 +96,25 @@ extension WisdomHUDCoverView: WisdomHUDBaseContextable {
     }
 }
 
-extension WisdomHUDCoverView: WisdomHUDProgressContextable {
+extension WisdomHUDCoverView: WisdomHUDProgreContextable {
     
-    func setProgressColor(color: UIColor)->Self {
-        _=sceneView?.setProgressColor(color: color)
+    func setProgreColor(color: UIColor)->Self {
+        _=sceneView?.setProgreColor(color: color)
         return self
     }
     
-    func setProgressValue(value: UInt)->Self {
-        _=sceneView?.setProgressValue(value: value)
+    func setProgreValue(value: UInt)->Self {
+        _=sceneView?.setProgreValue(value: value)
         return self
     }
     
-    func setProgressTextColor(color: UIColor)->Self {
-        _=sceneView?.setProgressTextColor(color: color)
+    func setProgreTextColor(color: UIColor)->Self {
+        _=sceneView?.setProgreTextColor(color: color)
+        return self
+    }
+    
+    func setProgreShadowColor(color: UIColor)->Self {
+        _=sceneView?.setProgreShadowColor(color: color)
         return self
     }
 }

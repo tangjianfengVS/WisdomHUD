@@ -249,36 +249,36 @@ extension WisdomHUDOperate: WisdomHUDLoadingable {
 
 extension WisdomHUDOperate:  WisdomHUDProgressable {
     
-    static func showProgress(text: String)->WisdomHUDProgressContextable {
+    static func showProgress(text: String)->WisdomHUDProgreContextable {
         return showProgress(text: text, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: nil)
     }
     
-    static func showProgress(text: String, inSupView: UIView?)->WisdomHUDProgressContextable {
+    static func showProgress(text: String, inSupView: UIView?)->WisdomHUDProgreContextable {
         return showProgress(text: text, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: inSupView)
     }
     
-    static func showProgress(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable {
+    static func showProgress(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDProgreContextable {
         return showProgress(text: text, progressStyle: WisdomProgressStyle, barStyle: barStyle, inSupView: nil)
     }
     
-    static func showProgress(text: String, progressStyle: WisdomProgressStyle)->WisdomHUDProgressContextable {
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle)->WisdomHUDProgreContextable {
         return showProgress(text: text, progressStyle: progressStyle, barStyle: WisdomSceneBarStyle, inSupView: nil)
     }
     
-    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable {
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgreContextable {
         return showProgress(text: text, progressStyle: progressStyle, barStyle: barStyle, inSupView: nil)
     }
     
-    static func showProgress(text: String, progressStyle: WisdomProgressStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, inSupView: UIView?)->WisdomHUDProgreContextable {
         return showProgress(text: text, progressStyle: progressStyle, barStyle: WisdomSceneBarStyle, inSupView: inSupView)
     }
     
-    static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
+    static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable {
         return showProgress(text: text, progressStyle: WisdomProgressStyle, barStyle: barStyle, inSupView: inSupView)
     }
     
-    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
-        let context = WisdomHUDProgressContext()
+    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable {
+        let context = WisdomHUDProgreContext()
         if Thread.isMainThread {
             showHUD()
         }else {
@@ -296,14 +296,17 @@ extension WisdomHUDOperate:  WisdomHUDProgressable {
                     _=context.setTextFont(font: textFont)
                 }
                 
-                if let progressColor = context.progressColor {
-                    _=context.setProgressColor(color: progressColor)
+                if let progreColor = context.progreColor {
+                    _=context.setProgreColor(color: progreColor)
                 }
-                if let progressValue = context.progressValue {
-                    _=context.setProgressValue(value: progressValue)
+                if let progreValue = context.progreValue {
+                    _=context.setProgreValue(value: progreValue)
                 }
-                if let progressTextColor = context.progressTextColor {
-                    _=context.setProgressTextColor(color: progressTextColor)
+                if let progreTextColor = context.progreTextColor {
+                    _=context.setProgreTextColor(color: progreTextColor)
+                }
+                if let progreShadowColor = context.progreShadowColor {
+                    _=context.setProgreShadowColor(color: progreShadowColor)
                 }
             }
         }

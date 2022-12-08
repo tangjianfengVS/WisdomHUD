@@ -33,15 +33,19 @@ public class WisdomHUDImageProgreView: WisdomHUDImageBaseView {
 
 extension WisdomHUDImageProgreView {
     
-    @objc func setProgressValue(value: UInt){
+    @objc func setProgreValue(value: UInt){
     
     }
     
-    @objc func setProgressColor(color: UIColor){
+    @objc func setProgreColor(color: UIColor){
         
     }
     
-    @objc func setProgressTextColor(color: UIColor){
+    @objc func setProgreTextColor(color: UIColor){
+        
+    }
+    
+    @objc func setProgreShadowColor(color: UIColor){
         
     }
 }
@@ -102,7 +106,7 @@ extension WisdomHUDImageProgreView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc override public func setProgressValue(value: UInt){
+    @objc override public func setProgreValue(value: UInt){
         if value>=100 {
             task_circleLayer.strokeEnd = 1
             progreLabel.text = "100%"
@@ -112,12 +116,16 @@ extension WisdomHUDImageProgreView {
         }
     }
     
-    @objc override public func setProgressColor(color: UIColor){
+    @objc override public func setProgreColor(color: UIColor){
         task_circleLayer.strokeColor = color.cgColor
     }
     
-    @objc override public func setProgressTextColor(color: UIColor){
+    @objc override public func setProgreTextColor(color: UIColor){
         progreLabel.textColor = color
+    }
+    
+    @objc override public func setProgreShadowColor(color: UIColor){
+        circleLayer.strokeColor = color.cgColor
     }
 }
 
@@ -195,7 +203,7 @@ extension WisdomHUDImageProgreView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc override public func setProgressValue(value: UInt){
+    @objc override public func setProgreValue(value: UInt){
         if value>=100 {
             task_circleLayer.strokeEnd = 1
             progreLabel.text = "100%"
@@ -205,11 +213,15 @@ extension WisdomHUDImageProgreView {
         }
     }
     
-    @objc override public func setProgressColor(color: UIColor){
+    @objc override public func setProgreColor(color: UIColor){
         task_circleLayer.strokeColor = color.cgColor
     }
     
-    @objc override public func setProgressTextColor(color: UIColor){
+    @objc override public func setProgreTextColor(color: UIColor){
         progreLabel.textColor = color
+    }
+    
+    @objc override public func setProgreShadowColor(color: UIColor){
+        borderView.layer.borderColor = color.cgColor
     }
 }

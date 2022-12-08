@@ -121,49 +121,49 @@ extension WisdomHUD: WisdomHUDProgressable {
     
     // MARK: Show Progress with: String
     @discardableResult
-    @objc public static func showProgress(text: String)->WisdomHUDProgressContextable {
+    @objc public static func showProgress(text: String)->WisdomHUDProgreContextable {
         return WisdomHUDOperate.showProgress(text: text)
     }
     
     // MARK: Show Progress with: String - UIView?
     @discardableResult
-    @objc public static func showProgress(text: String, inSupView: UIView?)->WisdomHUDProgressContextable {
+    @objc public static func showProgress(text: String, inSupView: UIView?)->WisdomHUDProgreContextable {
         return WisdomHUDOperate.showProgress(text: text, inSupView: inSupView)
     }
     
     // MARK: Show Progress with: String - WisdomSceneBarStyle
     @discardableResult
-    @objc public static func showProgress(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable {
+    @objc public static func showProgress(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDProgreContextable {
         return WisdomHUDOperate.showProgress(text: text, barStyle: barStyle)
     }
     
     // MARK: Show Progress with: String - WisdomProgressStyle
     @discardableResult
-    @objc public static func showProgress(text: String, progressStyle: WisdomProgressStyle)->WisdomHUDProgressContextable {
+    @objc public static func showProgress(text: String, progressStyle: WisdomProgressStyle)->WisdomHUDProgreContextable {
         return WisdomHUDOperate.showProgress(text: text, progressStyle: progressStyle)
     }
     
     // MARK: Show Progress with: String - WisdomProgressStyle - WisdomSceneBarStyle
     @discardableResult
-    @objc public static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgressContextable {
+    @objc public static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgreContextable {
         return WisdomHUDOperate.showProgress(text: text, progressStyle: progressStyle, barStyle: barStyle)
     }
     
     // MARK: Show Progress with: String - WisdomProgressStyle - UIView?
     @discardableResult
-    @objc public static func showProgress(text: String, progressStyle: WisdomProgressStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
+    @objc public static func showProgress(text: String, progressStyle: WisdomProgressStyle, inSupView: UIView?)->WisdomHUDProgreContextable {
         return WisdomHUDOperate.showProgress(text: text, progressStyle: progressStyle, inSupView: inSupView)
     }
     
     // MARK: Show Progress with: String - WisdomSceneBarStyle - UIView?
     @discardableResult
-    @objc public static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
+    @objc public static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable {
         return WisdomHUDOperate.showProgress(text: text, barStyle: barStyle, inSupView: inSupView)
     }
     
     // MARK: Show Progress with: String - WisdomProgressStyle - WisdomSceneBarStyle - UIView?
     @discardableResult
-    @objc public static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgressContextable {
+    @objc public static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable {
         return WisdomHUDOperate.showProgress(text: text, progressStyle: progressStyle, barStyle: barStyle, inSupView: inSupView)
     }
 }
