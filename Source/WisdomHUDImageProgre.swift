@@ -126,7 +126,7 @@ extension WisdomHUDImageProgreView {
 
     @objc public private(set) var lineColor = UIColor.white
     
-    private lazy var progreHeight: CGFloat = { return size/7.7 }()
+    private lazy var progreHeight: CGFloat = { return 6.0 }()//size/7.7
     
     private lazy var borderView: UIView = {
         let view = UIView()
