@@ -22,7 +22,7 @@ struct WisdomHUDContent {
     
     let lr_text_space: CGFloat = 12
     
-    let bottom_text_space: CGFloat = 12
+    let bottom_text_space: CGFloat = 13
     
     
     fileprivate func getContentHeight()->CGFloat{

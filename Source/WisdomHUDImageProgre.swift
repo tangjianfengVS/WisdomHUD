@@ -10,7 +10,7 @@ import UIKit
 
 public class WisdomHUDImageProgreView: WisdomHUDImageBaseView {
     
-    private(set) var progreWidth: CGFloat=3.0
+    fileprivate var progreWidth: CGFloat=3.2
     
     let progreLabel: UILabel = {
         let label = UILabel()
@@ -23,7 +23,6 @@ public class WisdomHUDImageProgreView: WisdomHUDImageBaseView {
     public override init(size: CGFloat) {
         super.init(size: size)
         addSubview(progreLabel)
-        wisdom_addConstraint(toCenterX: progreLabel, toCenterY: progreLabel)
         progreLabel.font = UIFont.systemFont(ofSize: size/4.2, weight: .regular)
     }
     
@@ -92,6 +91,7 @@ extension WisdomHUDImageProgreView {
         case .light: circleColor = UIColor.black
         case .hide:  circleColor = UIColor.white
         }
+        wisdom_addConstraint(toCenterX: progreLabel, toCenterY: progreLabel)
         progreLabel.textColor = circleColor
         
         layer.addSublayer(circleLayer)
@@ -122,39 +122,32 @@ extension WisdomHUDImageProgreView {
 }
 
 
-@objc public class WisdomHUDImageLineView: WisdomHUDImageProgreView {
+@objc public class WisdomHUDImageLinearView: WisdomHUDImageProgreView {
 
-    @objc public private(set) var circleColor = UIColor.white
+    @objc public private(set) var lineColor = UIColor.white
     
-    private lazy var circleLayer: CAShapeLayer = {
-        let path = UIBezierPath(arcCenter: CGPoint(x: size/2, y: size/2),
-                                   radius: size/2.0-progreWidth,
-                               startAngle: Double.pi,
-                                 endAngle: Double.pi*3,
-                                clockwise: true)
-
-        let circle = CAShapeLayer()
-        circle.fillColor = UIColor.clear.cgColor
-        circle.strokeColor = UIColor(white: 0.5, alpha: 0.5).cgColor
-        circle.lineCap = CAShapeLayerLineCap.round
-        circle.lineWidth = progreWidth
-        circle.strokeEnd = 1.0
-        circle.path = path.cgPath
-        return circle
+    private lazy var progreHeight: CGFloat = { return size/7.7 }()
+    
+    private lazy var borderView: UIView = {
+        let view = UIView()
+        view.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
+        view.layer.borderWidth = 1.0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = progreHeight/2
+        return view
     }()
     
     private lazy var task_circleLayer: CAShapeLayer = {
-        let path = UIBezierPath(arcCenter: CGPoint(x: size/2, y: size/2),
-                                   radius: size/2.0-progreWidth,
-                               startAngle: Double.pi*1.5,
-                                 endAngle: Double.pi*3.5,
-                                clockwise: true)
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: progreHeight/2))
+        path.addLine(to: CGPoint(x: progreWidth, y: progreHeight/2))
 
         let circle = CAShapeLayer()
         circle.fillColor = UIColor.clear.cgColor
-        circle.strokeColor = circleColor.cgColor
+        circle.strokeColor = lineColor.cgColor
         circle.lineCap = CAShapeLayerLineCap.round
-        circle.lineWidth = progreWidth
+        circle.lineWidth = progreHeight
         circle.strokeEnd = 0
         circle.path = path.cgPath
         return circle
@@ -162,15 +155,40 @@ extension WisdomHUDImageProgreView {
     
     @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
         super.init(size: size)
-        switch barStyle {
-        case .dark:  circleColor = UIColor.white
-        case .light: circleColor = UIColor.black
-        case .hide:  circleColor = UIColor.white
-        }
-        progreLabel.textColor = circleColor
+        progreWidth = size*1.2
         
-        layer.addSublayer(circleLayer)
-        layer.addSublayer(task_circleLayer)
+        switch barStyle {
+        case .dark:  lineColor = UIColor.white
+        case .light: lineColor = UIColor.black
+        case .hide:  lineColor = UIColor.white
+        }
+        progreLabel.textColor = lineColor
+        progreLabel.font = UIFont.systemFont(ofSize: size/3.7, weight: .regular)
+        
+        addSubview(borderView)
+        borderView.wisdom_addConstraint(width: progreWidth, height: progreHeight)
+        
+        wisdom_addConstraint(toCenterX: borderView, toCenterY: nil)
+        
+        addConstraint(NSLayoutConstraint(item: borderView,
+                                         attribute: .bottom,
+                                         relatedBy: .equal,
+                                         toItem: self,
+                                         attribute: .bottom,
+                                         multiplier: 1.0,
+                                         constant: -progreHeight*1.3))
+        
+        wisdom_addConstraint(toCenterX: progreLabel, toCenterY: nil)
+        
+        addConstraint(NSLayoutConstraint(item: progreLabel,
+                                         attribute: .bottom,
+                                         relatedBy: .equal,
+                                         toItem: borderView,
+                                         attribute:.top,
+                                         multiplier: 1.0,
+                                         constant: -progreHeight*1.5))
+        
+        borderView.layer.addSublayer(task_circleLayer)
     }
     
     required init?(coder: NSCoder) {

@@ -30,20 +30,13 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
         imageView = nil
         
         switch loadingStyle {
-        case .system:
-            imageView = WisdomHUDIndicatorView(size: size, barStyle: barStyle)
-        case .rotate:
-            imageView = WisdomHUDRotateView(size: size, barStyle: barStyle)
-        case .progressArc:
-            imageView = WisdomHUDProgressArcView(size: size, barStyle: barStyle)
-        case .tadpoleArc:
-            imageView = WisdomHUDTadpoleArcView(size: size, barStyle: barStyle)
-        case .chaseBall:
-            imageView = WisdomHUDChaseBallView(size: size, barStyle: barStyle)
-        case .pulseBall:
-            imageView = WisdomHUDPulseBallView(size: size, barStyle: barStyle)
-        case .pulseShape:
-            imageView = WisdomHUDPulseShapeView(size: size, barStyle: barStyle)
+        case .system: imageView = WisdomHUDIndicatorView(size: size, barStyle: barStyle)
+        case .rotate: imageView = WisdomHUDRotateView(size: size, barStyle: barStyle)
+        case .progressArc: imageView = WisdomHUDProgressArcView(size: size, barStyle: barStyle)
+        case .tadpoleArc: imageView = WisdomHUDTadpoleArcView(size: size, barStyle: barStyle)
+        case .chaseBall: imageView = WisdomHUDChaseBallView(size: size, barStyle: barStyle)
+        case .pulseBall: imageView = WisdomHUDPulseBallView(size: size, barStyle: barStyle)
+        case .pulseShape: imageView = WisdomHUDPulseShapeView(size: size, barStyle: barStyle)
         default: break
         }
         
@@ -68,8 +61,8 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
         imageView = nil
         
         switch progressStyle {
-        case .circle:
-            imageView = WisdomHUDImageCircleView(size: size, barStyle: barStyle)
+        case .circle: imageView = WisdomHUDImageCircleView(size: size, barStyle: barStyle)
+        case .linear: imageView = WisdomHUDImageLinearView(size: size, barStyle: barStyle)
         default: break
         }
         

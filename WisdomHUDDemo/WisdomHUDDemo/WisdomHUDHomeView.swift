@@ -111,6 +111,14 @@ class WisdomCustomNextCell: UITableViewCell {
             (leftView as? WisdomHUDImageCircleView)?.setProgressValue(value: 60)
             (leftView as? WisdomHUDImageCircleView)?.setProgressColor(color: .systemPink)
             (leftView as? WisdomHUDImageCircleView)?.setProgressTextColor(color: .systemPink)
+        case .linear:
+            nextView.infoLabel.text = "\(hudStyle.self)"+".linear"
+            itemWidth = 35
+            leftSpec = 30
+            leftView = WisdomHUDImageLinearView(size: itemWidth, barStyle: sceneBarStyle)
+            (leftView as? WisdomHUDImageLinearView)?.setProgressValue(value: 60)
+            (leftView as? WisdomHUDImageLinearView)?.setProgressColor(color: .systemPink)
+            (leftView as? WisdomHUDImageLinearView)?.setProgressTextColor(color: .systemPink)
         default: break
         }
         
