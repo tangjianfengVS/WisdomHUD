@@ -95,7 +95,7 @@ extension WisdomHUDImageProgreView {
         case .hide:  circleColor = UIColor.white
         }
         wisdom_addConstraint(toCenterX: progreLabel, toCenterY: progreLabel)
-        progreLabel.font = UIFont.systemFont(ofSize: size/4.0, weight: .regular)
+        progreLabel.font = UIFont.systemFont(ofSize: size/3.8, weight: .regular)
         progreLabel.textColor = circleColor
         
         layer.addSublayer(circleLayer)
@@ -171,7 +171,7 @@ extension WisdomHUDImageProgreView {
         case .hide:  lineColor = UIColor.white
         }
         progreLabel.textColor = lineColor
-        progreLabel.font = UIFont.systemFont(ofSize: size/3.5, weight: .regular)
+        progreLabel.font = UIFont.systemFont(ofSize: size/3.4, weight: .regular)
         
         addSubview(borderView)
         borderView.wisdom_addConstraint(width: progreWidth, height: progreHeight)
