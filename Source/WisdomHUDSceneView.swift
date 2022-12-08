@@ -264,7 +264,7 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
     func setProgressContent(text: String, progressStyle: WisdomProgressStyle, timeout: (TimeInterval, (TimeInterval)->())?){
         self.progressStyle = progressStyle
         
-        content.updateIcon_Size(icon_Size: content.icon_Size*1.8, needUpdateBar: !text.isEmpty)
+        content.updateIcon_Size(icon_Size: content.icon_Size*1.72, needUpdateBar: !text.isEmpty)
         
         widthConstraint.constant = content.bar_Size.width
         

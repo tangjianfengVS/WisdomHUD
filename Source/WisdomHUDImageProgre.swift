@@ -10,7 +10,7 @@ import UIKit
 
 public class WisdomHUDImageProgreView: WisdomHUDImageBaseView {
     
-    fileprivate var progreWidth: CGFloat=3.2
+    fileprivate var progreWidth: CGFloat=3.0
     
     let progreLabel: UILabel = {
         let label = UILabel()
@@ -23,7 +23,6 @@ public class WisdomHUDImageProgreView: WisdomHUDImageBaseView {
     public override init(size: CGFloat) {
         super.init(size: size)
         addSubview(progreLabel)
-        progreLabel.font = UIFont.systemFont(ofSize: size/4.2, weight: .regular)
     }
     
     required init?(coder: NSCoder) {
@@ -96,6 +95,7 @@ extension WisdomHUDImageProgreView {
         case .hide:  circleColor = UIColor.white
         }
         wisdom_addConstraint(toCenterX: progreLabel, toCenterY: progreLabel)
+        progreLabel.font = UIFont.systemFont(ofSize: size/4.0, weight: .regular)
         progreLabel.textColor = circleColor
         
         layer.addSublayer(circleLayer)
@@ -171,7 +171,7 @@ extension WisdomHUDImageProgreView {
         case .hide:  lineColor = UIColor.white
         }
         progreLabel.textColor = lineColor
-        progreLabel.font = UIFont.systemFont(ofSize: size/3.7, weight: .regular)
+        progreLabel.font = UIFont.systemFont(ofSize: size/3.5, weight: .regular)
         
         addSubview(borderView)
         borderView.wisdom_addConstraint(width: progreWidth, height: progreHeight)
