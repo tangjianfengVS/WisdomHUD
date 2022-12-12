@@ -219,7 +219,7 @@ protocol WisdomHUDSetImageable {
 protocol WisdomHUDActionable {
     
 
-    static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actinClosure: @escaping (String,WisdomActionPointStyle)->(Bool)) //->WisdomHUDContextable // barStyle/inSupView/delays
+    static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool)) //->WisdomHUDContextable // barStyle/inSupView/delays
 }
 
 

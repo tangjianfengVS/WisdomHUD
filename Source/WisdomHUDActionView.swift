@@ -23,14 +23,14 @@ import UIKit
 //    
 //    init(themeStyle: WisdomLayerThemeStyle){
 //        self.themeStyle = themeStyle
-//        
+//
 //        switch themeStyle{
 //        case .snowWhite:
 //            titleColor = UIColor.white
 //            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
 //            layerColor = topBarColor
 //            rightBtnClor = topBarColor
-// 
+//
 //            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
 //            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
 //        case .yigou:
@@ -38,7 +38,7 @@ import UIKit
 //            topBarColor = UIColor.white
 //            layerColor = topBarColor
 //            rightBtnClor = topBarColor
-// 
+//
 //            infoClor = UIColor(white: 1, alpha: 0.9)
 //            tailClor = UIColor.white
 //        case .blue:
@@ -46,7 +46,7 @@ import UIKit
 //            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "0000FF", alpha: 0.82)
 //            layerColor = topBarColor
 //            rightBtnClor = topBarColor
-//            
+//
 //            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
 //            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
 //        case .dodgerBlue:
@@ -54,15 +54,15 @@ import UIKit
 //            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "1E90FF")
 //            layerColor = topBarColor
 //            rightBtnClor = topBarColor
-//            
+//
 //            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
 //            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        case .golden:  
+//        case .golden:
 //            titleColor = UIColor.white
 //            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "D9D919")
 //            layerColor = topBarColor
 //            rightBtnClor = UIColor.wisdom_SCHEXCOLOR(hex: "E3CF57")
-//            
+//
 //            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
 //            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
 //        case .red:
@@ -70,12 +70,77 @@ import UIKit
 //            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "FF0000", alpha: 0.82)
 //            layerColor = topBarColor
 //            rightBtnClor = topBarColor
-//            
+//
 //            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
 //            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
 //        }
 //    }
 //}
+
+extension WisdomColorThemeStyle {
+    
+    //    let titleColor: UIColor   // 标题
+    //    let infoClor: UIColor     // 详情
+    //    let tailClor: UIColor     // 尾签
+    
+    //    let rightBtnClor: UIColor  // 确认
+    //    let topBarColor: UIColor   // Bar
+    //    let layerColor: UIColor    // 阴影
+    static func getColor(themeStyle: WisdomColorThemeStyle){
+//        self.themeStyle = themeStyle
+//
+//        switch themeStyle{
+//        case .snowWhite:
+//            titleColor = UIColor.white
+//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
+//            layerColor = topBarColor
+//            rightBtnClor = topBarColor
+//
+//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
+//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
+//        case .yigou:
+//            titleColor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
+//            topBarColor = UIColor.white
+//            layerColor = topBarColor
+//            rightBtnClor = topBarColor
+//
+//            infoClor = UIColor(white: 1, alpha: 0.9)
+//            tailClor = UIColor.white
+//        case .blue:
+//            titleColor = UIColor.white
+//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "0000FF", alpha: 0.82)
+//            layerColor = topBarColor
+//            rightBtnClor = topBarColor
+//
+//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
+//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
+//        case .dodgerBlue:
+//            titleColor = UIColor.white
+//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "1E90FF")
+//            layerColor = topBarColor
+//            rightBtnClor = topBarColor
+//
+//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
+//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
+//        case .golden:
+//            titleColor = UIColor.white
+//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "D9D919")
+//            layerColor = topBarColor
+//            rightBtnClor = UIColor.wisdom_SCHEXCOLOR(hex: "E3CF57")
+//
+//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
+//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
+//        case .red:
+//            titleColor = UIColor.white
+//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "FF0000", alpha: 0.82)
+//            layerColor = topBarColor
+//            rightBtnClor = topBarColor
+//
+//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
+//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
+//        }
+    }
+}
 
 
 class WisdomHUDActionView: UIView {
@@ -106,13 +171,13 @@ class WisdomHUDActionView: UIView {
     
     fileprivate let hitView: UIView = {
         let vi = UIView()
-        vi.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        vi.backgroundColor = UIColor(white: 0.90, alpha: 1)
         return vi
     }()
     
     fileprivate let tailLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 13)
         label.textColor = .black
         label.textAlignment = .left
         return label
@@ -130,26 +195,30 @@ class WisdomHUDActionView: UIView {
         return vi
     }()
     
-    private let leftBtn: UIButton = {
+    private lazy var leftBtn: UIButton = {
         let btn = UIButton()
         btn.setTitleColor(UIColor.black, for: .normal)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        btn.addTarget(self, action: #selector(clickLeftBtn(_:)), for: .touchUpInside)
         return btn
     }()
 
-    private let rightBtn: UIButton = {
+    private lazy var rightBtn: UIButton = {
         let btn = UIButton()
         btn.setTitleColor(UIColor.black, for: .normal)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        btn.addTarget(self, action: #selector(clickRightBtn(_:)), for: .touchUpInside)
         return btn
     }()
     
-//    private let themeModel: WisdomActionThemeModel
-
-    private let actinClosure: (String,WisdomActionValueStyle)->(Bool)
+    fileprivate var hitBottomConstraint: NSLayoutConstraint?
     
-    init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, actinClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
-        self.actinClosure = actinClosure
+    fileprivate var titleTopConstraint: NSLayoutConstraint?
+
+    private let actionClosure: (String,WisdomActionValueStyle)->(Bool)
+    
+    init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+        self.actionClosure = actionClosure
         super.init(frame: .zero)
         backgroundColor = .white
         translatesAutoresizingMaskIntoConstraints = false
@@ -174,34 +243,32 @@ class WisdomHUDActionView: UIView {
         
         addSubview(tailLabel)
         tailLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//        let height: CGFloat = width*0.75
-//
-//        let colorVI = UIView()//WisdomLayerCoverView.createColorLayerView(width: width, height:32, color: themeModel.topBarColor)
 
         wisdom_addConstraint(with: titleLabel,
                              topView: self,
                              leftView: self,
                              bottomView: nil,
                              rightView: self,
-                             edgeInset: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0))
+                             edgeInset: UIEdgeInsets(top: 13, left: 0, bottom: 0, right: 0))
         
         wisdom_addConstraint(with: titleLineVI,
                              topView: self,
                              leftView: self,
                              bottomView: nil,
                              rightView: self,
-                             edgeInset: UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0))
+                             edgeInset: UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0))
 
         titleLineVI.wisdom_addConstraint(width: -1, height: 1)
-
-        addConstraint(NSLayoutConstraint(item: textLabel,
-                                         attribute: .top,
-                                         relatedBy: .equal,
-                                         toItem: titleLineVI,
-                                         attribute: .bottom,
-                                         multiplier: 1.0,
-                                         constant: 15))
+        
+        let titleConstraint = NSLayoutConstraint(item: textLabel,
+                                                    attribute: .top,
+                                                    relatedBy: .equal,
+                                                    toItem: titleLineVI,
+                                                    attribute: .bottom,
+                                                    multiplier: 1.0,
+                                                    constant: 15)
+        titleTopConstraint = titleConstraint
+        addConstraint(titleConstraint)
         addConstraint(NSLayoutConstraint(item: textLabel,
                                          attribute: .left,
                                          relatedBy: .equal,
@@ -247,20 +314,22 @@ class WisdomHUDActionView: UIView {
                                          attribute: .left,
                                          multiplier: 1.0,
                                          constant: 0))
-        addConstraint(NSLayoutConstraint(item: hitView,
-                                         attribute: .bottom,
-                                         relatedBy: .equal,
-                                         toItem: acrossLineVI,
-                                         attribute: .bottom,
-                                         multiplier: 1.0,
-                                         constant: -30))
+        let hitConstraint = NSLayoutConstraint(item: hitView,
+                                               attribute: .bottom,
+                                               relatedBy: .equal,
+                                               toItem: acrossLineVI,
+                                               attribute: .bottom,
+                                               multiplier: 1.0,
+                                               constant: -20)
+        hitBottomConstraint = hitConstraint
+        addConstraint(hitConstraint)
         addConstraint(NSLayoutConstraint(item: hitView,
                                          attribute: .top,
                                          relatedBy: .equal,
                                          toItem: textLabel,
                                          attribute: .bottom,
                                          multiplier: 1.0,
-                                         constant: 20))
+                                         constant: 18))
         hitView.layer.masksToBounds=true
         hitView.layer.cornerRadius=7/2
         
@@ -326,16 +395,20 @@ class WisdomHUDActionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc private func clickActionBtn(_ sender: UIButton) {
-        //WisdomHUD.dismiss()
-        
-        //let text: String = (sender.titleLabel == nil) ? "" : sender.titleLabel!.text!
-        
-//        actionHandler(text, sender.tag)
+    @objc private func clickLeftBtn(_ sender: UIButton) {
+        if actionClosure(sender.titleLabel?.text ?? "", .left) {
+            WisdomHUDOperate.dismissAction()
+        }
+    }
+    
+    @objc private func clickRightBtn(_ sender: UIButton) {
+        if actionClosure(sender.titleLabel?.text ?? "", .right) {
+            WisdomHUDOperate.dismissAction()
+        }
     }
     
     func setShadow() {
-        layer.cornerRadius = 5
+        layer.cornerRadius = 6
         layer.shadowOffset = CGSize.init(width: 0, height: 0)
 //        layer.shadowOpacity = 0.5
 //        layer.shadowRadius = 6
@@ -345,8 +418,8 @@ class WisdomHUDActionView: UIView {
 
 class WisdomHUDActionThemeView: WisdomHUDActionView {
     
-    init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actinClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
-        super.init(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, actinClosure: actinClosure)
+    init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+        super.init(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, actionClosure: actionClosure)
         titleLabel.text = title
         textLabel.text = text
         tailLabel.text = label
@@ -360,6 +433,15 @@ class WisdomHUDActionThemeView: WisdomHUDActionView {
         
         if titleLabel.text?.count == 0 {
             titleLabel.text = " "
+        }
+        
+        if text.count == 0 {
+            titleTopConstraint?.constant = 2
+        }
+        
+        if label?.count == 0 {
+            hitView.isHidden = true
+            hitBottomConstraint?.constant = -5
         }
     }
     

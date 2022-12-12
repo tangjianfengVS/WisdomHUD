@@ -225,7 +225,7 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
         if let rootVI = cur_inSupView {
             rootVI.addSubview(actionView)
             rootVI.wisdom_addConstraint(toCenterX: actionView, toCenterY: actionView)
-            actionView.wisdom_addConstraint(width: WisdomHUDOperate.isSmallScreen() ? 270 : 300, height: -1)
+            actionView.wisdom_addConstraint(width: WisdomHUDOperate.isSmallScreen() ? 280 : 310, height: -1)
             actionView.setShadow()
         }
     }
@@ -651,7 +651,7 @@ extension WisdomHUDOperate: WisdomHUDTextBottomable {
 
 extension WisdomHUDOperate: WisdomHUDActionable {
     
-    static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actinClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+    static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
         //let context = WisdomHUDContext()
         if Thread.isMainThread {
             showHUD()
@@ -659,7 +659,7 @@ extension WisdomHUDOperate: WisdomHUDActionable {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            let actionView = WisdomHUDActionThemeView(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, actinClosure: actinClosure)
+            let actionView = WisdomHUDActionThemeView(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, actionClosure: actionClosure)
             setupActionView(inSupView: inSupView, actionView: actionView)
         }
     }
