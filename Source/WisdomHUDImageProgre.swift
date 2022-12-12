@@ -62,7 +62,7 @@ extension WisdomHUDImageProgreView {
 
         let circle = CAShapeLayer()
         circle.fillColor = UIColor.clear.cgColor
-        circle.strokeColor = UIColor(white: 0.5, alpha: 0.5).cgColor
+        circle.strokeColor = UIColor(white: 0.5, alpha: 0.3).cgColor
         circle.lineCap = CAShapeLayerLineCap.round
         circle.lineWidth = progreWidth
         circle.strokeEnd = 1.0
@@ -134,11 +134,11 @@ extension WisdomHUDImageProgreView {
 
     @objc public private(set) var lineColor = UIColor.white
     
-    private lazy var progreHeight: CGFloat = { return 6.0 }()//size/7.7
+    private lazy var progreHeight: CGFloat = { return 5.8 }()//size/7.7
     
     private lazy var borderView: UIView = {
         let view = UIView()
-        view.layer.borderColor = UIColor(white: 0.5, alpha: 0.5).cgColor
+        view.layer.borderColor = UIColor(white: 0.5, alpha: 0.3).cgColor
         view.layer.borderWidth = 1.0
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
