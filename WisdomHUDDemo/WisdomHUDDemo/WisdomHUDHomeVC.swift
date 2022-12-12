@@ -76,6 +76,7 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
         case .loading: return WisdomLoadingStyle.allCases.count
         case .text: return WisdomTextPlaceStyle.allCases.count
         case .progress: return WisdomProgressStyle.allCases.count
+        case .action: return WisdomColorThemeStyle.allCases.count
         }
     }
     
@@ -89,6 +90,7 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
         var loadingStyle: WisdomLoadingStyle?
         var progressStyle: WisdomProgressStyle?
         var textPlaceStyle: WisdomTextPlaceStyle?
+        var colorThemeStyle: WisdomColorThemeStyle?
         
         switch hudStyle {
         case .succes: break
@@ -100,6 +102,8 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
             textPlaceStyle = WisdomTextPlaceStyle.allCases[indexPath.row]
         case .progress:
             progressStyle = WisdomProgressStyle.allCases[indexPath.row]
+        case .action:
+            colorThemeStyle = WisdomColorThemeStyle.allCases[indexPath.row]
         }
         
         cell.setTitle(hudStyle: hudStyle, loadingStyle: loadingStyle, progressStyle: progressStyle,textPlaceStyle: textPlaceStyle)
@@ -206,6 +210,12 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
                         }
                     }
                 }
+            }
+        case .action:
+            
+            WisdomHUD.showAction(title: "WisdomHUD", text: "WisdomHUD.DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+8)", label: "WisdomHUD action", leftAction: "leftAction", rightAction: "rightAction", themeStyle: .light, inSupView: nil) { info, pointStyle in
+                
+                return true
             }
         }
     }

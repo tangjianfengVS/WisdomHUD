@@ -216,6 +216,13 @@ protocol WisdomHUDSetImageable {
     func setProgreShadowColor(color: UIColor)
 }
 
+protocol WisdomHUDActionable {
+    
+
+    static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actinClosure: @escaping (String,WisdomActionPointStyle)->(Bool)) //->WisdomHUDContextable // barStyle/inSupView/delays
+}
+
+
 @objc public protocol WisdomHUDBaseContextable {
     
     // Set the Context text size

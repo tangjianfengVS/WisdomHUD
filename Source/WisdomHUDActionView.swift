@@ -76,396 +76,294 @@ import UIKit
 //        }
 //    }
 //}
-//
-//
-//
-//class WisdomActionView: UIView {
-//    
-//    private let titleLab = UILabel()
-//
-//    private let infoLab = UILabel()
-//    
-//    private let middleVI = UIView()
-//    
-//    private let tailLab = UILabel()
-//
-//    private let acrossLineVI = UIView()
-//
-//    private let betweenLineVI = UIView()
-//
-//    private let leftBtn = UIButton()
-//
-//    private let rightBtn = UIButton()
-//    
-//    private let hitView = UIView()
-//    
-//    private let themeModel: WisdomActionThemeModel
-//
-//    private let actionHandler: (String, NSInteger)->()
-//    
-//    
-//    init(title: String,
-//         infoText: String,
-//         tailText: String,
-//         actionList: [String],
-//         themeStyle: WisdomLayerThemeStyle,
-//         actionHandler: @escaping (String, NSInteger)->()) {
-//    
-//        self.themeModel = WisdomActionThemeModel(themeStyle: themeStyle)
-//        self.actionHandler = actionHandler
-//        super.init(frame: .zero)
-//        
-//        backgroundColor = themeStyle == .yigou ? UIColor(white: 0, alpha: 0.70) : UIColor.white
-//
-//        translatesAutoresizingMaskIntoConstraints = false
-//        
-//        titleLab.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        infoLab.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        tailLab.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        acrossLineVI.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        betweenLineVI.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        leftBtn.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        rightBtn.translatesAutoresizingMaskIntoConstraints = false
-//    
-//        middleVI.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        hitView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        let width: CGFloat = IsSmallScreen ? 260 : 270
-//        
-//        let height: CGFloat = width*0.75
-//        
-//        let colorVI = WisdomLayerCoverView.createColorLayerView(width: width, height:32, color: themeModel.topBarColor)
-//
-//        addSubview(colorVI)
-//
-//        addSubview(titleLab)
-//
-//        addSubview(infoLab)
-//        
-//        addSubview(tailLab)
-//
-//        addSubview(acrossLineVI)
-//        
-//        addSubview(betweenLineVI)
-//        
-//        addSubview(leftBtn)
-//        
-//        addSubview(rightBtn)
-//        
-//        addSubview(middleVI)
-//        
-//        addSubview(hitView)
-//    
-//        addConstraint(with: titleLab,
-//                      topView: colorVI,
-//                      leftView: self,
-//                      bottomView: colorVI,
-//                      rightView: self,
-//                      edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-//
-//        // info
-//        addConstraint(with: infoLab,
-//                      topView: colorVI,
-//                      leftView: self,
-//                      bottomView: nil,
-//                      rightView: self,
-//                      edgeInset: UIEdgeInsets(top: 50, left: 20, bottom: -22, right: -20))
-//        
-//        
-//        acrossLineVI.addConstraint(width: 0, height: 1)
-//        
-//        addConstraint(with: middleVI,
-//                      topView: nil,
-//                      leftView: infoLab,
-//                      bottomView: infoLab,
-//                      rightView: infoLab,
-//                      edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-//        
-//        // tail
-//        addConstraint(with: tailLab,
-//                      topView: middleVI,
-//                      leftView: hitView,
-//                      bottomView: nil,
-//                      rightView: middleVI,
-//                      edgeInset: UIEdgeInsets(top: 7, left: 15, bottom: 0, right: 0))
-//
-//        // acrossLine
-//        acrossLineVI.addConstraint(width: 0, height: 0.5)
-//
-//        addConstraint(with: acrossLineVI,
-//                      topView: nil,
-//                      leftView: self,
-//                      bottomView: self,
-//                      rightView: self,
-//                      edgeInset: UIEdgeInsets(top: 20, left: 0, bottom: -40, right: 0))
-//        
-//        // betweenLine
-//        betweenLineVI.addConstraint(width: 0.5, height: 0)
-//        
-//        addConstraint(toCenterX: betweenLineVI, toCenterY: nil)
-//        
-//        addConstraint(with: betweenLineVI,
-//                      topView: acrossLineVI,
-//                      leftView: nil,
-//                      bottomView: self,
-//                      rightView: nil,
-//                      edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-//        
-//        // hit
-//        hitView.addConstraint(width: 7, height: 7)
-//        
-//        addConstraint(with: hitView,
-//                      topView: tailLab,
-//                      leftView: self,
-//                      bottomView: nil,
-//                      rightView: nil,
-//                      edgeInset: UIEdgeInsets(top: 4, left: 20, bottom: 0, right: 0))
-//        
-//        addConstraint(width: width, height: height)
-//        
-//        middleVI.backgroundColor = UIColor.clear
-//        
-//        titleLab.text = title
-//        
-//        titleLab.textColor = themeModel.titleColor
-//        
-//        titleLab.textAlignment = .center
-//        
-//        titleLab.font = UIFont.boldSystemFont(ofSize: 15)
-//        
-//        titleLab.sizeToFit()
-//        
-//        
-//        let paraph = NSMutableParagraphStyle()
-//        paraph.lineSpacing = 3 //行间距设置
-//
-//        let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 14),
-//                          NSAttributedString.Key.paragraphStyle: paraph]
-//        infoLab.attributedText = NSAttributedString(string: infoText, attributes: attributes)
-//        
-//        infoLab.textAlignment = .left
-//        
-//        infoLab.backgroundColor = UIColor.clear
-//        
-//        infoLab.numberOfLines = 4
-//        
-//        infoLab.lineBreakMode = .byTruncatingTail
-//
-//        infoLab.textColor = themeModel.infoClor
-//        
-//        infoLab.sizeToFit()
-//        
-//        
-//        tailLab.text = tailText
-//        
-//        tailLab.font = UIFont.boldSystemFont(ofSize: 14)
-//        
-//        tailLab.numberOfLines = 1
-//        
-//        tailLab.lineBreakMode = .byTruncatingTail
-//
-//        tailLab.textColor = themeModel.tailClor
-//        
-//        tailLab.sizeToFit()
-//        
-//        acrossLineVI.backgroundColor = UIColor(white: 0.85, alpha: 1)
-//        
-//        betweenLineVI.backgroundColor = acrossLineVI.backgroundColor
-//        
-//        
-//        leftBtn.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-//        
-//        let color = themeStyle == .yigou ? UIColor(white: 1, alpha: 0.8) : UIColor.wisdom_SCHEXCOLOR(hex: "34495E", alpha: 0.8)
-//        leftBtn.setTitleColor(color, for: .normal)
-//        
-//        leftBtn.addTarget(self, action: #selector(clickActionBtn), for: .touchUpInside)
-//        
-//        rightBtn.titleLabel?.font = leftBtn.titleLabel?.font
-//        
-//        rightBtn.setTitleColor(themeModel.rightBtnClor, for: .normal)
-//        
-//        rightBtn.addTarget(self, action: #selector(clickActionBtn), for: .touchUpInside)
-//        
-//        hitView.backgroundColor = themeModel.rightBtnClor
-//        
-//        hitView.layer.masksToBounds = true
-//        
-//        hitView.layer.cornerRadius = 7/2
-//        
-//        setactionList(actionList: actionList)
-//    }
-//    
-//    
-//    private func setactionList(actionList: [String]){
-//
-//        if actionList.count >= 2 {
-//            betweenLineVI.isHidden = false
-//            
-//            leftBtn.setTitle(actionList.first!, for: .normal)
-//            leftBtn.setTitle(actionList.first!, for: .highlighted)
-//            leftBtn.tag = 0
-//            leftBtn.isHidden = false
-//            
-//            rightBtn.setTitle(actionList[1], for: .normal)
-//            rightBtn.setTitle(actionList.first!, for: .highlighted)
-//            rightBtn.tag = 1
-//            rightBtn.isHidden = false
-//            
-//            addConstraint(with: leftBtn,
-//                          topView: acrossLineVI,
-//                          leftView: self,
-//                          bottomView: self,
-//                          rightView: betweenLineVI,
-//                          edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-//            
-//            addConstraint(with: rightBtn,
-//                          topView: acrossLineVI,
-//                          leftView: betweenLineVI,
-//                          bottomView: self,
-//                          rightView: self,
-//                          edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-//            
-//        }else if actionList.count == 1{
-//            betweenLineVI.isHidden = true
-//            
-//            leftBtn.isHidden = true
-//            leftBtn.setTitle("", for: .highlighted)
-//            
-//            rightBtn.isHidden = false
-//            rightBtn.setTitle(actionList.first, for: .normal)
-//            rightBtn.setTitle(actionList.first!, for: .highlighted)
-//            rightBtn.tag = 0
-//            
-//            addConstraint(with: rightBtn,
-//                          topView: acrossLineVI,
-//                          leftView: self,
-//                          bottomView: self,
-//                          rightView: self,
-//                          edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-//        }else {
-//            betweenLineVI.isHidden = true
-//            
-//            leftBtn.isHidden = true
-//            leftBtn.setTitle("", for: .highlighted)
-//            
-//            rightBtn.isHidden = true
-//            rightBtn.setTitle("", for: .highlighted)
-//        }
-//    }
-//    
-//    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//
-//    @objc private func clickActionBtn(_ sender: UIButton) {
-//        WisdomHUD.dismiss()
-//        
-//        let text: String = (sender.titleLabel == nil) ? "" : sender.titleLabel!.text!
-//        
-//        actionHandler(text, sender.tag)
-//    }
-//    
-//
-//    fileprivate func setShadow() {
-//        layer.cornerRadius = 6
-//
-//        layer.shadowOffset = CGSize.init(width: 0, height: 0)
-//
-//        layer.shadowOpacity = 0.5
-//
-//        layer.shadowRadius = 6
-//        
-//        layer.shadowColor = themeModel.layerColor.cgColor
-//    }
-//
-//}
-//
-//
-//
-//extension WisdomActionView: WisdomHUDProtocol {
-//    
-//    /* Action HUD */
-//    static func showAction(title: String,
-//                           infoText: String,
-//                           tailText: String,
-//                           actionList: [String],
-//                           themeStyle: WisdomLayerThemeStyle,
-//                           actionHandler: @escaping (String, NSInteger)->()) {
-//        DispatchQueue.main.async {
-//            let actionView = WisdomActionView(title: title,
-//                                              infoText: infoText,
-//                                              tailText: tailText,
-//                                              actionList: actionList,
-//                                              themeStyle: themeStyle,
-//                                              actionHandler: actionHandler)
-//
-//            actionView.addToWindow()
-//
-//            actionView.setShadow()
-//            
-//            actionView.keepTime()
-//        }
-//    }
-//    
-//    
-//    /* 展示 */
-//    func addToWindow() {
-//        let window = WisdomHUD.getScreenWindow()
-//        
-//        if window != nil {
-//            let currentView = window!.viewWithTag(WisdomHUDWindowTag)
-//            //let offsetY = window!.bounds.size.height/10.0
-//            
-//            if let hudCoverVI = currentView as? WisdomLayerCoverView {
-//                for view in hudCoverVI.subviews {
-//                    view.removeFromSuperview()
-//                }
-//                
-//                hudCoverVI.addSubview(self)
-//                
-//                hudCoverVI.addConstraint(toCenterX: self, toCenterY: self)
-//            }else {
-//                let coverVI = WisdomLayerCoverView()
-//                
-//                coverVI.translatesAutoresizingMaskIntoConstraints = false
-//                
-//                coverVI.backgroundColor = UIColor(white: 0, alpha: 0.35)
-//                
-//                coverVI.tag = WisdomHUDWindowTag
-//               
-//                window!.addSubview(coverVI)
-//                
-//                window!.addConstraint(with: coverVI,
-//                                   topView: window!,
-//                                  leftView: window!,
-//                                bottomView: window!,
-//                                 rightView: window!,
-//                                 edgeInset: UIEdgeInsets.zero)
-//                
-//                coverVI.addSubview(self)
-//                
-//                coverVI.addConstraint(toCenterX: self, toCenterY: self)
-//            }
-//        }
-//    }
-//    
-//    
-//    func keepTime() {
-//        
-//    }
-//    
-//    
-//    func animateEnd() {
-//        
-//    }
+
+
+class WisdomHUDActionView: UIView {
     
-//}
+    fileprivate let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.backgroundColor = .clear
+        return label
+    }()
+
+    fileprivate let textLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .black
+        label.textAlignment = .left
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private let titleLineVI: UIView = {
+        let vi = UIView()
+        vi.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        return vi
+    }()
+    
+    fileprivate let hitView: UIView = {
+        let vi = UIView()
+        vi.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        return vi
+    }()
+    
+    fileprivate let tailLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .black
+        label.textAlignment = .left
+        return label
+    }()
+
+    private let acrossLineVI: UIView = {
+        let vi = UIView()
+        vi.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        return vi
+    }()
+    
+    private let betweenLineVI: UIView = {
+        let vi = UIView()
+        vi.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        return vi
+    }()
+    
+    private let leftBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitleColor(UIColor.black, for: .normal)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        return btn
+    }()
+
+    private let rightBtn: UIButton = {
+        let btn = UIButton()
+        btn.setTitleColor(UIColor.black, for: .normal)
+        btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        return btn
+    }()
+    
+//    private let themeModel: WisdomActionThemeModel
+
+    private let actinClosure: (String,WisdomActionValueStyle)->(Bool)
+    
+    init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, actinClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+        self.actinClosure = actinClosure
+        super.init(frame: .zero)
+        backgroundColor = .white
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(titleLineVI)
+        titleLineVI.translatesAutoresizingMaskIntoConstraints = false
+
+        addSubview(textLabel)
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        addSubview(acrossLineVI)
+        acrossLineVI.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(betweenLineVI)
+        betweenLineVI.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(hitView)
+        hitView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(tailLabel)
+        tailLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//        let height: CGFloat = width*0.75
+//
+//        let colorVI = UIView()//WisdomLayerCoverView.createColorLayerView(width: width, height:32, color: themeModel.topBarColor)
+
+        wisdom_addConstraint(with: titleLabel,
+                             topView: self,
+                             leftView: self,
+                             bottomView: nil,
+                             rightView: self,
+                             edgeInset: UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0))
+        
+        wisdom_addConstraint(with: titleLineVI,
+                             topView: self,
+                             leftView: self,
+                             bottomView: nil,
+                             rightView: self,
+                             edgeInset: UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0))
+
+        titleLineVI.wisdom_addConstraint(width: -1, height: 1)
+
+        addConstraint(NSLayoutConstraint(item: textLabel,
+                                         attribute: .top,
+                                         relatedBy: .equal,
+                                         toItem: titleLineVI,
+                                         attribute: .bottom,
+                                         multiplier: 1.0,
+                                         constant: 15))
+        addConstraint(NSLayoutConstraint(item: textLabel,
+                                         attribute: .left,
+                                         relatedBy: .equal,
+                                         toItem: self,
+                                         attribute: .left,
+                                         multiplier: 1.0,
+                                         constant: 20))
+        addConstraint(NSLayoutConstraint(item: textLabel,
+                                         attribute: .right,
+                                         relatedBy: .equal,
+                                         toItem: self,
+                                         attribute: .right,
+                                         multiplier: 1.0,
+                                         constant: -20))
+        
+        wisdom_addConstraint(with: acrossLineVI,
+                             topView: nil,
+                             leftView: self,
+                             bottomView: self,
+                             rightView: self,
+                             edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: -46, right: 0))
+
+        acrossLineVI.wisdom_addConstraint(width: -1, height: 1)
+        
+        wisdom_addConstraint(with: betweenLineVI,
+                             topView: acrossLineVI,
+                             leftView: nil,
+                             bottomView: self,
+                             rightView: nil,
+                             edgeInset: UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0))
+        
+        wisdom_addConstraint(toCenterX: betweenLineVI, toCenterY: nil)
+
+        betweenLineVI.wisdom_addConstraint(width: 1, height: -1)
+    
+        // hit
+        hitView.wisdom_addConstraint(width: 7, height: 7)
+
+        addConstraint(NSLayoutConstraint(item: hitView,
+                                         attribute: .left,
+                                         relatedBy: .equal,
+                                         toItem: textLabel,
+                                         attribute: .left,
+                                         multiplier: 1.0,
+                                         constant: 0))
+        addConstraint(NSLayoutConstraint(item: hitView,
+                                         attribute: .bottom,
+                                         relatedBy: .equal,
+                                         toItem: acrossLineVI,
+                                         attribute: .bottom,
+                                         multiplier: 1.0,
+                                         constant: -30))
+        addConstraint(NSLayoutConstraint(item: hitView,
+                                         attribute: .top,
+                                         relatedBy: .equal,
+                                         toItem: textLabel,
+                                         attribute: .bottom,
+                                         multiplier: 1.0,
+                                         constant: 20))
+        hitView.layer.masksToBounds=true
+        hitView.layer.cornerRadius=7/2
+        
+        addConstraint(NSLayoutConstraint(item: tailLabel,
+                                         attribute: .left,
+                                         relatedBy: .equal,
+                                         toItem: hitView,
+                                         attribute: .right,
+                                         multiplier: 1.0,
+                                         constant: 10))
+        addConstraint(NSLayoutConstraint(item: tailLabel,
+                                         attribute: .right,
+                                         relatedBy: .equal,
+                                         toItem: textLabel,
+                                         attribute: .right,
+                                         multiplier: 1.0,
+                                         constant: 0))
+        addConstraint(NSLayoutConstraint(item: tailLabel,
+                                         attribute: .centerY,
+                                         relatedBy: .equal,
+                                         toItem: hitView,
+                                         attribute: .centerY,
+                                         multiplier: 1.0,
+                                         constant: 0))
+        
+        setactionList(leftAction: leftAction, rightAction: rightAction)
+    }
+    
+    private func setactionList(leftAction: String?, rightAction: String){
+        leftBtn.removeFromSuperview()
+        rightBtn.removeFromSuperview()
+        
+        addSubview(rightBtn)
+        rightBtn.translatesAutoresizingMaskIntoConstraints = false
+        rightBtn.setTitle(rightAction, for: .normal)
+        
+        var leftView: UIView = self
+        
+        if let action = leftAction {
+            leftView = betweenLineVI
+            
+            addSubview(leftBtn)
+            leftBtn.translatesAutoresizingMaskIntoConstraints = false
+            leftBtn.setTitle(action, for: .normal)
+            
+            wisdom_addConstraint(with: leftBtn,
+                                 topView: acrossLineVI,
+                                 leftView: self,
+                                 bottomView: self,
+                                 rightView: betweenLineVI,
+                                 edgeInset: UIEdgeInsets(top: 1, left: 5, bottom: 0, right: -5))
+        }
+        
+        wisdom_addConstraint(with: rightBtn,
+                             topView: acrossLineVI,
+                             leftView: leftView,
+                             bottomView: self,
+                             rightView: self,
+                             edgeInset: UIEdgeInsets(top: -1, left: 5, bottom: 0, right: -5))
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc private func clickActionBtn(_ sender: UIButton) {
+        //WisdomHUD.dismiss()
+        
+        //let text: String = (sender.titleLabel == nil) ? "" : sender.titleLabel!.text!
+        
+//        actionHandler(text, sender.tag)
+    }
+    
+    func setShadow() {
+        layer.cornerRadius = 5
+        layer.shadowOffset = CGSize.init(width: 0, height: 0)
+//        layer.shadowOpacity = 0.5
+//        layer.shadowRadius = 6
+//        layer.shadowColor = themeModel.layerColor.cgColor
+    }
+}
+
+class WisdomHUDActionThemeView: WisdomHUDActionView {
+    
+    init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actinClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+        super.init(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, actinClosure: actinClosure)
+        titleLabel.text = title
+        textLabel.text = text
+        tailLabel.text = label
+        
+        let paraph = NSMutableParagraphStyle()
+        paraph.lineSpacing = 3
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+                          NSAttributedString.Key.paragraphStyle: paraph]
+        textLabel.attributedText = NSAttributedString(string: text, attributes: attributes)
+        textLabel.sizeToFit()
+        
+        if titleLabel.text?.count == 0 {
+            titleLabel.text = " "
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

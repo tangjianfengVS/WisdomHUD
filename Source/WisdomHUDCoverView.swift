@@ -14,6 +14,8 @@ final class WisdomHUDCoverView: UIView {
     
     weak var sceneView: WisdomHUDSceneView?
     
+    weak var actionView: WisdomHUDActionThemeView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false

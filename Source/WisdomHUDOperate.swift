@@ -15,6 +15,8 @@ struct WisdomHUDOperate {
     fileprivate static var WisdomProgressStyle: WisdomProgressStyle = .circle
 
     fileprivate static var WisdomSceneBarStyle: WisdomSceneBarStyle = .dark
+    
+    fileprivate static var WisdomColorThemeStyle: WisdomColorThemeStyle = .light
 
     fileprivate static var WisdomDisplayDelays: TimeInterval = 2.2
     
@@ -190,6 +192,44 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
         }
         return nil
     }
+    
+    private static func setupActionView(inSupView: UIView?, actionView: WisdomHUDActionThemeView) {
+        let window = WisdomHUDOperate.getScreenWindow()
+        let coverVI = window?.viewWithTag(WisdomHUDCoverTag>>1) as? WisdomHUDCoverView
+        coverVI?.actionView?.removeFromSuperview()
+        
+        var cur_inSupView = inSupView
+        if inSupView == nil, let cur_window = window {
+            coverVI?.actionView = actionView
+            cur_inSupView = coverVI
+            
+            if cur_inSupView == nil {
+                let coverView = WisdomHUDCoverView()
+                coverView.tag = WisdomHUDCoverTag>>1
+                coverView.actionView = actionView
+                coverView.backgroundColor = WisdomCoverBackgColor
+                cur_inSupView = coverView
+                
+                cur_window.addSubview(coverView)
+                cur_window.wisdom_addConstraint(with: coverView,
+                                                topView: cur_window,
+                                                leftView: cur_window,
+                                                bottomView: cur_window,
+                                                rightView: cur_window,
+                                                edgeInset: UIEdgeInsets.zero)
+            }
+        }else if inSupView != nil {
+            coverVI?.removeFromSuperview()
+        }
+        
+        if let rootVI = cur_inSupView {
+            rootVI.addSubview(actionView)
+            rootVI.wisdom_addConstraint(toCenterX: actionView, toCenterY: actionView)
+            actionView.wisdom_addConstraint(width: WisdomHUDOperate.isSmallScreen() ? 270 : 300, height: -1)
+            actionView.setShadow()
+        }
+    }
+   
 }
 
 extension WisdomHUDOperate: WisdomHUDLoadingable {
@@ -606,5 +646,21 @@ extension WisdomHUDOperate: WisdomHUDTextBottomable {
             }
         }
         return context
+    }
+}
+
+extension WisdomHUDOperate: WisdomHUDActionable {
+    
+    static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actinClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+        //let context = WisdomHUDContext()
+        if Thread.isMainThread {
+            showHUD()
+        }else {
+            DispatchQueue.main.async { showHUD() }
+        }
+        func showHUD() {
+            let actionView = WisdomHUDActionThemeView(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, actinClosure: actinClosure)
+            setupActionView(inSupView: inSupView, actionView: actionView)
+        }
     }
 }
