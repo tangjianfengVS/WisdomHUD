@@ -422,17 +422,3 @@ extension WisdomHUD: WisdomHUDTextBottomable {
         return WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
 }
-
-extension WisdomHUD: WisdomHUDActionable {
-    
-    // MARK: Show Action
-    // title/text/label      : UILabel's text string
-    // leftAction/rightAction: UIBotton's text string
-    // themeStyle            : UIColor's theme
-    // actionClosure         : UIBotton's click -> (String, WisdomActionValueStyle) -> (Bool)
-    static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
-        return WisdomHUDOperate.showAction(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, inSupView: inSupView, actionClosure: actionClosure)
-    }
-    
-    
-}

@@ -8,7 +8,16 @@
 
 import UIKit
 
-extension WisdomHUD {
+extension WisdomHUD: WisdomHUDActionable {
+    
+    // MARK: Show Action
+    // title/text/label      : UILabel's text
+    // leftAction/rightAction: UIBotton's text
+    // themeStyle            : UIColor's theme
+    // actionClosure         : UIBotton's click closure -> (String, WisdomActionValueStyle) -> (Bool)
+    @objc public static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+        return WisdomHUDOperate.showAction(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, inSupView: inSupView, actionClosure: actionClosure)
+    }
     
     
 }

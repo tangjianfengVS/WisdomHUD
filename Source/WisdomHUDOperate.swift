@@ -226,7 +226,6 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
             rootVI.addSubview(actionView)
             rootVI.wisdom_addConstraint(toCenterX: actionView, toCenterY: actionView)
             actionView.wisdom_addConstraint(width: WisdomHUDOperate.isSmallScreen() ? 280 : 310, height: -1)
-            actionView.setShadow()
         }
     }
    
@@ -659,8 +658,9 @@ extension WisdomHUDOperate: WisdomHUDActionable {
             DispatchQueue.main.async { showHUD() }
         }
         func showHUD() {
-            let actionView = WisdomHUDActionThemeView(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, actionClosure: actionClosure)
+            let actionView = WisdomHUDActionThemeView(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, actionClosure: actionClosure)
             setupActionView(inSupView: inSupView, actionView: actionView)
+            actionView.setThemeStyle(themeStyle: themeStyle)
         }
     }
 }

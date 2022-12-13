@@ -9,104 +9,33 @@
 import UIKit
 
 
-//struct WisdomActionThemeModel {
-    
-//    let themeStyle: WisdomLayerThemeStyle
-//    
-//    let titleColor: UIColor   // 标题
-//    let infoClor: UIColor     // 详情
-//    let tailClor: UIColor     // 尾签
-//
-//    let rightBtnClor: UIColor  // 确认
-//    let topBarColor: UIColor   // Bar
-//    let layerColor: UIColor    // 阴影
-//    
-//    init(themeStyle: WisdomLayerThemeStyle){
-//        self.themeStyle = themeStyle
-//
-//        switch themeStyle{
-//        case .snowWhite:
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        case .yigou:
-//            titleColor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//            topBarColor = UIColor.white
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor(white: 1, alpha: 0.9)
-//            tailClor = UIColor.white
-//        case .blue:
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "0000FF", alpha: 0.82)
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        case .dodgerBlue:
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "1E90FF")
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        case .golden:
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "D9D919")
-//            layerColor = topBarColor
-//            rightBtnClor = UIColor.wisdom_SCHEXCOLOR(hex: "E3CF57")
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        case .red:
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "FF0000", alpha: 0.82)
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        }
-//    }
-//}
-
 extension WisdomColorThemeStyle {
     
-    //    let titleColor: UIColor   // 标题
-    //    let infoClor: UIColor     // 详情
-    //    let tailClor: UIColor     // 尾签
-    
-    //    let rightBtnClor: UIColor  // 确认
-    //    let topBarColor: UIColor   // Bar
-    //    let layerColor: UIColor    // 阴影
-    static func getColor(themeStyle: WisdomColorThemeStyle){
-//        self.themeStyle = themeStyle
-//
-//        switch themeStyle{
-//        case .snowWhite:
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        case .yigou:
-//            titleColor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//            topBarColor = UIColor.white
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor(white: 1, alpha: 0.9)
-//            tailClor = UIColor.white
-//        case .blue:
+    static func getColor(themeStyle: WisdomColorThemeStyle)->(HUDColor:UIColor,
+                                                              TitleColor:UIColor,
+                                                              TextColor:UIColor,
+                                                              TailColor:UIColor,
+                                                              LayerColor:UIColor,
+                                                              LineColor:UIColor){
+        var hudColor = UIColor.white
+        var titleColor = UIColor.white
+        var textColor = UIColor.white
+        var tailColor = UIColor.white
+        var layerColor = UIColor.white
+        var lineColor = UIColor(white: 0.95, alpha: 1)
+        switch themeStyle {
+        case .light:
+            titleColor = .wisdom_colorHex(hex: "34495E")
+            textColor = .wisdom_colorHex(hex: "34495E")
+            tailColor = .wisdom_colorHex(hex: "34495E")
+            layerColor = .gray
+        case .dark:
+            hudColor = UIColor(white: 0, alpha: 0.9)
+            titleColor = .wisdom_colorHex(hex: "C0C0C0")
+            textColor = .wisdom_colorHex(hex: "C0C0C0")
+            tailColor = .wisdom_colorHex(hex: "C0C0C0")
+            lineColor = UIColor(white: 0.15, alpha: 1)
+        case .blue: break
 //            titleColor = UIColor.white
 //            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "0000FF", alpha: 0.82)
 //            layerColor = topBarColor
@@ -114,7 +43,7 @@ extension WisdomColorThemeStyle {
 //
 //            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
 //            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        case .dodgerBlue:
+        case .dodgerBlue: break
 //            titleColor = UIColor.white
 //            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "1E90FF")
 //            layerColor = topBarColor
@@ -122,7 +51,7 @@ extension WisdomColorThemeStyle {
 //
 //            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
 //            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        case .golden:
+        case .golden: break
 //            titleColor = UIColor.white
 //            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "D9D919")
 //            layerColor = topBarColor
@@ -130,7 +59,7 @@ extension WisdomColorThemeStyle {
 //
 //            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
 //            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        case .red:
+        case .red: break
 //            titleColor = UIColor.white
 //            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "FF0000", alpha: 0.82)
 //            layerColor = topBarColor
@@ -138,7 +67,8 @@ extension WisdomColorThemeStyle {
 //
 //            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
 //            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-//        }
+        }
+        return (hudColor,titleColor,textColor,tailColor,layerColor,lineColor)
     }
 }
 
@@ -163,7 +93,7 @@ class WisdomHUDActionView: UIView {
         return label
     }()
     
-    private let titleLineVI: UIView = {
+    fileprivate let titleLineVI: UIView = {
         let vi = UIView()
         vi.backgroundColor = UIColor(white: 0.95, alpha: 1)
         return vi
@@ -183,19 +113,19 @@ class WisdomHUDActionView: UIView {
         return label
     }()
 
-    private let acrossLineVI: UIView = {
+    fileprivate let acrossLineVI: UIView = {
         let vi = UIView()
         vi.backgroundColor = UIColor(white: 0.95, alpha: 1)
         return vi
     }()
     
-    private let betweenLineVI: UIView = {
+    fileprivate let betweenLineVI: UIView = {
         let vi = UIView()
         vi.backgroundColor = UIColor(white: 0.95, alpha: 1)
         return vi
     }()
     
-    private lazy var leftBtn: UIButton = {
+    fileprivate lazy var leftBtn: UIButton = {
         let btn = UIButton()
         btn.setTitleColor(UIColor.black, for: .normal)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
@@ -203,7 +133,7 @@ class WisdomHUDActionView: UIView {
         return btn
     }()
 
-    private lazy var rightBtn: UIButton = {
+    fileprivate lazy var rightBtn: UIButton = {
         let btn = UIButton()
         btn.setTitleColor(UIColor.black, for: .normal)
         btn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
@@ -217,7 +147,7 @@ class WisdomHUDActionView: UIView {
 
     private let actionClosure: (String,WisdomActionValueStyle)->(Bool)
     
-    init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+    init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, actionClosure: @escaping (String, WisdomActionValueStyle)->(Bool)) {
         self.actionClosure = actionClosure
         super.init(frame: .zero)
         backgroundColor = .white
@@ -406,19 +336,11 @@ class WisdomHUDActionView: UIView {
             WisdomHUDOperate.dismissAction()
         }
     }
-    
-    func setShadow() {
-        layer.cornerRadius = 6
-        layer.shadowOffset = CGSize.init(width: 0, height: 0)
-//        layer.shadowOpacity = 0.5
-//        layer.shadowRadius = 6
-//        layer.shadowColor = themeModel.layerColor.cgColor
-    }
 }
 
 class WisdomHUDActionThemeView: WisdomHUDActionView {
     
-    init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+    override init(title: String, text: String, label: String?, leftAction: String?, rightAction: String, actionClosure: @escaping (String, WisdomActionValueStyle)->(Bool)) {
         super.init(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, actionClosure: actionClosure)
         titleLabel.text = title
         textLabel.text = text
@@ -443,6 +365,26 @@ class WisdomHUDActionThemeView: WisdomHUDActionView {
             hitView.isHidden = true
             hitBottomConstraint?.constant = -5
         }
+    }
+    
+    func setThemeStyle(themeStyle: WisdomColorThemeStyle){
+        let colors = WisdomColorThemeStyle.getColor(themeStyle: themeStyle)
+        backgroundColor = colors.HUDColor
+        titleLabel.textColor = colors.TitleColor
+        textLabel.textColor = colors.TextColor
+        hitView.backgroundColor = colors.TailColor.withAlphaComponent(0.3)
+        tailLabel.textColor = colors.TailColor
+        leftBtn.setTitleColor(colors.TitleColor, for: .normal)
+        rightBtn.setTitleColor(colors.TitleColor, for: .normal)
+        titleLineVI.backgroundColor = colors.LineColor
+        acrossLineVI.backgroundColor = colors.LineColor
+        betweenLineVI.backgroundColor = colors.LineColor
+        
+        layer.cornerRadius = 6
+        layer.shadowOffset = CGSize.init(width: 0, height: 0)
+        layer.shadowOpacity = 0.3
+        layer.shadowRadius = 6
+        layer.shadowColor = colors.LayerColor.cgColor
     }
     
     required init?(coder: NSCoder) {
