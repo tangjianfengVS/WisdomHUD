@@ -360,6 +360,8 @@ class WisdomHUDActionThemeView: WisdomHUDActionView {
             hitView.isHidden = true
             hitBottomConstraint?.constant = -5
         }
+        
+        betweenLineVI.isHidden = leftAction == nil
     }
     
     func setThemeStyle(themeStyle: WisdomColorThemeStyle){

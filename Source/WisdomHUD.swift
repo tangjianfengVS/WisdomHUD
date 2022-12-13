@@ -23,7 +23,7 @@ extension WisdomHUD: WisdomHUDSettingable {
     }
     
     // MARK: HUD Set Progress Style
-    static func setProgressStyle(progressStyle: WisdomProgressStyle) {
+    @objc public static func setProgressStyle(progressStyle: WisdomProgressStyle) {
         WisdomHUDOperate.setProgressStyle(progressStyle: progressStyle)
     }
     

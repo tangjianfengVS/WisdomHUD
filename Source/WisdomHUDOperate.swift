@@ -209,7 +209,7 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
             coverView.actionView?.removeFromSuperview()
             coverView.addSubview(actionView)
             coverView.wisdom_addConstraint(toCenterX: actionView, toCenterY: actionView)
-            actionView.wisdom_addConstraint(width: WisdomHUDOperate.isSmallScreen() ? 280 : 310, height: -1)
+            actionView.wisdom_addConstraint(width: isSmallScreen() ? 290 : 310, height: -1)
         }
         
         let window = WisdomHUDOperate.getScreenWindow()

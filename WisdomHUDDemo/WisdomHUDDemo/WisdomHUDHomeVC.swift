@@ -222,7 +222,7 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5) { [weak self] in
                 
-                WisdomHUD.showAction(title: "WisdomHUD", text: text1, label: "WisdomHUD sdk", leftAction: "取消", rightAction: "确认", themeStyle: theme, inSupView: self?.view) { info, value in
+                WisdomHUD.showAction(title: "WisdomHUD", text: text1, label: "WisdomHUD sdk", leftAction: nil, rightAction: "确认", themeStyle: theme, inSupView: self?.view) { info, value in
                     
                     return true
                 }.setRightAction(textColor: .systemPink, textFont: nil).setLeftAction(textColor: .gray, textFont: nil).setTextAlignment(alignment: .left)
