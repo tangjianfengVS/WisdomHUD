@@ -53,7 +53,7 @@ class WisdomHUDActionView: UIView {
 
     fileprivate let textLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 13.5)
         label.textColor = .black
         label.textAlignment = .left
         label.numberOfLines = 0
@@ -314,8 +314,8 @@ class WisdomHUDActionThemeView: WisdomHUDActionView {
         tailLabel.text = label
         
         let paraph = NSMutableParagraphStyle()
-        paraph.lineSpacing = 3
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+        paraph.lineSpacing = 2.5
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.5, weight: .regular),
                           NSAttributedString.Key.paragraphStyle: paraph]
         textLabel.attributedText = NSAttributedString(string: text, attributes: attributes)
         textLabel.sizeToFit()
