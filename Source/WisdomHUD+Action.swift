@@ -14,7 +14,8 @@ extension WisdomHUD: WisdomHUDActionable {
     // title/text            : UILabel's text
     // leftAction/rightAction: UIBotton's text
     // actionClosure         : UIBotton's click closure -> (String, WisdomActionValueStyle) -> (Bool)
-    @objc public static func showAction(title: String, text: String, leftAction: String?, rightAction: String, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool)){
+    @discardableResult
+    @objc public static func showAction(title: String, text: String, leftAction: String?, rightAction: String, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable{
         return WisdomHUDOperate.showAction(title: title, text: text, leftAction: leftAction, rightAction: rightAction, actionClosure: actionClosure)
     }
     
@@ -23,7 +24,8 @@ extension WisdomHUD: WisdomHUDActionable {
     // leftAction/rightAction: UIBotton's text
     // themeStyle            : UIColor's theme
     // actionClosure         : UIBotton's click closure -> (String, WisdomActionValueStyle) -> (Bool)
-    @objc public static func showAction(title: String, text: String, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool)) {
+    @discardableResult
+    @objc public static func showAction(title: String, text: String, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable{
         return WisdomHUDOperate.showAction(title: title, text: text, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, actionClosure: actionClosure)
     }
     
@@ -32,7 +34,8 @@ extension WisdomHUD: WisdomHUDActionable {
     // leftAction/rightAction: UIBotton's text
     // themeStyle            : UIColor's theme
     // actionClosure         : UIBotton's click closure -> (String, WisdomActionValueStyle) -> (Bool)
-    @objc public static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool)) {
+    @discardableResult
+    @objc public static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable{
         return WisdomHUDOperate.showAction(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, actionClosure: actionClosure)
     }
     
@@ -42,7 +45,8 @@ extension WisdomHUD: WisdomHUDActionable {
     // themeStyle            : UIColor's theme
     // inSupView             : UIView's supView
     // actionClosure         : UIBotton's click closure -> (String, WisdomActionValueStyle) -> (Bool)
-    @objc public static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
+    @discardableResult
+    @objc public static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool))->WisdomHUDActionContextable{
         return WisdomHUDOperate.showAction(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, inSupView: inSupView, actionClosure: actionClosure)
     }
 }

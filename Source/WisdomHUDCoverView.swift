@@ -132,4 +132,9 @@ extension WisdomHUDCoverView: WisdomHUDActionContextable {
         _=actionView?.setRightAction(textColor: textColor, textFont: textFont)
         return self
     }
+    
+    func setTextAlignment(alignment: NSTextAlignment)->Self {
+        _=actionView?.setTextAlignment(alignment: alignment)
+        return self
+    }
 }

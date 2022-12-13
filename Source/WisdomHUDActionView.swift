@@ -172,14 +172,14 @@ class WisdomHUDActionView: UIView {
                                          toItem: self,
                                          attribute: .left,
                                          multiplier: 1.0,
-                                         constant: 20))
+                                         constant: 18))
         addConstraint(NSLayoutConstraint(item: textLabel,
                                          attribute: .right,
                                          relatedBy: .equal,
                                          toItem: self,
                                          attribute: .right,
                                          multiplier: 1.0,
-                                         constant: -20))
+                                         constant: -18))
         
         wisdom_addConstraint(with: acrossLineVI,
                              topView: nil,
@@ -324,6 +324,11 @@ extension WisdomHUDActionView: WisdomHUDActionContextable {
         if let text_Font = textFont {
             rightBtn.titleLabel?.font = text_Font
         }
+        return self
+    }
+    
+    func setTextAlignment(alignment: NSTextAlignment)->Self {
+        textLabel.textAlignment = alignment
         return self
     }
 }
