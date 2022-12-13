@@ -650,6 +650,18 @@ extension WisdomHUDOperate: WisdomHUDTextBottomable {
 
 extension WisdomHUDOperate: WisdomHUDActionable {
     
+    static func showAction(title: String, text: String, leftAction: String?, rightAction: String, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool)){
+        return showAction(title: title, text: text, label: nil, leftAction: leftAction, rightAction: rightAction, themeStyle: WisdomColorThemeStyle, inSupView: nil, actionClosure: actionClosure)
+    }
+    
+    static func showAction(title: String, text: String, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool)) {
+        return showAction(title: title, text: text, label: nil, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, inSupView: nil, actionClosure: actionClosure)
+    }
+    
+    static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool)) {
+        return showAction(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, inSupView: nil, actionClosure: actionClosure)
+    }
+    
     static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
         //let context = WisdomHUDContext()
         if Thread.isMainThread {

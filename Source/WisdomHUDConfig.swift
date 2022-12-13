@@ -60,6 +60,7 @@ public enum WisdomHUDStyle: CaseIterable {
     case dark       // 暗黑
 }
 
+
 /* HUD Action Value Style */
 @objc public enum WisdomActionValueStyle: NSInteger, CaseIterable{
     case left=0
