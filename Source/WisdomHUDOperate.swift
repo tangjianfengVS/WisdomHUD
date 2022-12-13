@@ -691,6 +691,10 @@ extension WisdomHUDOperate: WisdomHUDActionable {
             if let rightAction = context.rightAction {
                 _=context.setRightAction(textColor: rightAction.TextColor, textFont: rightAction.TextFont)
             }
+            
+            if let textAlignment = context.textAlignment {
+                _=context.setTextAlignment(alignment: textAlignment)
+            }
         }
         return context
     }
