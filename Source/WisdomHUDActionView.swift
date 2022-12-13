@@ -146,14 +146,14 @@ class WisdomHUDActionView: UIView {
                              leftView: self,
                              bottomView: nil,
                              rightView: self,
-                             edgeInset: UIEdgeInsets(top: 13, left: 0, bottom: 0, right: 0))
+                             edgeInset: UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0))
         
         wisdom_addConstraint(with: titleLineVI,
                              topView: self,
                              leftView: self,
                              bottomView: nil,
                              rightView: self,
-                             edgeInset: UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0))
+                             edgeInset: UIEdgeInsets(top: 38, left: 0, bottom: 0, right: 0))
 
         titleLineVI.wisdom_addConstraint(width: -1, height: 1)
         
@@ -302,6 +302,29 @@ class WisdomHUDActionView: UIView {
         if actionClosure(sender.titleLabel?.text ?? "", .right) {
             WisdomHUDOperate.dismissAction()
         }
+    }
+}
+
+extension WisdomHUDActionView: WisdomHUDActionContextable {
+    
+    func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self {
+        if let text_Color = textColor {
+            leftBtn.setTitleColor(text_Color, for: .normal)
+        }
+        if let text_Font = textFont {
+            leftBtn.titleLabel?.font = text_Font
+        }
+        return self
+    }
+    
+    func setRightAction(textColor: UIColor?, textFont: UIFont?)->Self {
+        if let text_Color = textColor {
+            rightBtn.setTitleColor(text_Color, for: .normal)
+        }
+        if let text_Font = textFont {
+            rightBtn.titleLabel?.font = text_Font
+        }
+        return self
     }
 }
 

@@ -194,6 +194,24 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
     }
     
     private static func setupActionView(inSupView: UIView?, actionView: WisdomHUDActionThemeView)->WisdomHUDCoverView{
+        func addCoverView(rootView: UIView, coverView: WisdomHUDCoverView){
+            coverView.removeFromSuperview()
+            rootView.insertSubview(coverView, at: rootView.subviews.count+50)
+            rootView.wisdom_addConstraint(with: coverView,
+                                          topView: rootView,
+                                          leftView: rootView,
+                                          bottomView: rootView,
+                                          rightView: rootView,
+                                          edgeInset: UIEdgeInsets.zero)
+        }
+        
+        func addActionView(coverView: WisdomHUDCoverView){
+            coverView.actionView?.removeFromSuperview()
+            coverView.addSubview(actionView)
+            coverView.wisdom_addConstraint(toCenterX: actionView, toCenterY: actionView)
+            actionView.wisdom_addConstraint(width: WisdomHUDOperate.isSmallScreen() ? 280 : 310, height: -1)
+        }
+        
         let window = WisdomHUDOperate.getScreenWindow()
         if let coverVI = window?.viewWithTag(WisdomHUDCoverTag>>1) as? WisdomHUDCoverView {
             addActionView(coverView: coverVI)
@@ -206,31 +224,15 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
             let coverView = WisdomHUDCoverView()
             coverView.tag = WisdomHUDCoverTag>>1
             coverView.backgroundColor = WisdomCoverBackgColor
-
+            
             if let cur_supView = inSupView {
                 addCoverView(rootView: cur_supView, coverView: coverView)
             }else if let cur_window = window {
                 addCoverView(rootView: cur_window, coverView: coverView)
             }
+            
+            addActionView(coverView: coverView)
             return coverView
-        }
-
-        func addActionView(coverView: WisdomHUDCoverView){
-            coverView.actionView?.removeFromSuperview()
-            coverView.addSubview(actionView)
-            coverView.wisdom_addConstraint(toCenterX: actionView, toCenterY: actionView)
-            coverView.wisdom_addConstraint(width: WisdomHUDOperate.isSmallScreen() ? 280 : 310, height: -1)
-        }
-        
-        func addCoverView(rootView: UIView, coverView: WisdomHUDCoverView){
-            coverView.removeFromSuperview()
-            rootView.addSubview(coverView)
-            rootView.wisdom_addConstraint(with: coverView,
-                                          topView: rootView,
-                                          leftView: rootView,
-                                          bottomView: rootView,
-                                          rightView: rootView,
-                                          edgeInset: UIEdgeInsets.zero)
         }
     }
 }

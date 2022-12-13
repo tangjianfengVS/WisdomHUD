@@ -120,3 +120,16 @@ extension WisdomHUDCoverView: WisdomHUDProgreContextable {
         return self
     }
 }
+
+extension WisdomHUDCoverView: WisdomHUDActionContextable {
+    
+    func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self {
+        _=actionView?.setLeftAction(textColor: textColor, textFont: textFont)
+        return self
+    }
+    
+    func setRightAction(textColor: UIColor?, textFont: UIFont?)->Self {
+        _=actionView?.setRightAction(textColor: textColor, textFont: textFont)
+        return self
+    }
+}

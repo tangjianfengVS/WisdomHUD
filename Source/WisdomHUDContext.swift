@@ -231,12 +231,43 @@ extension WisdomHUDActionContext {
 
 extension WisdomHUDActionContext: WisdomHUDActionContextable {
     
-    func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self {
+    func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self{
+        if textColor==nil && textFont==nil { return self }
+        if Thread.isMainThread {
+            doLeftAction()
+        }else {
+            DispatchQueue.main.async { doLeftAction() }
+        }
         
+        func doLeftAction(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.leftAction = nil
+                _=coverVI.setLeftAction(textColor: textColor, textFont: textFont)
+            }else {
+                self.leftAction = (textColor, textFont)
+            }
+        }
         return self
     }
     
-    func setRightAction(textColor: UIColor?, textFont: UIFont?)->Self {
+    func setRightAction(textColor: UIColor?, textFont: UIFont?)->Self{
+        if textColor==nil && textFont==nil {
+            return self
+        }
+        if Thread.isMainThread {
+            doRightAction()
+        }else {
+            DispatchQueue.main.async { doRightAction() }
+        }
+        
+        func doRightAction(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.rightAction = nil
+                _=coverVI.setRightAction(textColor: textColor, textFont: textFont)
+            }else {
+                self.rightAction = (textColor, textFont)
+            }
+        }
         return self
     }
 }
