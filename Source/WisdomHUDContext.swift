@@ -211,3 +211,33 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
         return self
     }
 }
+
+
+class WisdomHUDActionContext {
+    
+    private(set) weak var coverView: UIView? // CoverView
+    
+    private(set) var leftAction: (TextColor:UIColor?, TextFont:UIFont?)?
+    
+    private(set) var rightAction: (TextColor:UIColor?, TextFont:UIFont?)?
+}
+
+extension WisdomHUDActionContext {
+    
+    func setCoverView(coverView: UIView) {
+        self.coverView = coverView
+    }
+}
+
+extension WisdomHUDActionContext: WisdomHUDActionContextable {
+    
+    func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self {
+        
+        return self
+    }
+    
+    func setRightAction(textColor: UIColor?, textFont: UIFont?)->Self {
+        return self
+    }
+}
+

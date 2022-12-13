@@ -193,42 +193,46 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
         return nil
     }
     
-    private static func setupActionView(inSupView: UIView?, actionView: WisdomHUDActionThemeView) {
+    private static func setupActionView(inSupView: UIView?, actionView: WisdomHUDActionThemeView)->WisdomHUDCoverView{
         let window = WisdomHUDOperate.getScreenWindow()
-        let coverVI = window?.viewWithTag(WisdomHUDCoverTag>>1) as? WisdomHUDCoverView
-        coverVI?.actionView?.removeFromSuperview()
-        
-        var cur_inSupView = inSupView
-        if inSupView == nil, let cur_window = window {
-            coverVI?.actionView = actionView
-            cur_inSupView = coverVI
+        if let coverVI = window?.viewWithTag(WisdomHUDCoverTag>>1) as? WisdomHUDCoverView {
+            addActionView(coverView: coverVI)
             
-            if cur_inSupView == nil {
-                let coverView = WisdomHUDCoverView()
-                coverView.tag = WisdomHUDCoverTag>>1
-                coverView.actionView = actionView
-                coverView.backgroundColor = WisdomCoverBackgColor
-                cur_inSupView = coverView
-                
-                cur_window.addSubview(coverView)
-                cur_window.wisdom_addConstraint(with: coverView,
-                                                topView: cur_window,
-                                                leftView: cur_window,
-                                                bottomView: cur_window,
-                                                rightView: cur_window,
-                                                edgeInset: UIEdgeInsets.zero)
+            if let cur_supView = inSupView {
+                addCoverView(rootView: cur_supView, coverView: coverVI)
             }
-        }else if inSupView != nil {
-            coverVI?.removeFromSuperview()
+            return coverVI
+        }else {
+            let coverView = WisdomHUDCoverView()
+            coverView.tag = WisdomHUDCoverTag>>1
+            coverView.backgroundColor = WisdomCoverBackgColor
+
+            if let cur_supView = inSupView {
+                addCoverView(rootView: cur_supView, coverView: coverView)
+            }else if let cur_window = window {
+                addCoverView(rootView: cur_window, coverView: coverView)
+            }
+            return coverView
+        }
+
+        func addActionView(coverView: WisdomHUDCoverView){
+            coverView.actionView?.removeFromSuperview()
+            coverView.addSubview(actionView)
+            coverView.wisdom_addConstraint(toCenterX: actionView, toCenterY: actionView)
+            coverView.wisdom_addConstraint(width: WisdomHUDOperate.isSmallScreen() ? 280 : 310, height: -1)
         }
         
-        if let rootVI = cur_inSupView {
-            rootVI.addSubview(actionView)
-            rootVI.wisdom_addConstraint(toCenterX: actionView, toCenterY: actionView)
-            actionView.wisdom_addConstraint(width: WisdomHUDOperate.isSmallScreen() ? 280 : 310, height: -1)
+        func addCoverView(rootView: UIView, coverView: WisdomHUDCoverView){
+            coverView.removeFromSuperview()
+            rootView.addSubview(coverView)
+            rootView.wisdom_addConstraint(with: coverView,
+                                          topView: rootView,
+                                          leftView: rootView,
+                                          bottomView: rootView,
+                                          rightView: rootView,
+                                          edgeInset: UIEdgeInsets.zero)
         }
     }
-   
 }
 
 extension WisdomHUDOperate: WisdomHUDLoadingable {
@@ -663,7 +667,7 @@ extension WisdomHUDOperate: WisdomHUDActionable {
     }
     
     static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool)) {
-        //let context = WisdomHUDContext()
+        let context = WisdomHUDActionContext()
         if Thread.isMainThread {
             showHUD()
         }else {
@@ -671,8 +675,18 @@ extension WisdomHUDOperate: WisdomHUDActionable {
         }
         func showHUD() {
             let actionView = WisdomHUDActionThemeView(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, actionClosure: actionClosure)
-            setupActionView(inSupView: inSupView, actionView: actionView)
+            let coverView = setupActionView(inSupView: inSupView, actionView: actionView)
+            coverView.actionView = actionView
+            
             actionView.setThemeStyle(themeStyle: themeStyle)
+            
+            if let leftAction = context.leftAction {
+                _=context.setLeftAction(textColor: leftAction.TextColor, textFont: leftAction.TextFont)
+            }
+            
+            if let rightAction = context.rightAction {
+                _=context.setRightAction(textColor: rightAction.TextColor, textFont: rightAction.TextFont)
+            }
         }
     }
 }

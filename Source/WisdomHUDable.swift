@@ -271,3 +271,13 @@ protocol WisdomHUDActionable {
     @objc func setProgreShadowColor(color: UIColor)->Self
 }
 
+@objc public protocol WisdomHUDActionContextable {
+    
+    // Set the Action Context Left Text UIColor/UIFont
+    @discardableResult
+    @objc func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self
+    
+    // Set the Action Context Right Text UIColor/UIFont
+    @discardableResult
+    @objc func setRightAction(textColor: UIColor?, textFont: UIFont?)->Self
+}
