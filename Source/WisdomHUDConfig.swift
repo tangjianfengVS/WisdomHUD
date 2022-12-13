@@ -56,12 +56,8 @@ public enum WisdomHUDStyle: CaseIterable {
 
 /* HUD Theme Color Style */
 @objc public enum WisdomColorThemeStyle: NSInteger, CaseIterable{
-    case light=0    // 雪白色
-    case dark       // 透明暗
-    case dodgerBlue // 成功-宝蓝
-    case blue       // 成功/品蓝
-    case red        // 错误/品红
-    case golden     // 警告/亮金
+    case light=0    // 雪白
+    case dark       // 暗黑
 }
 
 /* HUD Action Value Style */

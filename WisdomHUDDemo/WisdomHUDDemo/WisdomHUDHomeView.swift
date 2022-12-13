@@ -51,7 +51,11 @@ class WisdomCustomNextCell: UITableViewCell {
         
     }
     
-    func setTitle(hudStyle: WisdomHUDStyle, loadingStyle: WisdomLoadingStyle?, progressStyle: WisdomProgressStyle?, textPlaceStyle: WisdomTextPlaceStyle?) {
+    func setTitle(hudStyle: WisdomHUDStyle,
+                  loadingStyle: WisdomLoadingStyle?,
+                  progressStyle: WisdomProgressStyle?,
+                  textPlaceStyle: WisdomTextPlaceStyle?,
+                  themeStyle: WisdomColorThemeStyle?) {
         nextView.infoLabel.text = "\(hudStyle.self)"
         leftView?.removeFromSuperview()
         leftView = nil
@@ -140,6 +144,12 @@ class WisdomCustomNextCell: UITableViewCell {
         switch textPlaceStyle {
         case .center: nextView.infoLabel.text = "\(hudStyle.self)"+".center"
         case .bottom: nextView.infoLabel.text = "\(hudStyle.self)"+".bottom"
+        default: break
+        }
+        
+        switch themeStyle{
+        case .light: nextView.infoLabel.text = "\(hudStyle.self)"+".light"
+        case .dark: nextView.infoLabel.text = "\(hudStyle.self)"+".dark"
         default: break
         }
         

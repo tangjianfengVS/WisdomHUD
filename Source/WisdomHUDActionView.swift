@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 extension WisdomColorThemeStyle {
     
     static func getColor(themeStyle: WisdomColorThemeStyle)->(HUDColor:UIColor,
@@ -25,9 +24,9 @@ extension WisdomColorThemeStyle {
         var lineColor = UIColor(white: 0.95, alpha: 1)
         switch themeStyle {
         case .light:
-            titleColor = .wisdom_colorHex(hex: "34495E")
-            textColor = .wisdom_colorHex(hex: "34495E")
-            tailColor = .wisdom_colorHex(hex: "34495E")
+            titleColor = UIColor(white: 0.2, alpha: 1)
+            textColor = UIColor(white: 0.2, alpha: 1)
+            tailColor = UIColor(white: 0.2, alpha: 1)
             layerColor = .gray
         case .dark:
             hudColor = UIColor(white: 0, alpha: 0.9)
@@ -35,38 +34,6 @@ extension WisdomColorThemeStyle {
             textColor = .wisdom_colorHex(hex: "C0C0C0")
             tailColor = .wisdom_colorHex(hex: "C0C0C0")
             lineColor = UIColor(white: 0.15, alpha: 1)
-        case .blue: break
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "0000FF", alpha: 0.82)
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-        case .dodgerBlue: break
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "1E90FF")
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-        case .golden: break
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "D9D919")
-//            layerColor = topBarColor
-//            rightBtnClor = UIColor.wisdom_SCHEXCOLOR(hex: "E3CF57")
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
-        case .red: break
-//            titleColor = UIColor.white
-//            topBarColor = UIColor.wisdom_SCHEXCOLOR(hex: "FF0000", alpha: 0.82)
-//            layerColor = topBarColor
-//            rightBtnClor = topBarColor
-//
-//            infoClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E",alpha: 0.9)
-//            tailClor = UIColor.wisdom_SCHEXCOLOR(hex: "34495E")
         }
         return (hudColor,titleColor,textColor,tailColor,layerColor,lineColor)
     }
