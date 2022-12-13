@@ -21,7 +21,7 @@ extension WisdomColorThemeStyle {
         var textColor = UIColor.white
         var tailColor = UIColor.white
         var layerColor = UIColor.white
-        var lineColor = UIColor(white: 0.95, alpha: 1)
+        var lineColor = UIColor(white: 0.94, alpha: 1)
         switch themeStyle {
         case .light:
             titleColor = UIColor(white: 0.2, alpha: 1)
@@ -33,7 +33,7 @@ extension WisdomColorThemeStyle {
             titleColor = .wisdom_colorHex(hex: "C0C0C0")
             textColor = .wisdom_colorHex(hex: "C0C0C0")
             tailColor = .wisdom_colorHex(hex: "C0C0C0")
-            lineColor = UIColor(white: 0.15, alpha: 1)
+            lineColor = UIColor(white: 0.2, alpha: 1)
         }
         return (hudColor,titleColor,textColor,tailColor,layerColor,lineColor)
     }
