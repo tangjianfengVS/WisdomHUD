@@ -232,12 +232,11 @@ extension WisdomHUDImageProgreView {
     @objc public private(set) var waterColor = UIColor.white
     
     private lazy var water_deep: CGFloat = { return size/3.5 }()
-    
-    private lazy var left_bottom_x: CGFloat = size/4+size/4*0.5
-    private lazy var right_top_x: CGFloat = size/4*3-size/4*0.5
+    private lazy var water_margin: CGFloat = { return size/12 }()
+    private lazy var left_bottom_x: CGFloat = (water_margin+size)/4//+size/14
+    private lazy var right_top_x: CGFloat = (water_margin+size)/4*3//-size/14
     
     private var water_leftTopAnim = false
-    
     private var progre: CGFloat = 0
     
     private lazy var waterView: UIView = {
@@ -252,11 +251,11 @@ extension WisdomHUDImageProgreView {
     private lazy var waterLayer: CAShapeLayer = {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: size))
-        path.addCurve(to: CGPoint(x: size, y: size),
+        path.addCurve(to: CGPoint(x: water_margin*2+size, y: size),
                       controlPoint1: CGPoint(x: left_bottom_x, y: size+water_deep),
                       controlPoint2: CGPoint(x: right_top_x, y: size-water_deep))
 
-        path.addLine(to: CGPoint(x: size, y: size+water_deep/3))
+        path.addLine(to: CGPoint(x: water_margin*2+size, y: size+water_deep/3))
         path.addLine(to: CGPoint(x: 0, y: size+water_deep/3))
         path.addLine(to: CGPoint(x: 0, y: size+water_deep/3))
 
@@ -266,7 +265,7 @@ extension WisdomHUDImageProgreView {
         water.lineCap = CAShapeLayerLineCap.round
         water.lineWidth = 0.5
         water.path = path.cgPath
-        water.frame = CGRect(x: 0, y: 0, width: size, height: size)
+        water.frame = CGRect(x: -water_margin, y: 0, width: size+water_margin*2, height: size)
         return water
     }()
     
@@ -321,30 +320,30 @@ extension WisdomHUDImageProgreView {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: size*(1-progre)))
         if progre == 1 {
-            path.addLine(to: CGPoint(x: size, y: 0))
+            path.addLine(to: CGPoint(x: water_margin*2+size, y: 0))
         }else if water_leftTopAnim {
-            path.addCurve(to: CGPoint(x: size, y: size*(1-progre)),
-                          controlPoint1: CGPoint(x: left_bottom_x, y: size*(1-progre)-water_deep),
-                          controlPoint2: CGPoint(x: right_top_x, y: size*(1-progre)+water_deep))
+            path.addCurve(to: CGPoint(x: water_margin*2+size, y: size*(1-progre)),
+                          controlPoint1: CGPoint(x: left_bottom_x, y: (progre <= 0.12) ? size*(1-progre)-water_deep/2:size*(1-progre)-water_deep),
+                          controlPoint2: CGPoint(x: right_top_x, y: (progre <= 0.12) ? size*(1-progre)+water_deep/2:size*(1-progre)+water_deep))
         }else {
-            path.addCurve(to: CGPoint(x: size, y: size*(1-progre)),
-                          controlPoint1: CGPoint(x: left_bottom_x, y: size*(1-progre)+water_deep),
-                          controlPoint2: CGPoint(x: right_top_x, y: size*(1-progre)-water_deep))
+            path.addCurve(to: CGPoint(x: water_margin*2+size, y: size*(1-progre)),
+                          controlPoint1: CGPoint(x: left_bottom_x, y: (progre <= 0.12) ? size*(1-progre)+water_deep/2:size*(1-progre)+water_deep),
+                          controlPoint2: CGPoint(x: right_top_x, y: (progre <= 0.12) ? size*(1-progre)-water_deep/2:size*(1-progre)-water_deep))
         }
 
-        path.addLine(to: CGPoint(x: size, y: size+water_deep/3))
+        path.addLine(to: CGPoint(x: water_margin*2+size, y: size+water_deep/3))
         path.addLine(to: CGPoint(x: 0, y: size+water_deep/3))
         path.addLine(to: CGPoint(x: 0, y: size*(1-progre)+water_deep/3))
-        
-        water_leftTopAnim = !water_leftTopAnim
-        
+    
         let basicAnim = CABasicAnimation(keyPath: "path")
-        basicAnim.duration = 0.8
+        basicAnim.duration = 0.6
         basicAnim.fromValue = waterLayer.path
         basicAnim.toValue = path
         basicAnim.delegate = self
         waterLayer.path = path.cgPath
         waterLayer.add(basicAnim, forKey: nil)
+        
+        water_leftTopAnim = !water_leftTopAnim
     }
 }
 
