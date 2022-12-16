@@ -225,3 +225,132 @@ extension WisdomHUDImageProgreView {
         borderView.layer.borderColor = color.cgColor
     }
 }
+
+
+@objc public class WisdomHUDImageWaterView: WisdomHUDImageProgreView {
+
+    @objc public private(set) var waterColor = UIColor.white
+    
+    private lazy var water_deep: CGFloat = { return size/3.5 }()
+    
+    private lazy var left_bottom_x: CGFloat = size/4+size/4*0.5
+    private lazy var right_top_x: CGFloat = size/4*3-size/4*0.5
+    
+    private var water_leftTopAnim = false
+    
+    private var progre: CGFloat = 0
+    
+    private lazy var waterView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.5, alpha: 0.3)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = size/2
+        return view
+    }()
+    
+    private lazy var waterLayer: CAShapeLayer = {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: size))
+        path.addCurve(to: CGPoint(x: size, y: size),
+                      controlPoint1: CGPoint(x: left_bottom_x, y: size+water_deep),
+                      controlPoint2: CGPoint(x: right_top_x, y: size-water_deep))
+
+        path.addLine(to: CGPoint(x: size, y: size+water_deep/3))
+        path.addLine(to: CGPoint(x: 0, y: size+water_deep/3))
+        path.addLine(to: CGPoint(x: 0, y: size+water_deep/3))
+
+        let water = CAShapeLayer()
+        water.fillColor = waterColor.cgColor
+        water.strokeColor = waterColor.cgColor
+        water.lineCap = CAShapeLayerLineCap.round
+        water.lineWidth = 0.5
+        water.path = path.cgPath
+        water.frame = CGRect(x: 0, y: 0, width: size, height: size)
+        return water
+    }()
+    
+    @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
+        super.init(size: size)
+        switch barStyle {
+        case .dark:  waterColor = UIColor.white
+        case .light: waterColor = UIColor.black
+        case .hide:  waterColor = UIColor.white
+        }
+        wisdom_addConstraint(toCenterX: progreLabel, toCenterY: progreLabel)
+        progreLabel.font = UIFont.systemFont(ofSize: size/3.8, weight: .regular)
+        progreLabel.textColor = waterColor
+        
+        insertSubview(waterView, belowSubview: progreLabel)
+        waterView.wisdom_addConstraint(width: size, height: size)
+        wisdom_addConstraint(toCenterX: waterView, toCenterY: waterView)
+        
+        waterView.layer.addSublayer(waterLayer)
+
+        setRotationAnim()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc override public func setProgreValue(value: UInt){
+        if value>=100 {
+            progre = 1
+            progreLabel.text = "100%"
+        }else {
+            progre = CGFloat(value)/100.0
+            progreLabel.text = "\(value)%"
+        }
+    }
+    
+    @objc override public func setProgreColor(color: UIColor){
+        waterLayer.fillColor = color.cgColor
+        waterLayer.strokeColor = color.cgColor
+    }
+    
+    @objc override public func setProgreTextColor(color: UIColor){
+        progreLabel.textColor = color
+    }
+    
+    @objc override public func setProgreShadowColor(color: UIColor){
+        waterView.backgroundColor = color
+    }
+    
+    private func setRotationAnim() {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: size*(1-progre)))
+        if progre == 1 {
+            path.addLine(to: CGPoint(x: size, y: 0))
+        }else if water_leftTopAnim {
+            path.addCurve(to: CGPoint(x: size, y: size*(1-progre)),
+                          controlPoint1: CGPoint(x: left_bottom_x, y: size*(1-progre)-water_deep),
+                          controlPoint2: CGPoint(x: right_top_x, y: size*(1-progre)+water_deep))
+        }else {
+            path.addCurve(to: CGPoint(x: size, y: size*(1-progre)),
+                          controlPoint1: CGPoint(x: left_bottom_x, y: size*(1-progre)+water_deep),
+                          controlPoint2: CGPoint(x: right_top_x, y: size*(1-progre)-water_deep))
+        }
+
+        path.addLine(to: CGPoint(x: size, y: size+water_deep/3))
+        path.addLine(to: CGPoint(x: 0, y: size+water_deep/3))
+        path.addLine(to: CGPoint(x: 0, y: size*(1-progre)+water_deep/3))
+        
+        water_leftTopAnim = !water_leftTopAnim
+        
+        let basicAnim = CABasicAnimation(keyPath: "path")
+        basicAnim.duration = 0.8
+        basicAnim.fromValue = waterLayer.path
+        basicAnim.toValue = path
+        basicAnim.delegate = self
+        waterLayer.path = path.cgPath
+        waterLayer.add(basicAnim, forKey: nil)
+    }
+}
+
+extension WisdomHUDImageWaterView: CAAnimationDelegate{
+ 
+    @objc public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        setRotationAnim()
+    }
+}

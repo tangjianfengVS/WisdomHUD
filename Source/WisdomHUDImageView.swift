@@ -63,6 +63,7 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
         switch progressStyle {
         case .circle: imageView = WisdomHUDImageCircleView(size: size, barStyle: barStyle)
         case .linear: imageView = WisdomHUDImageLinearView(size: size, barStyle: barStyle)
+        case .water: imageView = WisdomHUDImageWaterView(size: size, barStyle: barStyle)
         default: break
         }
         

@@ -123,6 +123,14 @@ class WisdomCustomNextCell: UITableViewCell {
             (leftView as? WisdomHUDImageLinearView)?.setProgreValue(value: 60)
             (leftView as? WisdomHUDImageLinearView)?.setProgreColor(color: .systemPink)
             (leftView as? WisdomHUDImageLinearView)?.setProgreTextColor(color: .systemPink)
+        case .water:
+            nextView.infoLabel.text = "\(hudStyle.self)"+".water"
+            itemWidth = 35
+            leftSpec = 30
+            leftView = WisdomHUDImageWaterView(size: itemWidth, barStyle: sceneBarStyle)
+            (leftView as? WisdomHUDImageWaterView)?.setProgreValue(value: 60)
+            (leftView as? WisdomHUDImageWaterView)?.setProgreColor(color: .systemPink)
+            (leftView as? WisdomHUDImageWaterView)?.setProgreTextColor(color: .systemPink)
         default: break
         }
         

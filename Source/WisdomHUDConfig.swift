@@ -51,6 +51,7 @@ public enum WisdomHUDStyle: CaseIterable {
 @objc public enum WisdomProgressStyle: NSInteger, CaseIterable {
     case circle=0  // 中心圆
     case linear    // 线型
+    case water     // 水球
 }
 
 
