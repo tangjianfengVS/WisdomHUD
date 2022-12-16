@@ -323,15 +323,13 @@ extension WisdomHUDImageProgreView {
         if progre == 1 {
             path.addLine(to: CGPoint(x: water_margin*2+size, y: 0))
         }else if water_leftTopAnim {
-            let random = getArc4random()
             path.addCurve(to: CGPoint(x: water_margin*2+size, y: size*(1-progre)),
-                          controlPoint1: CGPoint(x: left_bottom_x, y: ((progre <= 0.1) ? size*(1-progre)-water_deep*0.7:size*(1-progre)-water_deep)-random),
-                          controlPoint2: CGPoint(x: right_top_x, y: ((progre <= 0.1) ? size*(1-progre)+water_deep*0.7:size*(1-progre)+water_deep)+random))
+                          controlPoint1: CGPoint(x: left_bottom_x, y: (progre <= 0.1) ? size*(1-progre)-water_deep*0.7:size*(1-progre)-water_deep),
+                          controlPoint2: CGPoint(x: right_top_x, y: (progre <= 0.1) ? size*(1-progre)+water_deep*0.7:size*(1-progre)+water_deep))
         }else {
-            let random = getArc4random()
             path.addCurve(to: CGPoint(x: water_margin*2+size, y: size*(1-progre)),
-                          controlPoint1: CGPoint(x: left_bottom_x, y: ((progre <= 0.1) ? size*(1-progre)+water_deep*0.7:size*(1-progre)+water_deep)+random),
-                          controlPoint2: CGPoint(x: right_top_x, y: ((progre <= 0.1) ? size*(1-progre)-water_deep*0.7:size*(1-progre)-water_deep)-random))
+                          controlPoint1: CGPoint(x: left_bottom_x, y: (progre <= 0.1) ? size*(1-progre)+water_deep*0.7:size*(1-progre)+water_deep),
+                          controlPoint2: CGPoint(x: right_top_x, y: (progre <= 0.1) ? size*(1-progre)-water_deep*0.7:size*(1-progre)-water_deep))
         }
 
         path.addLine(to: CGPoint(x: water_margin*2+size, y: size+water_deep/3))
@@ -347,10 +345,6 @@ extension WisdomHUDImageProgreView {
         waterLayer.add(basicAnim, forKey: nil)
         
         water_leftTopAnim = !water_leftTopAnim
-        
-        func getArc4random()->CGFloat{
-            return 0//CGFloat(arc4random() % UInt32(water_deep/3))-water_deep/3
-        }
     }
 }
 
