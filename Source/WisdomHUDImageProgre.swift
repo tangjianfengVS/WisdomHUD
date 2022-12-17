@@ -232,7 +232,7 @@ extension WisdomHUDImageProgreView {
 
     @objc public private(set) var waterColor = UIColor.white
     
-    private lazy var water_deep: CGFloat = { return size/3.4 }()
+    private lazy var water_deep: CGFloat = { return size/3.2 }()
     private lazy var water_margin: CGFloat = { return size/16 }()
     private lazy var left_bottom_x: CGFloat = (water_margin+size)/4
     private lazy var right_top_x: CGFloat = (water_margin+size)/4*3

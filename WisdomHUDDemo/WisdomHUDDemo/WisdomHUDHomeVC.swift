@@ -226,7 +226,7 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
                 WisdomHUD.showAction(title: "WisdomHUD", text: text1, label: "WisdomHUD sdk", leftAction: nil, rightAction: "确认", themeStyle: theme, inSupView: self?.view) { info, value in
                     
                     return true
-                }.setRightAction(textColor: .systemPink, textFont: nil).setLeftAction(textColor: .gray, textFont: nil).setTextAlignment(alignment: .left)
+                }.setRightAction(textColor: .systemPink, textFont: nil).setLeftAction(textColor: .gray, textFont: nil).setTextAlignment(alignment: .left).setTextColor(color: .orange).setTextFont(font: UIFont.boldSystemFont(ofSize: 13))
             }
         }
     }

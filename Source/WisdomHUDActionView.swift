@@ -327,6 +327,23 @@ extension WisdomHUDActionView: WisdomHUDActionContextable {
         return self
     }
     
+    func setTextFont(font: UIFont)->Self {
+        textLabel.font = font
+        
+        let paraph = NSMutableParagraphStyle()
+        paraph.lineSpacing = 2.5
+        let attributes = [NSAttributedString.Key.font: font,
+                          NSAttributedString.Key.paragraphStyle: paraph]
+        textLabel.attributedText = NSAttributedString(string: textLabel.text ?? "", attributes: attributes)
+        textLabel.sizeToFit()
+        return self
+    }
+    
+    func setTextColor(color: UIColor)->Self {
+        textLabel.textColor = color
+        return self
+    }
+    
     func setTextAlignment(alignment: NSTextAlignment)->Self {
         textLabel.textAlignment = alignment
         return self

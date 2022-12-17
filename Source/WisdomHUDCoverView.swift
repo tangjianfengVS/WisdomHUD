@@ -137,4 +137,14 @@ extension WisdomHUDCoverView: WisdomHUDActionContextable {
         _=actionView?.setTextAlignment(alignment: alignment)
         return self
     }
+    
+    func setActionTextFont(font: UIFont)->Self {
+        _=actionView?.setTextFont(font: font)
+        return self
+    }
+    
+    func setActionTextColor(color: UIColor)->Self {
+        _=actionView?.setTextColor(color: color)
+        return self
+    }
 }

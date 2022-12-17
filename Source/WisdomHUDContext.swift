@@ -222,6 +222,10 @@ class WisdomHUDActionContext {
     private(set) var rightAction: (TextColor:UIColor?, TextFont:UIFont?)?
     
     private(set) var textAlignment: NSTextAlignment?
+    
+    private(set) var textFont: UIFont?
+    
+    private(set) var textColor: UIColor?
 }
 
 extension WisdomHUDActionContext {
@@ -286,6 +290,42 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
                 _=coverVI.setTextAlignment(alignment: alignment)
             }else {
                 self.textAlignment = alignment
+            }
+        }
+        return self
+    }
+    
+    func setTextFont(font: UIFont) -> Self {
+        if Thread.isMainThread {
+            doTextFont()
+        }else {
+            DispatchQueue.main.async { doTextFont() }
+        }
+        
+        func doTextFont(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.textFont = nil
+                _=coverVI.setActionTextFont(font: font)
+            }else {
+                self.textFont = font
+            }
+        }
+        return self
+    }
+    
+    func setTextColor(color: UIColor)->Self {
+        if Thread.isMainThread {
+            doTextColor()
+        }else {
+            DispatchQueue.main.async { doTextColor() }
+        }
+        
+        func doTextColor(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.textColor = nil
+                _=coverVI.setActionTextColor(color: color)
+            }else {
+                self.textColor = color
             }
         }
         return self

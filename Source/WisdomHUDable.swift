@@ -281,7 +281,15 @@ protocol WisdomHUDActionable {
     @discardableResult
     @objc func setRightAction(textColor: UIColor?, textFont: UIFont?)->Self
     
-    // Set the Action Context Text Alignment
+    // Set the Action Context Text UIFont
+    @discardableResult
+    @objc func setTextFont(font: UIFont)->Self
+    
+    // Set the Action Context Text UIColor
+    @discardableResult
+    @objc func setTextColor(color: UIColor)->Self
+    
+    // Set the Action Context Text NSTextAlignment
     @discardableResult
     @objc func setTextAlignment(alignment: NSTextAlignment)->Self
 }
