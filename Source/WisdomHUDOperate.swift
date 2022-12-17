@@ -711,3 +711,26 @@ extension WisdomHUDOperate: WisdomHUDActionable {
         return context
     }
 }
+
+extension WisdomHUDOperate {
+    
+    static func openLog(isOpen: Bool) {
+        WisdomHUDLogView.setLog(isOpen: isOpen)
+    }
+    
+    static func showLogInfo(text: String) {
+        WisdomHUDLogView.setPrint(text: text, textColor: .white)
+    }
+    
+    static func showLogWarning(text: String) {
+        WisdomHUDLogView.setPrint(text: text, textColor: .orange)
+    }
+    
+    static func showLogSuccess(text: String) {
+        WisdomHUDLogView.setPrint(text: text, textColor: .green)
+    }
+    
+    static func showLogError(text: String) {
+        WisdomHUDLogView.setPrint(text: text, textColor: .red)
+    }
+}

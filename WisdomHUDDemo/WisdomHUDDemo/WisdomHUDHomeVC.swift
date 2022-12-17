@@ -135,20 +135,24 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
         let style: WisdomHUDStyle = WisdomHUDStyle.allCases[indexPath.section]
         switch style {
         case .succes:
+            WisdomHUD.showLogSuccess(text: ".succes-加载成功")
             WisdomHUD.showSuccess(text: "加载成功", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
             }
         case .error:
+            WisdomHUD.showLogError(text: ".error-加载失败")
             WisdomHUD.showError(text: "加载失败", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
             }.setFocusing().setTextColor(color: .red).setTextFont(font: UIFont.boldSystemFont(ofSize: 14))
             
         case .warning:
+            WisdomHUD.showLogWarning(text: ".warning-加载失败")
             WisdomHUD.showWarning(text: "加载警告", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
                 print("")
             }.setFocusing()
             
         case .loading:
+            WisdomHUD.showLogSuccess(text: ".loading-WisdomLoadingStyle(rawValue: indexPath.row)")
             if let loadingStyle = WisdomLoadingStyle(rawValue: indexPath.row) {
                 DispatchQueue.global().async {
                     
@@ -173,6 +177,7 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
 //                }
             }
         case .text:
+            WisdomHUD.showLogInfo(text: ".text-WisdomTextPlaceStyle")
             switch WisdomTextPlaceStyle.allCases[indexPath.row] {
             case .center:
                 WisdomHUD.showTextCenter(text: "inSupView 添加失败，请稍后重试", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in

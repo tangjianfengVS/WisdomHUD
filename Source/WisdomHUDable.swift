@@ -227,6 +227,19 @@ protocol WisdomHUDActionable {
     static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable
 }
 
+protocol WisdomHUDLogable {
+    
+    static func openLog(isOpen: Bool)
+    
+    static func showLogInfo(text: String)// white color
+    
+    static func showLogWarning(text: String)// red yellow
+    
+    static func showLogSuccess(text: String)// green color
+    
+    static func showLogError(text: String)// red color
+}
+
 @objc public protocol WisdomHUDBaseContextable {
     
     // Set the Context text size

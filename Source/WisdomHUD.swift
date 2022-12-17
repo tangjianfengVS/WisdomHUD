@@ -422,3 +422,31 @@ extension WisdomHUD: WisdomHUDTextBottomable {
         return WisdomHUDOperate.showTextBottom(text: text, barStyle: barStyle, inSupView: inSupView, delays: delays, delayClosure: delayClosure)
     }
 }
+
+extension WisdomHUD: WisdomHUDLogable {
+    
+    // MARK: Debug Open Log with: Bool
+    @objc public static func openLog(isOpen: Bool) {
+        WisdomHUDOperate.openLog(isOpen: isOpen)
+    }
+    
+    // MARK:
+    @objc public static func showLogInfo(text: String) {// white color
+        WisdomHUDOperate.showLogInfo(text: text)
+    }
+    
+    // MARK:
+    @objc public static func showLogWarning(text: String) {// red yellow
+        WisdomHUDOperate.showLogWarning(text: text)
+    }
+    
+    // MARK:
+    @objc public static func showLogSuccess(text: String) {// green color
+        WisdomHUDOperate.showLogSuccess(text: text)
+    }
+    
+    // MARK:
+    @objc public static func showLogError(text: String) {// red color
+        WisdomHUDOperate.showLogError(text: text)
+    }
+}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3EB43DB8294DBD3800FDBCFE /* WisdomHUDLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB43DB7294DBD3800FDBCFE /* WisdomHUDLogView.swift */; };
 		3EBAA50A29417D7A00A7CA6C /* WisdomHUD+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAA50929417D7A00A7CA6C /* WisdomHUD+Action.swift */; };
 		3EBBC677293EDA2900FE1422 /* WisdomHUDImageProgre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBC676293EDA2900FE1422 /* WisdomHUDImageProgre.swift */; };
 		8176E73728FAE3A900E33F46 /* WisdomHUD+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E72E28FAE3A900E33F46 /* WisdomHUD+Extension.swift */; };
@@ -66,6 +67,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3EB43DB7294DBD3800FDBCFE /* WisdomHUDLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomHUDLogView.swift; sourceTree = "<group>"; };
 		3EBAA50929417D7A00A7CA6C /* WisdomHUD+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WisdomHUD+Action.swift"; sourceTree = "<group>"; };
 		3EBBC676293EDA2900FE1422 /* WisdomHUDImageProgre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomHUDImageProgre.swift; sourceTree = "<group>"; };
 		8176E72E28FAE3A900E33F46 /* WisdomHUD+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WisdomHUD+Extension.swift"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				8176E73328FAE3A900E33F46 /* WisdomHUDActionView.swift */,
 				3EBAA50929417D7A00A7CA6C /* WisdomHUD+Action.swift */,
 				8176E72E28FAE3A900E33F46 /* WisdomHUD+Extension.swift */,
+				3EB43DB7294DBD3800FDBCFE /* WisdomHUDLogView.swift */,
 			);
 			name = Source;
 			path = ../Source;
@@ -306,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EB43DB8294DBD3800FDBCFE /* WisdomHUDLogView.swift in Sources */,
 				8176E73A28FAE3A900E33F46 /* WisdomHUD.swift in Sources */,
 				8176E76E28FAE53B00E33F46 /* ConstraintPriorityTarget.swift in Sources */,
 				8176E77328FAE53B00E33F46 /* ConstraintPriority.swift in Sources */,
