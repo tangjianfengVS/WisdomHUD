@@ -56,11 +56,11 @@ extension WisdomHUDImageView: WisdomHUDSetImageable {
         }
     }
     
-    func setProgressImage(size: CGFloat, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle) {
+    func setProgressImage(size: CGFloat, progreStyle: WisdomProgreStyle, barStyle: WisdomSceneBarStyle) {
         imageView?.removeFromSuperview()
         imageView = nil
         
-        switch progressStyle {
+        switch progreStyle {
         case .circle: imageView = WisdomHUDImageCircleView(size: size, barStyle: barStyle)
         case .linear: imageView = WisdomHUDImageLinearView(size: size, barStyle: barStyle)
         case .water: imageView = WisdomHUDImageWaterView(size: size, barStyle: barStyle)

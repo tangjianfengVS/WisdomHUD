@@ -75,7 +75,7 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
         case .warning: return 1
         case .loading: return WisdomLoadingStyle.allCases.count
         case .text: return WisdomTextPlaceStyle.allCases.count
-        case .progress: return WisdomProgressStyle.allCases.count
+        case .progress: return WisdomProgreStyle.allCases.count
         case .action: return WisdomColorThemeStyle.allCases.count
         }
     }
@@ -88,7 +88,7 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(WisdomCustomNextCell.self)", for: indexPath) as! WisdomCustomNextCell
         let hudStyle = WisdomHUDStyle.allCases[indexPath.section]
         var loadingStyle: WisdomLoadingStyle?
-        var progressStyle: WisdomProgressStyle?
+        var progreStyle: WisdomProgreStyle?
         var textPlaceStyle: WisdomTextPlaceStyle?
         var colorThemeStyle: WisdomColorThemeStyle?
         
@@ -101,12 +101,12 @@ extension WisdomHUDHomeVC : UITableViewDataSource {
         case .text:
             textPlaceStyle = WisdomTextPlaceStyle.allCases[indexPath.row]
         case .progress:
-            progressStyle = WisdomProgressStyle.allCases[indexPath.row]
+            progreStyle = WisdomProgreStyle.allCases[indexPath.row]
         case .action:
             colorThemeStyle = WisdomColorThemeStyle.allCases[indexPath.row]
         }
         
-        cell.setTitle(hudStyle: hudStyle, loadingStyle: loadingStyle, progressStyle: progressStyle,textPlaceStyle: textPlaceStyle, themeStyle: colorThemeStyle)
+        cell.setTitle(hudStyle: hudStyle, loadingStyle: loadingStyle, progreStyle: progreStyle,textPlaceStyle: textPlaceStyle, themeStyle: colorThemeStyle)
         return cell
     }
     
@@ -190,15 +190,15 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
             default: break
             }
         case .progress:
-            var state: WisdomProgressStyle?
-            switch WisdomProgressStyle.allCases[indexPath.row] {
+            var state: WisdomProgreStyle?
+            switch WisdomProgreStyle.allCases[indexPath.row] {
             case .circle: state = .circle
             case .linear: state = .linear
             case .water: state = .water
             default: break
             }
             if let cur_state = state {
-                let contextable = WisdomHUD.showProgress(text: "上传文件", progressStyle: cur_state, barStyle: sceneBarStyle).setProgreColor(color: .systemPink)//.setProgreTextColor(color: .systemPink)//.setProgreShadowColor(color: .green)
+                let contextable = WisdomHUD.showProgress(text: "上传文件", progreStyle: cur_state, barStyle: sceneBarStyle).setProgreColor(color: .systemPink)//.setProgreTextColor(color: .systemPink)//.setProgreShadowColor(color: .green)
                 let list: [UInt] = [1,2,3,4,5,6,7,8,9]
                 for item in list {
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+TimeInterval(item)) {

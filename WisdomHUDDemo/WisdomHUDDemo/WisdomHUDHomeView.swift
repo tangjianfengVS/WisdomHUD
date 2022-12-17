@@ -53,7 +53,7 @@ class WisdomCustomNextCell: UITableViewCell {
     
     func setTitle(hudStyle: WisdomHUDStyle,
                   loadingStyle: WisdomLoadingStyle?,
-                  progressStyle: WisdomProgressStyle?,
+                  progreStyle: WisdomProgreStyle?,
                   textPlaceStyle: WisdomTextPlaceStyle?,
                   themeStyle: WisdomColorThemeStyle?) {
         nextView.infoLabel.text = "\(hudStyle.self)"
@@ -106,7 +106,7 @@ class WisdomCustomNextCell: UITableViewCell {
         default: break
         }
         
-        switch progressStyle {
+        switch progreStyle {
         case .circle:
             nextView.infoLabel.text = "\(hudStyle.self)"+".circle"
             itemWidth = 35

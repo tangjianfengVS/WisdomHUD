@@ -48,7 +48,7 @@ final class WisdomHUDSceneView: UIView {
     
     private var loadingStyle: WisdomLoadingStyle?
     
-    private var progressStyle: WisdomProgressStyle?
+    private var progreStyle: WisdomProgreStyle?
     
     private(set) var placeStyle: WisdomTextPlaceStyle?
     
@@ -261,16 +261,16 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
         }
     }
     
-    func setProgressContent(text: String, progressStyle: WisdomProgressStyle, timeout: (TimeInterval, (TimeInterval)->())?){
-        self.progressStyle = progressStyle
+    func setProgressContent(text: String, progreStyle: WisdomProgreStyle, timeout: (TimeInterval, (TimeInterval)->())?){
+        self.progreStyle = progreStyle
         
-        content.updateIcon_Size(icon_Size: content.icon_Size*1.72, needUpdateBar: !text.isEmpty)
+        content.updateIcon_Size(icon_Size: content.icon_Size*1.7, needUpdateBar: !text.isEmpty)
         
         widthConstraint.constant = content.bar_Size.width
         
         heightConstraint.constant = content.bar_Size.height
         
-        imageView.setProgressImage(size: content.icon_Size, progressStyle: progressStyle, barStyle: barStyle)
+        imageView.setProgressImage(size: content.icon_Size, progreStyle: progreStyle, barStyle: barStyle)
         
         imageView.wisdom_addConstraint(width: content.icon_Size, height: content.icon_Size)
         
@@ -359,7 +359,7 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
     }
     
     func setDismissImage() {
-        if loadingStyle != nil || progressStyle != nil {
+        if loadingStyle != nil || progreStyle != nil {
             imageView.setDismissImage()
         }
     }
@@ -397,28 +397,28 @@ extension WisdomHUDSceneView: WisdomHUDLoadingContextable {
 extension WisdomHUDSceneView: WisdomHUDProgreContextable {
     
     func setProgreColor(color: UIColor)->Self {
-        if progressStyle != nil {
+        if progreStyle != nil {
             imageView.setProgreColor(color: color)
         }
         return self
     }
     
     func setProgreValue(value: UInt)->Self {
-        if progressStyle != nil {
+        if progreStyle != nil {
             imageView.setProgreValue(value: value)
         }
         return self
     }
     
     func setProgreTextColor(color: UIColor)->Self {
-        if progressStyle != nil {
+        if progreStyle != nil {
             imageView.setProgreTextColor(color: color)
         }
         return self
     }
 
     func setProgreShadowColor(color: UIColor)->Self {
-        if progressStyle != nil {
+        if progreStyle != nil {
             imageView.setProgreShadowColor(color: color)
         }
         return self

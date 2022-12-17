@@ -12,7 +12,7 @@ protocol WisdomHUDSettingable {
 
     static func setLoadingStyle(loadingStyle: WisdomLoadingStyle)
     
-    static func setProgressStyle(progressStyle: WisdomProgressStyle)
+    static func setProgressStyle(progreStyle: WisdomProgreStyle)
     
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle)
     
@@ -51,7 +51,7 @@ protocol WisdomHUDLoadingable {
     static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDLoadingContextable // loadingStyle/barStyle/inSupView
 }
 
-protocol WisdomHUDProgressable {
+protocol WisdomHUDProgreable {
     
     static func showProgress(text: String)->WisdomHUDProgreContextable
     
@@ -59,15 +59,15 @@ protocol WisdomHUDProgressable {
     
     static func showProgress(text: String, barStyle: WisdomSceneBarStyle)->WisdomHUDProgreContextable // barStyle
     
-    static func showProgress(text: String, progressStyle: WisdomProgressStyle)->WisdomHUDProgreContextable // progressStyle
+    static func showProgress(text: String, progreStyle: WisdomProgreStyle)->WisdomHUDProgreContextable // progreStyle
     
-    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgreContextable // progressStyle/barStyle
+    static func showProgress(text: String, progreStyle: WisdomProgreStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgreContextable // progreStyle/barStyle
     
-    static func showProgress(text: String, progressStyle: WisdomProgressStyle, inSupView: UIView?)->WisdomHUDProgreContextable // progressStyle/inSupView
+    static func showProgress(text: String, progreStyle: WisdomProgreStyle, inSupView: UIView?)->WisdomHUDProgreContextable // progreStyle/inSupView
     
     static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable // barStyle/inSupView
     
-    static func showProgress(text: String, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable // progressStyle/barStyle/inSupView
+    static func showProgress(text: String, progreStyle: WisdomProgreStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable // progreStyle/barStyle/inSupView
 }
 
 protocol WisdomHUDSuccessable {
@@ -169,7 +169,7 @@ protocol WisdomHUDContentable {
     
     func setLoadingContent(text: String, loadingStyle: WisdomLoadingStyle, timeout: (TimeInterval, (TimeInterval)->())?)
     
-    func setProgressContent(text: String, progressStyle: WisdomProgressStyle, timeout: (TimeInterval, (TimeInterval)->())?)
+    func setProgressContent(text: String, progreStyle: WisdomProgreStyle, timeout: (TimeInterval, (TimeInterval)->())?)
     
     func setSuccessContent(text: String, animat: Bool, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)
     
@@ -197,7 +197,7 @@ protocol WisdomHUDSetImageable {
     
     func setLoadingImage(size: CGFloat, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle)
     
-    func setProgressImage(size: CGFloat, progressStyle: WisdomProgressStyle, barStyle: WisdomSceneBarStyle)
+    func setProgressImage(size: CGFloat, progreStyle: WisdomProgreStyle, barStyle: WisdomSceneBarStyle)
     
     func setSuccessImage(size: CGFloat, barStyle: WisdomSceneBarStyle, animat: Bool)
     
