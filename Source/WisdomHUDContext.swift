@@ -226,6 +226,10 @@ class WisdomHUDActionContext {
     private(set) var textFont: UIFont?
     
     private(set) var textColor: UIColor?
+    
+    private(set) var labelFont: UIFont?
+    
+    private(set) var labelColor: UIColor?
 }
 
 extension WisdomHUDActionContext {
@@ -326,6 +330,42 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
                 _=coverVI.setActionTextColor(color: color)
             }else {
                 self.textColor = color
+            }
+        }
+        return self
+    }
+    
+    func setLabelFont(font: UIFont)->Self {
+        if Thread.isMainThread {
+            doTextFont()
+        }else {
+            DispatchQueue.main.async { doTextFont() }
+        }
+        
+        func doTextFont(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.labelFont = nil
+                _=coverVI.setLabelFont(font: font)
+            }else {
+                self.labelFont = font
+            }
+        }
+        return self
+    }
+    
+    func setLabelColor(color: UIColor)->Self {
+        if Thread.isMainThread {
+            doTextColor()
+        }else {
+            DispatchQueue.main.async { doTextColor() }
+        }
+        
+        func doTextColor(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.labelColor = nil
+                _=coverVI.setLabelColor(color: color)
+            }else {
+                self.labelColor = color
             }
         }
         return self

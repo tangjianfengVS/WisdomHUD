@@ -294,13 +294,17 @@ class WisdomHUDActionView: UIView {
 
     @objc private func clickLeftBtn(_ sender: UIButton) {
         if actionClosure(sender.titleLabel?.text ?? "", .left) {
-            WisdomHUDOperate.dismissAction()
+            if superview != nil {
+                WisdomHUDOperate.dismissAction()
+            }
         }
     }
     
     @objc private func clickRightBtn(_ sender: UIButton) {
         if actionClosure(sender.titleLabel?.text ?? "", .right) {
-            WisdomHUDOperate.dismissAction()
+            if superview != nil {
+                WisdomHUDOperate.dismissAction()
+            }
         }
     }
 }
@@ -346,6 +350,16 @@ extension WisdomHUDActionView: WisdomHUDActionContextable {
     
     func setTextAlignment(alignment: NSTextAlignment)->Self {
         textLabel.textAlignment = alignment
+        return self
+    }
+    
+    func setLabelFont(font: UIFont)->Self {
+        tailLabel.font = font
+        return self
+    }
+    
+    func setLabelColor(color: UIColor)->Self {
+        tailLabel.textColor = color
         return self
     }
 }

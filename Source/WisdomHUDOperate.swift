@@ -701,6 +701,12 @@ extension WisdomHUDOperate: WisdomHUDActionable {
             if let textAlignment = context.textAlignment {
                 _=context.setTextAlignment(alignment: textAlignment)
             }
+            if let lablelColor = context.labelColor {
+                _=context.setLabelColor(color: lablelColor)
+            }
+            if let labelFont = context.labelFont {
+                _=context.setLabelFont(font: labelFont)
+            }
         }
         return context
     }

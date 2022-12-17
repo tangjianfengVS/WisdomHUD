@@ -216,18 +216,16 @@ extension WisdomHUDHomeVC: UITableViewDelegate {
             let text1 = "`WisdomHUD` 是一款多种样式的 HUD 弹框指示器 SDK。`WisdomHUD` 系统最低支持 iOS 9.0版本，由Swift 5.0 编写，兼容 OC 类调用使用。"
             let text2 = "`WisdomHUD` 是一款多种样式的 HUD 弹框指示器 SDK。`WisdomHUD` 系统最低支持 iOS 9.0版本，由Swift 5.0 编写，兼容 OC 类调用使用。`WisdomHUD` 支持 全局/单点 HUD 内部属性动态 调整，支持视图 聚焦显示设置。`WisdomHUD` 支持 超时/延迟 时间设置，支持 超时/延迟 结束事件回调处理。`WisdomHUD` 支持多种 Loading/Progress 加载样式，和 succes/error/warning/text 提示样式，支持设置提示动画。`WisdomHUD` 图标通过 绘制实现，且加入了 图标缓存，避让了重复绘制任务，也是 HUD SDK 高性能必经之路。`WisdomHUD` 如果制作成静态库使用，因没有资源文件，不需要考虑资源加载，保证了安全。`WisdomHUD` API 调用方便/灵活，后期会更新迭代，推荐使用。"
             let theme = WisdomColorThemeStyle.allCases[indexPath.row]
-            WisdomHUD.showAction(title: "WisdomHUD", text: text2, label: "WisdomHUD sdk", leftAction: "取消", rightAction: "确认", themeStyle: theme, inSupView: nil) { info, value in
+            WisdomHUD.showAction(title: "WisdomHUD", text: text2, label: "WisdomHUD sdk", leftAction: "取消", rightAction: "确认", themeStyle: theme, inSupView: nil) { [weak self] info, value in
                 
+                if value == .right{
+                    WisdomHUD.showAction(title: "WisdomHUD", text: text1, label: "WisdomHUD sdk", leftAction: nil, rightAction: "确认", themeStyle: theme, inSupView: self?.view) { info, value in
+                        
+                        return true
+                    }.setRightAction(textColor: .systemPink, textFont: nil).setLeftAction(textColor: .gray, textFont: nil).setTextAlignment(alignment: .left).setTextColor(color: .orange).setTextFont(font: UIFont.boldSystemFont(ofSize: 13))
+                }
                 return true
             }.setRightAction(textColor: .systemPink, textFont: nil).setLeftAction(textColor: .gray, textFont: nil).setTextAlignment(alignment: .left)
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5) { [weak self] in
-                
-                WisdomHUD.showAction(title: "WisdomHUD", text: text1, label: "WisdomHUD sdk", leftAction: nil, rightAction: "确认", themeStyle: theme, inSupView: self?.view) { info, value in
-                    
-                    return true
-                }.setRightAction(textColor: .systemPink, textFont: nil).setLeftAction(textColor: .gray, textFont: nil).setTextAlignment(alignment: .left).setTextColor(color: .orange).setTextFont(font: UIFont.boldSystemFont(ofSize: 13))
-            }
         }
     }
 }
