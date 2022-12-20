@@ -229,7 +229,7 @@ protocol WisdomHUDActionable {
 
 protocol WisdomHUDLogable {
     
-    static func openLog(isOpen: Bool)
+    static func openLog()
     
     static func showLog(text: String)
     

@@ -425,9 +425,9 @@ extension WisdomHUD: WisdomHUDTextBottomable {
 
 extension WisdomHUD: WisdomHUDLogable {
     
-    // MARK: Debug Open Log with: Bool
-    @objc public static func openLog(isOpen: Bool) {
-        WisdomHUDOperate.openLog(isOpen: isOpen)
+    // MARK: Debug Open Log 
+    @objc public static func openLog() {
+        WisdomHUDOperate.openLog()
     }
     
     // MARK: Debug Show Log with: String

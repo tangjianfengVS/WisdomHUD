@@ -714,8 +714,8 @@ extension WisdomHUDOperate: WisdomHUDActionable {
 
 extension WisdomHUDOperate {
     
-    static func openLog(isOpen: Bool) {
-        WisdomHUDLogView.setLog(isOpen: isOpen)
+    static func openLog() {
+        WisdomHUDLogView.setLog()
     }
     
     static func showLog(text: String) {

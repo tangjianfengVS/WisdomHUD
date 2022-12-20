@@ -507,8 +507,8 @@ class WisdomHUDLogView: UIView {
 
 extension WisdomHUDLogView {
     
-    class func setLog(isOpen: Bool) {
-        WisdomHUDLogView.isOpen = isOpen
+    class func setLog() {
+        WisdomHUDLogView.isOpen = true
     }
     
     static func setPrint(text: String, textColor: UIColor){
