@@ -231,13 +231,13 @@ protocol WisdomHUDLogable {
     
     static func openLog(isOpen: Bool)
     
-    static func showLogInfo(text: String)// white color
+    static func showLog(text: String)
     
-    static func showLogWarning(text: String)// red yellow
+    static func showLogSuccess(text: String)
     
-    static func showLogSuccess(text: String)// green color
+    static func showLogWarning(text: String)
     
-    static func showLogError(text: String)// red color
+    static func showLogError(text: String)
 }
 
 @objc public protocol WisdomHUDBaseContextable {

@@ -430,23 +430,23 @@ extension WisdomHUD: WisdomHUDLogable {
         WisdomHUDOperate.openLog(isOpen: isOpen)
     }
     
-    // MARK:
-    @objc public static func showLogInfo(text: String) {// white color
-        WisdomHUDOperate.showLogInfo(text: text)
+    // MARK: Debug Show Log with: String
+    @objc public static func showLog(text: String) {
+        WisdomHUDOperate.showLog(text: text)
     }
     
-    // MARK:
-    @objc public static func showLogWarning(text: String) {// red yellow
-        WisdomHUDOperate.showLogWarning(text: text)
-    }
-    
-    // MARK:
-    @objc public static func showLogSuccess(text: String) {// green color
+    // MARK: Debug Show Log Success with: String
+    @objc public static func showLogSuccess(text: String) {
         WisdomHUDOperate.showLogSuccess(text: text)
     }
     
-    // MARK:
-    @objc public static func showLogError(text: String) {// red color
+    // MARK: Debug Show Log Warning with: String
+    @objc public static func showLogWarning(text: String) {
+        WisdomHUDOperate.showLogWarning(text: text)
+    }
+    
+    // MARK: Debug Show Log Error with: String
+    @objc public static func showLogError(text: String) {
         WisdomHUDOperate.showLogError(text: text)
     }
 }

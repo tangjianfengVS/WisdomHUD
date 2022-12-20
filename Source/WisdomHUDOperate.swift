@@ -718,19 +718,19 @@ extension WisdomHUDOperate {
         WisdomHUDLogView.setLog(isOpen: isOpen)
     }
     
-    static func showLogInfo(text: String) {
+    static func showLog(text: String) {
         WisdomHUDLogView.setPrint(text: text, textColor: .white)
     }
     
-    static func showLogWarning(text: String) {
-        WisdomHUDLogView.setPrint(text: text, textColor: .orange)
+    static func showLogSuccess(text: String) {
+        WisdomHUDLogView.setPrint(text: "✅"+text+"✅", textColor: .white)
     }
     
-    static func showLogSuccess(text: String) {
-        WisdomHUDLogView.setPrint(text: text, textColor: .green)
+    static func showLogWarning(text: String) {
+        WisdomHUDLogView.setPrint(text: "⚠️"+text+"⚠️", textColor: .white)
     }
     
     static func showLogError(text: String) {
-        WisdomHUDLogView.setPrint(text: text, textColor: .red)
+        WisdomHUDLogView.setPrint(text: "🚫"+text+"🚫", textColor: .white)
     }
 }
