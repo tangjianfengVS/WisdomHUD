@@ -15,11 +15,19 @@ class WisdomHUDLogView: UIView {
     static var isOpen = false
     
     private let itemWidth: CGFloat = 25
-    private let maxWidth: CGFloat = 414.0
-    private let maxHeight: CGFloat = 896.0-40.0
-    private let hangWidth: CGFloat = 20
-    private lazy var half_height = UIScreen.main.bounds.height*0.5>maxHeight ? maxHeight:UIScreen.main.bounds.height*0.5
+    private let maxSize = CGSize(width: 414.0, height: 896.0-20.0)
+    private let hangHeight: CGFloat = 22
+    private lazy var hang_Btn_Width = hangHeight*3.5
     
+    private func getHeight(baseHeight: CGFloat)->CGFloat{
+        return baseHeight>maxSize.height ? maxSize.height:baseHeight
+    }
+    
+    private func getWidth()->CGFloat{
+        return UIScreen.main.bounds.width>maxSize.width ? maxSize.width:UIScreen.main.bounds.width
+    }
+    
+    let coverView = UIView()
     let scrollView = UIScrollView()
     let textLabel = UILabel()
     
@@ -205,9 +213,41 @@ class WisdomHUDLogView: UIView {
         return button
     }()
     
+    private lazy var underBtn: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .black
+        button.addTarget(self, action: #selector(clickUnderBtn), for: .touchUpInside)
+        button.layer.masksToBounds=true
+        button.layer.cornerRadius=5
+        button.layer.borderColor=UIColor.white.cgColor
+        button.layer.borderWidth=1
+
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: itemWidth/5, y: itemWidth/2))
+        path.addLine(to: CGPoint(x: itemWidth/2, y: itemWidth/5*4))
+        path.move(to: CGPoint(x: itemWidth/2, y: itemWidth/5*4))
+        path.addLine(to: CGPoint(x: itemWidth/5*4, y: itemWidth/2))
+        
+        path.move(to: CGPoint(x: itemWidth/2, y: itemWidth/4))
+        path.addLine(to: CGPoint(x: itemWidth/2, y: itemWidth/5*4))
+
+        let circle = CAShapeLayer()
+        circle.fillColor = UIColor.clear.cgColor
+        circle.strokeColor = UIColor.white.cgColor
+        circle.lineCap = CAShapeLayerLineCap.round
+        circle.lineWidth = 1.0
+        circle.strokeEnd = 1.0
+        circle.path = path.cgPath
+        button.layer.addSublayer(circle)
+        return button
+    }()
+    
     private lazy var hangBtn: UIButton = {
         let button = UIButton()
         button.backgroundColor = .clear
+        button.setTitle("WisdomHUD", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 9)
         button.addTarget(self, action: #selector(clickHangBtn), for: .touchUpInside)
         return button
     }()
@@ -219,7 +259,7 @@ class WisdomHUDLogView: UIView {
                                             toItem: nil,
                                             attribute: .notAnAttribute,
                                             multiplier: 1.0,
-                                            constant: half_height)
+                                            constant: getHeight(baseHeight: (UIScreen.main.bounds.height-30)/2))
         return constraint
     }()
     
@@ -230,7 +270,7 @@ class WisdomHUDLogView: UIView {
                                             toItem: nil,
                                             attribute: .notAnAttribute,
                                             multiplier: 1.0,
-                                            constant: UIScreen.main.bounds.width>maxWidth ? maxWidth:UIScreen.main.bounds.width)
+                                            constant: getWidth())
         return constraint
     }()
     
@@ -240,6 +280,7 @@ class WisdomHUDLogView: UIView {
         super.init(frame: frame)
         backgroundColor = UIColor(white: 0, alpha: 0.5)
         translatesAutoresizingMaskIntoConstraints = false
+        coverView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -251,6 +292,8 @@ class WisdomHUDLogView: UIView {
         leftBtn.translatesAutoresizingMaskIntoConstraints = false
         rightBtn.translatesAutoresizingMaskIntoConstraints = false
         hangBtn.translatesAutoresizingMaskIntoConstraints = false
+        underBtn.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(coverView)
         addSubview(scrollView)
         addSubview(closeBtn)
         addSubview(sizeBtn)
@@ -258,10 +301,18 @@ class WisdomHUDLogView: UIView {
         addSubview(bottomBtn)
         addSubview(topBtn)
         addSubview(rightBtn)
+        addSubview(underBtn)
         addSubview(leftBtn)
         addSubview(hangBtn)
         scrollView.addSubview(titleLabel)
         scrollView.addSubview(textLabel)
+        
+        wisdom_addConstraint(with: coverView,
+                             topView: self,
+                             leftView: self,
+                             bottomView: self,
+                             rightView: self,
+                             edgeInset: .zero)
 
         wisdom_addConstraint(with: scrollView,
                              topView: self,
@@ -338,11 +389,20 @@ class WisdomHUDLogView: UIView {
         
         rightBtn.wisdom_addConstraint(width: itemWidth, height: itemWidth)
         
-        wisdom_addConstraint(with: leftBtn,
+        wisdom_addConstraint(with: underBtn,
                              topView: nil,
                              leftView: nil,
                              bottomView: closeBtn,
                              rightView: rightBtn,
+                             edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -itemWidth-20))
+        
+        underBtn.wisdom_addConstraint(width: itemWidth, height: itemWidth)
+        
+        wisdom_addConstraint(with: leftBtn,
+                             topView: nil,
+                             leftView: nil,
+                             bottomView: closeBtn,
+                             rightView: underBtn,
                              edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -itemWidth-20))
         
         leftBtn.wisdom_addConstraint(width: itemWidth, height: itemWidth)
@@ -354,11 +414,14 @@ class WisdomHUDLogView: UIView {
                              rightView: nil,
                              edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
-        hangBtn.wisdom_addConstraint(width: hangWidth, height: hangWidth*3)
+        hangBtn.wisdom_addConstraint(width: hang_Btn_Width, height: hangHeight)
         hangBtn.isHidden=true
-        hangBtn.layer.shadowColor = UIColor(white: 0, alpha: 0.6).cgColor
-        hangBtn.layer.shadowOffset = CGSize.init(width: 0, height: 0)
-        hangBtn.layer.shadowOpacity = 1
+        
+        coverView.layer.shadowColor = UIColor(white: 0, alpha: 0.6).cgColor
+        coverView.layer.shadowOffset = CGSize.init(width: 0, height: 0)
+        coverView.layer.shadowOpacity = 1
+        coverView.backgroundColor = .clear
+        coverView.isHidden=true
         
         textLabel.numberOfLines = 0
         textLabel.textColor = UIColor.white
@@ -404,7 +467,8 @@ class WisdomHUDLogView: UIView {
     
     @objc private func clickSizeBtn(btn: UIButton) {
         btn.isSelected = !btn.isSelected
-        heightConstraint.constant = btn.isSelected ? maxHeight:half_height
+        let than:CGFloat = btn.isSelected ? 1.0:0.5
+        heightConstraint.constant = getHeight(baseHeight: (UIScreen.main.bounds.height-30)*than)
         updateContent()
     }
     
@@ -428,51 +492,23 @@ class WisdomHUDLogView: UIView {
         }
         backgroundColor = .clear
         hangBtn.isHidden=false
+        coverView.isHidden=false
         shapeLayer?.removeFromSuperlayer()
-        transform=CGAffineTransform(translationX: 0, y: hangWidth*5)
+        transform=CGAffineTransform(translationX: 0, y: hangHeight*5)
+        hangBtn.transform=CGAffineTransform(translationX: -(hang_Btn_Width/2-hangHeight/2), y: hang_Btn_Width/2-hangHeight/2)
+        hangBtn.transform=hangBtn.transform.rotated(by: -Double.pi*0.5)
+        
         UIView.animate(withDuration: 0.30, animations: { [weak self] in
-            self?.widthConstraint.constant = self?.hangWidth ?? 0
-            self?.heightConstraint.constant = (self?.hangWidth ?? 0)*3
+            self?.widthConstraint.constant = self?.hangHeight ?? 0
+            self?.heightConstraint.constant = self?.hang_Btn_Width ?? 0
         })
         
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: 0))
-        path.addLine(to: CGPoint(x: hangWidth-1, y: hangWidth/3))
-        path.addLine(to: CGPoint(x: hangWidth-1, y: itemWidth*2.5))
-        path.addLine(to: CGPoint(x: 0, y: itemWidth*3))
+        path.addLine(to: CGPoint(x: hangHeight, y: hang_Btn_Width*0.1))
+        path.addLine(to: CGPoint(x: hangHeight, y: hang_Btn_Width*0.85))
+        path.addLine(to: CGPoint(x: 0, y: hang_Btn_Width))
         path.addLine(to: CGPoint(x: 0, y: 0))
-        
-        let shapeLayer = CAShapeLayer()
-        self.shapeLayer=shapeLayer
-        shapeLayer.fillColor = UIColor(white: 0, alpha: 0.8).cgColor
-        shapeLayer.strokeColor = UIColor.wisdom_colorHex(hex: "F5F5F5").cgColor
-        shapeLayer.lineCap = CAShapeLayerLineCap.round
-        shapeLayer.lineWidth = 1.2
-        shapeLayer.strokeEnd = 1.0
-        shapeLayer.path = path.cgPath
-        hangBtn.layer.addSublayer(shapeLayer)
-    }
-    
-    @objc private func clickRightBtn(){
-        for item in subviews {
-            item.isHidden=true
-        }
-        backgroundColor = .clear
-        hangBtn.isHidden=false
-        shapeLayer?.removeFromSuperlayer()
-        let width = UIScreen.main.bounds.width>maxWidth ? maxWidth:UIScreen.main.bounds.width
-        transform=CGAffineTransform(translationX: width-hangWidth, y: hangWidth*5)
-        UIView.animate(withDuration: 0.30, animations: { [weak self] in
-            self?.widthConstraint.constant = self?.hangWidth ?? 0
-            self?.heightConstraint.constant = (self?.hangWidth ?? 0)*3
-        })
-        
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 1, y: hangWidth/3))
-        path.addLine(to: CGPoint(x: hangWidth, y: 0))
-        path.addLine(to: CGPoint(x: hangWidth, y: itemWidth*3))
-        path.addLine(to: CGPoint(x: 1, y: itemWidth*2.7))
-        path.addLine(to: CGPoint(x: 1, y: hangWidth/3))
 
         let shapeLayer = CAShapeLayer()
         self.shapeLayer=shapeLayer
@@ -482,7 +518,75 @@ class WisdomHUDLogView: UIView {
         shapeLayer.lineWidth = 1.2
         shapeLayer.strokeEnd = 1.0
         shapeLayer.path = path.cgPath
-        hangBtn.layer.addSublayer(shapeLayer)
+        coverView.layer.addSublayer(shapeLayer)
+    }
+    
+    @objc private func clickRightBtn(){
+        for item in subviews {
+            item.isHidden=true
+        }
+        backgroundColor = .clear
+        hangBtn.isHidden=false
+        coverView.isHidden=false
+        shapeLayer?.removeFromSuperlayer()
+        transform=CGAffineTransform(translationX: getWidth()-hangHeight, y: hangHeight*5)
+        hangBtn.transform=CGAffineTransform(translationX: -(hang_Btn_Width/2-hangHeight/2), y: hang_Btn_Width/2-hangHeight/2)
+        hangBtn.transform=hangBtn.transform.rotated(by: -Double.pi*0.5)
+        
+        UIView.animate(withDuration: 0.30, animations: { [weak self] in
+            self?.widthConstraint.constant = self?.hangHeight ?? 0
+            self?.heightConstraint.constant = self?.hang_Btn_Width ?? 0
+        })
+        
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 1, y: hang_Btn_Width*0.1))
+        path.addLine(to: CGPoint(x: hangHeight, y: 0))
+        path.addLine(to: CGPoint(x: hangHeight, y: hang_Btn_Width))
+        path.addLine(to: CGPoint(x: 1, y: hang_Btn_Width*0.85))
+        path.addLine(to: CGPoint(x: 1, y: hang_Btn_Width*0.1))
+
+        let shapeLayer = CAShapeLayer()
+        self.shapeLayer=shapeLayer
+        shapeLayer.fillColor = UIColor(white: 0, alpha: 0.8).cgColor
+        shapeLayer.strokeColor = UIColor.wisdom_colorHex(hex: "F5F5F5").cgColor
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        shapeLayer.lineWidth = 1.2
+        shapeLayer.strokeEnd = 1.0
+        shapeLayer.path = path.cgPath
+        coverView.layer.addSublayer(shapeLayer)
+    }
+    
+    @objc private func clickUnderBtn(){
+        for item in subviews {
+            item.isHidden=true
+        }
+        backgroundColor = .clear
+        hangBtn.isHidden=false
+        coverView.isHidden=false
+        shapeLayer?.removeFromSuperlayer()
+        transform=CGAffineTransform(translationX: hangHeight*2, y: UIScreen.main.bounds.height-20-hangHeight)
+        
+        UIView.animate(withDuration: 0.30, animations: { [weak self] in
+            self?.widthConstraint.constant = self?.hang_Btn_Width ?? 0
+            self?.heightConstraint.constant = self?.hangHeight ?? 0
+        })
+        
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: hangHeight))
+        path.addLine(to: CGPoint(x: hang_Btn_Width*0.1, y: 0))
+        path.addLine(to: CGPoint(x: hang_Btn_Width*0.85, y: 0))
+        path.addLine(to: CGPoint(x: hang_Btn_Width, y: hangHeight))
+        path.addLine(to: CGPoint(x: 0, y: hangHeight))
+
+        let shapeLayer = CAShapeLayer()
+        self.shapeLayer=shapeLayer
+        shapeLayer.fillColor = UIColor(white: 0, alpha: 0.8).cgColor
+        shapeLayer.strokeColor = UIColor.wisdom_colorHex(hex: "F5F5F5").cgColor
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        shapeLayer.lineWidth = 1.2
+        shapeLayer.strokeEnd = 1.0
+        shapeLayer.path = path.cgPath
+        coverView.layer.addSublayer(shapeLayer)
     }
     
     @objc private func clickHangBtn(){
@@ -490,7 +594,10 @@ class WisdomHUDLogView: UIView {
             item.isHidden=false
         }
         backgroundColor = UIColor(white: 0, alpha: bgColorBtn.isSelected ? 0.85:0.4)
+        hangBtn.transform = .identity
         hangBtn.isHidden=true
+        coverView.isHidden=true
+        shapeLayer?.removeFromSuperlayer()
         transform=CGAffineTransform.identity
         UIView.animate(withDuration: 0.30, animations: {
             updateConstraint()
@@ -499,8 +606,9 @@ class WisdomHUDLogView: UIView {
         })
         
         func updateConstraint(){
-            widthConstraint.constant = UIScreen.main.bounds.width>maxWidth ? maxWidth:UIScreen.main.bounds.width
-            heightConstraint.constant = sizeBtn.isSelected ? maxHeight:half_height
+            let than:CGFloat = sizeBtn.isSelected ? 1.0:2.0
+            heightConstraint.constant = getHeight(baseHeight: (UIScreen.main.bounds.height-30)/than)
+            widthConstraint.constant = getWidth()
         }
     }
 }
