@@ -10,7 +10,7 @@ import UIKit
 
 private var logView: WisdomHUDLogView?
 
-class WisdomHUDLogView: UIView {
+final class WisdomHUDLogView: UIView {
     
     static var isOpen = false
     
@@ -34,14 +34,14 @@ class WisdomHUDLogView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "【Initialize】"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         label.textColor = .white
         return label
     }()
     
     private lazy var closeBtn: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = UIColor(white: 0, alpha: 0.3)
         button.addTarget(self, action: #selector(clickBackBtn), for: .touchUpInside)
         button.layer.masksToBounds=true
         button.layer.cornerRadius=5
@@ -67,7 +67,7 @@ class WisdomHUDLogView: UIView {
     
     private lazy var sizeBtn: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = closeBtn.backgroundColor
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         button.setTitle("size", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
@@ -81,7 +81,7 @@ class WisdomHUDLogView: UIView {
     
     private lazy var bgColorBtn: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = closeBtn.backgroundColor
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         button.setTitle("bgc", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
@@ -95,7 +95,7 @@ class WisdomHUDLogView: UIView {
     
     private lazy var bottomBtn: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = closeBtn.backgroundColor
         button.addTarget(self, action: #selector(clickBottomBtn), for: .touchUpInside)
         button.layer.masksToBounds=true
         button.layer.cornerRadius=5
@@ -126,7 +126,7 @@ class WisdomHUDLogView: UIView {
     
     private lazy var topBtn: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = closeBtn.backgroundColor
         button.addTarget(self, action: #selector(clickTopBtn), for: .touchUpInside)
         button.layer.masksToBounds=true
         button.layer.cornerRadius=5
@@ -157,7 +157,7 @@ class WisdomHUDLogView: UIView {
     
     private lazy var leftBtn: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = closeBtn.backgroundColor
         button.addTarget(self, action: #selector(clickLeftBtn), for: .touchUpInside)
         button.layer.masksToBounds=true
         button.layer.cornerRadius=5
@@ -186,7 +186,7 @@ class WisdomHUDLogView: UIView {
     
     private lazy var rightBtn: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = closeBtn.backgroundColor
         button.addTarget(self, action: #selector(clickRightBtn), for: .touchUpInside)
         button.layer.masksToBounds=true
         button.layer.cornerRadius=5
@@ -215,7 +215,7 @@ class WisdomHUDLogView: UIView {
     
     private lazy var underBtn: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .black
+        button.backgroundColor = closeBtn.backgroundColor
         button.addTarget(self, action: #selector(clickUnderBtn), for: .touchUpInside)
         button.layer.masksToBounds=true
         button.layer.cornerRadius=5
@@ -333,7 +333,7 @@ class WisdomHUDLogView: UIView {
                              leftView: self,
                              bottomView: nil,
                              rightView: self,
-                             edgeInset: UIEdgeInsets(top: 25, left: 10, bottom: 0, right: -8))
+                             edgeInset: UIEdgeInsets(top: 25, left: 8, bottom: 0, right: -8))
         
         wisdom_addConstraint(with: closeBtn,
                              topView: nil,
@@ -425,7 +425,7 @@ class WisdomHUDLogView: UIView {
         
         textLabel.numberOfLines = 0
         textLabel.textColor = UIColor.white
-        textLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        textLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         textLabel.textAlignment = .left
 
         updateContent()
@@ -441,12 +441,12 @@ class WisdomHUDLogView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setText(text: String, textColor: UIColor) {
+    func setText(text: String) {
         textLabel.text = text+"\n"+(textLabel.text ?? "")
         
         let style = NSMutableParagraphStyle()
-        style.lineSpacing = 4
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .regular),
+        style.lineSpacing = 5
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12, weight: .regular),
                           NSAttributedString.Key.foregroundColor: UIColor.white,
                           NSAttributedString.Key.paragraphStyle: style]
         
@@ -615,11 +615,11 @@ class WisdomHUDLogView: UIView {
 
 extension WisdomHUDLogView {
     
-    class func setLog() {
+    class func openLog() {
         WisdomHUDLogView.isOpen = true
     }
     
-    static func setPrint(text: String, textColor: UIColor){
+    static func setLog(text: String){
         if WisdomHUDLogView.isOpen {
 #if DEBUG
             if Thread.isMainThread {
@@ -656,7 +656,7 @@ extension WisdomHUDLogView {
                 if logView == nil {
                     print(text)
                 }else {
-                    logView?.setText(text: text, textColor: textColor)
+                    logView?.setText(text: text)
                 }
             }
 #endif

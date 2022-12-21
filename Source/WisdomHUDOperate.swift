@@ -715,22 +715,22 @@ extension WisdomHUDOperate: WisdomHUDActionable {
 extension WisdomHUDOperate {
     
     static func openLog() {
-        WisdomHUDLogView.setLog()
+        WisdomHUDLogView.openLog()
     }
     
     static func showLog(text: String) {
-        WisdomHUDLogView.setPrint(text: text, textColor: .white)
+        WisdomHUDLogView.setLog(text: text)
     }
     
     static func showLogSuccess(text: String) {
-        WisdomHUDLogView.setPrint(text: "✅"+text+"✅", textColor: .white)
+        WisdomHUDLogView.setLog(text: "✅"+text+"✅")
     }
     
     static func showLogWarning(text: String) {
-        WisdomHUDLogView.setPrint(text: "⚠️"+text+"⚠️", textColor: .white)
+        WisdomHUDLogView.setLog(text: "⚠️"+text+"⚠️")
     }
     
     static func showLogError(text: String) {
-        WisdomHUDLogView.setPrint(text: "🚫"+text+"🚫", textColor: .white)
+        WisdomHUDLogView.setLog(text: "🚫"+text+"🚫")
     }
 }
