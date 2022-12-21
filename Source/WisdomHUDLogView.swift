@@ -14,7 +14,7 @@ final class WisdomHUDLogView: UIView {
     
     static var isOpen = false
     
-    private let itemWidth: CGFloat = 25
+    private let itemWidth: CGFloat = 20
     private let maxSize = CGSize(width: 414.0, height: 896.0-20.0)
     private let hangHeight: CGFloat = 22
     private lazy var hang_Btn_Width = hangHeight*3.5
@@ -68,7 +68,7 @@ final class WisdomHUDLogView: UIView {
     private lazy var sizeBtn: UIButton = {
         let button = UIButton()
         button.backgroundColor = closeBtn.backgroundColor
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 9)
         button.setTitle("size", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(clickSizeBtn(btn:)), for: .touchUpInside)
@@ -82,7 +82,7 @@ final class WisdomHUDLogView: UIView {
     private lazy var bgColorBtn: UIButton = {
         let button = UIButton()
         button.backgroundColor = closeBtn.backgroundColor
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        button.titleLabel?.font = sizeBtn.titleLabel?.font
         button.setTitle("bgc", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(clickBgColorBtn(btn:)), for: .touchUpInside)
@@ -574,7 +574,7 @@ final class WisdomHUDLogView: UIView {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: hangHeight))
         path.addLine(to: CGPoint(x: hang_Btn_Width*0.1, y: 0))
-        path.addLine(to: CGPoint(x: hang_Btn_Width*0.85, y: 0))
+        path.addLine(to: CGPoint(x: hang_Btn_Width*0.9, y: 0))
         path.addLine(to: CGPoint(x: hang_Btn_Width, y: hangHeight))
         path.addLine(to: CGPoint(x: 0, y: hangHeight))
 
