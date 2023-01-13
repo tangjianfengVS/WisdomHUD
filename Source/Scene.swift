@@ -1,5 +1,5 @@
 //
-//  WisdomHUDSceneView.swift
+//  Scene.swift
 //  WisdomHUD
 //
 //  Created by 汤建锋 on 2022/9/30.
@@ -448,7 +448,7 @@ extension WisdomHUDSceneView: WisdomHUDDelaysable {
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: { [weak self] in
             if let _ = self?.superview{
-                WisdomHUDOperate.dismiss()
+                WisdomHUDCore.dismiss()
             }
         })
     }

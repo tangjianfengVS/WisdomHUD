@@ -1,5 +1,5 @@
 //
-//  WisdomHUDImageView.swift
+//  Image.swift
 //  WisdomHUD
 //
 //  Created by jianfeng on 2018/12/4.

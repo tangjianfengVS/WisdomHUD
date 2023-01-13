@@ -1,5 +1,5 @@
 //
-//  WisdomHUDCoverView.swift
+//  Cover.swift
 //  WisdomHUD
 //
 //  Created by 汤建锋 on 2022/10/20.
@@ -39,10 +39,10 @@ extension WisdomHUDCoverView: WisdomHUDContextable {
             backgroundColor = UIColor.clear
             
             let coverConstraints = constraints.filter {
-                $0.identifier == WisdomHUDOperate.getWisdomHUD_Focusing()
+                $0.identifier == WisdomHUDCore.getWisdomHUD_Focusing()
             }
             let superConstraints = superview?.constraints.filter {
-                $0.identifier == WisdomHUDOperate.getWisdomHUD_Focusing()
+                $0.identifier == WisdomHUDCore.getWisdomHUD_Focusing()
             }
             removeConstraints(coverConstraints)
             superview?.removeConstraints(superConstraints ?? [])

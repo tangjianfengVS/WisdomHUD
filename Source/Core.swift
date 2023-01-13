@@ -1,5 +1,5 @@
 //
-//  WisdomHUDTask.swift
+//  Core.swift
 //  WisdomHUD
 //
 //  Created by 汤建锋 on 2022/9/29.
@@ -8,7 +8,7 @@
 import UIKit
 
 
-struct WisdomHUDOperate {
+struct WisdomHUDCore {
     
     fileprivate static var WisdomLoadingStyle: WisdomLoadingStyle = .rotate
     
@@ -28,7 +28,7 @@ struct WisdomHUDOperate {
     static func getWisdomHUD_Focusing()->String { return "WisdomHUD_Focusing"}
 }
 
-extension WisdomHUDOperate: WisdomHUDSettingable {
+extension WisdomHUDCore: WisdomHUDSettingable {
     
     static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
         WisdomLoadingStyle = loadingStyle
@@ -51,7 +51,7 @@ extension WisdomHUDOperate: WisdomHUDSettingable {
     }
 }
 
-extension WisdomHUDOperate: WisdomHUDGlobalable {
+extension WisdomHUDCore: WisdomHUDGlobalable {
     
     static func dismiss() {
         if Thread.isMainThread {
@@ -60,7 +60,7 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
             DispatchQueue.main.async { remove() }
         }
         func remove(){
-            let window = WisdomHUDOperate.getScreenWindow()
+            let window = WisdomHUDCore.getScreenWindow()
             let coverVI = window?.viewWithTag(WisdomHUDCoverTag)
             if let hudCoverVI = coverVI as? WisdomHUDCoverView {
                 hudCoverVI.sceneView?.setDismissImage()
@@ -77,7 +77,7 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
             DispatchQueue.main.async { remove() }
         }
         func remove(){
-            let window = WisdomHUDOperate.getScreenWindow()
+            let window = WisdomHUDCore.getScreenWindow()
             let coverVI = window?.viewWithTag(WisdomHUDCoverTag>>1)
             if let hudCoverVI = coverVI as? WisdomHUDCoverView {
                 hudCoverVI.removeFromSuperview()
@@ -181,7 +181,7 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
                                                        attribute: .bottom,
                                                       multiplier: 1.0,
                                                         constant: -supView.frame.height/10.5)
-                    offsetConstant.identifier = WisdomHUDOperate.getWisdomHUD_Focusing()
+                    offsetConstant.identifier = WisdomHUDCore.getWisdomHUD_Focusing()
                     supView.addConstraint(offsetConstant)
                 default: break
                 }
@@ -212,7 +212,7 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
             actionView.wisdom_addConstraint(width: isSmallScreen() ? 290 : 310, height: -1)
         }
         
-        let window = WisdomHUDOperate.getScreenWindow()
+        let window = WisdomHUDCore.getScreenWindow()
         if let coverVI = window?.viewWithTag(WisdomHUDCoverTag>>1) as? WisdomHUDCoverView {
             addActionView(coverView: coverVI)
             
@@ -237,7 +237,7 @@ extension WisdomHUDOperate: WisdomHUDGlobalable {
     }
 }
 
-extension WisdomHUDOperate: WisdomHUDLoadingable {
+extension WisdomHUDCore: WisdomHUDLoadingable {
     
     static func showLoading(text: String)->WisdomHUDLoadingContextable {
         return showLoading(text: text, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle, inSupView: nil)
@@ -292,7 +292,7 @@ extension WisdomHUDOperate: WisdomHUDLoadingable {
     }
 }
 
-extension WisdomHUDOperate:  WisdomHUDProgreable {
+extension WisdomHUDCore:  WisdomHUDProgreable {
     
     static func showProgress(text: String)->WisdomHUDProgreContextable {
         return showProgress(text: text, progreStyle: WisdomProgreStyle, barStyle: WisdomSceneBarStyle, inSupView: nil)
@@ -359,7 +359,7 @@ extension WisdomHUDOperate:  WisdomHUDProgreable {
     }
 }
 
-extension WisdomHUDOperate: WisdomHUDSuccessable {
+extension WisdomHUDCore: WisdomHUDSuccessable {
     
     static func showSuccess(text: String)->WisdomHUDContextable {
         return showSuccess(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
@@ -418,7 +418,7 @@ extension WisdomHUDOperate: WisdomHUDSuccessable {
     }
 }
 
-extension WisdomHUDOperate: WisdomHUDErrorable {
+extension WisdomHUDCore: WisdomHUDErrorable {
     
     static func showError(text: String)->WisdomHUDContextable {
         return showError(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
@@ -477,7 +477,7 @@ extension WisdomHUDOperate: WisdomHUDErrorable {
     }
 }
 
-extension WisdomHUDOperate: WisdomHUDWarningable {
+extension WisdomHUDCore: WisdomHUDWarningable {
     
     static func showWarning(text: String)->WisdomHUDContextable {
         return showWarning(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
@@ -536,7 +536,7 @@ extension WisdomHUDOperate: WisdomHUDWarningable {
     }
 }
 
-extension WisdomHUDOperate: WisdomHUDTextCenterable {
+extension WisdomHUDCore: WisdomHUDTextCenterable {
     
     static func showTextCenter(text: String)->WisdomHUDContextable {
         showTextCenter(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
@@ -595,7 +595,7 @@ extension WisdomHUDOperate: WisdomHUDTextCenterable {
     }
 }
 
-extension WisdomHUDOperate: WisdomHUDTextBottomable {
+extension WisdomHUDCore: WisdomHUDTextBottomable {
     
     static func showTextBottom(text: String)->WisdomHUDContextable {
         return showTextBottom(text: text, barStyle: WisdomSceneBarStyle, inSupView: nil, delays: WisdomDisplayDelays, delayClosure: nil)
@@ -654,7 +654,7 @@ extension WisdomHUDOperate: WisdomHUDTextBottomable {
     }
 }
 
-extension WisdomHUDOperate: WisdomHUDActionable {
+extension WisdomHUDCore: WisdomHUDActionable {
     
     static func showAction(title: String, text: String, leftAction: String?, rightAction: String, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable{
         return showAction(title: title, text: text, label: nil, leftAction: leftAction, rightAction: rightAction, themeStyle: WisdomColorThemeStyle, inSupView: nil, actionClosure: actionClosure)
@@ -712,7 +712,7 @@ extension WisdomHUDOperate: WisdomHUDActionable {
     }
 }
 
-extension WisdomHUDOperate {
+extension WisdomHUDCore {
     
     static func openLog() {
         WisdomHUDLogView.openLog()

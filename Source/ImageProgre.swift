@@ -1,5 +1,5 @@
 //
-//  WisdomHUDImageProgre.swift
+//  ImageProgre.swift
 //  WisdomHUDDemo
 //
 //  Created by 汤建锋 on 2022/12/6.

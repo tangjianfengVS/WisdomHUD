@@ -1,5 +1,5 @@
 //
-//  WisdomActionView.swift
+//  Action.swift
 //  WisdomHUDDemo
 //
 //  Created by tangjianfeng on 2021/12/23.
@@ -295,7 +295,7 @@ class WisdomHUDActionView: UIView {
     @objc private func clickLeftBtn(_ sender: UIButton) {
         if actionClosure(sender.titleLabel?.text ?? "", .left) {
             if superview != nil {
-                WisdomHUDOperate.dismissAction()
+                WisdomHUDCore.dismissAction()
             }
         }
     }
@@ -303,7 +303,7 @@ class WisdomHUDActionView: UIView {
     @objc private func clickRightBtn(_ sender: UIButton) {
         if actionClosure(sender.titleLabel?.text ?? "", .right) {
             if superview != nil {
-                WisdomHUDOperate.dismissAction()
+                WisdomHUDCore.dismissAction()
             }
         }
     }

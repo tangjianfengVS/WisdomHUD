@@ -1,5 +1,5 @@
 //
-//  WisdomHUDImageAnim.swift
+//  ImageAnim.swift
 //  WisdomHUDDemo
 //
 //  Created by jianfeng tang on 2022/10/15.

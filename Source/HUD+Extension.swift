@@ -1,5 +1,5 @@
 //
-//  WisdomHUD+Extension.swift
+//  HUD+Extension.swift
 //  WisdomHUD
 //
 //  Created by jianfeng on 2018/12/4.
@@ -88,7 +88,7 @@ extension UIView {
                                                    attribute: .top,
                                                    multiplier: 1.0,
                                                    constant: edgeInset.top)
-            topConstraint.identifier = WisdomHUDOperate.getWisdomHUD_Focusing()
+            topConstraint.identifier = WisdomHUDCore.getWisdomHUD_Focusing()
             addConstraint(topConstraint)
         }
         if let leftView = leftView {
@@ -99,7 +99,7 @@ extension UIView {
                                                     attribute: .left,
                                                     multiplier: 1.0,
                                                     constant: edgeInset.left)
-            leftConstraint.identifier = WisdomHUDOperate.getWisdomHUD_Focusing()
+            leftConstraint.identifier = WisdomHUDCore.getWisdomHUD_Focusing()
             addConstraint(leftConstraint)
         }
         if let bottomView = bottomView {
@@ -110,7 +110,7 @@ extension UIView {
                                                       attribute: .bottom,
                                                       multiplier: 1.0,
                                                       constant: edgeInset.bottom)
-            bottomConstraint.identifier = WisdomHUDOperate.getWisdomHUD_Focusing()
+            bottomConstraint.identifier = WisdomHUDCore.getWisdomHUD_Focusing()
             addConstraint(bottomConstraint)
         }
         if let rightView = rightView {
@@ -121,7 +121,7 @@ extension UIView {
                                                      attribute: .right,
                                                      multiplier: 1.0,
                                                      constant: edgeInset.right)
-            rightConstraint.identifier = WisdomHUDOperate.getWisdomHUD_Focusing()
+            rightConstraint.identifier = WisdomHUDCore.getWisdomHUD_Focusing()
             addConstraint(rightConstraint)
         }
     }
