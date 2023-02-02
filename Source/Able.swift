@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol WisdomHUDSettingable {
+public protocol WisdomHUDSettingable {
 
     static func setLoadingStyle(loadingStyle: WisdomLoadingStyle)
     
@@ -21,7 +21,7 @@ protocol WisdomHUDSettingable {
     static func setCoverBackgColor(backgColor: UIColor) 
 }
 
-protocol WisdomHUDGlobalable {
+public protocol WisdomHUDGlobalable {
     
     static func isSmallScreen() -> Bool
     
@@ -32,7 +32,7 @@ protocol WisdomHUDGlobalable {
     static func dismissAction()
 }
 
-protocol WisdomHUDLoadingable {
+public protocol WisdomHUDLoadingable {
     
     static func showLoading(text: String)->WisdomHUDLoadingContextable
     
@@ -51,7 +51,7 @@ protocol WisdomHUDLoadingable {
     static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDLoadingContextable // loadingStyle/barStyle/inSupView
 }
 
-protocol WisdomHUDProgreable {
+public protocol WisdomHUDProgreable {
     
     static func showProgress(text: String)->WisdomHUDProgreContextable
     
@@ -70,7 +70,7 @@ protocol WisdomHUDProgreable {
     static func showProgress(text: String, progreStyle: WisdomProgreStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable // progreStyle/barStyle/inSupView
 }
 
-protocol WisdomHUDSuccessable {
+public protocol WisdomHUDSuccessable {
     
     static func showSuccess(text: String)->WisdomHUDContextable
     
@@ -89,7 +89,7 @@ protocol WisdomHUDSuccessable {
     static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // barStyle/inSupView/delays
 }
 
-protocol WisdomHUDErrorable {
+public protocol WisdomHUDErrorable {
     
     static func showError(text: String)->WisdomHUDContextable
     
@@ -108,7 +108,7 @@ protocol WisdomHUDErrorable {
     static func showError(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // barStyle/inSupView/delays
 }
 
-protocol WisdomHUDWarningable {
+public protocol WisdomHUDWarningable {
     
     static func showWarning(text: String)->WisdomHUDContextable
     
@@ -127,7 +127,7 @@ protocol WisdomHUDWarningable {
     static func showWarning(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // barStyle/inSupView/delays
 }
 
-protocol WisdomHUDTextCenterable {
+public protocol WisdomHUDTextCenterable {
     
     static func showTextCenter(text: String)->WisdomHUDContextable
     
@@ -146,7 +146,7 @@ protocol WisdomHUDTextCenterable {
     static func showTextCenter(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // barStyle/inSupView/delays
 }
 
-protocol WisdomHUDTextBottomable {
+public protocol WisdomHUDTextBottomable {
     
     static func showTextBottom(text: String)->WisdomHUDContextable
     
@@ -216,7 +216,7 @@ protocol WisdomHUDSetImageable {
     func setProgreShadowColor(color: UIColor)
 }
 
-protocol WisdomHUDActionable {
+public protocol WisdomHUDActionable {
     
     static func showAction(title: String, text: String, leftAction: String?, rightAction: String, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable
     
@@ -227,7 +227,7 @@ protocol WisdomHUDActionable {
     static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: UIView?, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable
 }
 
-protocol WisdomHUDLogable {
+public protocol WisdomHUDLogable {
     
     static func openLog()
     
