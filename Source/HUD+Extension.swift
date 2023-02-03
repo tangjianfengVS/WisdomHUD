@@ -155,8 +155,20 @@ extension String {
 extension UIColor {
     
     // MARK: - Get Color with: String
-    @objc public static func wisdom_colorHex(hex: String, alpha: CGFloat=1) -> UIColor {
-        let scanner = Scanner(string: hex)
+    @objc public static func wisdom_color(hex: String, alpha: CGFloat=1) -> UIColor {
+        var color_hex = hex+"000000"
+        if hex.hasPrefix("0x") || hex.hasPrefix("0X") {
+            color_hex.removeFirst()
+            color_hex.removeFirst()
+        }else if hex.hasPrefix("#") {
+            color_hex.removeFirst()
+        }
+
+        let start = color_hex.startIndex
+        let end = color_hex.index(start, offsetBy: 6)
+        color_hex = String(color_hex[start ..< end])
+        
+        let scanner = Scanner(string: color_hex)
         scanner.scanLocation = 0
             
         var rgbValue: UInt64 = 0
@@ -168,4 +180,3 @@ extension UIColor {
         return UIColor(red:CGFloat(r)/0xff, green:CGFloat(g)/0xff, blue:CGFloat(b)/0xff, alpha:alpha)
     }
 }
-

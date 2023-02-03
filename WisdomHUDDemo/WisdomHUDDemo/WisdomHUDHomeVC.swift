@@ -17,7 +17,7 @@ class WisdomHUDHomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = UIColor.wisdom_colorHex(hex: "F4F4F4")
+        view.backgroundColor = UIColor.wisdom_color(hex: "F4F4F4")
         
         //WisdomHUD.setCoverBackgColor(backgColor: .clear)
         
@@ -55,7 +55,7 @@ class WisdomHUDHomeVC: UIViewController {
             switch barStyle {
             case .dark:  view.backgroundColor = UIColor.white
             case .light: view.backgroundColor = UIColor.black
-            case .hide:  view.backgroundColor = UIColor.wisdom_colorHex(hex: "F8F8FF")
+            case .hide:  view.backgroundColor = UIColor.wisdom_color(hex: "F8F8FF")
             }
         }
     }

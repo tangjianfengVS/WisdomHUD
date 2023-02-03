@@ -513,7 +513,7 @@ final class WisdomHUDLogView: UIView {
         let shapeLayer = CAShapeLayer()
         self.shapeLayer=shapeLayer
         shapeLayer.fillColor = UIColor(white: 0, alpha: 0.8).cgColor
-        shapeLayer.strokeColor = UIColor.wisdom_colorHex(hex: "F5F5F5").cgColor
+        shapeLayer.strokeColor = UIColor.wisdom_color(hex: "F5F5F5").cgColor
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.lineWidth = 1.2
         shapeLayer.strokeEnd = 1.0
@@ -548,7 +548,7 @@ final class WisdomHUDLogView: UIView {
         let shapeLayer = CAShapeLayer()
         self.shapeLayer=shapeLayer
         shapeLayer.fillColor = UIColor(white: 0, alpha: 0.8).cgColor
-        shapeLayer.strokeColor = UIColor.wisdom_colorHex(hex: "F5F5F5").cgColor
+        shapeLayer.strokeColor = UIColor.wisdom_color(hex: "F5F5F5").cgColor
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.lineWidth = 1.2
         shapeLayer.strokeEnd = 1.0
@@ -581,7 +581,7 @@ final class WisdomHUDLogView: UIView {
         let shapeLayer = CAShapeLayer()
         self.shapeLayer=shapeLayer
         shapeLayer.fillColor = UIColor(white: 0, alpha: 0.8).cgColor
-        shapeLayer.strokeColor = UIColor.wisdom_colorHex(hex: "F5F5F5").cgColor
+        shapeLayer.strokeColor = UIColor.wisdom_color(hex: "F5F5F5").cgColor
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.lineWidth = 1.2
         shapeLayer.strokeEnd = 1.0

@@ -30,9 +30,9 @@ extension WisdomColorThemeStyle {
             layerColor = .gray
         case .dark:
             hudColor = UIColor(white: 0, alpha: 0.9)
-            titleColor = .wisdom_colorHex(hex: "C0C0C0")
-            textColor = .wisdom_colorHex(hex: "C0C0C0")
-            tailColor = .wisdom_colorHex(hex: "C0C0C0")
+            titleColor = .wisdom_color(hex: "C0C0C0")
+            textColor = .wisdom_color(hex: "C0C0C0")
+            tailColor = .wisdom_color(hex: "C0C0C0")
             lineColor = UIColor(white: 0.18, alpha: 1)
         }
         return (hudColor,titleColor,textColor,tailColor,layerColor,lineColor)
