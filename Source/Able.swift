@@ -16,6 +16,8 @@ public protocol WisdomHUDSettingable {
     
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle)
     
+    static func setTextMaxLines(maxLine: WisdomTextMaxLineStyle)
+    
     static func setDisplayDelay(delayTime: CGFloat)
     
     static func setCoverBackgColor(backgColor: UIColor) 

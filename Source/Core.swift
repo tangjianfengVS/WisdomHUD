@@ -17,6 +17,8 @@ struct WisdomHUDCore {
     fileprivate static var WisdomSceneBarStyle: WisdomSceneBarStyle = .dark
     
     fileprivate static var WisdomColorThemeStyle: WisdomColorThemeStyle = .light
+    
+    fileprivate(set) static var WisdomTextMaxLineStyle: WisdomTextMaxLineStyle = .three
 
     fileprivate static var WisdomDisplayDelays: TimeInterval = 2.2
     
@@ -40,6 +42,10 @@ extension WisdomHUDCore: WisdomHUDSettingable {
     
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
         WisdomSceneBarStyle = sceneBarStyle
+    }
+    
+    static func setTextMaxLines(maxLine: WisdomTextMaxLineStyle) {
+        WisdomTextMaxLineStyle = maxLine
     }
     
     static func setDisplayDelay(delayTime: CGFloat) {

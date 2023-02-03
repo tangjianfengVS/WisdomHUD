@@ -65,7 +65,7 @@ final class WisdomHUDSceneView: UIView {
     private lazy var textLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.textColor = UIColor.white
-        $0.numberOfLines = 3
+        $0.numberOfLines = WisdomHUDCore.WisdomTextMaxLineStyle.rawValue
         $0.textAlignment = .center
         var maxWidth = (UIScreen.main.bounds.width > UIScreen.main.bounds.height ? UIScreen.main.bounds.height : UIScreen.main.bounds.width)*0.65
         if maxWidth > 420 {

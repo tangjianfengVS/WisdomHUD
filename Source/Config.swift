@@ -67,3 +67,12 @@ public enum WisdomHUDStyle: CaseIterable {
     case left=0
     case right
 }
+
+
+/* HUD Text Max Line Style */
+@objc public enum WisdomTextMaxLineStyle: NSInteger, CaseIterable{
+    case one=1
+    case two
+    case three
+    case four
+}

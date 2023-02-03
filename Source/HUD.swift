@@ -32,6 +32,11 @@ extension WisdomHUD: WisdomHUDSettingable {
         WisdomHUDCore.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
     }
     
+    // MARK: HUD Set Text MaxLines
+    @objc public static func setTextMaxLines(maxLine: WisdomTextMaxLineStyle) {
+        WisdomHUDCore.setTextMaxLines(maxLine: maxLine)
+    }
+    
     // MARK: HUD Set Display Delay
     @objc public static func setDisplayDelay(delayTime: CGFloat) {
         WisdomHUDCore.setDisplayDelay(delayTime: delayTime)
