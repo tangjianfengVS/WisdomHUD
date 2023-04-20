@@ -454,4 +454,9 @@ extension WisdomHUD: WisdomHUDLogable {
     @objc public static func showLogError(text: String) {
         WisdomHUDCore.showLogError(text: text)
     }
+    
+    // MARK: Debug Show Log Label with: String
+    @objc public static func showLogLabel(text: String) {
+        WisdomHUDCore.showLogLabel(text: text)
+    }
 }

@@ -739,4 +739,8 @@ extension WisdomHUDCore {
     static func showLogError(text: String) {
         WisdomHUDLogView.setLog(text: "🚫"+text+"🚫")
     }
+    
+    static func showLogLabel(text: String) {
+        WisdomHUDLogView.setLog(text: "🌟"+text+"🌟")
+    }
 }
