@@ -14,9 +14,9 @@ final class WisdomHUDLogView: UIView {
     
     static var isOpen = false
     
-    private let itemWidth: CGFloat = 20
-    private let maxSize = CGSize(width: 414.0, height: 896.0-20.0)
-    private let hangHeight: CGFloat = 22
+    private let itemWidth: CGFloat = 24.0
+    private lazy var maxSize = CGSize(width: 414.0, height: 896.0-itemWidth)
+    private lazy var hangHeight: CGFloat = itemWidth+1
     private lazy var hang_Btn_Width = hangHeight*3.5
     
     private func getHeight(baseHeight: CGFloat)->CGFloat{
@@ -33,8 +33,8 @@ final class WisdomHUDLogView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "【Initialize】"
-        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.text = "【Initialize: last on top】"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .white
         return label
     }()
@@ -49,10 +49,11 @@ final class WisdomHUDLogView: UIView {
         button.layer.borderWidth=1
         
         let path = UIBezierPath()
-        path.move(to: CGPoint(x: itemWidth/3, y: itemWidth/3))
-        path.addLine(to: CGPoint(x: itemWidth/3*2, y: itemWidth/3*2))
-        path.move(to: CGPoint(x: itemWidth/3, y: itemWidth/3*2))
-        path.addLine(to: CGPoint(x: itemWidth/3*2, y: itemWidth/3))
+        let spacing = itemWidth/3.8
+        path.move(to: CGPoint(x: spacing, y: spacing))
+        path.addLine(to: CGPoint(x: itemWidth-spacing, y: itemWidth-spacing))
+        path.move(to: CGPoint(x: spacing, y: itemWidth-spacing))
+        path.addLine(to: CGPoint(x: itemWidth-spacing, y: spacing))
 
         let circle = CAShapeLayer()
         circle.fillColor = UIColor.clear.cgColor
@@ -68,7 +69,7 @@ final class WisdomHUDLogView: UIView {
     private lazy var sizeBtn: UIButton = {
         let button = UIButton()
         button.backgroundColor = closeBtn.backgroundColor
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 9)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         button.setTitle("size", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(clickSizeBtn(btn:)), for: .touchUpInside)
@@ -247,7 +248,7 @@ final class WisdomHUDLogView: UIView {
         button.backgroundColor = .clear
         button.setTitle("WisdomHUD", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 9)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
         button.addTarget(self, action: #selector(clickHangBtn), for: .touchUpInside)
         return button
     }()
@@ -278,7 +279,7 @@ final class WisdomHUDLogView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(white: 0, alpha: 0.5)
+        backgroundColor = UIColor(white: 0, alpha: 0.88)
         translatesAutoresizingMaskIntoConstraints = false
         coverView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -425,7 +426,7 @@ final class WisdomHUDLogView: UIView {
         
         textLabel.numberOfLines = 0
         textLabel.textColor = UIColor.white
-        textLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+        textLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         textLabel.textAlignment = .left
 
         updateContent()
@@ -446,7 +447,7 @@ final class WisdomHUDLogView: UIView {
         
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 5
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12, weight: .regular),
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .regular),
                           NSAttributedString.Key.foregroundColor: UIColor.white,
                           NSAttributedString.Key.paragraphStyle: style]
         
@@ -474,7 +475,7 @@ final class WisdomHUDLogView: UIView {
     
     @objc private func clickBgColorBtn(btn: UIButton) {
         btn.isSelected = !btn.isSelected
-        backgroundColor = UIColor(white: 0, alpha: btn.isSelected ? 0.85:0.4)
+        backgroundColor = UIColor(white: 0, alpha: !btn.isSelected ? 0.88:0.45)
     }
     
     @objc private func clickBottomBtn(){
