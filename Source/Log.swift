@@ -594,7 +594,7 @@ final class WisdomHUDLogView: UIView {
         for item in subviews {
             item.isHidden=false
         }
-        backgroundColor = UIColor(white: 0, alpha: bgColorBtn.isSelected ? 0.85:0.4)
+        backgroundColor = UIColor(white: 0, alpha: !bgColorBtn.isSelected ? 0.88:0.45)
         hangBtn.transform = .identity
         hangBtn.isHidden=true
         coverView.isHidden=true
