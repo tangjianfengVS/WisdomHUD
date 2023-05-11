@@ -288,9 +288,11 @@ extension WisdomHUDCore: WisdomHUDLoadingable {
                 if let textColor = context.textColor {
                     _=context.setTextColor(color: textColor)
                 }
-                
                 if let textFont = context.textFont {
                     _=context.setTextFont(font: textFont)
+                }
+                if let text = context.updateText {
+                    _=context.setUpdateText(text: text)
                 }
             }
         }
@@ -346,7 +348,6 @@ extension WisdomHUDCore:  WisdomHUDProgreable {
                 if let textFont = context.textFont {
                     _=context.setTextFont(font: textFont)
                 }
-                
                 if let progreColor = context.progreColor {
                     _=context.setProgreColor(color: progreColor)
                 }
@@ -358,6 +359,9 @@ extension WisdomHUDCore:  WisdomHUDProgreable {
                 }
                 if let progreShadowColor = context.progreShadowColor {
                     _=context.setProgreShadowColor(color: progreShadowColor)
+                }
+                if let text = context.updateText {
+                    _=context.setUpdateText(text: text)
                 }
             }
         }
@@ -410,13 +414,14 @@ extension WisdomHUDCore: WisdomHUDSuccessable {
                 if context.focusing {
                     _=context.setFocusing()
                 }
-                
                 if let textColor = context.textColor {
                     _=context.setTextColor(color: textColor)
                 }
-                
                 if let textFont = context.textFont {
                     _=context.setTextFont(font: textFont)
+                }
+                if let text = context.updateText {
+                    _=context.setUpdateText(text: text)
                 }
             }
         }
@@ -469,13 +474,14 @@ extension WisdomHUDCore: WisdomHUDErrorable {
                 if context.focusing {
                     _=context.setFocusing()
                 }
-                
                 if let textColor = context.textColor {
                     _=context.setTextColor(color: textColor)
                 }
-                
                 if let textFont = context.textFont {
                     _=context.setTextFont(font: textFont)
+                }
+                if let text = context.updateText {
+                    _=context.setUpdateText(text: text)
                 }
             }
         }
@@ -528,13 +534,14 @@ extension WisdomHUDCore: WisdomHUDWarningable {
                 if context.focusing {
                     _=context.setFocusing()
                 }
-                
                 if let textColor = context.textColor {
                     _=context.setTextColor(color: textColor)
                 }
-                
                 if let textFont = context.textFont {
                     _=context.setTextFont(font: textFont)
+                }
+                if let text = context.updateText {
+                    _=context.setUpdateText(text: text)
                 }
             }
         }
@@ -587,13 +594,14 @@ extension WisdomHUDCore: WisdomHUDTextCenterable {
                 if context.focusing {
                     _=context.setFocusing()
                 }
-                
                 if let textColor = context.textColor {
                     _=context.setTextColor(color: textColor)
                 }
-                
                 if let textFont = context.textFont {
                     _=context.setTextFont(font: textFont)
+                }
+                if let text = context.updateText {
+                    _=context.setUpdateText(text: text)
                 }
             }
         }
@@ -646,13 +654,14 @@ extension WisdomHUDCore: WisdomHUDTextBottomable {
                 if context.focusing {
                     _=context.setFocusing()
                 }
-                
                 if let textColor = context.textColor {
                     _=context.setTextColor(color: textColor)
                 }
-                
                 if let textFont = context.textFont {
                     _=context.setTextFont(font: textFont)
+                }
+                if let text = context.updateText {
+                    _=context.setUpdateText(text: text)
                 }
             }
         }
@@ -741,6 +750,6 @@ extension WisdomHUDCore {
     }
     
     static func showLogLabel(text: String) {
-        WisdomHUDLogView.setLog(text: "🌟"+text+"🌟")
+        WisdomHUDLogView.setLog(text: "♥️"+text+"♥️")
     }
 }

@@ -96,6 +96,11 @@ extension WisdomHUDCoverView: WisdomHUDBaseContextable {
         _=sceneView?.setTextColor(color: color)
         return self
     }
+    
+    func setUpdateText(text: String)->Self {
+        _=sceneView?.setUpdateText(text: text)
+        return self
+    }
 }
 
 extension WisdomHUDCoverView: WisdomHUDProgreContextable {

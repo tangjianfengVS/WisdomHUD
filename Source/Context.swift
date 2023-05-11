@@ -15,6 +15,8 @@ class WisdomHUDBaseContext {
     private(set) var textFont: UIFont?
     
     private(set) var textColor: UIColor?
+    
+    private(set) var updateText: String?
 }
 
 final class WisdomHUDContext: WisdomHUDBaseContext {
@@ -81,6 +83,25 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
                 _=coverVI.setTextColor(color: color)
             }else {
                 self.textColor = color
+            }
+        }
+        return self
+    }
+    
+    // MARK: Set HUD CoverView Update Text
+    func setUpdateText(text: String) -> Self {
+        if Thread.isMainThread {
+            doUpdateText()
+        }else {
+            DispatchQueue.main.async { doUpdateText() }
+        }
+        
+        func doUpdateText(){
+            if let coverVI = coverView as? WisdomHUDCoverView {
+                self.updateText = nil
+                _=coverVI.setUpdateText(text: text)
+            }else {
+                self.updateText = text
             }
         }
         return self

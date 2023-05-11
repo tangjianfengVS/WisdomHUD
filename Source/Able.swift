@@ -251,6 +251,10 @@ public protocol WisdomHUDLogable {
     // Set the Context text color
     @discardableResult
     @objc func setTextColor(color: UIColor)->Self
+    
+    // Set the Context text new
+    @discardableResult
+    @objc func setUpdateText(text: String)->Self
 }
 
 @objc public protocol WisdomHUDContextable: WisdomHUDBaseContextable {

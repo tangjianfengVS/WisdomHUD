@@ -392,6 +392,16 @@ extension WisdomHUDSceneView: WisdomHUDLoadingContextable {
         }
         return self
     }
+    
+    func setUpdateText(text: String)->Self {
+        textLabel.text = text
+        if hudStyle == .text {
+            set_textContentSize()
+        }else {
+            set_imageContentSize()
+        }
+        return self
+    }
 }
 
 extension WisdomHUDSceneView: WisdomHUDProgreContextable {
