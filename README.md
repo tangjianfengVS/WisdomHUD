@@ -44,14 +44,15 @@ https://github.com/tangjianfengVS/WisdomHUD.git
   `WisdomHUD` 支持动画控件视图自定义。
 
 
-![image](https://github.com/tangjianfengVS/WisdomHUD/blob/master/IMG/IMG_HUD.png)
+# WisdomHUD
+   ![image](https://github.com/tangjianfengVS/WisdomHUD/blob/master/IMG/IMG_HUD.png)
 
 
 # WisdomHUD
 (1)：`WisdomHUD`的 所有样式支持：
 
-   /* HUD Style */
-   public enum WisdomHUDStyle: CaseIterable {
+    /* HUD Style */
+    public enum WisdomHUDStyle: CaseIterable {
 
       case succes   // image + text
     
@@ -64,7 +65,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
       case progress // image + text
     
       case text     // text
-   }
+    }
 
 (2)：`WisdomHUD`的 Loading 加载样式支持：
 
