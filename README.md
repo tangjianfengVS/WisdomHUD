@@ -182,111 +182,71 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 (10)：`WisdomHUD`的 使用案例：
 
     let style: WisdomHUDStyle = WisdomHUDStyle.allCases[indexPath.section]
-    
     switch style {
-    
     case .succes:  // 成功样式：延迟时间设置
     
         WisdomHUD.showSuccess(text: "加载成功", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
-        
             print("3秒显示结束")
-                
-        }
-            
+        } 
     case .error:  // 失败样式：延迟时间设置/指定视图添加/设置聚焦/设置文字颜色和大小
     
         WisdomHUD.showError(text: "加载失败", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
-                
             print("3秒显示结束")
-                
         }.setFocusing().setTextColor(color: .red).setTextFont(font: UIFont.boldSystemFont(ofSize: 14))
-            
+        
     case .warning: // 警告样式：延迟时间设置/指定视图添加/设置聚焦
     
         WisdomHUD.showWarning(text: "加载警告", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
-        
             print("3秒显示结束")
-            
         }.setFocusing()
-            
     case .loading: // 加载样式：异步加载/超时时间设置
     
         if let loadingStyle = WisdomLoadingStyle(rawValue: indexPath.row) {
-        
             DispatchQueue.global().async {
                     
                 WisdomHUD.showLoading(text: "正在加载中",
-                
                                       loadingStyle: loadingStyle,
-                                      
                                       barStyle: sceneBarStyle).setTimeout(time: 8) { _ in
                         
                     WisdomHUD.showTextBottom(text: "加载超时，稍后重试",
-                    
                                                  barStyle: sceneBarStyle,
-                                                 
                                                  delays: 5, delayClosure: nil).setFocusing()
-                        
                 }
-                    
             }
-    
         }
-        
     case .text: // 文字样式
     
         switch WisdomTextPlaceStyle.allCases[indexPath.row] {
-        
         case .center: // 中心文字样式：延迟时间设置/指定视图添加/设置聚焦/设置文字颜色和大小
         
             WisdomHUD.showTextCenter(text: "inSupView 添加失败，请稍后重试", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
-            
                 print("3秒显示结束")
-                
             }.setFocusing().setTextColor(color: .blue).setTextFont(font: UIFont.boldSystemFont(ofSize: 14))
                 
         case .bottom: // 底部文字样式：延迟时间设置/指定视图添加/设置聚焦
         
             WisdomHUD.showTextBottom(text: "inSupView 添加失败，请稍后重试,添加失败，请稍后重试,添加失败，请稍后重试,添加失败，请稍后重试",
-            
                                      barStyle: sceneBarStyle,
-                                         
                                      inSupView: view,
-                                     
-                                     delays: 3) { interval in
-                                     
+                                     delays: 3) { interval in     
                 print("3秒显示结束")
-                
             }.setFocusing()
-                
         default: break
-        
         }
-        
     case .progress: // 进度样式：设置进度颜色/设置进度文字颜色/设置进度值/完成移除
     
         let contextable = WisdomHUD.showProgress(text: "上传文件").setProgressColor(color: .systemPink).setProgressTextColor(color: .systemPink)
-        
         let list: [UInt] = [1,2,3,4,5,6,7,8,9,10]
-        
         for item in list {
-        
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+TimeInterval(item)) {
             
                 contextable.setProgressValue(value: item*10)
                 
                 if item*10 >= 100 {
-                        
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5) {
-                    
                         WisdomHUD.dismiss()
-                        
                     }
-                    
                 }
-                
             }
-            
         }
-        
     }
