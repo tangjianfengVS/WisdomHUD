@@ -17,6 +17,8 @@ class WisdomHUDBaseContext {
     private(set) var textColor: UIColor?
     
     private(set) var updateText: String?
+    
+    private(set) var animationVI: UIView?
 }
 
 final class WisdomHUDContext: WisdomHUDBaseContext {
@@ -102,6 +104,28 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
                 _=coverVI.setUpdateText(text: text)
             }else {
                 self.updateText = text
+            }
+        }
+        return self
+    }
+    
+    // MARK: Set HUD CoverView Update Animation View
+    func setAnimation(view: UIView)->Self {
+        if Thread.isMainThread{
+            doAnimation()
+        }else {
+            DispatchQueue.main.async { doAnimation() }
+        }
+        
+        func doAnimation(){
+            animationVI = nil
+            if view.superview != nil {
+                print("[WisdomHUD] setAnimation: setting error = view can't has superview, setting fail")
+                assert(view.superview == nil, "setAnimation view.superview = \(view.superview!) view can't has superview, setting fail")
+            }else if let coverVI = coverView as? WisdomHUDCoverView, coverVI.sceneView?.hudStyle != .text {
+                _=coverVI.setAnimation(view: view)
+            }else {
+                animationVI = view
             }
         }
         return self

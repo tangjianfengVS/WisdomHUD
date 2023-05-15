@@ -294,6 +294,9 @@ extension WisdomHUDCore: WisdomHUDLoadingable {
                 if let text = context.updateText {
                     _=context.setUpdateText(text: text)
                 }
+                if let view = context.animationVI {
+                    _=context.setAnimation(view: view)
+                }
             }
         }
         return context
@@ -363,6 +366,9 @@ extension WisdomHUDCore:  WisdomHUDProgreable {
                 if let text = context.updateText {
                     _=context.setUpdateText(text: text)
                 }
+                if let view = context.animationVI {
+                    _=context.setAnimation(view: view)
+                }
             }
         }
         return context
@@ -422,6 +428,9 @@ extension WisdomHUDCore: WisdomHUDSuccessable {
                 }
                 if let text = context.updateText {
                     _=context.setUpdateText(text: text)
+                }
+                if let view = context.animationVI {
+                    _=context.setAnimation(view: view)
                 }
             }
         }
@@ -483,6 +492,9 @@ extension WisdomHUDCore: WisdomHUDErrorable {
                 if let text = context.updateText {
                     _=context.setUpdateText(text: text)
                 }
+                if let view = context.animationVI {
+                    _=context.setAnimation(view: view)
+                }
             }
         }
         return context
@@ -542,6 +554,9 @@ extension WisdomHUDCore: WisdomHUDWarningable {
                 }
                 if let text = context.updateText {
                     _=context.setUpdateText(text: text)
+                }
+                if let view = context.animationVI {
+                    _=context.setAnimation(view: view)
                 }
             }
         }

@@ -255,6 +255,11 @@ public protocol WisdomHUDLogable {
     // Set the Context text new
     @discardableResult
     @objc func setUpdateText(text: String)->Self
+    
+    // Set the Context Animation view
+    // * view: can't has superview, setting fail
+    @discardableResult
+    @objc func setAnimation(view: UIView)->Self
 }
 
 @objc public protocol WisdomHUDContextable: WisdomHUDBaseContextable {

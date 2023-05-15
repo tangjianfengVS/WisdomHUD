@@ -101,6 +101,12 @@ extension WisdomHUDCoverView: WisdomHUDBaseContextable {
         _=sceneView?.setUpdateText(text: text)
         return self
     }
+    
+    func setAnimation(view: UIView)->Self {
+        isSetting = true
+        _=sceneView?.setAnimation(view: view)
+        return self
+    }
 }
 
 extension WisdomHUDCoverView: WisdomHUDProgreContextable {

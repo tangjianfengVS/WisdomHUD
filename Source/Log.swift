@@ -279,7 +279,7 @@ final class WisdomHUDLogView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(white: 0, alpha: 0.88)
+        backgroundColor = UIColor(white: 0, alpha: 0.85)
         translatesAutoresizingMaskIntoConstraints = false
         coverView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -475,7 +475,7 @@ final class WisdomHUDLogView: UIView {
     
     @objc private func clickBgColorBtn(btn: UIButton) {
         btn.isSelected = !btn.isSelected
-        backgroundColor = UIColor(white: 0, alpha: !btn.isSelected ? 0.88:0.45)
+        backgroundColor = UIColor(white: 0, alpha: !btn.isSelected ? 0.85:0.45)
     }
     
     @objc private func clickBottomBtn(){
@@ -594,7 +594,7 @@ final class WisdomHUDLogView: UIView {
         for item in subviews {
             item.isHidden=false
         }
-        backgroundColor = UIColor(white: 0, alpha: !bgColorBtn.isSelected ? 0.88:0.45)
+        backgroundColor = UIColor(white: 0, alpha: !bgColorBtn.isSelected ? 0.85:0.45)
         hangBtn.transform = .identity
         hangBtn.isHidden=true
         coverView.isHidden=true

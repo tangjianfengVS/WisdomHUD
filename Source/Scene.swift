@@ -402,6 +402,43 @@ extension WisdomHUDSceneView: WisdomHUDLoadingContextable {
         }
         return self
     }
+    
+    func setAnimation(view: UIView)->Self {
+        if hudStyle == .text {
+            return self
+        }
+        imageView.removeFromSuperview()
+        imageView.isHidden=true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(view)
+        
+        view.wisdom_addConstraint(width: content.icon_Size, height: content.icon_Size)
+
+        if (textLabel.text ?? "").isEmpty {
+            wisdom_addConstraint(toCenterX: view, toCenterY: view)
+        }else {
+            // iconView layout
+            wisdom_addConstraint(toCenterX: view, toCenterY: nil)
+
+            addConstraint(NSLayoutConstraint(item: view,
+                                             attribute: .top,
+                                             relatedBy: .equal,
+                                             toItem: self,
+                                             attribute: .top,
+                                             multiplier: 1.0,
+                                             constant: content.top_icon_space))
+            
+            addConstraint(NSLayoutConstraint(item: textLabel,
+                                             attribute: .top,
+                                             relatedBy: .equal,
+                                             toItem: view,
+                                             attribute:.bottom,
+                                             multiplier: 1.0,
+                                             constant: content.top_text_space))
+            set_imageContentSize()
+        }
+        return self
+    }
 }
 
 extension WisdomHUDSceneView: WisdomHUDProgreContextable {
