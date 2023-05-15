@@ -250,3 +250,8 @@ https://github.com/tangjianfengVS/WisdomHUD.git
             }
         }
     }
+
+# WisdomHUD
+    如果您热衷于iOS/swift开发，是一位热爱学习进步的童鞋，欢迎来一起研究/讨论 开发中遇到的问题。联系QQ：497609288 。 请给予我支持，我会继续我的创作。
+
+    The above is the introduction of the core functions of SDK routing, finished If you are keen on iOS/swift development, you are a child who loves learning and progress, welcome to study/discuss the problems encountered in the development together. Contact QQ: 497609288. Please give me your support and I will continue my creation.
