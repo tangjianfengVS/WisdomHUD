@@ -69,61 +69,57 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 
 (2)：`WisdomHUD`的 Loading 加载样式支持：
 
-/* HUD Loading Style */
+    /* HUD Loading Style */
+    @objc public enum WisdomLoadingStyle: NSInteger, CaseIterable {
 
-@objc public enum WisdomLoadingStyle: NSInteger, CaseIterable {
-
-    case system=0     // 系统菊花
+      case system=0     // 系统菊花
     
-    case rotate       // 经典旋圈
+      case rotate       // 经典旋圈
     
-    case progressArc  // 缩进弧
+      case progressArc  // 缩进弧
     
-    case tadpoleArc   // 蝌蚪弧
+      case tadpoleArc   // 蝌蚪弧
     
-    case chaseBall    // 追逐球
+      case chaseBall    // 追逐球
     
-    case pulseBall    // 脉冲球
+      case pulseBall    // 脉冲球
     
-    case pulseShape   // 脉冲形状
-    
-}
+      case pulseShape   // 脉冲形状
+    }
 
 (3)：`WisdomHUD`的 Progress 加载样式支持：
 
-/* HUD Progress Style */
+    /* HUD Progress Style */
+    @objc public enum WisdomProgressStyle: NSInteger, CaseIterable {
 
-@objc public enum WisdomProgressStyle: NSInteger, CaseIterable {
-
-    case circle=0  // 中心圆
-    
-}
+      case circle=0  // 中心圆
+      
+      case linear    // 线型
+      
+      case water     // 水球
+    }
 
 (4)：`WisdomHUD`的 BarStyle 背景样式支持：
 
-/* HUD Scene Bar Style */
+    /* HUD Scene Bar Style */
+    @objc public enum WisdomSceneBarStyle: NSInteger, CaseIterable {
 
-@objc public enum WisdomSceneBarStyle: NSInteger, CaseIterable {
-
-    case dark=0    // 黑色
+      case dark=0    // 黑色
     
-    case light     // 白色
+      case light     // 白色
     
-    case hide      // 隐藏
-    
-}
+      case hide      // 隐藏
+    }
 
 (5)：`WisdomHUD`的 TextPlace 位置样式支持：
 
-/* HUD Text Place Style */
+    /* HUD Text Place Style */
+    @objc public enum WisdomTextPlaceStyle: NSInteger, CaseIterable {
 
-@objc public enum WisdomTextPlaceStyle: NSInteger, CaseIterable {
-
-    case center=0  // 中心
+      case center=0  // 中心
     
-    case bottom    // 底部
-    
-}
+      case bottom    // 底部
+    }
 
 (6)：`WisdomHUD`的 Context Info 信息调整：
 
