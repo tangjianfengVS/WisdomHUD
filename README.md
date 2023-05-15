@@ -123,82 +123,61 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 
 (6)：`WisdomHUD`的 Context Info 信息调整：
 
-/* HUD Text Context Set Info */
-
-@objc public protocol WisdomHUDBaseContextable {
+    /* HUD Text Context Set Info */
+    @objc public protocol WisdomHUDBaseContextable {
     
-    // 文字大小调整
+      // 文字大小调整
+      @discardableResult
+      @objc func setTextFont(font: UIFont)->Self
     
-    @discardableResult
+      // 文字颜色调整
+      @discardableResult
+      @objc func setTextColor(color: UIColor)->Self
     
-    @objc func setTextFont(font: UIFont)->Self
+      // 文字内容更新
+      @discardableResult
+      @objc func setUpdateText(text: String)->Self
     
-    // 文字颜色调整
-    
-    @discardableResult
-    
-    @objc func setTextColor(color: UIColor)->Self
-    
-}
+      // 动画视图自定义
+      @discardableResult
+      @objc func setAnimation(view: UIView)->Self
+    }
 
 (7)：`WisdomHUD`的 Context Focusing 聚焦设置（去除遮盖视图，允许底部试图交互，Loading HUD不支持）：
 
-/* HUD Text Context Set Focusing */
-
-@objc public protocol WisdomHUDContextable: WisdomHUDBaseContextable {
+    /* HUD Text Context Set Focusing */
+    @objc public protocol WisdomHUDContextable: WisdomHUDBaseContextable {
     
-    @discardableResult
-    
-    @objc func setFocusing()->Self
-    
-}
+      @discardableResult
+      @objc func setFocusing()->Self
+    }
 
 (8)：`WisdomHUD`的 Loading Context Timeout 超时设置（超时时间到了 Loading HUD 回调结束，并自动移除）：
 
-/* HUD Text Context Set Loading Timeout */
-
-@objc public protocol WisdomHUDLoadingContextable: WisdomHUDBaseContextable {
+    /* HUD Text Context Set Loading Timeout */
+    @objc public protocol WisdomHUDLoadingContextable: WisdomHUDBaseContextable {
     
-    @discardableResult
-    
-    @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
-    
-}
+      @discardableResult
+      @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
+    }
 
 (9)：`WisdomHUD`的 全局属性设置：
 
-/* HUD Setting able */
-
-extension WisdomHUD: WisdomHUDSettingable {
+    /* HUD Setting able */
+    extension WisdomHUD: WisdomHUDSettingable {
     
-    // MARK: HUD Set Loading Style
+      // MARK: HUD Set Loading Style 加载样式
+      @objc public static func setLoadingStyle(loadingStyle: WisdomLoadingStyle)
     
-    @objc public static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
+      // MARK: HUD Set Scene Bar Style bar颜色
+      @objc public static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle)
     
-        WisdomHUDOperate.setLoadingStyle(loadingStyle: loadingStyle)
+      // MARK: HUD Set Display Delay 显示时长
+      @objc public static func setDisplayDelay(delayTime: CGFloat)
+    
+      // MARK: HUD Set Cover BackgColor 背景颜色
+      @objc public static func setCoverBackgColor(backgColor: UIColor)
     }
-    
-    // MARK: HUD Set Scene Bar Style
-    
-    @objc public static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
-    
-        WisdomHUDOperate.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
-    }
-    
-    // MARK: HUD Set Display Delay
-    
-    @objc public static func setDisplayDelay(delayTime: CGFloat) {
-    
-        WisdomHUDOperate.setDisplayDelay(delayTime: delayTime)
-    }
-    
-    // MARK: HUD Set Cover BackgColor
-    
-    @objc public static func setCoverBackgColor(backgColor: UIColor) {
-    
-        WisdomHUDOperate.setCoverBackgColor(backgColor: backgColor)
-    }
-}
 
 (10)：`WisdomHUD`的 使用案例：
 
