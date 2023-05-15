@@ -199,6 +199,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
         WisdomHUD.showWarning(text: "加载警告", barStyle: sceneBarStyle, inSupView: view, delays: 3) { interval in
             print("3秒显示结束")
         }.setFocusing()
+        
     case .loading: // 加载样式：异步加载/超时时间设置
     
         if let loadingStyle = WisdomLoadingStyle(rawValue: indexPath.row) {
@@ -231,6 +232,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
                                      delays: 3) { interval in     
                 print("3秒显示结束")
             }.setFocusing()
+            
         default: break
         }
     case .progress: // 进度样式：设置进度颜色/设置进度文字颜色/设置进度值/完成移除
