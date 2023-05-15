@@ -50,8 +50,8 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 # WisdomHUD
 (1)：`WisdomHUD`的 所有样式支持：
 
-  /* HUD Style */
-  public enum WisdomHUDStyle: CaseIterable {
+   /* HUD Style */
+   public enum WisdomHUDStyle: CaseIterable {
 
       case succes   // image + text
     
@@ -64,7 +64,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
       case progress // image + text
     
       case text     // text
-  }
+   }
 
 (2)：`WisdomHUD`的 Loading 加载样式支持：
 
