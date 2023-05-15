@@ -45,7 +45,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 
 
 # WisdomHUD
-   ![image](https://github.com/tangjianfengVS/WisdomHUD/blob/master/IMG/IMG_HUD.png)
+   ![image](https://github.com/tangjianfengVS/WisdomHUD/blob/master/IMG/IMG_HUD.jpeg)
 
 
 # WisdomHUD
