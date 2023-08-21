@@ -1,9 +1,10 @@
 # WisdomHUD
-https://github.com/tangjianfengVS/WisdomHUD.git
 
-  'WisdomHUD' is a variety of styles of HUD pop-up indicator SDK.
+  git address：https://github.com/tangjianfengVS/WisdomHUD.git
 
-  'WisdomHUD' system minimum support iOS 9.0 version, written by Swift 5.0, compatible with OC class call use.
+  'WisdomHUD' Is a HUD frame indicator SDK that supports a variety of styles.
+
+  'WisdomHUD' The system supports at least iOS 9.0, Swift 5.5, 5.6, and 5.7, and is compatible with OC class calls.
 
   'WisdomHUD' supports dynamic adjustment of the internal properties of the global/single-point HUD, and supports the setting of the view focus display.
 
@@ -19,13 +20,16 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 
   `WisdomHUD` Support control multiple attributes (text size/text color/text content) dynamic update.
 
-  `WisdomHUD` Support animation control view customization.
+  `WisdomHUD` Support HUD center animation control view Settings, custom replacement.
+  
+  `WisdomHUD` You can view log information and print it out on a unique interface。
 
 
 # WisdomHUD
-  `WisdomHUD` 是一款多种样式的 HUD 弹框指示器 SDK。
 
-  `WisdomHUD` 系统最低支持 iOS 9.0版本，由Swift 5.0 编写，兼容 OC 类调用使用。
+  `WisdomHUD` 是一款支持多种样式的 HUD 弹框指示器 SDK。
+
+  `WisdomHUD` 系统最低支持 iOS 9.0版本，支持 Swift 5.5，5.6，5.7 版本，兼容 OC 类调用使用。
 
   `WisdomHUD` 支持 全局/单点 HUD 内部属性动态 调整，支持视图 聚焦显示设置。
 
@@ -41,15 +45,23 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 
   `WisdomHUD` 支持控件多属性（文字大小/文字颜色/文字内容）动态更新。
 
-  `WisdomHUD` 支持动画控件视图自定义。
+  `WisdomHUD` 支持 HUD 中心动画控件视图设置，自定义替换。
+
+  `WisdomHUD` 支持输出日志信息查看，并在独有的界面打印显示。
+  
+  
+# WisdomHUD
+
+    cocoapods 集成：pod 'WisdomHUD', '0.3.5'
 
 
 # WisdomHUD
+
    ![image](https://github.com/tangjianfengVS/WisdomHUD/blob/master/IMG/IMG_HUD.jpeg)
 
 
 # WisdomHUD
-(1)：`WisdomHUD`的 所有样式支持：
+(1)：`WisdomHUD`的 所有样式支持 (Style support)：
 
     /* HUD Style */
     public enum WisdomHUDStyle: CaseIterable {
@@ -67,39 +79,39 @@ https://github.com/tangjianfengVS/WisdomHUD.git
       case text     // text
     }
 
-(2)：`WisdomHUD`的 Loading 加载样式支持：
+(2)：`WisdomHUD`的 Loading 加载样式支持 (Loading Style support)：
 
     /* HUD Loading Style */
     @objc public enum WisdomLoadingStyle: NSInteger, CaseIterable {
 
-      case system=0     // 系统菊花
+      case system=0     // 系统菊花 (System chrysanthemum)
     
-      case rotate       // 经典旋圈
+      case rotate       // 经典旋圈 (Classical rotation)
     
-      case progressArc  // 缩进弧
+      case progressArc  // 缩进弧   (Arc of retract)
     
-      case tadpoleArc   // 蝌蚪弧
+      case tadpoleArc   // 蝌蚪弧   (Tadpole arc)
     
-      case chaseBall    // 追逐球
+      case chaseBall    // 追逐球   (Chasing the ball)
     
-      case pulseBall    // 脉冲球
+      case pulseBall    // 脉冲球   (Pulse ball)
     
-      case pulseShape   // 脉冲形状
+      case pulseShape   // 脉冲形状  (Pulse shape)
     }
 
-(3)：`WisdomHUD`的 Progress 加载样式支持：
+(3)：`WisdomHUD`的 Progress 加载样式支持 (Progress Style support)：
 
     /* HUD Progress Style */
     @objc public enum WisdomProgressStyle: NSInteger, CaseIterable {
 
-      case circle=0  // 中心圆
+      case circle=0  // 中心圆  (Central circle)
       
-      case linear    // 线型
+      case linear    // 线型  (linetype)
       
-      case water     // 水球
+      case water     // 水球  (Water polo)
     }
 
-(4)：`WisdomHUD`的 BarStyle 背景样式支持：
+(4)：`WisdomHUD`的 BarStyle 背景样式支持 (Backdrop Style support)：
 
     /* HUD Scene Bar Style */
     @objc public enum WisdomSceneBarStyle: NSInteger, CaseIterable {
@@ -111,7 +123,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
       case hide      // 隐藏
     }
 
-(5)：`WisdomHUD`的 TextPlace 位置样式支持：
+(5)：`WisdomHUD`的 TextPlace 位置样式支持 (Position Style support)：
 
     /* HUD Text Place Style */
     @objc public enum WisdomTextPlaceStyle: NSInteger, CaseIterable {
@@ -121,30 +133,32 @@ https://github.com/tangjianfengVS/WisdomHUD.git
       case bottom    // 底部
     }
 
-(6)：`WisdomHUD`的 Context Info 信息调整：
+(6)：`WisdomHUD`的 Context Info 信息调整 (Information adjustment)：
 
     /* HUD Text Context Set Info */
     @objc public protocol WisdomHUDBaseContextable {
     
-      // 文字大小调整
+      // 文字大小调整 (Text resizing)
       @discardableResult
       @objc func setTextFont(font: UIFont)->Self
     
-      // 文字颜色调整
+      // 文字颜色调整 (Text color adjustment)
       @discardableResult
       @objc func setTextColor(color: UIColor)->Self
     
-      // 文字内容更新
+      // 文字内容更新 (Text content update)
       @discardableResult
       @objc func setUpdateText(text: String)->Self
     
-      // 动画视图自定义
+      // 动画视图自定义 (Animation view custom)
       @discardableResult
       @objc func setAnimation(view: UIView)->Self
     }
 
 (7)：`WisdomHUD`的 Context Focusing 聚焦设置（去除遮盖视图，允许底部试图交互，Loading HUD不支持）：
 
+    note：Focus setting (removes masking view, allows bottom attempt interaction, Loading HUD not supported)
+     
     /* HUD Text Context Set Focusing */
     @objc public protocol WisdomHUDContextable: WisdomHUDBaseContextable {
     
@@ -154,6 +168,8 @@ https://github.com/tangjianfengVS/WisdomHUD.git
 
 (8)：`WisdomHUD`的 Loading Context Timeout 超时设置（超时时间到了 Loading HUD 回调结束，并自动移除）：
 
+    note：Timeout setting (The timeout is automatically removed after the Loading HUD callback ends)
+
     /* HUD Text Context Set Loading Timeout */
     @objc public protocol WisdomHUDLoadingContextable: WisdomHUDBaseContextable {
     
@@ -161,7 +177,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
       @objc func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self
     }
 
-(9)：`WisdomHUD`的 全局属性设置：
+(9)：`WisdomHUD`的 全局属性设置 (Global property setting)：
 
     /* HUD Setting able */
     extension WisdomHUD: WisdomHUDSettingable {
@@ -179,7 +195,7 @@ https://github.com/tangjianfengVS/WisdomHUD.git
       @objc public static func setCoverBackgColor(backgColor: UIColor)
     }
 
-(10)：`WisdomHUD`的 使用案例：
+(10)：`WisdomHUD`的 弹框使用案例 (Pop-up use cases)：
 
     let style: WisdomHUDStyle = WisdomHUDStyle.allCases[indexPath.section]
     switch style {
@@ -252,9 +268,45 @@ https://github.com/tangjianfengVS/WisdomHUD.git
             }
         }
     }
+    
+(11)：`WisdomHUD`的 日志信息界面 打印使用 (Log information is printed and used on the interface)：
+
+    extension WisdomHUD: WisdomHUDLogable {
+    
+        // MARK: Debug Open Log 
+        @objc public static func openLog() 
+    
+        // MARK: Debug Show Log with: String
+        @objc public static func showLog(text: String)
+    
+        // MARK: Debug Show Log Success with: String ✅
+        @objc public static func showLogSuccess(text: String) 
+    
+        // MARK: Debug Show Log Warning with: String ⚠️
+        @objc public static func showLogWarning(text: String) 
+    
+        // MARK: Debug Show Log Error with: String 🚫
+        @objc public static func showLogError(text: String) 
+    
+        // MARK: Debug Show Log Label with: String ♥️
+        @objc public static func showLogLabel(text: String)
+    }
+
+    // Use case
+    WisdomHUD.openLog() // 需要展示信息日志界面，必须要提前设置 (You must set the information log page in advance before displaying it) 'WisdomHUD.openLog()'
+    
+    WisdomHUD.showLogSuccess(text: "Success")
+    
+    WisdomHUD.showLogWarning(text: "Warning")
+    
+    WisdomHUD.showLogError(text: "Error")
+    
+    WisdomHUD.showLogLabel(text: "Label")
+
 
 # WisdomHUD
-喜欢的朋友，觉得 SDK 写的还不错的朋友，请帮忙推荐给身边的小伙伴们，本人十分感谢！
+喜欢的朋友，觉得 SDK 写的还不错的朋友，请帮忙推荐给身边的小伙伴们，给颗星，十分感谢！
+Like friends, feel that the SDK writing is good friends, please help recommend to the small partners around, to the star, thank you very much!
 
 如果您热衷于iOS/swift开发，是一位热爱学习进步的童鞋，欢迎来一起研究/讨论 开发中遇到的问题。联系QQ：497609288。 请给予我支持，我会继续我的创作。
 If you are keen on iOS/swift development, you are a child who loves learning and progress, welcome to study/discuss the problems encountered in the development together. Contact QQ: 497609288. Please give me your support and I will continue my creation.
