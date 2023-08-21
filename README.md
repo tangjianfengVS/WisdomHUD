@@ -251,6 +251,8 @@
             
         default: break
         }
+        
+    // note：Progress style: Set progress color/Set progress text color/Set progress value/Complete removal
     case .progress: // 进度样式：设置进度颜色/设置进度文字颜色/设置进度值/完成移除
     
         let contextable = WisdomHUD.showProgress(text: "上传文件").setProgressColor(color: .systemPink).setProgressTextColor(color: .systemPink)
@@ -292,8 +294,9 @@
         @objc public static func showLogLabel(text: String)
     }
 
-    // Use case
-    WisdomHUD.openLog() // 需要展示信息日志界面，必须要提前设置 (You must set the information log page in advance before displaying it) 'WisdomHUD.openLog()'
+    // Use case 
+    // note：You must set the information log page in advance before displaying it 'WisdomHUD.openLog()'
+    WisdomHUD.openLog() // 需要展示信息日志界面，必须要提前设置 'WisdomHUD.openLog()'
     
     WisdomHUD.showLogSuccess(text: "Success")
     
