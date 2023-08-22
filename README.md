@@ -52,7 +52,11 @@
   
 # WisdomHUD
 
-    cocoapods 集成：pod 'WisdomHUD', '0.3.5'
+    1. address： https://github.com/tangjianfengVS/WisdomHUD
+
+    2. Swift Version Support： 5.5, 5.6, 5.7
+
+    3. cocoapods 集成：pod 'WisdomHUD', '0.3.5'
 
 
 # WisdomHUD
