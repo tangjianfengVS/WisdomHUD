@@ -1,4 +1,4 @@
-# WisdomHUD
+# WisdomHUD intro
 
   git address：https://github.com/tangjianfengVS/WisdomHUD.git
 
@@ -25,7 +25,7 @@
   `WisdomHUD` You can view log information and print it out on a unique interface。
 
 
-# WisdomHUD
+# WisdomHUD 简介
 
   `WisdomHUD` 是一款支持多种样式的 HUD 弹框指示器 SDK。
 
@@ -50,7 +50,7 @@
   `WisdomHUD` 支持输出日志信息查看，并在独有的界面打印显示。
   
   
-# WisdomHUD
+# Swift and Cocoapods
 
     1. address： https://github.com/tangjianfengVS/WisdomHUD
 
@@ -59,12 +59,12 @@
     3. cocoapods 集成：pod 'WisdomHUD', '0.3.5'
 
 
-# WisdomHUD
+# WisdomHUD Icom
 
    ![image](https://github.com/tangjianfengVS/WisdomHUD/blob/master/IMG/IMG_HUD.jpeg)
 
 
-# WisdomHUD
+# WisdomHUD how to ues
 (1)：`WisdomHUD`的 所有样式支持 (Style support)：
 
     /* HUD Style */
@@ -311,7 +311,7 @@
     WisdomHUD.showLogLabel(text: "Label")
 
 
-# WisdomHUD
+# WisdomHUD star
 喜欢的朋友，觉得 SDK 写的还不错的朋友，请帮忙推荐给身边的小伙伴们，给颗星，十分感谢！
 Like friends, feel that the SDK writing is good friends, please help recommend to the small partners around, to the star, thank you very much!
 
