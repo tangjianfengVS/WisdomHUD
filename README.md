@@ -1,53 +1,51 @@
 # WisdomHUD intro
 
-  git address：https://github.com/tangjianfengVS/WisdomHUD.git
+    1. 'WisdomHUD' Is a HUD frame indicator SDK that supports a variety of styles.
 
-  'WisdomHUD' Is a HUD frame indicator SDK that supports a variety of styles.
+    2. 'WisdomHUD' The system supports at least iOS 9.0, Swift 5.5, 5.6, and 5.7, and is compatible with OC class calls.
 
-  'WisdomHUD' The system supports at least iOS 9.0, Swift 5.5, 5.6, and 5.7, and is compatible with OC class calls.
+    3. 'WisdomHUD' supports dynamic adjustment of the internal properties of the global/single-point HUD, and supports the setting of the view focus display.
 
-  'WisdomHUD' supports dynamic adjustment of the internal properties of the global/single-point HUD, and supports the setting of the view focus display.
+    4. 'WisdomHUD' support timeout/delay time setting, support timeout/delay end event callback processing.
 
-  'WisdomHUD' support timeout/delay time setting, support timeout/delay end event callback processing.
+    5. 'WisdomHUD' supports multiple Loading/Progress load style, and succes/error/warning/text prompt style, allows you to set tip animation.
 
-  'WisdomHUD' supports multiple Loading/Progress load style, and succes/error/warning/text prompt style, allows you to set tip animation.
+    6. 'WisdomHUD' icon is realized by drawing, and icon cache is added to avoid the repetitive drawing task, which is also the only way for HUD SDK to achieve high performance.
 
-  'WisdomHUD' icon is realized by drawing, and icon cache is added to avoid the repetitive drawing task, which is also the only way for HUD SDK to achieve high performance.
+    7. 'WisdomHUD' if made into a static library use, because there is no resource file, do not need to consider the resource loading, to ensure security.
 
-  'WisdomHUD' if made into a static library use, because there is no resource file, do not need to consider the resource loading, to ensure security.
+    8. 'WisdomHUD' API call convenient/flexible, later will update iteration, recommended use.
 
-  'WisdomHUD' API call convenient/flexible, later will update iteration, recommended use.
+    9. `WisdomHUD` Support control multiple attributes (text size/text color/text content) dynamic update.
 
-  `WisdomHUD` Support control multiple attributes (text size/text color/text content) dynamic update.
-
-  `WisdomHUD` Support HUD center animation control view Settings, custom replacement.
+    10. `WisdomHUD` Support HUD center animation control view Settings, custom replacement.
   
-  `WisdomHUD` You can view log information and print it out on a unique interface。
+    11. `WisdomHUD` You can view log information and print it out on a unique interface。
 
 
 # WisdomHUD 简介
 
-  `WisdomHUD` 是一款支持多种样式的 HUD 弹框指示器 SDK。
+    1. `WisdomHUD` 是一款支持多种样式的 HUD 弹框指示器 SDK。
 
-  `WisdomHUD` 系统最低支持 iOS 9.0版本，支持 Swift 5.5，5.6，5.7 版本，兼容 OC 类调用使用。
+    2. `WisdomHUD` 系统最低支持 iOS 9.0版本，支持 Swift 5.5，5.6，5.7 版本，兼容 OC 类调用使用。
 
-  `WisdomHUD` 支持 全局/单点 HUD 内部属性动态 调整，支持视图 聚焦显示设置。
+    3. `WisdomHUD` 支持 全局/单点 HUD 内部属性动态 调整，支持视图 聚焦显示设置。
 
-  `WisdomHUD` 支持 超时/延迟 时间设置，支持 超时/延迟 结束事件回调处理。
+    4. `WisdomHUD` 支持 超时/延迟 时间设置，支持 超时/延迟 结束事件回调处理。
 
-  `WisdomHUD` 支持多种 Loading/Progress/Action 加载样式，和 succes/error/warning/text 提示样式，支持设置提示动画。
+    5. `WisdomHUD` 支持多种 Loading/Progress/Action 加载样式，和 succes/error/warning/text 提示样式，支持设置提示动画。
   
-  `WisdomHUD` 图标通过 绘制实现，且加入了 图标缓存，避让了重复绘制任务，也是 HUD SDK 高性能必经之路。
+    6. `WisdomHUD` 图标通过 绘制实现，且加入了 图标缓存，避让了重复绘制任务，也是 HUD SDK 高性能必经之路。
 
-  `WisdomHUD` 如果制作成静态库使用，因没有资源文件，不需要考虑资源加载，保证了安全。
+    7. `WisdomHUD` 如果制作成静态库使用，因没有资源文件，不需要考虑资源加载，保证了安全。
 
-  `WisdomHUD` API 调用方便/灵活，后期会更新迭代，推荐使用。
+    8. `WisdomHUD` API 调用方便/灵活，后期会更新迭代，推荐使用。
 
-  `WisdomHUD` 支持控件多属性（文字大小/文字颜色/文字内容）动态更新。
+    9. `WisdomHUD` 支持控件多属性（文字大小/文字颜色/文字内容）动态更新。
 
-  `WisdomHUD` 支持 HUD 中心动画控件视图设置，自定义替换。
+    10. `WisdomHUD` 支持 HUD 中心动画控件视图设置，自定义替换。
 
-  `WisdomHUD` 支持输出日志信息查看，并在独有的界面打印显示。
+    11. `WisdomHUD` 支持输出日志信息查看，并在独有的界面打印显示。
   
   
 # Swift and Cocoapods
