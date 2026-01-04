@@ -651,7 +651,7 @@ extension WisdomHUDLogView: UITableViewDelegate, UITableViewDataSource {
                 return WisdomHUDLogCell.cellRowHeight*2.0
             }else {
                 let height = WisdomHUDLogCell.getAttributedStrHeight(string: WisdomLogsList[indexPath.row])
-                return height + WisdomHUDLogCell.cellRowHeight*2.0 + 1.0
+                return height + WisdomHUDLogCell.cellRowHeight*2.0
             }
         }else {
             return WisdomHUDLogCell.cellRowHeight*2.0
@@ -705,7 +705,10 @@ class WisdomHUDLogCell: UITableViewCell {
                              leftView: self.contentView,
                              bottomView: self.contentView,
                              rightView: self.contentView,
-                             edgeInset: UIEdgeInsets(top: Self.cellRowHeight, left: 0, bottom: -Self.cellRowHeight, right: 0))
+                             edgeInset: UIEdgeInsets(top: Self.cellRowHeight,
+                                                     left: 0,
+                                                     bottom: -Self.cellRowHeight+1.0,
+                                                     right: 0))
 
         text_Label.backgroundColor = UIColor.clear
         text_Label.numberOfLines = 0
