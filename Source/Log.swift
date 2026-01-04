@@ -11,14 +11,15 @@ import UIKit
 #if DEBUG
 private var WisdomLogsView: WisdomHUDLogView?
 
-private var WisdomLogsList: [String] = ["[WisdomHUD] 日志打印已开启"]
+private var WisdomLogsList: [String] = [" [WisdomHUD] 日志已开启"]
 
 private var IsOpenWisdomLogs = false
 
 final class WisdomHUDLogView: UIView {
     
     private let itemWidth: CGFloat = 26.0
-    private lazy var maxSize = CGSize(width: 414.0, height: 896.0-itemWidth)
+    private lazy var maxSize = CGSize(width: UIScreen.main.bounds.width,
+                                      height: UIScreen.main.bounds.height-20*2)
     private lazy var hangHeight: CGFloat = itemWidth+4
     private lazy var hang_Btn_Width = hangHeight*3.7
     
@@ -27,7 +28,7 @@ final class WisdomHUDLogView: UIView {
     }
     
     private func getWidth()->CGFloat{
-        return UIScreen.main.bounds.width>maxSize.width ? maxSize.width:UIScreen.main.bounds.width
+        return UIScreen.main.bounds.width
     }
     
     let coverView = UIView()
@@ -73,7 +74,7 @@ final class WisdomHUDLogView: UIView {
         let button = UIButton()
         button.backgroundColor = closeBtn.backgroundColor
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-        button.setTitle("大/小", for: .normal)
+        button.setTitle("大小", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(clickSizeBtn(btn:)), for: .touchUpInside)
         button.layer.masksToBounds=true
@@ -418,8 +419,8 @@ final class WisdomHUDLogView: UIView {
                              rightView: nil,
                              edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 80.0
+        //tableView.rowHeight = UITableView.automaticDimension
+        ///tableView.estimatedRowHeight = 80.0
         tableView.register(WisdomHUDLogCell.self, forCellReuseIdentifier: "\(WisdomHUDLogCell.self)")
         tableView.delegate = self
         tableView.dataSource = self
@@ -475,7 +476,7 @@ final class WisdomHUDLogView: UIView {
         //    self?.removeFromSuperview()
         //    WisdomLogsView = nil
         //}
-        WisdomLogsList = ["[WisdomHUD] 日志打印已开启(历史日志已删除)"]
+        WisdomLogsList = [" [WisdomHUD] 日志已开启(历史日志已清空)"]
         tableView.reloadData()
     }
     
@@ -644,6 +645,19 @@ extension WisdomHUDLogView: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row < WisdomLogsList.count {
+            if WisdomLogsList[indexPath.row].isEmpty {
+                return WisdomHUDLogCell.cellRowHeight*2.0
+            }else {
+                let height = WisdomHUDLogCell.getAttributedStrHeight(string: WisdomLogsList[indexPath.row])
+                return height + WisdomHUDLogCell.cellRowHeight*2.0 + 1.0
+            }
+        }else {
+            return WisdomHUDLogCell.cellRowHeight*2.0
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
@@ -652,12 +666,14 @@ extension WisdomHUDLogView: UITableViewDelegate, UITableViewDataSource {
 
 class WisdomHUDLogCell: UITableViewCell {
     
+    static let cellRowHeight = 5.0
+    
     let text_Label = UILabel()
     
     fileprivate var textStr: String = " " {
         didSet {
             let style = NSMutableParagraphStyle()
-            style.lineSpacing = 5
+            style.lineSpacing = Self.cellRowHeight
             let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.7, weight: .regular),
                               NSAttributedString.Key.foregroundColor: UIColor.white,
                               NSAttributedString.Key.paragraphStyle: style]
@@ -679,8 +695,8 @@ class WisdomHUDLogCell: UITableViewCell {
         
         let vi = UIView()
         vi.backgroundColor = UIColor.clear
-        vi.layer.borderColor = UIColor.red.cgColor
-        vi.layer.borderWidth = 1
+        vi.layer.borderColor = UIColor.systemPink.cgColor
+        vi.layer.borderWidth = 1.2
         selectedBackgroundView = vi
         
         text_Label.translatesAutoresizingMaskIntoConstraints = false
@@ -688,12 +704,9 @@ class WisdomHUDLogCell: UITableViewCell {
                              topView: self.contentView,
                              leftView: self.contentView,
                              bottomView: self.contentView,
-                             rightView: nil,
-                             edgeInset: UIEdgeInsets(top: 3, left: 0, bottom: -3, right: 0))
-        
-        text_Label.wisdom_addConstraint(width: UIScreen.main.bounds.width, height: 0)
-        
-        text_Label.preferredMaxLayoutWidth = UIScreen.main.bounds.width
+                             rightView: self.contentView,
+                             edgeInset: UIEdgeInsets(top: Self.cellRowHeight, left: 0, bottom: -Self.cellRowHeight, right: 0))
+
         text_Label.backgroundColor = UIColor.clear
         text_Label.numberOfLines = 0
     }
@@ -704,6 +717,21 @@ class WisdomHUDLogCell: UITableViewCell {
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         
+    }
+    
+    static func getAttributedStrHeight(string: String) -> CGFloat {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = Self.cellRowHeight
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.7, weight: .regular),
+                          NSAttributedString.Key.foregroundColor: UIColor.white,
+                          NSAttributedString.Key.paragraphStyle: style]
+        let attributedStr = NSAttributedString(string: string, attributes: attributes)
+        
+        let maxSize = CGSize(width: UIScreen.main.bounds.width, height: CGFloat.greatestFiniteMagnitude)
+        let options: NSStringDrawingOptions = [.usesFontLeading, .usesLineFragmentOrigin]
+
+        let boundingRect = attributedStr.boundingRect(with: maxSize, options: options, context: nil)
+        return boundingRect.height
     }
 }
 
