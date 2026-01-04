@@ -8,16 +8,19 @@
 
 import UIKit
 
-private var logView: WisdomHUDLogView?
+#if DEBUG
+private var WisdomLogsView: WisdomHUDLogView?
+
+private var WisdomLogsList: [String] = ["[WisdomHUD] 日志打印已开启"]
+
+private var IsOpenWisdomLogs = false
 
 final class WisdomHUDLogView: UIView {
     
-    static var isOpen = false
-    
-    private let itemWidth: CGFloat = 24.0
+    private let itemWidth: CGFloat = 26.0
     private lazy var maxSize = CGSize(width: 414.0, height: 896.0-itemWidth)
-    private lazy var hangHeight: CGFloat = itemWidth+1
-    private lazy var hang_Btn_Width = hangHeight*3.5
+    private lazy var hangHeight: CGFloat = itemWidth+4
+    private lazy var hang_Btn_Width = hangHeight*3.7
     
     private func getHeight(baseHeight: CGFloat)->CGFloat{
         return baseHeight>maxSize.height ? maxSize.height:baseHeight
@@ -28,16 +31,16 @@ final class WisdomHUDLogView: UIView {
     }
     
     let coverView = UIView()
-    let scrollView = UIScrollView()
-    let textLabel = UILabel()
+    let tableView = UITableView(frame: .zero, style: .plain)
+    //let textLabel = UILabel()
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "【Initialize: last on top】"
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textColor = .white
-        return label
-    }()
+    //private let titleLabel: UILabel = {
+    //    let label = UILabel()
+    //    label.text = "【Initialize: last on top】"
+    //    label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+    //    label.textColor = .white
+    //    return label
+    //}()
     
     private lazy var closeBtn: UIButton = {
         let button = UIButton()
@@ -70,7 +73,7 @@ final class WisdomHUDLogView: UIView {
         let button = UIButton()
         button.backgroundColor = closeBtn.backgroundColor
         button.titleLabel?.font = UIFont.systemFont(ofSize: 11)
-        button.setTitle("size", for: .normal)
+        button.setTitle("大/小", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(clickSizeBtn(btn:)), for: .touchUpInside)
         button.layer.masksToBounds=true
@@ -84,7 +87,7 @@ final class WisdomHUDLogView: UIView {
         let button = UIButton()
         button.backgroundColor = closeBtn.backgroundColor
         button.titleLabel?.font = sizeBtn.titleLabel?.font
-        button.setTitle("bgc", for: .normal)
+        button.setTitle("透明", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(clickBgColorBtn(btn:)), for: .touchUpInside)
         button.layer.masksToBounds=true
@@ -248,7 +251,7 @@ final class WisdomHUDLogView: UIView {
         button.backgroundColor = .clear
         button.setTitle("WisdomHUD", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 10)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         button.addTarget(self, action: #selector(clickHangBtn), for: .touchUpInside)
         return button
     }()
@@ -282,9 +285,9 @@ final class WisdomHUDLogView: UIView {
         backgroundColor = UIColor(white: 0, alpha: 0.85)
         translatesAutoresizingMaskIntoConstraints = false
         coverView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        //titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        //textLabel.translatesAutoresizingMaskIntoConstraints = false
         closeBtn.translatesAutoresizingMaskIntoConstraints = false
         sizeBtn.translatesAutoresizingMaskIntoConstraints = false
         bgColorBtn.translatesAutoresizingMaskIntoConstraints = false
@@ -295,7 +298,7 @@ final class WisdomHUDLogView: UIView {
         hangBtn.translatesAutoresizingMaskIntoConstraints = false
         underBtn.translatesAutoresizingMaskIntoConstraints = false
         addSubview(coverView)
-        addSubview(scrollView)
+        addSubview(tableView)
         addSubview(closeBtn)
         addSubview(sizeBtn)
         addSubview(bgColorBtn)
@@ -305,8 +308,8 @@ final class WisdomHUDLogView: UIView {
         addSubview(underBtn)
         addSubview(leftBtn)
         addSubview(hangBtn)
-        scrollView.addSubview(titleLabel)
-        scrollView.addSubview(textLabel)
+        //scrollView.addSubview(titleLabel)
+        //scrollView.addSubview(textLabel)
         
         wisdom_addConstraint(with: coverView,
                              topView: self,
@@ -315,33 +318,33 @@ final class WisdomHUDLogView: UIView {
                              rightView: self,
                              edgeInset: .zero)
 
-        wisdom_addConstraint(with: scrollView,
+        wisdom_addConstraint(with: tableView,
                              topView: self,
                              leftView: self,
                              bottomView: self,
                              rightView: self,
-                             edgeInset: UIEdgeInsets(top: 10, left: 0, bottom: -itemWidth-15, right: 0))
+                             edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: -itemWidth-15, right: 0))
 
-        wisdom_addConstraint(with: titleLabel,
-                             topView: scrollView,
-                             leftView: self,
-                             bottomView: nil,
-                             rightView: self,
-                             edgeInset: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: -10))
+        //wisdom_addConstraint(with: titleLabel,
+        //                     topView: tableView,
+        //                     leftView: self,
+        //                     bottomView: nil,
+        //                     rightView: self,
+        //                     edgeInset: UIEdgeInsets(top: 0, left: 10, bottom: 0, right: -10))
         
-        wisdom_addConstraint(with: textLabel,
-                             topView: titleLabel,
-                             leftView: self,
-                             bottomView: nil,
-                             rightView: self,
-                             edgeInset: UIEdgeInsets(top: 25, left: 8, bottom: 0, right: -8))
+        //wisdom_addConstraint(with: textLabel,
+        //                     topView: titleLabel,
+        //                     leftView: self,
+        //                     bottomView: nil,
+        //                     rightView: self,
+        //                     edgeInset: UIEdgeInsets(top: 25, left: 8, bottom: 0, right: -8))
         
         wisdom_addConstraint(with: closeBtn,
                              topView: nil,
                              leftView: nil,
                              bottomView: self,
                              rightView: self,
-                             edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: -5, right: -15))
+                             edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: -5, right: -10))
         
         closeBtn.wisdom_addConstraint(width: itemWidth, height: itemWidth)
         
@@ -415,6 +418,13 @@ final class WisdomHUDLogView: UIView {
                              rightView: nil,
                              edgeInset: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
         
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80.0
+        tableView.register(WisdomHUDLogCell.self, forCellReuseIdentifier: "\(WisdomHUDLogCell.self)")
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = UIColor.clear
+        
         hangBtn.wisdom_addConstraint(width: hang_Btn_Width, height: hangHeight)
         hangBtn.isHidden=true
         
@@ -424,53 +434,57 @@ final class WisdomHUDLogView: UIView {
         coverView.backgroundColor = .clear
         coverView.isHidden=true
         
-        textLabel.numberOfLines = 0
-        textLabel.textColor = UIColor.white
-        textLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
-        textLabel.textAlignment = .left
+        //textLabel.numberOfLines = 0
+        //textLabel.textColor = UIColor.white
+        //textLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        //textLabel.textAlignment = .left
 
-        updateContent()
+        //updateContent()
     }
     
-    private func updateContent(){
-        textLabel.layoutIfNeeded()
-        scrollView.layoutIfNeeded()
-        scrollView.contentSize = CGSize(width: bounds.size.width, height: textLabel.frame.maxY+10)
-    }
+    //private func updateContent(){
+    //    textLabel.layoutIfNeeded()
+    //    scrollView.layoutIfNeeded()
+    //    scrollView.contentSize = CGSize(width: bounds.size.width, height: textLabel.frame.maxY+10)
+    //}
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setText(text: String) {
-        textLabel.text = text+"\n"+(textLabel.text ?? "")
-        
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = 5
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .regular),
-                          NSAttributedString.Key.foregroundColor: UIColor.white,
-                          NSAttributedString.Key.paragraphStyle: style]
-        
-        let attributedText = NSAttributedString(string: textLabel.text ?? "", attributes: attributes)
-        textLabel.attributedText = attributedText
-        
-        updateContent()
+    fileprivate func setText(text: String) {
+        //textLabel.text = text+"\n"+(textLabel.text ?? "")
+
+        //let style = NSMutableParagraphStyle()
+        //style.lineSpacing = 5
+        //let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13, weight: .regular),
+        //                  NSAttributedString.Key.foregroundColor: UIColor.white,
+        //                  NSAttributedString.Key.paragraphStyle: style]
+
+        //let attributedText = NSAttributedString(string: textLabel.text ?? "", attributes: attributes)
+        //textLabel.attributedText = attributedText
+
+        //updateContent()
+        tableView.reloadData()
     }
     
     @objc private func clickBackBtn(){
-        UIView.animate(withDuration: 0.30) {[weak self] in
-            self?.alpha = 0
-        } completion: { [weak self] _ in
-            self?.removeFromSuperview()
-            logView = nil
-        }
+        //UIView.animate(withDuration: 0.30) {[weak self] in
+        //    self?.alpha = 0
+        //} completion: { [weak self] _ in
+        //    self?.removeFromSuperview()
+        //    WisdomLogsView = nil
+        //}
+        WisdomLogsList = ["[WisdomHUD] 日志打印已开启(历史日志已删除)"]
+        tableView.reloadData()
     }
     
     @objc private func clickSizeBtn(btn: UIButton) {
         btn.isSelected = !btn.isSelected
         let than:CGFloat = btn.isSelected ? 1.0:0.5
         heightConstraint.constant = getHeight(baseHeight: (UIScreen.main.bounds.height-30)*than)
-        updateContent()
+        tableView.reloadData()
+        //updateContent()
     }
     
     @objc private func clickBgColorBtn(btn: UIButton) {
@@ -479,12 +493,12 @@ final class WisdomHUDLogView: UIView {
     }
     
     @objc private func clickBottomBtn(){
-        let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height-scrollView.bounds.size.height+scrollView.contentInset.bottom)
-        scrollView.setContentOffset(bottomOffset, animated: true)
+        let bottomOffset = CGPoint(x: 0, y: tableView.contentSize.height-tableView.bounds.size.height+tableView.contentInset.bottom)
+        tableView.setContentOffset(bottomOffset, animated: true)
     }
     
     @objc private func clickTopBtn(){
-        scrollView.setContentOffset(.zero, animated: true)
+        tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     @objc private func clickLeftBtn(){
@@ -602,8 +616,8 @@ final class WisdomHUDLogView: UIView {
         transform=CGAffineTransform.identity
         UIView.animate(withDuration: 0.30, animations: {
             updateConstraint()
-        }, completion: { [weak self] _ in
-            self?.updateContent()
+        }, completion: { _ in
+            //self?.updateContent()
         })
         
         func updateConstraint(){
@@ -614,53 +628,160 @@ final class WisdomHUDLogView: UIView {
     }
 }
 
+extension WisdomHUDLogView: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return WisdomLogsList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "\(WisdomHUDLogCell.self)", for: indexPath) as! WisdomHUDLogCell
+        if indexPath.row < WisdomLogsList.count {
+            cell.textStr = WisdomLogsList[indexPath.row]
+        }else {
+            cell.textStr = " "
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+}
+
+
+class WisdomHUDLogCell: UITableViewCell {
+    
+    let text_Label = UILabel()
+    
+    fileprivate var textStr: String = " " {
+        didSet {
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = 5
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.7, weight: .regular),
+                              NSAttributedString.Key.foregroundColor: UIColor.white,
+                              NSAttributedString.Key.paragraphStyle: style]
+
+            let attributedText = NSAttributedString(string: textStr.isEmpty ? " " : textStr,
+                                                    attributes: attributes)
+            text_Label.attributedText = attributedText
+            text_Label.sizeToFit()
+            text_Label.layoutIfNeeded()
+            contentView.layoutIfNeeded()
+        }
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = UIColor.clear
+        contentView.backgroundColor = UIColor.clear
+        contentView.addSubview(text_Label)
+        
+        let vi = UIView()
+        vi.backgroundColor = UIColor.clear
+        vi.layer.borderColor = UIColor.red.cgColor
+        vi.layer.borderWidth = 1
+        selectedBackgroundView = vi
+        
+        text_Label.translatesAutoresizingMaskIntoConstraints = false
+        wisdom_addConstraint(with: text_Label,
+                             topView: self.contentView,
+                             leftView: self.contentView,
+                             bottomView: self.contentView,
+                             rightView: nil,
+                             edgeInset: UIEdgeInsets(top: 3, left: 0, bottom: -3, right: 0))
+        
+        text_Label.wisdom_addConstraint(width: UIScreen.main.bounds.width, height: 0)
+        
+        text_Label.preferredMaxLayoutWidth = UIScreen.main.bounds.width
+        text_Label.backgroundColor = UIColor.clear
+        text_Label.numberOfLines = 0
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        
+    }
+}
+
+#endif
+
+
 extension WisdomHUDLogView {
     
     class func openLog() {
-        WisdomHUDLogView.isOpen = true
+#if DEBUG
+        if Thread.isMainThread {
+            if IsOpenWisdomLogs == false {
+                IsOpenWisdomLogs = true
+                setupLogUI()
+            }
+        }else {
+            DispatchQueue.main.async {
+                if IsOpenWisdomLogs == false {
+                    IsOpenWisdomLogs = true
+                    setupLogUI()
+                }
+            }
+        }
+        
+        func setupLogUI(){
+            if let cur_logView = WisdomLogsView, cur_logView.superview==nil {
+                WisdomLogsView = nil
+            }
+            if WisdomLogsView == nil {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.2, execute: {
+                    creatLogView()
+                })
+            }
+        }
+#endif
+    }
+    
+    static private func creatLogView() {
+        if WisdomLogsView == nil, let screen = WisdomHUD.getScreenWindow() {
+            let vi = WisdomHUDLogView()
+            screen.addSubview(vi)
+            screen.addConstraint(vi.widthConstraint)
+            screen.addConstraint(vi.heightConstraint)
+            screen.addConstraint(NSLayoutConstraint(item: vi,
+                                                    attribute: .top,
+                                                    relatedBy: .equal,
+                                                    toItem: screen,
+                                                    attribute: .top,
+                                                    multiplier: 1.0,
+                                                    constant: 20))
+            screen.addConstraint(NSLayoutConstraint(item: vi,
+                                                    attribute: .left,
+                                                    relatedBy: .equal,
+                                                    toItem: screen,
+                                                    attribute: .left,
+                                                    multiplier: 1.0,
+                                                    constant: 0))
+            WisdomLogsView = vi
+        }
+        
+        if WisdomLogsView == nil {
+            print("[WisdomHUD] 日志打印开启失败")
+        }else {
+            WisdomLogsView?.tableView.reloadData()
+        }
     }
     
     static func setLog(text: String){
-        if WisdomHUDLogView.isOpen {
 #if DEBUG
-            if Thread.isMainThread {
-                setLog()
-            }else {
-                DispatchQueue.main.async { setLog() }
+        if Thread.isMainThread {
+            WisdomLogsList.append(text)
+            WisdomLogsView?.setText(text: text)
+        }else {
+            DispatchQueue.main.async {
+                WisdomLogsList.append(text)
+                WisdomLogsView?.setText(text: text)
             }
-            func setLog(){
-                if let cur_logView = logView, cur_logView.superview==nil {
-                    logView = nil
-                }
-                if logView == nil, let screen = WisdomHUD.getScreenWindow() {
-                    let vi = WisdomHUDLogView()
-                    screen.addSubview(vi)
-                    screen.addConstraint(vi.widthConstraint)
-                    screen.addConstraint(vi.heightConstraint)
-                    screen.addConstraint(NSLayoutConstraint(item: vi,
-                                                            attribute: .top,
-                                                            relatedBy: .equal,
-                                                            toItem: screen,
-                                                            attribute: .top,
-                                                            multiplier: 1.0,
-                                                            constant: 20))
-                    screen.addConstraint(NSLayoutConstraint(item: vi,
-                                                            attribute: .left,
-                                                            relatedBy: .equal,
-                                                            toItem: screen,
-                                                            attribute: .left,
-                                                            multiplier: 1.0,
-                                                            constant: 0))
-                    logView = vi
-                }
-
-                if logView == nil {
-                    print(text)
-                }else {
-                    logView?.setText(text: text)
-                }
-            }
-#endif
         }
+#endif
     }
 }
