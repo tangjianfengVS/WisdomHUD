@@ -129,7 +129,7 @@ final class WisdomHUDSceneView: UIView {
             
         // textLabel layout
         textLabel.text = text
-        textLabel.font = UIFont.systemFont(ofSize: content.text_Font)
+        textLabel.font = UIFont.systemFont(ofSize: content.text_Font, weight: .regular)
         
         wisdom_addConstraint(toCenterX: textLabel, toCenterY: nil)
         
@@ -153,7 +153,7 @@ final class WisdomHUDSceneView: UIView {
     
         // textLabel layout
         textLabel.text = text
-        textLabel.font = UIFont.systemFont(ofSize: content.text_Font)
+        textLabel.font = UIFont.systemFont(ofSize: content.text_Font, weight: .regular)
         
         wisdom_addConstraint(toCenterX: textLabel, toCenterY: textLabel)
         
@@ -239,7 +239,7 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
             
             // textLabel layout
             textLabel.text = text
-            textLabel.font = UIFont.systemFont(ofSize: content.text_Font)
+            textLabel.font = UIFont.systemFont(ofSize: content.text_Font, weight: .regular)
             
             wisdom_addConstraint(toCenterX: textLabel, toCenterY: nil)
             
@@ -290,7 +290,7 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
             
             // textLabel layout
             textLabel.text = text
-            textLabel.font = UIFont.systemFont(ofSize: content.text_Font)
+            textLabel.font = UIFont.systemFont(ofSize: content.text_Font, weight: .regular)
             
             wisdom_addConstraint(toCenterX: textLabel, toCenterY: nil)
             
