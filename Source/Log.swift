@@ -580,7 +580,7 @@ final class WisdomHUDLogView: UIView {
         hangBtn.isHidden=false
         coverView.isHidden=false
         shapeLayer?.removeFromSuperlayer()
-        transform=CGAffineTransform(translationX: hangHeight*2, y: UIScreen.main.bounds.height-20-hangHeight)
+        transform=CGAffineTransform(translationX: hangHeight*1.0, y: UIScreen.main.bounds.height-20-hangHeight)
         
         UIView.animate(withDuration: 0.30, animations: { [weak self] in
             self?.widthConstraint.constant = self?.hang_Btn_Width ?? 0
@@ -674,7 +674,7 @@ class WisdomHUDLogCell: UITableViewCell {
         didSet {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = Self.cellRowHeight
-            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.7, weight: .regular),
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.6, weight: .regular),
                               NSAttributedString.Key.foregroundColor: UIColor.white,
                               NSAttributedString.Key.paragraphStyle: style]
 
@@ -725,7 +725,7 @@ class WisdomHUDLogCell: UITableViewCell {
     static func getAttributedStrHeight(string: String) -> CGFloat {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = Self.cellRowHeight
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.7, weight: .regular),
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.6, weight: .regular),
                           NSAttributedString.Key.foregroundColor: UIColor.white,
                           NSAttributedString.Key.paragraphStyle: style]
         let attributedStr = NSAttributedString(string: string, attributes: attributes)
