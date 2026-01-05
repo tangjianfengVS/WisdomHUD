@@ -26,6 +26,8 @@ struct WisdomHUDCore {
 
     fileprivate static let WisdomHUDCoverTag = 221010
     
+    fileprivate static var WisdomTextSizeStyle: WisdomTextSizeStyle = .normal
+    
     //static let WisdomCache = NSCache<NSString, UIImage>()
     static func getWisdomHUD_Focusing()->String { return "WisdomHUD_Focusing"}
 }
@@ -54,6 +56,10 @@ extension WisdomHUDCore: WisdomHUDSettingable {
     
     static func setCoverBackgColor(backgColor: UIColor) {
         WisdomCoverBackgColor = backgColor
+    }
+    
+    static func setTextSizeStyle(textSizeStyle: WisdomTextSizeStyle) {
+        WisdomTextSizeStyle = textSizeStyle
     }
 }
 

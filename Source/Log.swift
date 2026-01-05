@@ -674,7 +674,7 @@ class WisdomHUDLogCell: UITableViewCell {
         didSet {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = Self.cellRowHeight
-            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.6, weight: .regular),
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.7, weight: .regular),
                               NSAttributedString.Key.foregroundColor: UIColor.white,
                               NSAttributedString.Key.paragraphStyle: style]
 
@@ -725,7 +725,7 @@ class WisdomHUDLogCell: UITableViewCell {
     static func getAttributedStrHeight(string: String) -> CGFloat {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = Self.cellRowHeight
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.6, weight: .regular),
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13.7, weight: .regular),
                           NSAttributedString.Key.foregroundColor: UIColor.white,
                           NSAttributedString.Key.paragraphStyle: style]
         let attributedStr = NSAttributedString(string: string, attributes: attributes)
