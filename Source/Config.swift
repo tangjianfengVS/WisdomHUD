@@ -80,9 +80,9 @@ public enum WisdomHUDStyle: CaseIterable {
 
 /* HUD Text Size Style */
 @objc public enum WisdomTextSizeStyle: NSInteger, CaseIterable{
-    case min=13    // 小
-    case minPro=14 // 小+
-    case normal=15 // 正常
-    case max=16    // 大
-    case maxPro=17 // 大+
+    case min    = 13 // 小
+    case minPro = 14 // 小+
+    case normal = 15 // 正常
+    case max    = 16 // 大
+    case maxPro = 17 // 大+
 }

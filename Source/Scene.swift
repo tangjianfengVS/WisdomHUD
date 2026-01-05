@@ -14,7 +14,7 @@ struct WisdomHUDContent {
     
     private(set) var icon_Size: CGFloat = 29
     
-    let text_Font: CGFloat = 13.2
+    let text_Font: CGFloat = CGFloat(WisdomHUDCore.WisdomTextSizeStyle.rawValue)
     
     let top_icon_space: CGFloat = 20
     

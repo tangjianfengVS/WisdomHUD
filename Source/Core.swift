@@ -26,7 +26,7 @@ struct WisdomHUDCore {
 
     fileprivate static let WisdomHUDCoverTag = 221010
     
-    fileprivate static var WisdomTextSizeStyle: WisdomTextSizeStyle = .normal
+    fileprivate(set) static var WisdomTextSizeStyle: WisdomTextSizeStyle = .minPro
     
     //static let WisdomCache = NSCache<NSString, UIImage>()
     static func getWisdomHUD_Focusing()->String { return "WisdomHUD_Focusing"}
@@ -35,31 +35,31 @@ struct WisdomHUDCore {
 extension WisdomHUDCore: WisdomHUDSettingable {
     
     static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
-        WisdomLoadingStyle = loadingStyle
+        Self.WisdomLoadingStyle = loadingStyle
     }
     
     static func setProgressStyle(progreStyle: WisdomProgreStyle) {
-        WisdomProgreStyle = progreStyle
+        Self.WisdomProgreStyle = progreStyle
     }
     
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
-        WisdomSceneBarStyle = sceneBarStyle
+        Self.WisdomSceneBarStyle = sceneBarStyle
     }
     
     static func setTextMaxLines(maxLine: WisdomTextMaxLineStyle) {
-        WisdomTextMaxLineStyle = maxLine
+        Self.WisdomTextMaxLineStyle = maxLine
     }
     
     static func setDisplayDelay(delayTime: CGFloat) {
-        WisdomDisplayDelays = delayTime
+        Self.WisdomDisplayDelays = delayTime
     }
     
     static func setCoverBackgColor(backgColor: UIColor) {
-        WisdomCoverBackgColor = backgColor
+        Self.WisdomCoverBackgColor = backgColor
     }
     
     static func setTextSizeStyle(textSizeStyle: WisdomTextSizeStyle) {
-        WisdomTextSizeStyle = textSizeStyle
+        Self.WisdomTextSizeStyle = textSizeStyle
     }
 }
 
