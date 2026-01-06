@@ -8,7 +8,6 @@
 
 import UIKit
 
-#if DEBUG
 private var WisdomLogsView: WisdomHUDLogView?
 
 private var WisdomLogsList: [String] = [" [WisdomHUD] 日志已开启"]
@@ -737,8 +736,6 @@ class WisdomHUDLogCell: UITableViewCell {
         return boundingRect.height
     }
 }
-
-#endif
 
 
 extension WisdomHUDLogView {
