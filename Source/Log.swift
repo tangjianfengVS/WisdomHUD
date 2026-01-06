@@ -740,7 +740,7 @@ class WisdomHUDLogCell: UITableViewCell {
 
 extension WisdomHUDLogView {
     
-    class func openLog() {
+    static func openLog() {
 #if DEBUG
         if Thread.isMainThread {
             if __IsOpenWisdomLogs == false {
