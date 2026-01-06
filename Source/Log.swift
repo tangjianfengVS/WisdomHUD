@@ -8,11 +8,11 @@
 
 import UIKit
 
-private var WisdomLogsView: WisdomHUDLogView?
+private var __WisdomLogsView: WisdomHUDLogView?
 
-private var WisdomLogsList: [String] = [" [WisdomHUD] 日志已开启"]
+private var __WisdomLogsList: [String] = [" [WisdomHUD] 日志已开启"]
 
-private var IsOpenWisdomLogs = false
+private var __IsOpenWisdomLogs = false
 
 final class WisdomHUDLogView: UIView {
     
@@ -475,7 +475,7 @@ final class WisdomHUDLogView: UIView {
         //    self?.removeFromSuperview()
         //    WisdomLogsView = nil
         //}
-        WisdomLogsList = [" [WisdomHUD] 日志已开启(历史日志已清空)"]
+        __WisdomLogsList = [" [WisdomHUD] 日志已开启(历史日志已清空)"]
         tableView.reloadData()
     }
     
@@ -631,13 +631,13 @@ final class WisdomHUDLogView: UIView {
 extension WisdomHUDLogView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return WisdomLogsList.count
+        return __WisdomLogsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(WisdomHUDLogCell.self)", for: indexPath) as! WisdomHUDLogCell
-        if indexPath.row < WisdomLogsList.count {
-            cell.textStr = WisdomLogsList[indexPath.row]
+        if indexPath.row < __WisdomLogsList.count {
+            cell.textStr = __WisdomLogsList[indexPath.row]
         }else {
             cell.textStr = " "
         }
@@ -645,11 +645,11 @@ extension WisdomHUDLogView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row < WisdomLogsList.count {
-            if WisdomLogsList[indexPath.row].isEmpty {
+        if indexPath.row < __WisdomLogsList.count {
+            if __WisdomLogsList[indexPath.row].isEmpty {
                 return WisdomHUDLogCell.cellRowHeight*2.0
             }else {
-                let height = WisdomHUDLogCell.getAttributedStrHeight(string: WisdomLogsList[indexPath.row])
+                let height = WisdomHUDLogCell.getAttributedStrHeight(string: __WisdomLogsList[indexPath.row])
                 return height + WisdomHUDLogCell.cellRowHeight*2.0
             }
         }else {
@@ -743,24 +743,24 @@ extension WisdomHUDLogView {
     class func openLog() {
 #if DEBUG
         if Thread.isMainThread {
-            if IsOpenWisdomLogs == false {
-                IsOpenWisdomLogs = true
+            if __IsOpenWisdomLogs == false {
+                __IsOpenWisdomLogs = true
                 setupLogUI()
             }
         }else {
             DispatchQueue.main.async {
-                if IsOpenWisdomLogs == false {
-                    IsOpenWisdomLogs = true
+                if __IsOpenWisdomLogs == false {
+                    __IsOpenWisdomLogs = true
                     setupLogUI()
                 }
             }
         }
         
         func setupLogUI(){
-            if let cur_logView = WisdomLogsView, cur_logView.superview==nil {
-                WisdomLogsView = nil
+            if let cur_logView = __WisdomLogsView, cur_logView.superview==nil {
+                __WisdomLogsView = nil
             }
-            if WisdomLogsView == nil {
+            if __WisdomLogsView == nil {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.2, execute: {
                     creatLogView()
                 })
@@ -770,7 +770,7 @@ extension WisdomHUDLogView {
     }
     
     static private func creatLogView() {
-        if WisdomLogsView == nil, let screen = WisdomHUD.getScreenWindow() {
+        if __WisdomLogsView == nil, let screen = WisdomHUD.getScreenWindow() {
             let vi = WisdomHUDLogView()
             screen.addSubview(vi)
             screen.addConstraint(vi.widthConstraint)
@@ -789,25 +789,25 @@ extension WisdomHUDLogView {
                                                     attribute: .left,
                                                     multiplier: 1.0,
                                                     constant: 0))
-            WisdomLogsView = vi
+            __WisdomLogsView = vi
         }
         
-        if WisdomLogsView == nil {
+        if __WisdomLogsView == nil {
             print("[WisdomHUD] 日志打印开启失败")
         }else {
-            WisdomLogsView?.tableView.reloadData()
+            __WisdomLogsView?.tableView.reloadData()
         }
     }
     
     static func setLog(text: String){
 #if DEBUG
         if Thread.isMainThread {
-            WisdomLogsList.append(text)
-            WisdomLogsView?.setText(text: text)
+            __WisdomLogsList.append(text)
+            __WisdomLogsView?.setText(text: text)
         }else {
             DispatchQueue.main.async {
-                WisdomLogsList.append(text)
-                WisdomLogsView?.setText(text: text)
+                __WisdomLogsList.append(text)
+                __WisdomLogsView?.setText(text: text)
             }
         }
 #endif
