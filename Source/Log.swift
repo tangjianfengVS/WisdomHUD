@@ -17,7 +17,7 @@ private var IsOpenWisdomLogs = false
 
 final class WisdomHUDLogView: UIView {
     
-    private let itemWidth: CGFloat = 26.0
+    private let itemWidth: CGFloat = 27.0
     private lazy var maxSize = CGSize(width: UIScreen.main.bounds.width,
                                       height: UIScreen.main.bounds.height-20*2)
     private lazy var hangHeight: CGFloat = itemWidth+4
