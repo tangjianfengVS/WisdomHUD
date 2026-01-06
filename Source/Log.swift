@@ -14,7 +14,7 @@ private var __WisdomLogsList: [String] = [" [WisdomHUD] 日志已开启"]
 
 private var __IsOpenWisdomLogs = false
 
-public class WisdomHUDLogView: UIView {
+class WisdomHUDLogView: UIView {
     
     private let itemWidth: CGFloat = 27.0
     private lazy var maxSize = CGSize(width: UIScreen.main.bounds.width,
