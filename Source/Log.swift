@@ -770,7 +770,7 @@ extension WisdomHUDLogView {
     }
     
     static private func creatLogView() {
-        if __WisdomLogsView == nil, let screen = WisdomHUD.getScreenWindow() {
+        if __IsOpenWisdomLogs == true, __WisdomLogsView == nil, let screen = WisdomHUD.getScreenWindow() {
             let vi = WisdomHUDLogView()
             screen.addSubview(vi)
             screen.addConstraint(vi.widthConstraint)
@@ -802,12 +802,18 @@ extension WisdomHUDLogView {
     static func setLog(text: String){
 #if DEBUG
         if Thread.isMainThread {
-            __WisdomLogsList.append(text)
-            __WisdomLogsView?.setText(text: text)
-        }else {
-            DispatchQueue.main.async {
+            if __IsOpenWisdomLogs == true {
                 __WisdomLogsList.append(text)
                 __WisdomLogsView?.setText(text: text)
+                creatLogView()
+            }
+        }else {
+            DispatchQueue.main.async {
+                if __IsOpenWisdomLogs == true {
+                    __WisdomLogsList.append(text)
+                    __WisdomLogsView?.setText(text: text)
+                    creatLogView()
+                }
             }
         }
 #endif
