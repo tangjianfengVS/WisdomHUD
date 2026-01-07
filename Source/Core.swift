@@ -34,37 +34,30 @@ struct WisdomHUDCore {
 
 extension WisdomHUDCore: WisdomHUDSettingable {
     
-    // MARK: 全局设置 Loading 样式
     static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
         Self.WisdomLoadingStyle = loadingStyle
     }
     
-    // MARK: 全局设置 Progress 样式
     static func setProgressStyle(progreStyle: WisdomProgreStyle) {
         Self.WisdomProgreStyle = progreStyle
     }
     
-    // MARK: 全局设置 中心SceneBar 样式
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
         Self.WisdomSceneBarStyle = sceneBarStyle
     }
     
-    // MARK: 全局设置 TextMaxLines 最大行数
     static func setTextMaxLines(maxLine: WisdomTextMaxLineStyle) {
         Self.WisdomTextMaxLineStyle = maxLine
     }
     
-    // MARK: 全局设置 TextMaxLines 最大行数
     static func setDisplayDelay(delayTime: CGFloat) {
         Self.WisdomDisplayDelays = delayTime
     }
     
-    // MARK: 全局设置 遮盖视图 背景色
     static func setCoverBackgColor(backgColor: UIColor) {
         Self.WisdomCoverBackgColor = backgColor
     }
     
-    // MARK: 全局设置 文字文案 大小（会被自定义覆盖）
     static func setTextSizeStyle(textSizeStyle: WisdomTextSizeStyle) {
         Self.WisdomTextSizeStyle = textSizeStyle
     }

@@ -46,6 +46,11 @@ extension WisdomHUD: WisdomHUDSettingable {
     @objc public static func setCoverBackgColor(backgColor: UIColor) {
         WisdomHUDCore.setCoverBackgColor(backgColor: backgColor)
     }
+    
+    // MARK: 全局设置 文字文案 大小（会被自定义覆盖）
+    @objc public static func setTextSizeStyle(textSizeStyle: WisdomTextSizeStyle) {
+        WisdomHUDCore.setTextSizeStyle(textSizeStyle: textSizeStyle)
+    }
 }
 
 extension WisdomHUD: WisdomHUDGlobalable {
