@@ -9,10 +9,10 @@ Pod::Spec.new do |s|
 
   s.description  = 'A simple iOS interface display prompt, help to develop and implement various data state tracking display and loading tasks'
 
-  s.platform     = :ios, '9.0'
+  s.platform     = :ios, '12.0'
   s.swift_version= ['5.5', '5.6', '5.7']
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '12.0'
   # s.osx.deployment_target = ''
   # s.watchos.deployment_target = ''
   # s.tvos.deployment_target = ''
