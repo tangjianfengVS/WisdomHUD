@@ -8,7 +8,7 @@
 
 import UIKit
 
-private var __WisdomLogsView: WisdomHUDLogView?
+private weak var __WisdomLogsView: WisdomHUDLogView?
 
 private var __WisdomLogsList: [String] = [" [WisdomHUD] 日志已开启"]
 
@@ -424,6 +424,7 @@ class WisdomHUDLogView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor.clear
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30.0, right: 0)
         
         hangBtn.wisdom_addConstraint(width: hang_Btn_Width, height: hangHeight)
         hangBtn.isHidden=true
@@ -772,7 +773,7 @@ extension WisdomHUDLogView {
     static private func creatLogView() {
         if __IsOpenWisdomLogs == true, __WisdomLogsView == nil, let screen = WisdomHUD.getScreenWindow() {
             let vi = WisdomHUDLogView()
-            screen.addSubview(vi)
+            screen.insertSubview(vi, at: 999999)
             screen.addConstraint(vi.widthConstraint)
             screen.addConstraint(vi.heightConstraint)
             screen.addConstraint(NSLayoutConstraint(item: vi,
