@@ -8,7 +8,9 @@
 
 import UIKit
 
-private weak var __WisdomLogsView: WisdomHUDLogView?
+private var __WisdomLogsView: WisdomHUDLogView?
+
+private weak var __WisdomLogsScreenVC: UIViewController?
 
 private var __WisdomLogsList: [String] = [" [WisdomHUD] 日志已开启"]
 
@@ -773,7 +775,7 @@ extension WisdomHUDLogView {
     static private func creatLogView() {
         if __IsOpenWisdomLogs == true, __WisdomLogsView == nil, let screen = WisdomHUD.getScreenWindow() {
             let vi = WisdomHUDLogView()
-            screen.insertSubview(vi, at: 999999)
+            screen.addSubview(vi)
             screen.addConstraint(vi.widthConstraint)
             screen.addConstraint(vi.heightConstraint)
             screen.addConstraint(NSLayoutConstraint(item: vi,
@@ -791,6 +793,7 @@ extension WisdomHUDLogView {
                                                     multiplier: 1.0,
                                                     constant: 0))
             __WisdomLogsView = vi
+            __WisdomLogsScreenVC = screen.rootViewController
         }
         
         if __WisdomLogsView == nil {
@@ -804,6 +807,8 @@ extension WisdomHUDLogView {
 #if DEBUG
         if Thread.isMainThread {
             if __IsOpenWisdomLogs == true {
+                checkWisdomLogsViewPoint()
+                
                 __WisdomLogsList.append(text)
                 __WisdomLogsView?.setText(text: text)
                 creatLogView()
@@ -811,10 +816,20 @@ extension WisdomHUDLogView {
         }else {
             DispatchQueue.main.async {
                 if __IsOpenWisdomLogs == true {
+                    checkWisdomLogsViewPoint()
+                    
                     __WisdomLogsList.append(text)
                     __WisdomLogsView?.setText(text: text)
                     creatLogView()
                 }
+            }
+        }
+        
+        // Window rootViewController 更换检查
+        func checkWisdomLogsViewPoint() {
+            if __WisdomLogsView != nil, __WisdomLogsScreenVC == nil{
+                __WisdomLogsView?.removeFromSuperview()
+                __WisdomLogsView = nil
             }
         }
 #endif
