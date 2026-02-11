@@ -60,6 +60,7 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
             DispatchQueue.main.async { doTextFont() }
         }
         
+        @MainActor
         func doTextFont(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textFont = nil
@@ -79,6 +80,7 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
             DispatchQueue.main.async { doTextColor() }
         }
         
+        @MainActor
         func doTextColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textColor = nil
@@ -98,6 +100,7 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
             DispatchQueue.main.async { doUpdateText() }
         }
         
+        @MainActor
         func doUpdateText(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.updateText = nil
@@ -117,6 +120,7 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
             DispatchQueue.main.async { doAnimation() }
         }
         
+        @MainActor
         func doAnimation(){
             animationVI = nil
             if view.superview != nil {
@@ -142,6 +146,7 @@ extension WisdomHUDContext: WisdomHUDContextable {
             DispatchQueue.main.async { doFocusing() }
         }
         
+        @MainActor
         func doFocusing(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 focusing = false
@@ -164,6 +169,7 @@ extension WisdomHUDLoadingContext: WisdomHUDLoadingContextable {
             DispatchQueue.main.async { doTimeout() }
         }
         
+        @MainActor
         func doTimeout(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 timeout = nil
@@ -186,6 +192,7 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
             DispatchQueue.main.async { doProgreValue() }
         }
         
+        @MainActor
         func doProgreValue(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.progreValue = nil
@@ -205,6 +212,7 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
             DispatchQueue.main.async { doProgreColor() }
         }
         
+        @MainActor
         func doProgreColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.progreColor = nil
@@ -225,6 +233,7 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
             DispatchQueue.main.async { doProgreTextColor() }
         }
         
+        @MainActor
         func doProgreTextColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.progreTextColor = nil
@@ -245,6 +254,7 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
             DispatchQueue.main.async { doProgreShadowColor() }
         }
         
+        @MainActor
         func doProgreShadowColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.progreShadowColor = nil
@@ -294,6 +304,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
             DispatchQueue.main.async { doLeftAction() }
         }
         
+        @MainActor
         func doLeftAction(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.leftAction = nil
@@ -315,6 +326,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
             DispatchQueue.main.async { doRightAction() }
         }
         
+        @MainActor
         func doRightAction(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.rightAction = nil
@@ -333,6 +345,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
             DispatchQueue.main.async { doTextAlignment() }
         }
         
+        @MainActor
         func doTextAlignment(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textAlignment = nil
@@ -351,6 +364,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
             DispatchQueue.main.async { doTextFont() }
         }
         
+        @MainActor
         func doTextFont(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textFont = nil
@@ -369,6 +383,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
             DispatchQueue.main.async { doTextColor() }
         }
         
+        @MainActor
         func doTextColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textColor = nil
@@ -387,6 +402,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
             DispatchQueue.main.async { doTextFont() }
         }
         
+        @MainActor
         func doTextFont(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.labelFont = nil
@@ -405,6 +421,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
             DispatchQueue.main.async { doTextColor() }
         }
         
+        @MainActor
         func doTextColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.labelColor = nil

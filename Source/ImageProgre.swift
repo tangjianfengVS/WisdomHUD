@@ -348,7 +348,7 @@ extension WisdomHUDImageProgreView {
     }
 }
 
-extension WisdomHUDImageWaterView: CAAnimationDelegate{
+extension WisdomHUDImageWaterView: @MainActor CAAnimationDelegate{
  
     @objc public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         setRotationAnim()

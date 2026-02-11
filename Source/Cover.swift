@@ -30,7 +30,7 @@ final class WisdomHUDCoverView: UIView {
     }
 }
 
-extension WisdomHUDCoverView: WisdomHUDContextable {
+extension WisdomHUDCoverView: @MainActor WisdomHUDContextable {
     
     func setFocusing()->Self {
         isSetting = true
@@ -76,7 +76,7 @@ extension WisdomHUDCoverView: WisdomHUDContextable {
     }
 }
 
-extension WisdomHUDCoverView: WisdomHUDLoadingContextable {
+extension WisdomHUDCoverView: @MainActor WisdomHUDLoadingContextable {
     
     func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self {
         isSetting = true
@@ -85,7 +85,7 @@ extension WisdomHUDCoverView: WisdomHUDLoadingContextable {
     }
 }
 
-extension WisdomHUDCoverView: WisdomHUDBaseContextable {
+extension WisdomHUDCoverView: @MainActor WisdomHUDBaseContextable {
     
     func setTextFont(font: UIFont)->Self {
         _=sceneView?.setTextFont(font: font)
@@ -109,7 +109,7 @@ extension WisdomHUDCoverView: WisdomHUDBaseContextable {
     }
 }
 
-extension WisdomHUDCoverView: WisdomHUDProgreContextable {
+extension WisdomHUDCoverView: @MainActor WisdomHUDProgreContextable {
     
     func setProgreColor(color: UIColor)->Self {
         _=sceneView?.setProgreColor(color: color)
@@ -132,7 +132,7 @@ extension WisdomHUDCoverView: WisdomHUDProgreContextable {
     }
 }
 
-extension WisdomHUDCoverView: WisdomHUDActionContextable {
+extension WisdomHUDCoverView: @MainActor WisdomHUDActionContextable {
     
     func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self {
         _=actionView?.setLeftAction(textColor: textColor, textFont: textFont)

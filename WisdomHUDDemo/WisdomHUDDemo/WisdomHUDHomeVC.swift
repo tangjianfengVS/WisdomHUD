@@ -8,7 +8,7 @@
 
 import UIKit
 
-var sceneBarStyle: WisdomSceneBarStyle = .dark
+@MainActor var sceneBarStyle: WisdomSceneBarStyle = .dark
 
 class WisdomHUDHomeVC: UIViewController {
     

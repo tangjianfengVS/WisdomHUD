@@ -23,7 +23,7 @@ final class WisdomHUDImageView: UIView {
     }
 }
 
-extension WisdomHUDImageView: WisdomHUDSetImageable {
+extension WisdomHUDImageView: @MainActor WisdomHUDSetImageable {
     
     func setLoadingImage(size: CGFloat, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle) {
         imageView?.removeFromSuperview()

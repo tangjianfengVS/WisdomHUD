@@ -90,4 +90,4 @@ extension LayoutConstraintItem {
     }
     
 }
-private var constraintsKey: UInt8 = 0
+nonisolated(unsafe) private var constraintsKey: UInt8 = 0

@@ -46,7 +46,7 @@ extension ConstraintDSL {
     }
     
 }
-private var labelKey: UInt8 = 0
+nonisolated(unsafe) private var labelKey: UInt8 = 0
 
 
 public protocol ConstraintBasicAttributesDSL : ConstraintDSL {
