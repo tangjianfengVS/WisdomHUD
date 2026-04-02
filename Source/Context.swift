@@ -54,11 +54,11 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
 
     // MARK: Set HUD CoverView Loading Text Font
     public func setTextFont(font: UIFont)->Self {
-        if Thread.isMainThread {
-            doTextFont()
-        }else {
+//        if Thread.isMainThread {
+//            doTextFont()
+//        }else {
             DispatchQueue.main.async { doTextFont() }
-        }
+//        }
         
         @MainActor
         func doTextFont(){
@@ -74,11 +74,11 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
 
     // MARK: Set HUD CoverView Loading Text Color
     public func setTextColor(color: UIColor)->Self {
-        if Thread.isMainThread {
-            doTextColor()
-        }else {
+//        if Thread.isMainThread {
+//            doTextColor()
+//        }else {
             DispatchQueue.main.async { doTextColor() }
-        }
+//        }
         
         @MainActor
         func doTextColor(){
@@ -94,11 +94,11 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
     
     // MARK: Set HUD CoverView Update Text
     func setUpdateText(text: String) -> Self {
-        if Thread.isMainThread {
-            doUpdateText()
-        }else {
+//        if Thread.isMainThread {
+//            doUpdateText()
+//        }else {
             DispatchQueue.main.async { doUpdateText() }
-        }
+//        }
         
         @MainActor
         func doUpdateText(){
@@ -114,11 +114,11 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
     
     // MARK: Set HUD CoverView Update Animation View
     func setAnimation(view: UIView)->Self {
-        if Thread.isMainThread{
-            doAnimation()
-        }else {
+//        if Thread.isMainThread{
+//            doAnimation()
+//        }else {
             DispatchQueue.main.async { doAnimation() }
-        }
+//        }
         
         @MainActor
         func doAnimation(){
@@ -140,11 +140,11 @@ extension WisdomHUDContext: WisdomHUDContextable {
     
     // MARK: Set HUD CoverView Focusing
     public func setFocusing()->Self{
-        if Thread.isMainThread{
-            doFocusing()
-        }else {
+//        if Thread.isMainThread{
+//            doFocusing()
+//        }else {
             DispatchQueue.main.async { doFocusing() }
-        }
+//        }
         
         @MainActor
         func doFocusing(){
@@ -163,11 +163,11 @@ extension WisdomHUDLoadingContext: WisdomHUDLoadingContextable {
     
     // MARK: Set HUD CoverView Loading Timeout
     public func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self {
-        if Thread.isMainThread{
-            doTimeout()
-        }else {
+//        if Thread.isMainThread{
+//            doTimeout()
+//        }else {
             DispatchQueue.main.async { doTimeout() }
-        }
+//        }
         
         @MainActor
         func doTimeout(){
@@ -186,11 +186,11 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     
     // MARK: Set HUD CoverView Progre Value
     public func setProgreValue(value: UInt)->Self {
-        if Thread.isMainThread {
-            doProgreValue()
-        }else {
+//        if Thread.isMainThread {
+//            doProgreValue()
+//        }else {
             DispatchQueue.main.async { doProgreValue() }
-        }
+//        }
         
         @MainActor
         func doProgreValue(){
@@ -206,11 +206,11 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     
     // MARK: Set HUD CoverView Progre Color
     public func setProgreColor(color: UIColor)->Self {
-        if Thread.isMainThread {
-            doProgreColor()
-        }else {
+//        if Thread.isMainThread {
+//            doProgreColor()
+//        }else {
             DispatchQueue.main.async { doProgreColor() }
-        }
+//        }
         
         @MainActor
         func doProgreColor(){
@@ -227,11 +227,11 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     // MARK: Set the Progre Context text color
     @discardableResult
     @objc func setProgreTextColor(color: UIColor)->Self{
-        if Thread.isMainThread {
-            doProgreTextColor()
-        }else {
+//        if Thread.isMainThread {
+//            doProgreTextColor()
+//        }else {
             DispatchQueue.main.async { doProgreTextColor() }
-        }
+//        }
         
         @MainActor
         func doProgreTextColor(){
@@ -248,11 +248,11 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     // MARK: Set the Progre Context Shadow color
     @discardableResult
     @objc func setProgreShadowColor(color: UIColor)->Self {
-        if Thread.isMainThread {
-            doProgreShadowColor()
-        }else {
+//        if Thread.isMainThread {
+//            doProgreShadowColor()
+//        }else {
             DispatchQueue.main.async { doProgreShadowColor() }
-        }
+//        }
         
         @MainActor
         func doProgreShadowColor(){
@@ -298,11 +298,11 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     
     func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self{
         if textColor==nil && textFont==nil { return self }
-        if Thread.isMainThread {
-            doLeftAction()
-        }else {
+//        if Thread.isMainThread {
+//            doLeftAction()
+//        }else {
             DispatchQueue.main.async { doLeftAction() }
-        }
+//        }
         
         @MainActor
         func doLeftAction(){
@@ -320,11 +320,11 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
         if textColor==nil && textFont==nil {
             return self
         }
-        if Thread.isMainThread {
-            doRightAction()
-        }else {
+//        if Thread.isMainThread {
+//            doRightAction()
+//        }else {
             DispatchQueue.main.async { doRightAction() }
-        }
+//        }
         
         @MainActor
         func doRightAction(){
@@ -339,11 +339,11 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setTextAlignment(alignment: NSTextAlignment)->Self{
-        if Thread.isMainThread {
-            doTextAlignment()
-        }else {
+//        if Thread.isMainThread {
+//            doTextAlignment()
+//        }else {
             DispatchQueue.main.async { doTextAlignment() }
-        }
+//        }
         
         @MainActor
         func doTextAlignment(){
@@ -358,11 +358,11 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setTextFont(font: UIFont) -> Self {
-        if Thread.isMainThread {
-            doTextFont()
-        }else {
+//        if Thread.isMainThread {
+//            doTextFont()
+//        }else {
             DispatchQueue.main.async { doTextFont() }
-        }
+//        }
         
         @MainActor
         func doTextFont(){
@@ -377,11 +377,11 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setTextColor(color: UIColor)->Self {
-        if Thread.isMainThread {
-            doTextColor()
-        }else {
+//        if Thread.isMainThread {
+//            doTextColor()
+//        }else {
             DispatchQueue.main.async { doTextColor() }
-        }
+//        }
         
         @MainActor
         func doTextColor(){
@@ -396,11 +396,11 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setLabelFont(font: UIFont)->Self {
-        if Thread.isMainThread {
-            doTextFont()
-        }else {
+//        if Thread.isMainThread {
+//            doTextFont()
+//        }else {
             DispatchQueue.main.async { doTextFont() }
-        }
+//        }
         
         @MainActor
         func doTextFont(){
@@ -415,11 +415,11 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setLabelColor(color: UIColor)->Self {
-        if Thread.isMainThread {
-            doTextColor()
-        }else {
+//        if Thread.isMainThread {
+//            doTextColor()
+//        }else {
             DispatchQueue.main.async { doTextColor() }
-        }
+//        }
         
         @MainActor
         func doTextColor(){

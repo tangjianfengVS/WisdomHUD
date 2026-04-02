@@ -110,7 +110,7 @@ import UIKit
 
 extension WisdomHUDRotateView: CAAnimationDelegate {
     
-    @objc public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+    @objc nonisolated public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         beginAnimation(isRepeat: true)
     }
 }
@@ -246,7 +246,7 @@ extension WisdomHUDRotateView: CAAnimationDelegate {
     }
 }
 
-extension WisdomHUDProgressArcView: CAAnimationDelegate {
+extension WisdomHUDProgressArcView: @MainActor CAAnimationDelegate {
     
     @objc public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         beginAnimation(isRepeat: false)
