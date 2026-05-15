@@ -55,13 +55,12 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
 
     // MARK: Set HUD CoverView Loading Text Font
     public func setTextFont(font: UIFont)->Self {
-//        if Thread.isMainThread {
-//            doTextFont()
-//        }else {
+        if Thread.isMainThread {
+            doTextFont()
+        }else {
             DispatchQueue.main.async { doTextFont() }
-//        }
+        }
         
-        @MainActor
         func doTextFont(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textFont = nil
@@ -75,13 +74,12 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
 
     // MARK: Set HUD CoverView Loading Text Color
     public func setTextColor(color: UIColor)->Self {
-//        if Thread.isMainThread {
-//            doTextColor()
-//        }else {
+        if Thread.isMainThread {
+            doTextColor()
+        }else {
             DispatchQueue.main.async { doTextColor() }
-//        }
+        }
         
-        @MainActor
         func doTextColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textColor = nil
@@ -95,13 +93,12 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
     
     // MARK: Set HUD CoverView Update Text
     func setUpdateText(text: String) -> Self {
-//        if Thread.isMainThread {
-//            doUpdateText()
-//        }else {
+        if Thread.isMainThread {
+            doUpdateText()
+        }else {
             DispatchQueue.main.async { doUpdateText() }
-//        }
+        }
         
-        @MainActor
         func doUpdateText(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.updateText = nil
@@ -115,13 +112,12 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
     
     // MARK: Set HUD CoverView Update Animation View
     func setAnimation(view: UIView)->Self {
-//        if Thread.isMainThread{
-//            doAnimation()
-//        }else {
+        if Thread.isMainThread{
+            doAnimation()
+        }else {
             DispatchQueue.main.async { doAnimation() }
-//        }
+        }
         
-        @MainActor
         func doAnimation(){
             animationVI = nil
             if view.superview != nil {
@@ -141,13 +137,12 @@ extension WisdomHUDContext: WisdomHUDContextable {
     
     // MARK: Set HUD CoverView Focusing
     public func setFocusing()->Self{
-//        if Thread.isMainThread{
-//            doFocusing()
-//        }else {
+        if Thread.isMainThread{
+            doFocusing()
+        }else {
             DispatchQueue.main.async { doFocusing() }
-//        }
+        }
         
-        @MainActor
         func doFocusing(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 focusing = false
@@ -164,13 +159,12 @@ extension WisdomHUDLoadingContext: WisdomHUDLoadingContextable {
     
     // MARK: Set HUD CoverView Loading Timeout
     public func setTimeout(time: TimeInterval, timeoutClosure: @escaping ((TimeInterval)->()))->Self {
-//        if Thread.isMainThread{
-//            doTimeout()
-//        }else {
+        if Thread.isMainThread{
+            doTimeout()
+        }else {
             DispatchQueue.main.async { doTimeout() }
-//        }
+        }
         
-        @MainActor
         func doTimeout(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 timeout = nil
@@ -187,13 +181,12 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     
     // MARK: Set HUD CoverView Progre Value
     public func setProgreValue(value: UInt)->Self {
-//        if Thread.isMainThread {
-//            doProgreValue()
-//        }else {
+        if Thread.isMainThread {
+            doProgreValue()
+        }else {
             DispatchQueue.main.async { doProgreValue() }
-//        }
+        }
         
-        @MainActor
         func doProgreValue(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.progreValue = nil
@@ -207,13 +200,12 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     
     // MARK: Set HUD CoverView Progre Color
     public func setProgreColor(color: UIColor)->Self {
-//        if Thread.isMainThread {
-//            doProgreColor()
-//        }else {
+        if Thread.isMainThread {
+            doProgreColor()
+        }else {
             DispatchQueue.main.async { doProgreColor() }
-//        }
+        }
         
-        @MainActor
         func doProgreColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.progreColor = nil
@@ -228,13 +220,12 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     // MARK: Set the Progre Context text color
     @discardableResult
     @objc func setProgreTextColor(color: UIColor)->Self{
-//        if Thread.isMainThread {
-//            doProgreTextColor()
-//        }else {
+        if Thread.isMainThread {
+            doProgreTextColor()
+        }else {
             DispatchQueue.main.async { doProgreTextColor() }
-//        }
+        }
         
-        @MainActor
         func doProgreTextColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.progreTextColor = nil
@@ -249,13 +240,12 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     // MARK: Set the Progre Context Shadow color
     @discardableResult
     @objc func setProgreShadowColor(color: UIColor)->Self {
-//        if Thread.isMainThread {
-//            doProgreShadowColor()
-//        }else {
+        if Thread.isMainThread {
+            doProgreShadowColor()
+        }else {
             DispatchQueue.main.async { doProgreShadowColor() }
-//        }
+        }
         
-        @MainActor
         func doProgreShadowColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.progreShadowColor = nil
@@ -299,13 +289,12 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     
     func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self{
         if textColor==nil && textFont==nil { return self }
-//        if Thread.isMainThread {
-//            doLeftAction()
-//        }else {
+        if Thread.isMainThread {
+            doLeftAction()
+        }else {
             DispatchQueue.main.async { doLeftAction() }
-//        }
+        }
         
-        @MainActor
         func doLeftAction(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.leftAction = nil
@@ -321,13 +310,12 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
         if textColor==nil && textFont==nil {
             return self
         }
-//        if Thread.isMainThread {
-//            doRightAction()
-//        }else {
+        if Thread.isMainThread {
+            doRightAction()
+        }else {
             DispatchQueue.main.async { doRightAction() }
-//        }
+        }
         
-        @MainActor
         func doRightAction(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.rightAction = nil
@@ -340,13 +328,12 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setTextAlignment(alignment: NSTextAlignment)->Self{
-//        if Thread.isMainThread {
-//            doTextAlignment()
-//        }else {
+        if Thread.isMainThread {
+            doTextAlignment()
+        }else {
             DispatchQueue.main.async { doTextAlignment() }
-//        }
+        }
         
-        @MainActor
         func doTextAlignment(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textAlignment = nil
@@ -359,13 +346,12 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setTextFont(font: UIFont) -> Self {
-//        if Thread.isMainThread {
-//            doTextFont()
-//        }else {
+        if Thread.isMainThread {
+            doTextFont()
+        }else {
             DispatchQueue.main.async { doTextFont() }
-//        }
-        
-        @MainActor
+        }
+
         func doTextFont(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textFont = nil
@@ -378,13 +364,12 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setTextColor(color: UIColor)->Self {
-//        if Thread.isMainThread {
-//            doTextColor()
-//        }else {
+        if Thread.isMainThread {
+            doTextColor()
+        }else {
             DispatchQueue.main.async { doTextColor() }
-//        }
+        }
         
-        @MainActor
         func doTextColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.textColor = nil
@@ -397,13 +382,12 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setLabelFont(font: UIFont)->Self {
-//        if Thread.isMainThread {
-//            doTextFont()
-//        }else {
+        if Thread.isMainThread {
+            doTextFont()
+        }else {
             DispatchQueue.main.async { doTextFont() }
-//        }
+        }
         
-        @MainActor
         func doTextFont(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.labelFont = nil
@@ -416,13 +400,12 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
     
     func setLabelColor(color: UIColor)->Self {
-//        if Thread.isMainThread {
-//            doTextColor()
-//        }else {
+        if Thread.isMainThread {
+            doTextColor()
+        }else {
             DispatchQueue.main.async { doTextColor() }
-//        }
+        }
         
-        @MainActor
         func doTextColor(){
             if let coverVI = coverView as? WisdomHUDCoverView {
                 self.labelColor = nil
