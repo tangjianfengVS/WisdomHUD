@@ -6,6 +6,7 @@
 //  Copyright © 2018年 All over the sky star. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 //TODO: Extension UIView
@@ -180,3 +181,4 @@ extension UIColor {
         return UIColor(red:CGFloat(r)/0xff, green:CGFloat(g)/0xff, blue:CGFloat(b)/0xff, alpha:alpha)
     }
 }
+#endif

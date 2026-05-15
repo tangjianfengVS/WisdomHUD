@@ -6,6 +6,7 @@
 //  Copyright © 2022 All over the sky star. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 
@@ -15,6 +16,19 @@ import UIKit
     let indicatorView: UIActivityIndicatorView
     
     @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
+        #if targetEnvironment(macCatalyst)
+        // macCatalyst:UIActivityIndicatorView 底层是 NSProgressIndicator(NSView),
+        // wrapper UIView 上的 transform: scale 只把 frame 撑大,真正的菊花还停在原 20×20 区域
+        // → 视觉上偏到 wrapper 的左上角(用户看到 HUD 黑框里菊花没居中)。
+        // 用 .large(intrinsic 37×37,直接画出大尺寸,无需 transform),配合 center 约束自然居中。
+        let style: UIActivityIndicatorView.Style = (barStyle == .light) ? .medium : .large
+        indicatorView = UIActivityIndicatorView(style: style)
+        indicatorView.translatesAutoresizingMaskIntoConstraints = false
+        super.init(size: size)
+        addSubview(indicatorView)
+        wisdom_addConstraint(toCenterX: indicatorView, toCenterY: indicatorView)
+        indicatorView.startAnimating()
+        #else
         var style: UIActivityIndicatorView.Style = .white
         if barStyle == .light {
             style = .gray
@@ -22,12 +36,13 @@ import UIKit
         indicatorView = UIActivityIndicatorView(style: style)
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         super.init(size: size)
-        
+
         addSubview(indicatorView)
         wisdom_addConstraint(toCenterX: indicatorView, toCenterY: indicatorView)
-    
+
         indicatorView.transform = CGAffineTransform.init(scaleX: size/20.0, y: size/20.0)
         indicatorView.startAnimating()
+        #endif
     }
     
     required init(coder: NSCoder) {
@@ -624,3 +639,4 @@ extension WisdomHUDProgressArcView: @MainActor CAAnimationDelegate {
         }
     }
 }
+#endif

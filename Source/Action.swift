@@ -6,6 +6,7 @@
 //  Copyright © 2021 All over the sky star. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 extension WisdomColorThemeStyle {
@@ -419,3 +420,4 @@ class WisdomHUDActionThemeView: WisdomHUDActionView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2018年 All over the sky star. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 
@@ -465,3 +466,4 @@ extension WisdomHUD: WisdomHUDLogable {
         WisdomHUDCore.showLogLabel(text: text)
     }
 }
+#endif

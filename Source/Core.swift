@@ -5,27 +5,28 @@
 //  Created by 汤建锋 on 2022/9/29.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 
 struct WisdomHUDCore {
     
     fileprivate static var WisdomLoadingStyle: WisdomLoadingStyle = .rotate
-    
+
     fileprivate static var WisdomProgreStyle: WisdomProgreStyle = .circle
 
     fileprivate static var WisdomSceneBarStyle: WisdomSceneBarStyle = .dark
-    
+
     fileprivate static var WisdomColorThemeStyle: WisdomColorThemeStyle = .light
-    
+
     fileprivate(set) static var WisdomTextMaxLineStyle: WisdomTextMaxLineStyle = .three
 
     fileprivate static var WisdomDisplayDelays: TimeInterval = 2.2
-    
+
     fileprivate static var WisdomCoverBackgColor = UIColor(white: 0, alpha: 0.35)
 
     fileprivate static let WisdomHUDCoverTag = 221010
-    
+
     fileprivate(set) static var WisdomTextSizeStyle: WisdomTextSizeStyle = .minPro
     
     //static let WisdomCache = NSCache<NSString, UIImage>()
@@ -774,3 +775,4 @@ extension WisdomHUDCore {
         WisdomHUDLogView.setLog(text: "💟"+text+"💟")
     }
 }
+#endif

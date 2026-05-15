@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import WisdomHUD
 
 class WisdomCustomNextCell: UITableViewCell {
     

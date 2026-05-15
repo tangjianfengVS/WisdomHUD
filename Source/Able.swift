@@ -5,6 +5,7 @@
 //  Created by 汤建锋 on 2022/9/29.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 
@@ -325,3 +326,4 @@ public protocol WisdomHUDLogable {
     @discardableResult
     @objc func setLabelColor(color: UIColor)->Self
 }
+#endif

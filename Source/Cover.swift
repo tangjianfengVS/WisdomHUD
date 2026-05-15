@@ -5,6 +5,7 @@
 //  Created by 汤建锋 on 2022/10/20.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 
@@ -169,3 +170,4 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDActionContextable {
         return self
     }
 }
+#endif

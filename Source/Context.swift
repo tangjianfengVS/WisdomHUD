@@ -5,11 +5,12 @@
 //  Created by 汤建锋 on 2022/10/18.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 
 class WisdomHUDBaseContext {
-    
+
     private(set) weak var coverView: UIView? // CoverView
     
     private(set) var textFont: UIFont?
@@ -269,7 +270,7 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
 
 
 class WisdomHUDActionContext {
-    
+
     private(set) weak var coverView: UIView? // CoverView
     
     private(set) var leftAction: (TextColor:UIColor?, TextFont:UIFont?)?
@@ -434,3 +435,4 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
 }
 
+#endif

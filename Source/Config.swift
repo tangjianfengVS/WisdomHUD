@@ -6,7 +6,8 @@
 //  Copyright © 2018年 All over the sky star. All rights reserved.
 //
 
-import UIKit
+// 跨平台:enum 不依赖 UIKit/AppKit,iOS+macOS 共用
+import Foundation
 
 /* HUD Style */
 public enum WisdomHUDStyle: CaseIterable {

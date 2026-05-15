@@ -6,6 +6,7 @@
 //  Copyright © 2022 All over the sky star. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 public class WisdomHUDImageProgreView: WisdomHUDImageBaseView {
@@ -354,3 +355,4 @@ extension WisdomHUDImageWaterView: @MainActor CAAnimationDelegate{
         setRotationAnim()
     }
 }
+#endif

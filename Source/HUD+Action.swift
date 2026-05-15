@@ -6,6 +6,7 @@
 //  Copyright © 2022 All over the sky star. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 extension WisdomHUD: WisdomHUDActionable {
@@ -50,3 +51,4 @@ extension WisdomHUD: WisdomHUDActionable {
         return WisdomHUDCore.showAction(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, inSupView: inSupView, actionClosure: actionClosure)
     }
 }
+#endif

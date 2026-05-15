@@ -6,6 +6,7 @@
 //  Copyright © 2022 All over the sky star. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 private var __WisdomLogsView: WisdomHUDLogView?
@@ -835,3 +836,4 @@ extension WisdomHUDLogView {
 #endif
     }
 }
+#endif

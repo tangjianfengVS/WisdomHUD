@@ -7,21 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3EB43DB8294DBD3800FDBCFE /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB43DB7294DBD3800FDBCFE /* Log.swift */; };
-		3EBAA50A29417D7A00A7CA6C /* HUD+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAA50929417D7A00A7CA6C /* HUD+Action.swift */; };
-		3EBBC677293EDA2900FE1422 /* ImageProgre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBC676293EDA2900FE1422 /* ImageProgre.swift */; };
-		8176E73728FAE3A900E33F46 /* HUD+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E72E28FAE3A900E33F46 /* HUD+Extension.swift */; };
-		8176E73828FAE3A900E33F46 /* Able.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E72F28FAE3A900E33F46 /* Able.swift */; };
-		8176E73928FAE3A900E33F46 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E73028FAE3A900E33F46 /* Config.swift */; };
-		8176E73A28FAE3A900E33F46 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E73128FAE3A900E33F46 /* HUD.swift */; };
-		8176E73C28FAE3A900E33F46 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E73328FAE3A900E33F46 /* Action.swift */; };
-		8176E73E28FAE3A900E33F46 /* Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E73528FAE3A900E33F46 /* Core.swift */; };
-		8176E73F28FAE3A900E33F46 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E73628FAE3A900E33F46 /* Scene.swift */; };
 		8176E74128FAE4D300E33F46 /* WisdomHUDHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E74028FAE4D300E33F46 /* WisdomHUDHomeView.swift */; };
-		8176E78E28FAF34400E33F46 /* ImageAnim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8176E78D28FAF34400E33F46 /* ImageAnim.swift */; };
-		818427E82903E4BA00522922 /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818427E72903E4BA00522922 /* Context.swift */; };
-		818427EA2903E4C900522922 /* Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818427E92903E4C800522922 /* Cover.swift */; };
-		818427EC2903E4D800522922 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818427EB2903E4D800522922 /* Image.swift */; };
 		A582603C21B68174009421EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A582603B21B68174009421EB /* AppDelegate.swift */; };
 		A582604321B68175009421EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A582604221B68175009421EB /* Assets.xcassets */; };
 		A582604621B68175009421EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A582604421B68175009421EB /* LaunchScreen.storyboard */; };
@@ -33,22 +19,8 @@
 /* Begin PBXFileReference section */
 		0C2CF5773208E485A4047782 /* Pods-WisdomHUDDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WisdomHUDDemo.debug.xcconfig"; path = "Target Support Files/Pods-WisdomHUDDemo/Pods-WisdomHUDDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		257FDE87BFEE9BC755387F42 /* Pods-WisdomHUDDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WisdomHUDDemo.release.xcconfig"; path = "Target Support Files/Pods-WisdomHUDDemo/Pods-WisdomHUDDemo.release.xcconfig"; sourceTree = "<group>"; };
-		3EB43DB7294DBD3800FDBCFE /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		3EBAA50929417D7A00A7CA6C /* HUD+Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HUD+Action.swift"; sourceTree = "<group>"; };
-		3EBBC676293EDA2900FE1422 /* ImageProgre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProgre.swift; sourceTree = "<group>"; };
 		5D7B92EB24C626724B167B62 /* Pods_WisdomHUDDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WisdomHUDDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8176E72E28FAE3A900E33F46 /* HUD+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HUD+Extension.swift"; sourceTree = "<group>"; };
-		8176E72F28FAE3A900E33F46 /* Able.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Able.swift; sourceTree = "<group>"; };
-		8176E73028FAE3A900E33F46 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		8176E73128FAE3A900E33F46 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
-		8176E73328FAE3A900E33F46 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		8176E73528FAE3A900E33F46 /* Core.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Core.swift; sourceTree = "<group>"; };
-		8176E73628FAE3A900E33F46 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		8176E74028FAE4D300E33F46 /* WisdomHUDHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WisdomHUDHomeView.swift; sourceTree = "<group>"; };
-		8176E78D28FAF34400E33F46 /* ImageAnim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAnim.swift; sourceTree = "<group>"; };
-		818427E72903E4BA00522922 /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
-		818427E92903E4C800522922 /* Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cover.swift; sourceTree = "<group>"; };
-		818427EB2903E4D800522922 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		A582603821B68174009421EB /* WisdomHUDDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WisdomHUDDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A582603B21B68174009421EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A582604221B68175009421EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,32 +50,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3E843D5A277448F600378981 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				8176E73128FAE3A900E33F46 /* HUD.swift */,
-				8176E72F28FAE3A900E33F46 /* Able.swift */,
-				8176E73028FAE3A900E33F46 /* Config.swift */,
-				8176E73528FAE3A900E33F46 /* Core.swift */,
-				818427E72903E4BA00522922 /* Context.swift */,
-				818427E92903E4C800522922 /* Cover.swift */,
-				8176E73628FAE3A900E33F46 /* Scene.swift */,
-				818427EB2903E4D800522922 /* Image.swift */,
-				8176E78D28FAF34400E33F46 /* ImageAnim.swift */,
-				3EBBC676293EDA2900FE1422 /* ImageProgre.swift */,
-				8176E73328FAE3A900E33F46 /* Action.swift */,
-				3EBAA50929417D7A00A7CA6C /* HUD+Action.swift */,
-				8176E72E28FAE3A900E33F46 /* HUD+Extension.swift */,
-				3EB43DB7294DBD3800FDBCFE /* Log.swift */,
-			);
-			name = Source;
-			path = ../Source;
-			sourceTree = "<group>";
-		};
 		A582602F21B68174009421EB = {
 			isa = PBXGroup;
 			children = (
-				3E843D5A277448F600378981 /* Source */,
 				A582603A21B68174009421EB /* WisdomHUDDemo */,
 				A582603921B68174009421EB /* Products */,
 				FF21C603768F71DF00BE3285 /* Pods */,
@@ -220,13 +169,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WisdomHUDDemo/Pods-WisdomHUDDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-WisdomHUDDemo/Pods-WisdomHUDDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -262,23 +207,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EB43DB8294DBD3800FDBCFE /* Log.swift in Sources */,
-				8176E73A28FAE3A900E33F46 /* HUD.swift in Sources */,
-				8176E73928FAE3A900E33F46 /* Config.swift in Sources */,
 				8176E74128FAE4D300E33F46 /* WisdomHUDHomeView.swift in Sources */,
-				8176E73F28FAE3A900E33F46 /* Scene.swift in Sources */,
 				A582603C21B68174009421EB /* AppDelegate.swift in Sources */,
-				8176E73E28FAE3A900E33F46 /* Core.swift in Sources */,
-				3EBBC677293EDA2900FE1422 /* ImageProgre.swift in Sources */,
-				818427E82903E4BA00522922 /* Context.swift in Sources */,
-				8176E73C28FAE3A900E33F46 /* Action.swift in Sources */,
 				A582605A21B68203009421EB /* WisdomHUDHomeVC.swift in Sources */,
-				3EBAA50A29417D7A00A7CA6C /* HUD+Action.swift in Sources */,
-				8176E73828FAE3A900E33F46 /* Able.swift in Sources */,
-				8176E73728FAE3A900E33F46 /* HUD+Extension.swift in Sources */,
-				818427EA2903E4C900522922 /* Cover.swift in Sources */,
-				818427EC2903E4D800522922 /* Image.swift in Sources */,
-				8176E78E28FAF34400E33F46 /* ImageAnim.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

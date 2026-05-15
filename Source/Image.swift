@@ -6,6 +6,7 @@
 //  Copyright © 2018年 All over the sky star. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 
@@ -401,3 +402,4 @@ public class WisdomHUDImageAnimView: WisdomHUDImageBaseView {
         circleLayer.add(animation, forKey: "animateCircle")
     }
 }
+#endif

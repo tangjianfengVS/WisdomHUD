@@ -5,6 +5,7 @@
 //  Created by 汤建锋 on 2022/9/30.
 //
 
+#if os(iOS) || os(tvOS)
 import UIKit
 
 
@@ -509,3 +510,4 @@ extension WisdomHUDSceneView: WisdomHUDDelaysable {
         setDismissImage()
     }
 }
+#endif

@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import WisdomHUD
 
 @MainActor var sceneBarStyle: WisdomSceneBarStyle = .dark
 
