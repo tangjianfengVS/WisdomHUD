@@ -470,34 +470,33 @@ extension WisdomHUD: WisdomHUDLogable {
     
     // MARK: Debug Open Log 
     @objc public static func openLog() {
-        WisdomHUDCore.openLog()
+        WisdomHUDCoreImpl.openLog()
     }
     
     // MARK: Debug Show Log with: String
     @objc public static func showLog(text: String) {
-        WisdomHUDCore.showLog(text: text)
+        WisdomHUDCoreImpl.showLog(text: text)
     }
     
     // MARK: Debug Show Log Success with: String
     @objc public static func showLogSuccess(text: String) {
-        WisdomHUDCore.showLogSuccess(text: text)
+        WisdomHUDCoreImpl.showLogSuccess(text: text)
     }
     
     // MARK: Debug Show Log Warning with: String
     @objc public static func showLogWarning(text: String) {
-        WisdomHUDCore.showLogWarning(text: text)
+        WisdomHUDCoreImpl.showLogWarning(text: text)
     }
     
     // MARK: Debug Show Log Error with: String
     @objc public static func showLogError(text: String) {
-        WisdomHUDCore.showLogError(text: text)
+        WisdomHUDCoreImpl.showLogError(text: text)
     }
     
     // MARK: Debug Show Log Label with: String
     @objc public static func showLogLabel(text: String) {
-        WisdomHUDCore.showLogLabel(text: text)
+        WisdomHUDCoreImpl.showLogLabel(text: text)
     }
 }
-#endif
 
 #endif // os(iOS) || os(tvOS) || os(macOS)
