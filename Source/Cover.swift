@@ -62,13 +62,13 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDContextable {
         isSetting = true
         
         if let cur_sceneView = sceneView {
-            backgroundColor = UIColor.clear
+            Wisdom_setBackgroundColor(.clear)
             
             let coverConstraints = constraints.filter {
-                $0.identifier == WisdomHUDCore.getWisdomHUD_Focusing()
+                $0.identifier == WisdomHUD_FocusingIdentifier()
             }
             let superConstraints = superview?.constraints.filter {
-                $0.identifier == WisdomHUDCore.getWisdomHUD_Focusing()
+                $0.identifier == WisdomHUD_FocusingIdentifier()
             }
             removeConstraints(coverConstraints)
             superview?.removeConstraints(superConstraints ?? [])

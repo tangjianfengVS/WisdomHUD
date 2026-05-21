@@ -5,9 +5,19 @@
 //  Created by jianfeng on 2018/12/4.
 //  Copyright © 2018年 All over the sky star. All rights reserved.
 //
+//  跨平台辅助:布局约束、文字尺寸、Hex 颜色解析。
+//  iOS/tvOS 走 UIKit,macOS 走 AppKit;视图/颜色/字体/EdgeInsets 通过 Able.swift 的
+//  WisdomHUDView / WisdomHUDColor / WisdomHUDFont / WisdomHUDEdgeInsets 桥接。
+//
+
+#if os(iOS) || os(tvOS) || os(macOS)
 
 #if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
+
 
 //TODO: Extension UIView
 extension UIView {
@@ -129,6 +139,24 @@ extension UIView {
 }
 
 
+// MARK: - 跨平台 backgroundColor 写入
+// iOS/tvOS 直接写 backgroundColor;macOS 需 layer-backed,先确保 wantsLayer 再写 layer.backgroundColor
+
+extension WisdomHUDView {
+
+    @objc public func Wisdom_setBackgroundColor(_ color: WisdomHUDColor) {
+        #if os(iOS) || os(tvOS)
+        self.backgroundColor = color
+        #elseif os(macOS)
+        if !self.wantsLayer { self.wantsLayer = true }
+        self.layer?.backgroundColor = color.cgColor
+        #endif
+    }
+}
+
+
+// MARK: - String 文字尺寸测量
+
 extension String {
     
     // MARK: - Get Text Size With: UIFont - CGSize
@@ -182,3 +210,17 @@ extension UIColor {
     }
 }
 #endif
+
+
+// MARK: - Core 命名空间桥接:iOS 用 WisdomHUDCore,macOS 用 WisdomHUDMacCore
+
+@inline(__always)
+internal func WisdomHUD_FocusingIdentifier() -> String {
+    #if os(iOS) || os(tvOS)
+    return WisdomHUDCore.getWisdomHUD_Focusing()
+    #elseif os(macOS)
+    return WisdomHUDMacCore.getWisdomHUD_Focusing()
+    #endif
+}
+
+#endif // os(iOS) || os(tvOS) || os(macOS)
