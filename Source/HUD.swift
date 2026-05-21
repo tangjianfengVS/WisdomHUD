@@ -5,52 +5,84 @@
 //  Created by jianfeng on 2018/12/3.
 //  Copyright © 2018年 All over the sky star. All rights reserved.
 //
+//  跨平台公共门面。所有 show* / setting / log API 都在这里。
+//  iOS/tvOS 转发到 WisdomHUDCore;macOS 转发到 WisdomHUDMacCore。
+//
+//  注:macOS 端 WisdomHUDMacCore 是 @MainActor,因此 macOS 上 WisdomHUD 类也要 @MainActor;
+//      iOS/tvOS WisdomHUDCore 是 nonisolated 普通 struct,WisdomHUD 类无需隔离。
+//
+//  结构:
+//   - 方法实现:统一放在 non-conforming 的 `extension WisdomHUD { }` 块里。
+//   - 协议 conformance:抽到文件末尾 #if 分平台声明,
+//     macOS 那份带 @MainActor 修饰以避免 conformance-isolation 警告。
+//
+
+#if os(iOS) || os(tvOS) || os(macOS)
 
 #if os(iOS) || os(tvOS)
 import UIKit
+internal typealias WisdomHUDCoreImpl = WisdomHUDCore
+#elseif os(macOS)
+import AppKit
+internal typealias WisdomHUDCoreImpl = WisdomHUDMacCore
+#endif
 
 
+// 类声明:macOS 必须 @MainActor 才能调用 @MainActor Core;iOS 保持 nonisolated。
+#if os(iOS) || os(tvOS)
 @objc public final class WisdomHUD: NSObject {
-    
     @available(*, unavailable)
-    override init() {}
+    override init() {
+        
+    }
 }
+#elseif os(macOS)
+@objc @MainActor public final class WisdomHUD: NSObject {
+    @available(*, unavailable)
+    override init() {
+        
+    }
+}
+#endif
+
+
+// MARK: - Settingable
 
 extension WisdomHUD: WisdomHUDSettingable {
     
     // MARK: HUD Set Loading Style
     @objc public static func setLoadingStyle(loadingStyle: WisdomLoadingStyle) {
-        WisdomHUDCore.setLoadingStyle(loadingStyle: loadingStyle)
+        WisdomHUDCoreImpl.setLoadingStyle(loadingStyle: loadingStyle)
     }
     
     // MARK: HUD Set Progress Style
     @objc public static func setProgressStyle(progreStyle: WisdomProgreStyle) {
-        WisdomHUDCore.setProgressStyle(progreStyle: progreStyle)
+        WisdomHUDCoreImpl.setProgressStyle(progreStyle: progreStyle)
     }
     
     // MARK: HUD Set Scene Bar Style
     @objc public static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
-        WisdomHUDCore.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
+        WisdomHUDCoreImpl.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
     }
     
     // MARK: HUD Set Text MaxLines
     @objc public static func setTextMaxLines(maxLine: WisdomTextMaxLineStyle) {
-        WisdomHUDCore.setTextMaxLines(maxLine: maxLine)
+        WisdomHUDCoreImpl.setTextMaxLines(maxLine: maxLine)
     }
     
     // MARK: HUD Set Display Delay
     @objc public static func setDisplayDelay(delayTime: CGFloat) {
-        WisdomHUDCore.setDisplayDelay(delayTime: delayTime)
+        WisdomHUDCoreImpl.setDisplayDelay(delayTime: delayTime)
     }
     
     // MARK: HUD Set Cover BackgColor
-    @objc public static func setCoverBackgColor(backgColor: UIColor) {
-        WisdomHUDCore.setCoverBackgColor(backgColor: backgColor)
+    @objc public static func setCoverBackgColor(backgColor: WisdomHUDColor) {
+        WisdomHUDCoreImpl.setCoverBackgColor(backgColor: backgColor)
     }
     
     // MARK: 全局设置 文字文案 大小（会被自定义覆盖）
     @objc public static func setTextSizeStyle(textSizeStyle: WisdomTextSizeStyle) {
-        WisdomHUDCore.setTextSizeStyle(textSizeStyle: textSizeStyle)
+        WisdomHUDCoreImpl.setTextSizeStyle(textSizeStyle: textSizeStyle)
     }
 }
 
@@ -58,22 +90,22 @@ extension WisdomHUD: WisdomHUDGlobalable {
     
     // MARK: HUD dismiss
     @objc public static func dismiss() {
-        WisdomHUDCore.dismiss()
+        WisdomHUDCoreImpl.dismiss()
     }
     
     // MARK: HUD dismiss Action
     @objc public static func dismissAction() {
-        WisdomHUDCore.dismissAction()
+        WisdomHUDCoreImpl.dismissAction()
     }
     
     // MARK: Get UIApplication UIWindow
-    @objc public static func getScreenWindow() -> UIWindow? {
-        return WisdomHUDCore.getScreenWindow()
+    @objc public static func getScreenWindow() -> WisdomHUDWindow? {
+        return WisdomHUDCoreImpl.getScreenWindow()
     }
     
     // MARK: Small Screen For Example: iPhone 8, iPhone 7, iPhone 6 and the following
     @objc public static func isSmallScreen() -> Bool {
-        return WisdomHUDCore.isSmallScreen()
+        return WisdomHUDCoreImpl.isSmallScreen()
     }
 }
 
@@ -467,3 +499,5 @@ extension WisdomHUD: WisdomHUDLogable {
     }
 }
 #endif
+
+#endif // os(iOS) || os(tvOS) || os(macOS)
