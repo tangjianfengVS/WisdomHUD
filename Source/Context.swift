@@ -4,49 +4,68 @@
 //
 //  Created by 汤建锋 on 2022/10/18.
 //
+//  Context 状态对象:show 立即返回 Context,链式 setter 把状态记到 context,
+//  UI 异步建好后再回放。iOS/tvOS + macOS 共用。
+//
+//  线程模型:类本身是 nonisolated(允许后台线程构造/调用 setter),
+//  但 setter 内部一律切到 main actor 执行真正的 UI 工作 + 属性写入,
+//  这样 Cover 的 @MainActor setter 能安全调用,且并发写入不会竞争。
+//
+
+#if os(iOS) || os(tvOS) || os(macOS)
 
 #if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+typealias WisdomHUDMacBaseContext    = WisdomHUDBaseContext
+typealias WisdomHUDMacContext        = WisdomHUDContext
+typealias WisdomHUDMacLoadingContext = WisdomHUDLoadingContext
+typealias WisdomHUDMacProgreContext  = WisdomHUDProgreContext
+typealias WisdomHUDMacActionContext  = WisdomHUDActionContext
+#endif
 
+
+// MARK: - 状态容器(nonisolated 类,允许后台线程构造)
 
 class WisdomHUDBaseContext {
 
-    private(set) weak var coverView: UIView? // CoverView
-    
-    private(set) var textFont: UIFont?
-    
-    private(set) var textColor: UIColor?
-    
-    private(set) var updateText: String?
-    
-    private(set) var animationVI: UIView?
+    fileprivate(set) weak var coverView: WisdomHUDView? // CoverView
+
+    fileprivate(set) var textFont: WisdomHUDFont?
+
+    fileprivate(set) var textColor: WisdomHUDColor?
+
+    fileprivate(set) var updateText: String?
+
+    fileprivate(set) var animationVI: WisdomHUDView?
 }
 
 final class WisdomHUDContext: WisdomHUDBaseContext {
-    
-    private(set) var focusing = false
+
+    fileprivate(set) var focusing = false
 }
 
 class WisdomHUDLoadingContext: WisdomHUDBaseContext {
-    
-    private(set) var timeout: (TimeInterval, (TimeInterval)->())?
+
+    fileprivate(set) var timeout: (TimeInterval, (TimeInterval) -> ())?
 }
 
 final class WisdomHUDProgreContext: WisdomHUDLoadingContext {
-    
-    private(set) var progreColor: UIColor?
-    
-    private(set) var progreValue: UInt?
-    
-    private(set) var progreTextColor: UIColor?
-    
-    private(set) var progreShadowColor: UIColor?
+
+    fileprivate(set) var progreColor: WisdomHUDColor?
+
+    fileprivate(set) var progreValue: UInt?
+
+    fileprivate(set) var progreTextColor: WisdomHUDColor?
+
+    fileprivate(set) var progreShadowColor: WisdomHUDColor?
 }
 
 
 extension WisdomHUDBaseContext {
-    
-    func setCoverView(coverView: UIView) {
+
+    func setCoverView(coverView: WisdomHUDView) {
         self.coverView = coverView
     }
 }
@@ -259,28 +278,30 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
 }
 
 
+// MARK: - Action Context
+
 class WisdomHUDActionContext {
 
-    private(set) weak var coverView: UIView? // CoverView
-    
-    private(set) var leftAction: (TextColor:UIColor?, TextFont:UIFont?)?
-    
-    private(set) var rightAction: (TextColor:UIColor?, TextFont:UIFont?)?
-    
-    private(set) var textAlignment: NSTextAlignment?
-    
-    private(set) var textFont: UIFont?
-    
-    private(set) var textColor: UIColor?
-    
-    private(set) var labelFont: UIFont?
-    
-    private(set) var labelColor: UIColor?
+    fileprivate(set) weak var coverView: WisdomHUDView?
+
+    fileprivate(set) var leftAction: (TextColor: WisdomHUDColor?, TextFont: WisdomHUDFont?)?
+
+    fileprivate(set) var rightAction: (TextColor: WisdomHUDColor?, TextFont: WisdomHUDFont?)?
+
+    fileprivate(set) var textAlignment: NSTextAlignment?
+
+    fileprivate(set) var textFont: WisdomHUDFont?
+
+    fileprivate(set) var textColor: WisdomHUDColor?
+
+    fileprivate(set) var labelFont: WisdomHUDFont?
+
+    fileprivate(set) var labelColor: WisdomHUDColor?
 }
 
 extension WisdomHUDActionContext {
-    
-    func setCoverView(coverView: UIView) {
+
+    func setCoverView(coverView: WisdomHUDView) {
         self.coverView = coverView
     }
 }
@@ -418,4 +439,4 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
     }
 }
 
-#endif
+#endif // os(iOS) || os(tvOS) || os(macOS)
