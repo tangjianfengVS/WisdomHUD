@@ -15,8 +15,9 @@ import UIKit
 #elseif os(macOS)
 import AppKit
 // macOS 端 SceneView/ActionThemeView 仍带 Mac 后缀,这里用 typealias 让 Cover 用统一名引用
-typealias WisdomHUDSceneView = WisdomHUDMacSceneView
+typealias WisdomHUDSceneView       = WisdomHUDMacSceneView
 typealias WisdomHUDActionThemeView = WisdomHUDMacActionThemeView
+typealias WisdomHUDMacCoverView    = WisdomHUDCoverView
 #endif
 
 
@@ -28,9 +29,22 @@ final class WisdomHUDCoverView: WisdomHUDView {
     
     weak var actionView: WisdomHUDActionThemeView?
     
+    #if os(macOS)
+    // NSView.tag is get-only;macOS 用存储属性 override,提供 setWisdomTag(_:) 写入入口
+    private var _wisdomTag: Int = 0
+    override var tag: Int { _wisdomTag }
+    func setWisdomTag(_ value: Int) { _wisdomTag = value }
+    
+    override var isFlipped: Bool { true }
+    #endif
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
+        
+        #if os(macOS)
+        wantsLayer = true
+        #endif
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +52,7 @@ final class WisdomHUDCoverView: WisdomHUDView {
     }
     
     deinit {
-        print("\(self.classForCoder) deinit")
+        print("\(Swift.type(of: self)) deinit")
     }
 }
 
@@ -99,12 +113,12 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDLoadingContextable {
 
 extension WisdomHUDCoverView: @MainActor WisdomHUDBaseContextable {
     
-    func setTextFont(font: UIFont)->Self {
+    func setTextFont(font: WisdomHUDFont)->Self {
         _=sceneView?.setTextFont(font: font)
         return self
     }
     
-    func setTextColor(color: UIColor)->Self {
+    func setTextColor(color: WisdomHUDColor)->Self {
         _=sceneView?.setTextColor(color: color)
         return self
     }
@@ -114,7 +128,7 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDBaseContextable {
         return self
     }
     
-    func setAnimation(view: UIView)->Self {
+    func setAnimation(view: WisdomHUDView)->Self {
         isSetting = true
         _=sceneView?.setAnimation(view: view)
         return self
@@ -123,7 +137,7 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDBaseContextable {
 
 extension WisdomHUDCoverView: @MainActor WisdomHUDProgreContextable {
     
-    func setProgreColor(color: UIColor)->Self {
+    func setProgreColor(color: WisdomHUDColor)->Self {
         _=sceneView?.setProgreColor(color: color)
         return self
     }
@@ -133,12 +147,12 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDProgreContextable {
         return self
     }
     
-    func setProgreTextColor(color: UIColor)->Self {
+    func setProgreTextColor(color: WisdomHUDColor)->Self {
         _=sceneView?.setProgreTextColor(color: color)
         return self
     }
     
-    func setProgreShadowColor(color: UIColor)->Self {
+    func setProgreShadowColor(color: WisdomHUDColor)->Self {
         _=sceneView?.setProgreShadowColor(color: color)
         return self
     }
@@ -146,12 +160,12 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDProgreContextable {
 
 extension WisdomHUDCoverView: @MainActor WisdomHUDActionContextable {
     
-    func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self {
+    func setLeftAction(textColor: WisdomHUDColor?, textFont: WisdomHUDFont?)->Self {
         _=actionView?.setLeftAction(textColor: textColor, textFont: textFont)
         return self
     }
     
-    func setRightAction(textColor: UIColor?, textFont: UIFont?)->Self {
+    func setRightAction(textColor: WisdomHUDColor?, textFont: WisdomHUDFont?)->Self {
         _=actionView?.setRightAction(textColor: textColor, textFont: textFont)
         return self
     }
@@ -161,26 +175,25 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDActionContextable {
         return self
     }
     
-    func setActionTextFont(font: UIFont)->Self {
+    func setActionTextFont(font: WisdomHUDFont)->Self {
         _=actionView?.setTextFont(font: font)
         return self
     }
     
-    func setActionTextColor(color: UIColor)->Self {
+    func setActionTextColor(color: WisdomHUDColor)->Self {
         _=actionView?.setTextColor(color: color)
         return self
     }
     
-    func setLabelFont(font: UIFont) -> Self {
+    func setLabelFont(font: WisdomHUDFont) -> Self {
         _=actionView?.setLabelFont(font: font)
         return self
     }
     
-    func setLabelColor(color: UIColor) -> Self {
+    func setLabelColor(color: WisdomHUDColor) -> Self {
         _=actionView?.setLabelColor(color: color)
         return self
     }
 }
-#endif
 
 #endif // os(iOS) || os(tvOS) || os(macOS)
