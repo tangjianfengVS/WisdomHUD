@@ -4,13 +4,24 @@
 //
 //  Created by 汤建锋 on 2022/10/20.
 //
+//  跨平台 HUD 遮罩 view:挂 SceneView 或 ActionView,链式 setter 转发到内部 view。
+//  iOS/tvOS 基于 UIView,macOS 基于 NSView,通过 Able.swift 的 WisdomHUDView 桥接。
+//
+
+#if os(iOS) || os(tvOS) || os(macOS)
 
 #if os(iOS) || os(tvOS)
 import UIKit
+#elseif os(macOS)
+import AppKit
+// macOS 端 SceneView/ActionThemeView 仍带 Mac 后缀,这里用 typealias 让 Cover 用统一名引用
+typealias WisdomHUDSceneView = WisdomHUDMacSceneView
+typealias WisdomHUDActionThemeView = WisdomHUDMacActionThemeView
+#endif
 
 
-final class WisdomHUDCoverView: UIView {
-    
+final class WisdomHUDCoverView: WisdomHUDView {
+
     private(set) var isSetting = false
     
     weak var sceneView: WisdomHUDSceneView?
@@ -171,3 +182,5 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDActionContextable {
     }
 }
 #endif
+
+#endif // os(iOS) || os(tvOS) || os(macOS)
