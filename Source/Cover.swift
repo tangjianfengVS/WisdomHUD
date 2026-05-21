@@ -73,7 +73,12 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDContextable {
             removeConstraints(coverConstraints)
             superview?.removeConstraints(superConstraints ?? [])
             
+            #if os(iOS) || os(tvOS)
             superview?.layoutIfNeeded()
+            #elseif os(macOS)
+            superview?.layoutSubtreeIfNeeded()
+            #endif
+            
             if cur_sceneView.placeStyle == .bottom {
                 superview?.wisdom_addConstraint(toCenterX: self, toCenterY: nil)
                 superview?.addConstraint(NSLayoutConstraint(item: self,
@@ -92,7 +97,7 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDContextable {
                                  leftView: self,
                                  bottomView: self,
                                  rightView: self,
-                                 edgeInset: UIEdgeInsets.zero)
+                                 edgeInset: WisdomHUDEdgeInsets.zero)
             
             if cur_sceneView.hudStyle != .text{
                 cur_sceneView.set_imageContentSize()
