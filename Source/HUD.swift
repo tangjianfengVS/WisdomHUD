@@ -46,8 +46,7 @@ internal typealias WisdomHUDCoreImpl = WisdomHUDMacCore
 #endif
 
 
-// MARK: - Settingable
-
+// MARK: - Settingable 设置配置
 extension WisdomHUD: WisdomHUDSettingable {
     
     // MARK: HUD Set Loading Style
@@ -86,6 +85,8 @@ extension WisdomHUD: WisdomHUDSettingable {
     }
 }
 
+
+// MARK: - Globalable 操控
 extension WisdomHUD: WisdomHUDGlobalable {
     
     // MARK: HUD dismiss
@@ -109,6 +110,8 @@ extension WisdomHUD: WisdomHUDGlobalable {
     }
 }
 
+
+// MARK: - Loadingable 开始提示
 extension WisdomHUD: WisdomHUDLoadingable {
     
     // MARK: Show Loading with: String
@@ -160,6 +163,8 @@ extension WisdomHUD: WisdomHUDLoadingable {
     }
 }
 
+
+// MARK: - Progreable  进度提示
 extension WisdomHUD: WisdomHUDProgreable {
     
     // MARK: Show Progress with: String
@@ -211,6 +216,8 @@ extension WisdomHUD: WisdomHUDProgreable {
     }
 }
 
+
+// MARK: - Successable  成功提示
 extension WisdomHUD: WisdomHUDSuccessable {
     
     // MARK: Show Success with: String
@@ -262,6 +269,8 @@ extension WisdomHUD: WisdomHUDSuccessable {
     }
 }
 
+
+// MARK: - Errorable  错误提示
 extension WisdomHUD: WisdomHUDErrorable {
     
     // MARK: Show Error with: String
@@ -313,6 +322,8 @@ extension WisdomHUD: WisdomHUDErrorable {
     }
 }
 
+
+// MARK: - Warningable  警告提示
 extension WisdomHUD: WisdomHUDWarningable {
     
     // MARK: Show Warning with: String
@@ -364,6 +375,8 @@ extension WisdomHUD: WisdomHUDWarningable {
     }
 }
 
+
+// MARK: - TextCenterable  文字中心提示
 extension WisdomHUD: WisdomHUDTextCenterable {
     
     // MARK: Show Text Center with: String
@@ -415,6 +428,8 @@ extension WisdomHUD: WisdomHUDTextCenterable {
     }
 }
 
+
+// MARK: - TextBottomable  文字底部提示
 extension WisdomHUD: WisdomHUDTextBottomable {
     
     // MARK: Show Text Bottom with: String
@@ -466,6 +481,53 @@ extension WisdomHUD: WisdomHUDTextBottomable {
     }
 }
 
+
+// MARK: - Actionable  选择事件提示
+extension WisdomHUD: WisdomHUDActionable {
+    
+    // MARK: Show Action
+    // title/text            : UILabel's text
+    // leftAction/rightAction: UIBotton's text
+    // actionClosure         : UIBotton's click closure -> (String, WisdomActionValueStyle) -> (Bool)
+    @discardableResult
+    @objc public static func showAction(title: String, text: String, leftAction: String?, rightAction: String, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable{
+        return WisdomHUDCoreImpl.showAction(title: title, text: text, leftAction: leftAction, rightAction: rightAction, actionClosure: actionClosure)
+    }
+    
+    // MARK: Show Action
+    // title/text            : UILabel's text
+    // leftAction/rightAction: UIBotton's text
+    // themeStyle            : UIColor's theme
+    // actionClosure         : UIBotton's click closure -> (String, WisdomActionValueStyle) -> (Bool)
+    @discardableResult
+    @objc public static func showAction(title: String, text: String, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable{
+        return WisdomHUDCoreImpl.showAction(title: title, text: text, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, actionClosure: actionClosure)
+    }
+    
+    // MARK: Show Action
+    // title/text/label      : UILabel's text
+    // leftAction/rightAction: UIBotton's text
+    // themeStyle            : UIColor's theme
+    // actionClosure         : UIBotton's click closure -> (String, WisdomActionValueStyle) -> (Bool)
+    @discardableResult
+    @objc public static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, actionClosure: @escaping (String,WisdomActionValueStyle)->(Bool))->WisdomHUDActionContextable{
+        return WisdomHUDCoreImpl.showAction(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, actionClosure: actionClosure)
+    }
+    
+    // MARK: Show Action
+    // title/text/label      : UILabel's text
+    // leftAction/rightAction: UIBotton's text
+    // themeStyle            : UIColor's theme
+    // inSupView             : UIView's supView
+    // actionClosure         : UIBotton's click closure -> (String, WisdomActionValueStyle) -> (Bool)
+    @discardableResult
+    @objc public static func showAction(title: String, text: String, label: String?, leftAction: String?, rightAction: String, themeStyle: WisdomColorThemeStyle, inSupView: WisdomHUDView?, actionClosure: @escaping (String, WisdomActionValueStyle) -> (Bool))->WisdomHUDActionContextable{
+        return WisdomHUDCoreImpl.showAction(title: title, text: text, label: label, leftAction: leftAction, rightAction: rightAction, themeStyle: themeStyle, inSupView: inSupView, actionClosure: actionClosure)
+    }
+}
+
+
+// MARK: - Logable  日志界面提示
 extension WisdomHUD: WisdomHUDLogable {
     
     // MARK: Debug Open Log 
