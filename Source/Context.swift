@@ -73,7 +73,7 @@ extension WisdomHUDBaseContext {
 extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
 
     // MARK: Set HUD CoverView Loading Text Font
-    public func setTextFont(font: UIFont)->Self {
+    public func setTextFont(font: WisdomHUDFont)->Self {
         if Thread.isMainThread {
             doTextFont()
         }else {
@@ -92,7 +92,7 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
     }
 
     // MARK: Set HUD CoverView Loading Text Color
-    public func setTextColor(color: UIColor)->Self {
+    public func setTextColor(color: WisdomHUDColor)->Self {
         if Thread.isMainThread {
             doTextColor()
         }else {
@@ -130,7 +130,7 @@ extension WisdomHUDBaseContext: WisdomHUDBaseContextable {
     }
     
     // MARK: Set HUD CoverView Update Animation View
-    func setAnimation(view: UIView)->Self {
+    func setAnimation(view: WisdomHUDView)->Self {
         if Thread.isMainThread{
             doAnimation()
         }else {
@@ -218,7 +218,7 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     }
     
     // MARK: Set HUD CoverView Progre Color
-    public func setProgreColor(color: UIColor)->Self {
+    public func setProgreColor(color: WisdomHUDColor)->Self {
         if Thread.isMainThread {
             doProgreColor()
         }else {
@@ -238,7 +238,7 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     
     // MARK: Set the Progre Context text color
     @discardableResult
-    @objc func setProgreTextColor(color: UIColor)->Self{
+    @objc func setProgreTextColor(color: WisdomHUDColor)->Self{
         if Thread.isMainThread {
             doProgreTextColor()
         }else {
@@ -258,7 +258,7 @@ extension WisdomHUDProgreContext: WisdomHUDProgreContextable {
     
     // MARK: Set the Progre Context Shadow color
     @discardableResult
-    @objc func setProgreShadowColor(color: UIColor)->Self {
+    @objc func setProgreShadowColor(color: WisdomHUDColor)->Self {
         if Thread.isMainThread {
             doProgreShadowColor()
         }else {
@@ -308,7 +308,7 @@ extension WisdomHUDActionContext {
 
 extension WisdomHUDActionContext: WisdomHUDActionContextable {
     
-    func setLeftAction(textColor: UIColor?, textFont: UIFont?)->Self{
+    func setLeftAction(textColor: WisdomHUDColor?, textFont: WisdomHUDFont?)->Self{
         if textColor==nil && textFont==nil { return self }
         if Thread.isMainThread {
             doLeftAction()
@@ -327,7 +327,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
         return self
     }
     
-    func setRightAction(textColor: UIColor?, textFont: UIFont?)->Self{
+    func setRightAction(textColor: WisdomHUDColor?, textFont: WisdomHUDFont?)->Self{
         if textColor==nil && textFont==nil {
             return self
         }
@@ -366,7 +366,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
         return self
     }
     
-    func setTextFont(font: UIFont) -> Self {
+    func setTextFont(font: WisdomHUDFont) -> Self {
         if Thread.isMainThread {
             doTextFont()
         }else {
@@ -384,7 +384,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
         return self
     }
     
-    func setTextColor(color: UIColor)->Self {
+    func setTextColor(color: WisdomHUDColor)->Self {
         if Thread.isMainThread {
             doTextColor()
         }else {
@@ -402,7 +402,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
         return self
     }
     
-    func setLabelFont(font: UIFont)->Self {
+    func setLabelFont(font: WisdomHUDFont)->Self {
         if Thread.isMainThread {
             doTextFont()
         }else {
@@ -420,7 +420,7 @@ extension WisdomHUDActionContext: WisdomHUDActionContextable {
         return self
     }
     
-    func setLabelColor(color: UIColor)->Self {
+    func setLabelColor(color: WisdomHUDColor)->Self {
         if Thread.isMainThread {
             doTextColor()
         }else {

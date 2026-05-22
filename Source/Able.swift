@@ -88,11 +88,11 @@ public protocol WisdomHUDLoadingable {
     
     static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDLoadingContextable // loadingStyle/barStyle
     
-    static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, inSupView: UIView?)->WisdomHUDLoadingContextable // loadingStyle/inSupView
-    
-    static func showLoading(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDLoadingContextable // barStyle/inSupView
-    
-    static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDLoadingContextable // loadingStyle/barStyle/inSupView
+    static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, inSupView: WisdomHUDView?)->WisdomHUDLoadingContextable // loadingStyle/inSupView
+
+    static func showLoading(text: String, barStyle: WisdomSceneBarStyle, inSupView: WisdomHUDView?)->WisdomHUDLoadingContextable // barStyle/inSupView
+
+    static func showLoading(text: String, loadingStyle: WisdomLoadingStyle, barStyle: WisdomSceneBarStyle, inSupView: WisdomHUDView?)->WisdomHUDLoadingContextable // loadingStyle/barStyle/inSupView
 }
 
 public protocol WisdomHUDProgreable {
@@ -107,11 +107,11 @@ public protocol WisdomHUDProgreable {
     
     static func showProgress(text: String, progreStyle: WisdomProgreStyle, barStyle: WisdomSceneBarStyle)->WisdomHUDProgreContextable // progreStyle/barStyle
     
-    static func showProgress(text: String, progreStyle: WisdomProgreStyle, inSupView: UIView?)->WisdomHUDProgreContextable // progreStyle/inSupView
-    
-    static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable // barStyle/inSupView
-    
-    static func showProgress(text: String, progreStyle: WisdomProgreStyle, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDProgreContextable // progreStyle/barStyle/inSupView
+    static func showProgress(text: String, progreStyle: WisdomProgreStyle, inSupView: WisdomHUDView?)->WisdomHUDProgreContextable // progreStyle/inSupView
+
+    static func showProgress(text: String, barStyle: WisdomSceneBarStyle, inSupView: WisdomHUDView?)->WisdomHUDProgreContextable // barStyle/inSupView
+
+    static func showProgress(text: String, progreStyle: WisdomProgreStyle, barStyle: WisdomSceneBarStyle, inSupView: WisdomHUDView?)->WisdomHUDProgreContextable // progreStyle/barStyle/inSupView
 }
 
 public protocol WisdomHUDSuccessable {
@@ -124,7 +124,7 @@ public protocol WisdomHUDSuccessable {
     
     static func showSuccess(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // delays
     
-    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContextable // barStyle/inSupView
+    static func showSuccess(text: String, barStyle: WisdomSceneBarStyle, inSupView: WisdomHUDView?)->WisdomHUDContextable // barStyle/inSupView
     
     static func showSuccess(text: String, inSupView: WisdomHUDView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // inSupView/delays
     
@@ -143,7 +143,7 @@ public protocol WisdomHUDErrorable {
     
     static func showError(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // delays
     
-    static func showError(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContextable // barStyle/inSupView
+    static func showError(text: String, barStyle: WisdomSceneBarStyle, inSupView: WisdomHUDView?)->WisdomHUDContextable // barStyle/inSupView
     
     static func showError(text: String, inSupView: WisdomHUDView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // inSupView/delays
     
@@ -200,7 +200,7 @@ public protocol WisdomHUDTextBottomable {
     
     static func showTextBottom(text: String, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // delays
     
-    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: UIView?)->WisdomHUDContextable // barStyle/inSupView
+    static func showTextBottom(text: String, barStyle: WisdomSceneBarStyle, inSupView: WisdomHUDView?)->WisdomHUDContextable // barStyle/inSupView
     
     static func showTextBottom(text: String, inSupView: WisdomHUDView?, delays: TimeInterval, delayClosure: ((TimeInterval)->())?)->WisdomHUDContextable // inSupView/delays
     

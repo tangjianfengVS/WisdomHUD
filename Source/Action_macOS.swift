@@ -320,7 +320,7 @@ class WisdomHUDMacActionThemeView: WisdomHUDMacActionView {
     required init?(coder: NSCoder) { fatalError("init(coder:) not implemented") }
 
     func setThemeStyle(themeStyle: WisdomColorThemeStyle) {
-        let colors = WisdomColorThemeStyle.getMacColor(themeStyle: themeStyle)
+        let colors = WisdomColorThemeStyle.getColor(themeStyle: themeStyle)
         layer?.backgroundColor = colors.HUDColor.cgColor
         titleLabel.textColor = colors.TitleColor
         textLabel.textColor = colors.TextColor

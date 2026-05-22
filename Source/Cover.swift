@@ -92,12 +92,17 @@ extension WisdomHUDCoverView: @MainActor WisdomHUDContextable {
                 superview?.wisdom_addConstraint(toCenterX: self, toCenterY: self)
             }
             
+            #if os(iOS) || os(tvOS)
+            let zeroInset = WisdomHUDEdgeInsets.zero
+            #elseif os(macOS)
+            let zeroInset = NSEdgeInsetsZero  // NSEdgeInsets 没有静态 .zero,用全局常量
+            #endif
             wisdom_addConstraint(with: cur_sceneView,
                                  topView: self,
                                  leftView: self,
                                  bottomView: self,
                                  rightView: self,
-                                 edgeInset: WisdomHUDEdgeInsets.zero)
+                                 edgeInset: zeroInset)
             
             if cur_sceneView.hudStyle != .text{
                 cur_sceneView.set_imageContentSize()

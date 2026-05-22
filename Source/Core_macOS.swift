@@ -146,6 +146,11 @@ extension WisdomHUDMacCore: WisdomHUDMacGlobalable {
         return NSApp.windows.first { $0.isVisible && $0 !== huudPanel && $0 !== actionPanel }
     }
 
+    // macOS 没有 iPhone 那种"小屏"概念，这里返回 true 以满足 protocol。
+    static func isSmallScreen() -> Bool {
+        return true
+    }
+
     fileprivate static func hidePanel(_ p: NSPanel) {
         p.orderOut(nil)
     }
@@ -197,14 +202,13 @@ extension WisdomHUDMacCore: WisdomHUDMacGlobalable {
                                           NSWindow.didMoveNotification,
                                           NSWindow.didChangeScreenNotification]
         for n in names {
-            let token = NotificationCenter.default.addObserver(forName: n, object: host, queue: .main) { _ in
-                Task {
-                    if let p1 = huudPanel {
-                        p1.setFrame(host.frame, display: false)
-                    }
-                    if let p2 = actionPanel {
-                        p2.setFrame(host.frame, display: false)
-                    }
+            let token = NotificationCenter.default.addObserver(forName: n, object: host, queue: .main) { [weak host] _ in
+                // 闭包已在 .main OperationQueue 投递,这里再切到 @MainActor 上下文以满足 setFrame 的 actor 隔离要求。
+                DispatchQueue.main.async { @MainActor in
+                    guard let host = host else { return }
+                    let frame = host.frame
+                    if let p1 = huudPanel { p1.setFrame(frame, display: false) }
+                    if let p2 = actionPanel { p2.setFrame(frame, display: false) }
                 }
             }
             hostObservers.append(token)
@@ -247,7 +251,7 @@ extension WisdomHUDMacCore {
         func createCoverView(rootVI: NSView) -> (WisdomHUDMacCoverView, WisdomHUDMacSceneView)? {
             let cover = WisdomHUDMacCoverView()
             cover.setWisdomTag(WisdomHUDCoverTag)
-            cover.wisdom_setBackgroundColor(WisdomCoverBackgColor)
+            cover.Wisdom_setBackgroundColor(WisdomCoverBackgColor)
             rootVI.addSubview(cover)
             rootVI.wisdom_addConstraint(with: cover,
                                         topView: rootVI, leftView: rootVI,
@@ -298,7 +302,7 @@ extension WisdomHUDMacCore {
         }
         let cover = WisdomHUDMacCoverView()
         cover.setWisdomTag(WisdomHUDCoverTag >> 1)
-        cover.wisdom_setBackgroundColor(WisdomCoverBackgColor)
+        cover.Wisdom_setBackgroundColor(WisdomCoverBackgColor)
         rootVI.addSubview(cover)
         rootVI.wisdom_addConstraint(with: cover,
                                     topView: rootVI, leftView: rootVI,
