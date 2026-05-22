@@ -772,7 +772,7 @@ extension WisdomHUDCore {
     }
     
     static func showLogLabel(text: String) {
-        WisdomHUDLogView.setLog(text: "💟"+text+"💟")
+        WisdomHUDLogView.setLog(text: "🔥"+text+"🔥")
     }
 }
 #endif
