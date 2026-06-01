@@ -102,6 +102,10 @@ public class WisdomHUDMacImageAnimView: WisdomHUDMacImageBaseView {
     @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
         super.init(size: size)
         circleLayer.strokeColor = strokeColor(for: barStyle)
+        // 绕中心旋转:给图层 bounds + center position(anchorPoint 默认 0.5,0.5)。
+        // path 用绝对坐标绘制,bounds 原点与 position 抵消后位置不变,只是把旋转支点移到圆心。
+        circleLayer.bounds = CGRect(x: 0, y: 0, width: size, height: size)
+        circleLayer.position = CGPoint(x: size / 2, y: size / 2)
         layer?.addSublayer(circleLayer)
 
         let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
@@ -152,6 +156,9 @@ public class WisdomHUDMacImageAnimView: WisdomHUDMacImageBaseView {
         circleLayer.path = path.wisdom_cgPath
         circleLayer.strokeStart = 0
         circleLayer.strokeEnd = 0.05
+        // 绕中心旋转(同 RotateView):bounds + center position,支点移到圆心。
+        circleLayer.bounds = CGRect(x: 0, y: 0, width: size, height: size)
+        circleLayer.position = CGPoint(x: size / 2, y: size / 2)
         layer?.addSublayer(circleLayer)
 
         let strokeAnim = CABasicAnimation(keyPath: "strokeEnd")
