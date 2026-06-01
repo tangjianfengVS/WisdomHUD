@@ -110,6 +110,14 @@ public class WisdomHUDMacImageAnimView: WisdomHUDMacImageBaseView {
         rotation.repeatCount = .greatestFiniteMagnitude
         rotation.duration = 1
         circleLayer.add(rotation, forKey: "rotation")
+
+        // 对齐 iOS:首帧 strokeEnd 0→1 的描边"画出"过场,与旋转叠加。
+        let draw = CABasicAnimation(keyPath: "strokeEnd")
+        draw.fromValue = 0
+        draw.toValue = 1
+        draw.duration = CFTimeInterval(Self.getAnimDuration())
+        draw.timingFunction = CAMediaTimingFunction(name: .linear)
+        circleLayer.add(draw, forKey: "draw")
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) not implemented") }
@@ -117,6 +125,8 @@ public class WisdomHUDMacImageAnimView: WisdomHUDMacImageBaseView {
     public override func getLineWidth() -> CGFloat { return size / 14.0 }
 
     public override class func getAnimDuration() -> CGFloat { return 0.6 }
+
+    public override class func getLightColor() -> CGColor { return NSColor.black.cgColor }
 }
 
 
@@ -167,156 +177,266 @@ public class WisdomHUDMacImageAnimView: WisdomHUDMacImageBaseView {
 
 
 // MARK: - WisdomLoadingStyle.tadpoleArc
+// 对齐 iOS:3 条蝌蚪形描边,分别静态旋转 0/120/240°,整体再持续旋转。
 @objc public final class WisdomHUDMacTadpoleArcView: WisdomHUDMacImageAnimView {
 
-    private let circleLayer = CAShapeLayer()
+    private var tadFillColor: CGColor = NSColor.white.cgColor
+    private var tadStrokeColor: CGColor = NSColor.darkGray.cgColor
+    private let container = CALayer()
+    private var distance: CGFloat { return size / 10.0 }
 
     @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
         super.init(size: size)
-        let lineWidth = getLineWidth()
-        let path = NSBezierPath()
-        addArc(to: path,
-               center: CGPoint(x: size / 2, y: size / 2),
-               radius: size / 2.0 - lineWidth,
-               startAngle: 270,
-               endAngle: 230,
-               clockwise: false)
-        circleLayer.fillColor = NSColor.clear.cgColor
-        circleLayer.strokeColor = strokeColor(for: barStyle)
-        circleLayer.lineCap = .round
-        circleLayer.lineWidth = lineWidth
-        circleLayer.strokeEnd = 1.0
-        circleLayer.path = path.wisdom_cgPath
-        layer?.addSublayer(circleLayer)
+        switch barStyle {
+        case .dark, .hide:
+            tadFillColor = NSColor.white.cgColor
+            tadStrokeColor = NSColor.darkGray.cgColor
+        case .light:
+            tadFillColor = NSColor.black.cgColor
+            tadStrokeColor = NSColor.lightGray.cgColor
+        }
+        container.frame = CGRect(x: 0, y: 0, width: size, height: size)
+        container.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        container.position = CGPoint(x: size / 2, y: size / 2)
+        layer?.addSublayer(container)
 
-        let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotation.fromValue = 0
-        rotation.toValue = Double.pi * 2
-        rotation.duration = 0.85
-        rotation.repeatCount = .greatestFiniteMagnitude
-        circleLayer.add(rotation, forKey: "rotation")
+        for i in 0 ..< 3 {
+            let arm = makeArm()
+            arm.frame = CGRect(x: 0, y: 0, width: size, height: size)
+            arm.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            arm.position = CGPoint(x: size / 2, y: size / 2)
+            arm.transform = CATransform3DMakeRotation(CGFloat.pi / 180 * 120 * CGFloat(i), 0, 0, 1)
+            container.addSublayer(arm)
+        }
+        beginAnimation(isRepeat: true)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) not implemented") }
 
-    public override func getLineWidth() -> CGFloat { return size / 11.0 }
+    private func makeArm() -> CAShapeLayer {
+        let d = distance
+        let lw = getLineWidth()
+        let topPoint = NSPoint(x: size / 2 + d, y: d / 1.7)
+        let inoutPoint = NSPoint(x: size - d / 2.5, y: (size - d * 2) / 3 * 2.2 + d)
+        let insidePoint = NSPoint(x: inoutPoint.x - lw, y: (size - d * 2) / 3 * 2.1 + d)
+
+        let path = NSBezierPath()
+        path.move(to: topPoint)
+        appendQuadCurve(to: path, end: inoutPoint, control: NSPoint(x: size + d * 0.6, y: size / 4.8))
+        let width = inoutPoint.x - insidePoint.x
+        let height = inoutPoint.y - insidePoint.y
+        addArc(to: path,
+               center: CGPoint(x: insidePoint.x + width / 2, y: insidePoint.y + height / 2),
+               radius: sqrt(width * width + height * height) / 2,
+               startAngle: 396,   // iOS 2.2π
+               endAngle: 216,     // iOS 1.2π
+               clockwise: true)
+        appendQuadCurve(to: path, end: topPoint, control: NSPoint(x: size + d * 0.2, y: size / 4.6))
+
+        let shape = CAShapeLayer()
+        shape.fillColor = tadFillColor
+        shape.strokeColor = tadStrokeColor
+        shape.lineCap = .round
+        shape.lineWidth = 0.3
+        shape.strokeEnd = 1.0
+        shape.path = path.wisdom_cgPath
+        return shape
+    }
+
+    public override func getLineWidth() -> CGFloat { return distance * 0.74 }
+
+    public override class func getAnimDuration() -> CGFloat { return 1.20 }
+
+    public override func beginAnimation(isRepeat: Bool) {
+        let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotation.fromValue = 0
+        rotation.toValue = Double.pi * 2
+        rotation.repeatCount = .greatestFiniteMagnitude
+        rotation.duration = CFTimeInterval(Self.getAnimDuration())
+        rotation.isRemovedOnCompletion = false
+        container.add(rotation, forKey: "rotation")
+    }
 }
 
 
 // MARK: - WisdomLoadingStyle.chaseBall
+// 对齐 iOS:5 个小球沿同一圆轨道运动,各自 scale 区间与缓动不同,形成"追逐"效果。
 @objc public final class WisdomHUDMacChaseBallView: WisdomHUDMacImageAnimView {
 
-    private var dotLayers: [CAShapeLayer] = []
+    private var ballColor: CGColor = NSColor.white.cgColor
 
     @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
         super.init(size: size)
-        let dotCount = 8
-        let dotRadius = size / 12
-        let centerR = size / 2 - dotRadius - 1
-        let color = strokeColor(for: barStyle)
-        for i in 0 ..< dotCount {
-            let angle = (Double(i) / Double(dotCount)) * Double.pi * 2 - Double.pi / 2
-            let cx = size / 2 + cos(angle) * Double(centerR)
-            let cy = size / 2 + sin(angle) * Double(centerR)
-            let dot = CAShapeLayer()
-            let path = NSBezierPath(ovalIn: NSRect(x: cx - Double(dotRadius),
-                                                   y: cy - Double(dotRadius),
-                                                   width: Double(dotRadius) * 2,
-                                                   height: Double(dotRadius) * 2))
-            dot.path = path.wisdom_cgPath
-            dot.fillColor = color
-            dot.opacity = Float(0.2 + 0.8 * Double(i) / Double(dotCount - 1))
-            layer?.addSublayer(dot)
-            dotLayers.append(dot)
-        }
-        let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotation.fromValue = 0
-        rotation.toValue = Double.pi * 2
-        rotation.duration = 1.0
-        rotation.repeatCount = .greatestFiniteMagnitude
-        for d in dotLayers {
-            d.add(rotation, forKey: "rotation")
-        }
+        ballColor = strokeColor(for: barStyle)
+        beginAnimation(isRepeat: true)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) not implemented") }
 
-    public override func getLineWidth() -> CGFloat { return size / 12.0 }
+    public override func getLineWidth() -> CGFloat { return size / 5.5 }
+
+    public override class func getAnimDuration() -> CGFloat { return 1.25 }
+
+    // 单个小球的 scale + position(沿圆轨道)组合动画。
+    private func orbitAnimation(_ rate: Float, x: CGFloat, y: CGFloat, orbit: CGFloat) -> CAAnimationGroup {
+        let duration = CFTimeInterval(Self.getAnimDuration())
+        let fromScale = 1 - rate
+        let toScale = 0.25 + rate
+        let timeFunc = CAMediaTimingFunction(controlPoints: 0.5, 0.15 + rate, 0.25, 1)
+
+        let scaleAnimation = CABasicAnimation(keyPath: "transform.scale")
+        scaleAnimation.duration = duration
+        scaleAnimation.repeatCount = .greatestFiniteMagnitude
+        scaleAnimation.fromValue = fromScale
+        scaleAnimation.toValue = toScale
+
+        // 圆形轨道(用 CGPath,弧度语义,与 iOS 一致)
+        let orbitPath = CGMutablePath()
+        orbitPath.addArc(center: CGPoint(x: x, y: y), radius: orbit / 2.0,
+                         startAngle: 3 * Double.pi * 0.5,
+                         endAngle: 3 * Double.pi * 0.5 + 2 * Double.pi,
+                         clockwise: false)
+        let positionAnimation = CAKeyframeAnimation(keyPath: "position")
+        positionAnimation.duration = duration
+        positionAnimation.repeatCount = .greatestFiniteMagnitude
+        positionAnimation.path = orbitPath
+
+        let group = CAAnimationGroup()
+        group.animations = [scaleAnimation, positionAnimation]
+        group.timingFunction = timeFunc
+        group.duration = duration
+        group.repeatCount = .greatestFiniteMagnitude
+        group.isRemovedOnCompletion = false
+        return group
+    }
+
+    public override func beginAnimation(isRepeat: Bool) {
+        let circleSize = getLineWidth()
+        for i in 0 ..< 5 {
+            let factor = Float(i) * 1 / 5
+            let circle = CAShapeLayer()
+            circle.path = NSBezierPath(ovalIn: NSRect(x: 0, y: 0, width: circleSize, height: circleSize)).wisdom_cgPath
+            circle.fillColor = ballColor
+            circle.bounds = CGRect(x: 0, y: 0, width: circleSize, height: circleSize)
+            let anim = orbitAnimation(factor,
+                                      x: (size - circleSize) / 2, y: (size - circleSize) / 2,
+                                      orbit: size - circleSize)
+            layer?.addSublayer(circle)
+            circle.add(anim, forKey: "animation")
+        }
+    }
 }
 
 
 // MARK: - WisdomLoadingStyle.pulseBall
+// 对齐 iOS:3 个圆点横向排列,scale 关键帧 [1,0.2,1] 错峰脉冲(经典三点 loading)。
 @objc public final class WisdomHUDMacPulseBallView: WisdomHUDMacImageAnimView {
 
-    private let ballLayer = CAShapeLayer()
+    private var ballColor: CGColor = NSColor.white.cgColor
 
     @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
         super.init(size: size)
-        let path = NSBezierPath(ovalIn: NSRect(x: 0, y: 0, width: size, height: size))
-        ballLayer.path = path.wisdom_cgPath
-        ballLayer.fillColor = strokeColor(for: barStyle)
-        layer?.addSublayer(ballLayer)
-
-        let pulse = CABasicAnimation(keyPath: "transform.scale")
-        pulse.fromValue = 0
-        pulse.toValue = 1
-        pulse.duration = 1.0
-        pulse.repeatCount = .greatestFiniteMagnitude
-
-        let fade = CABasicAnimation(keyPath: "opacity")
-        fade.fromValue = 1
-        fade.toValue = 0
-        fade.duration = 1.0
-        fade.repeatCount = .greatestFiniteMagnitude
-
-        let group = CAAnimationGroup()
-        group.animations = [pulse, fade]
-        group.duration = 1.0
-        group.repeatCount = .greatestFiniteMagnitude
-        ballLayer.add(group, forKey: "pulse")
+        ballColor = strokeColor(for: barStyle)
+        beginAnimation(isRepeat: true)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) not implemented") }
+
+    public override func getLineWidth() -> CGFloat { return size / 4.8 }
+
+    public override class func getAnimDuration() -> CGFloat { return 0.75 }
+
+    public override func beginAnimation(isRepeat: Bool) {
+        let count = 3
+        let circleSize = getLineWidth()
+        let circleSpacing = (size - circleSize * CGFloat(count)) / CGFloat(count - 1)
+        let duration = CFTimeInterval(Self.getAnimDuration())
+        let beginTime = CACurrentMediaTime()
+        let beginTimes: [CFTimeInterval] = [0.12, 0.24, 0.36]
+        let timingFunction = CAMediaTimingFunction(controlPoints: 0.2, 0.68, 0.18, 1.08)
+
+        for i in 0 ..< count {
+            let circle = CAShapeLayer()
+            circle.path = NSBezierPath(ovalIn: NSRect(x: 0, y: 0, width: circleSize, height: circleSize)).wisdom_cgPath
+            circle.fillColor = ballColor
+            circle.frame = CGRect(x: circleSpacing / 5 + (circleSpacing + circleSize - circleSpacing / 5) * CGFloat(i),
+                                  y: (size - circleSize) / 2,
+                                  width: circleSize, height: circleSize)
+
+            let animation = CAKeyframeAnimation(keyPath: "transform.scale")
+            animation.keyTimes = [0, 0.2, 1]
+            animation.timingFunctions = [timingFunction, timingFunction]
+            animation.values = [1, 0.2, 1]
+            animation.duration = duration
+            animation.repeatCount = .greatestFiniteMagnitude
+            animation.isRemovedOnCompletion = false
+            animation.beginTime = beginTime + beginTimes[i]
+            circle.add(animation, forKey: "pulse")
+
+            layer?.addSublayer(circle)
+        }
+    }
 }
 
 
 // MARK: - WisdomLoadingStyle.pulseShape
+// 对齐 iOS:3 个平行四边形横向排列,scale 关键帧 [1,0.2,1] 错峰脉冲。
 @objc public final class WisdomHUDMacPulseShapeView: WisdomHUDMacImageAnimView {
 
-    private let shapeLayer = CAShapeLayer()
+    private var ballColor: CGColor = NSColor.white.cgColor
 
     @objc public init(size: CGFloat, barStyle: WisdomSceneBarStyle) {
         super.init(size: size)
-        let path = NSBezierPath(roundedRect: NSRect(x: size * 0.2, y: size * 0.2,
-                                                    width: size * 0.6, height: size * 0.6),
-                                xRadius: size * 0.1, yRadius: size * 0.1)
-        shapeLayer.path = path.wisdom_cgPath
-        shapeLayer.fillColor = strokeColor(for: barStyle)
-        layer?.addSublayer(shapeLayer)
-
-        let pulse = CABasicAnimation(keyPath: "transform.scale")
-        pulse.fromValue = 0.7
-        pulse.toValue = 1.2
-        pulse.duration = 0.6
-        pulse.autoreverses = true
-        pulse.repeatCount = .greatestFiniteMagnitude
-
-        let fade = CABasicAnimation(keyPath: "opacity")
-        fade.fromValue = 0.4
-        fade.toValue = 1.0
-        fade.duration = 0.6
-        fade.autoreverses = true
-        fade.repeatCount = .greatestFiniteMagnitude
-
-        let group = CAAnimationGroup()
-        group.animations = [pulse, fade]
-        group.duration = 0.6
-        group.autoreverses = true
-        group.repeatCount = .greatestFiniteMagnitude
-        shapeLayer.add(group, forKey: "pulse")
+        ballColor = strokeColor(for: barStyle)
+        beginAnimation(isRepeat: true)
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) not implemented") }
+
+    public override func getLineWidth() -> CGFloat { return size / 6.1 }
+
+    public override class func getAnimDuration() -> CGFloat { return WisdomHUDMacPulseBallView.getAnimDuration() }
+
+    public override func beginAnimation(isRepeat: Bool) {
+        let count = 3
+        let shapeSize = getLineWidth()
+        let lf_margin = shapeSize
+        let middle_margin = (size - shapeSize * 3.0 - lf_margin) / 2.0
+        let heightSize = shapeSize * 2.0
+
+        let duration = CFTimeInterval(Self.getAnimDuration())
+        let beginTime = CACurrentMediaTime()
+        let beginTimes: [CFTimeInterval] = [0.12, 0.24, 0.36]
+        let timingFunction = CAMediaTimingFunction(controlPoints: 0.2, 0.68, 0.18, 1.08)
+
+        for i in 0 ..< count {
+            let path = NSBezierPath()
+            path.move(to: NSPoint(x: lf_margin, y: 0))
+            path.line(to: NSPoint(x: lf_margin + shapeSize, y: 0))
+            path.line(to: NSPoint(x: shapeSize, y: heightSize))
+            path.line(to: NSPoint(x: 0, y: heightSize))
+            path.line(to: NSPoint(x: lf_margin, y: 0))
+
+            let shape = CAShapeLayer()
+            shape.fillColor = ballColor
+            shape.path = path.wisdom_cgPath
+            shape.frame = CGRect(x: (shapeSize + middle_margin) * CGFloat(i),
+                                 y: (size - heightSize) / 2,
+                                 width: lf_margin + shapeSize, height: heightSize)
+
+            let animation = CAKeyframeAnimation(keyPath: "transform.scale")
+            animation.keyTimes = [0, 0.2, 1]
+            animation.timingFunctions = [timingFunction, timingFunction]
+            animation.values = [1, 0.2, 1]
+            animation.duration = duration
+            animation.repeatCount = .greatestFiniteMagnitude
+            animation.isRemovedOnCompletion = false
+            animation.beginTime = beginTime + beginTimes[i]
+            shape.add(animation, forKey: "pulse")
+
+            layer?.addSublayer(shape)
+        }
+    }
 }
 
 
@@ -513,6 +633,15 @@ fileprivate func addArc(to path: NSBezierPath,
                    startAngle: startAngle,
                    endAngle: endAngle,
                    clockwise: clockwise)
+}
+
+// NSBezierPath 没有二次贝塞尔 API,把 iOS 的 addQuadCurve 转成等价三次曲线。
+// 二次 (P0,控制 C,P1) → 三次 C1=P0+2/3(C-P0), C2=P1+2/3(C-P1)。
+fileprivate func appendQuadCurve(to path: NSBezierPath, end: NSPoint, control c: NSPoint) {
+    let start = path.currentPoint
+    let c1 = NSPoint(x: start.x + 2.0 / 3.0 * (c.x - start.x), y: start.y + 2.0 / 3.0 * (c.y - start.y))
+    let c2 = NSPoint(x: end.x + 2.0 / 3.0 * (c.x - end.x), y: end.y + 2.0 / 3.0 * (c.y - end.y))
+    path.curve(to: end, controlPoint1: c1, controlPoint2: c2)
 }
 
 #endif

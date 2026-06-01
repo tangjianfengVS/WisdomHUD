@@ -256,30 +256,62 @@ class WisdomHUDMacActionView: NSView {
 extension WisdomHUDMacActionView {
 
     func setLeftAction(textColor: NSColor?, textFont: NSFont?) -> Self {
-        if let c = textColor { leftBtn.contentTintColor = c }
-        if let f = textFont { leftBtn.font = f }
+        if let c = textColor {
+            leftBtn.contentTintColor = c
+        }
+        if let f = textFont {
+            leftBtn.font = f
+        }
         return self
     }
 
     func setRightAction(textColor: NSColor?, textFont: NSFont?) -> Self {
-        if let c = textColor { rightBtn.contentTintColor = c }
-        if let f = textFont { rightBtn.font = f }
+        if let c = textColor {
+            rightBtn.contentTintColor = c
+        }
+        if let f = textFont {
+            rightBtn.font = f
+        }
         return self
     }
 
     func setTextFont(font: NSFont) -> Self {
         textLabel.font = font
+        // 对齐 iOS:正文带 lineSpacing=2.5 的富文本(NSTextField 行距只能走 attributedString)
+        refreshActionText()
         return self
     }
 
     func setTextColor(color: NSColor) -> Self {
         textLabel.textColor = color
+        refreshActionText()
         return self
     }
 
     func setTextAlignment(alignment: NSTextAlignment) -> Self {
         textLabel.alignment = alignment
+        refreshActionText()
         return self
+    }
+
+    // 用当前 font/textColor/alignment 重建正文富文本,套上 lineSpacing。
+    // NSTextField 的 font/textColor/alignment 是 cell 级属性,设置 attributedStringValue 不会清除,
+    // 故每次读取均为最新值,可安全反复重建。
+    fileprivate func refreshActionText() {
+        let raw = textLabel.stringValue
+        guard !raw.isEmpty else {
+            return
+        }
+        let paraph = NSMutableParagraphStyle()
+        paraph.lineSpacing = 2.5
+        paraph.alignment = textLabel.alignment
+        paraph.lineBreakMode = .byWordWrapping
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: textLabel.font ?? NSFont.systemFont(ofSize: 13.5),
+            .paragraphStyle: paraph,
+            .foregroundColor: textLabel.textColor ?? NSColor.black
+        ]
+        textLabel.attributedStringValue = NSAttributedString(string: raw, attributes: attributes)
     }
 
     func setLabelFont(font: NSFont) -> Self {
@@ -337,6 +369,9 @@ class WisdomHUDMacActionThemeView: WisdomHUDMacActionView {
         layer?.shadowOpacity = 0.3
         layer?.shadowRadius = 6
         layer?.shadowColor = colors.LayerColor.cgColor
+
+        // 主题色设定后重建正文富文本,保证默认路径也带 lineSpacing(对齐 iOS ThemeView init)
+        refreshActionText()
     }
 }
 

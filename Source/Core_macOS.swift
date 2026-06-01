@@ -635,6 +635,8 @@ extension WisdomHUDMacCore: WisdomHUDMacActionable {
 
 
 // MARK: - Log API
+// WisdomHUDMacLogView 整体 @MainActor 隔离,转发方法必须在 main actor 上下文调用。
+@MainActor
 extension WisdomHUDMacCore {
 
     static func openLog() {

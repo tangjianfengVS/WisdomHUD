@@ -104,9 +104,27 @@ final class WisdomHUDMacSceneView: NSView {
 
     override var isFlipped: Bool { true }
 
+    // shadowPath 依赖 bounds,内容尺寸变化(如 setUpdateText)后必须同步,否则阴影停留在旧尺寸。
+    private var currentCornerRadius: CGFloat = 0
+    override func layout() {
+        super.layout()
+        guard currentCornerRadius > 0 else {
+            return
+        }
+        let path = NSBezierPath(roundedRect: bounds,
+                                xRadius: currentCornerRadius / 2,
+                                yRadius: currentCornerRadius / 2)
+        layer?.shadowPath = path.wisdom_cgPath
+    }
+
     private func textMaxWidth() -> CGFloat {
-        var w = (NSScreen.main?.frame.width ?? 800) * 0.45
-        if w > 420 { w = 420 }
+        // 对齐 iOS:取屏幕短边 * 0.65,上限 420(iOS 用 UIScreen.main.bounds 短边)
+        let frame = NSScreen.main?.frame ?? NSRect(x: 0, y: 0, width: 800, height: 600)
+        let shortSide = frame.width > frame.height ? frame.height : frame.width
+        var w = shortSide * 0.65
+        if w > 420 {
+            w = 420
+        }
         return w
     }
 
@@ -181,6 +199,13 @@ final class WisdomHUDMacSceneView: NSView {
         layer?.shadowRadius = 5
         layer?.cornerRadius = cornerRadius
         layer?.masksToBounds = false
+        // 对齐 iOS:显式设置 shadowPath,避免 Core Animation 从合成图层推算阴影(更省、更准)。
+        // 记录 cornerRadius,后续 bounds 变化时在 layout() 里同步 shadowPath。
+        currentCornerRadius = cornerRadius
+        let path = NSBezierPath(roundedRect: bounds,
+                                xRadius: cornerRadius / 2,
+                                yRadius: cornerRadius / 2)
+        layer?.shadowPath = path.wisdom_cgPath
     }
 }
 
@@ -336,7 +361,9 @@ extension WisdomHUDMacSceneView: @MainActor WisdomHUDMacLoadingContextable {
     }
 
     func setAnimation(view: NSView) -> Self {
-        if hudStyle == .text { return self }
+        if hudStyle == .text {
+            return self
+        }
         imageView.removeFromSuperview()
         imageView.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -361,22 +388,30 @@ extension WisdomHUDMacSceneView: @MainActor WisdomHUDMacLoadingContextable {
 extension WisdomHUDMacSceneView: @MainActor WisdomHUDMacProgreContextable {
 
     func setProgreColor(color: NSColor) -> Self {
-        if progreStyle != nil { imageView.setProgreColor(color: color) }
+        if progreStyle != nil {
+            imageView.setProgreColor(color: color)
+        }
         return self
     }
 
     func setProgreValue(value: UInt) -> Self {
-        if progreStyle != nil { imageView.setProgreValue(value: value) }
+        if progreStyle != nil {
+            imageView.setProgreValue(value: value)
+        }
         return self
     }
 
     func setProgreTextColor(color: NSColor) -> Self {
-        if progreStyle != nil { imageView.setProgreTextColor(color: color) }
+        if progreStyle != nil {
+            imageView.setProgreTextColor(color: color)
+        }
         return self
     }
 
     func setProgreShadowColor(color: NSColor) -> Self {
-        if progreStyle != nil { imageView.setProgreShadowColor(color: color) }
+        if progreStyle != nil {
+            imageView.setProgreShadowColor(color: color)
+        }
         return self
     }
 }
@@ -388,15 +423,21 @@ extension WisdomHUDMacSceneView: @MainActor WisdomHUDMacDelaysable {
 
     func startDelays(delays: TimeInterval) {
         // delays<=0 表示不自动消失
-        if delays <= 0 { return }
+        if delays <= 0 {
+            return
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + delays) { [weak self] in
-            guard let self = self else { return }
+            guard let self = self else {
+                return
+            }
             NSAnimationContext.runAnimationGroup({ ctx in
                 ctx.duration = 0.30
                 self.superview?.animator().alphaValue = 0
             }, completionHandler: { [weak self] in
                 // NSAnimationContext completion 实际跑在 main thread,但闭包类型未带 @MainActor 标记
-                MainActor.assumeIsolated { self?.endAnimate(delays: delays) }
+                MainActor.assumeIsolated {
+                    self?.endAnimate(delays: delays)
+                }
             })
         }
     }
