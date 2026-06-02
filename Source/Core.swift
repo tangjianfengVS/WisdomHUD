@@ -16,6 +16,8 @@ struct WisdomHUDCore {
     fileprivate static var WisdomProgreStyle: WisdomProgreStyle = .circle
 
     fileprivate static var WisdomSceneBarStyle: WisdomSceneBarStyle = .dark
+    
+    fileprivate(set) static var WisdomSceneBarCustomColor: UIColor?//自定义文字小框背景色
 
     fileprivate static var WisdomColorThemeStyle: WisdomColorThemeStyle = .light
 
@@ -45,6 +47,10 @@ extension WisdomHUDCore: WisdomHUDSettingable {
     
     static func setSceneBarStyle(sceneBarStyle: WisdomSceneBarStyle) {
         Self.WisdomSceneBarStyle = sceneBarStyle
+    }
+    
+    static func setSceneBarCustomColor(color: UIColor?) {
+        Self.WisdomSceneBarCustomColor = color
     }
     
     static func setTextMaxLines(maxLine: WisdomTextMaxLineStyle) {

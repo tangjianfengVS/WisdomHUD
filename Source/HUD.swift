@@ -64,6 +64,11 @@ extension WisdomHUD: WisdomHUDSettingable {
         WisdomHUDCoreImpl.setSceneBarStyle(sceneBarStyle: sceneBarStyle)
     }
     
+    // MARK: HUD Set Scene Custom Color
+    @objc public static func setSceneBarCustomColor(color: WisdomHUDColor?) {
+        WisdomHUDCoreImpl.setSceneBarCustomColor(color: color)
+    }
+    
     // MARK: HUD Set Text MaxLines
     @objc public static func setTextMaxLines(maxLine: WisdomTextMaxLineStyle) {
         WisdomHUDCoreImpl.setTextMaxLines(maxLine: maxLine)

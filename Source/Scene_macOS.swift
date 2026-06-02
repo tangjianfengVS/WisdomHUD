@@ -311,6 +311,10 @@ extension WisdomHUDMacSceneView: @MainActor WisdomHUDMacContentable {
             textLabel.textColor = .white
             shadowColor = .clear
         }
+        
+        if let color = WisdomHUDMacCore.WisdomSceneBarCustomColor {
+            layer?.backgroundColor = color.cgColor
+        }
     }
 
     func setDismissImage() {

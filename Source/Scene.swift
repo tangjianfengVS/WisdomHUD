@@ -357,6 +357,10 @@ extension WisdomHUDSceneView: WisdomHUDContentable {
             textLabel.textColor = UIColor.white
             shadowColor = UIColor.white.withAlphaComponent(0.12)
         }
+        
+        if let color = WisdomHUDCore.WisdomSceneBarCustomColor {
+            backgroundColor = color
+        }
     }
     
     func setDismissImage() {
