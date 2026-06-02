@@ -9,7 +9,10 @@ Pod::Spec.new do |s|
 
   s.description  = 'A simple iOS/macOS interface display prompt, help to develop and implement various data state tracking display and loading tasks. iOS 走完整功能,macOS 提供原生 NSPanel 版本(text/success/error/warning/loading + 位置/主题/自动消失)'
 
-  s.swift_version= ['5.5', '5.6', '5.7', '5.8', '5.9', '6.0']
+  # 以 Swift 5 语言模式发布:源码使用并发特性(@MainActor/assumeIsolated 等),
+  # 但尚未完成 Swift 6 语言模式的完整 actor 隔离改造(全局可变状态/协议一致性跨隔离),
+  # Swift 6 模式下会报错。Swift 5 模式下仅为告警,故以 5.0 发布。
+  s.swift_version = '5.0'
 
   s.ios.deployment_target = '12.0'
   s.osx.deployment_target = '10.15'
