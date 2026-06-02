@@ -123,6 +123,8 @@ final class BarStyleSelector: NSView {
         layer?.borderWidth = 0.5
         layer?.borderColor = NSColor.separatorColor.cgColor
         refresh()
+        
+        WisdomHUD.setSceneBarCustomColor(color: NSColor(white: 0.2, alpha: 0.5))
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) not implemented") }

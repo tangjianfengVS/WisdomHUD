@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         WisdomHUD.openLog()
         WisdomHUD.setTextMaxLines(maxLine: .three)
+        WisdomHUD.setSceneBarCustomColor(color: UIColor(white: 0.2, alpha: 0.5))
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.rootViewController = UINavigationController(rootViewController: WisdomHUDHomeVC())
